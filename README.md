@@ -3,16 +3,16 @@ Depot GIT du projet T3 du groupe HAN23-T3-A / Activision blizzard <br>
 CdC : https://docs.google.com/document/d/1Y5vt4j5I7eVvQMkLXf5Q6LSS41f13dUV9iAZQtb-zHs/edit?usp=sharing
 
 =====temp===== 
-repartitions des taches ( ecrivez ici ce qui doit etre fait / mettez votre nom a coté de ce que vous faite)
+Répartition des tâches (écrivez ici ce qui doit être fait / mettez votre nom à côté de ce que vous faites)
 
-- poster : robin
-- uml : damien
-- : maintien du git 
+- Poster : Robin
+- UML : Damien
+- Maintien du git
 
-- devellopement de la ville
-    - algo de placement
-    - class parent des batiements / cases
+- Développement de la ville : Damien / Antoine
+    - Algo de placement
+    - Classe parent des batîments / cases
 
-- devellopement de l'ui : robin
-- devellopement du trader : robin
-- assets : antoine
+- Développement de l'UI : Robin
+- Développement de l'import/export : Robin
+- Assets : Antoine
