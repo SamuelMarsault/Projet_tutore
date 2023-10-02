@@ -2,3 +2,4 @@
 /poster.png filter=lfs diff=lfs merge=lfs -text
 /Poster-HAN23-T3-A.pdf filter=lfs diff=lfs merge=lfs -text
 /Poster_HAN23_T3_A_13-10-23.pdf filter=lfs diff=lfs merge=lfs -text
+/uml.png filter=lfs diff=lfs merge=lfs -text
