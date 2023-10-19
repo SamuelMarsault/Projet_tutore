@@ -22,3 +22,10 @@ Repartitions des taches ( ecrivez ici ce qui doit etre fait / mettez votre nom a
 - devellopement du trader : robin
 - assets : antoine
 
+- Développement de la ville : Damien / Antoine
+    - Algo de placement
+    - Classe parent des batîments / cases
+
+- Développement de l'UI : Robin
+- Développement de l'import/export : Robin
+- Assets : Antoine
