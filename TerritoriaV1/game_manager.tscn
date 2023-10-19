@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://bnwbhg48evf4l"]
+
+[ext_resource type="Script" path="res://GameManager.cs" id="1_lhss8"]
+[ext_resource type="Script" path="res://Printer.cs" id="2_hrmwn"]
+[ext_resource type="Script" path="res://Trader.cs" id="3_amlxs"]
+
+[sub_resource type="TileSet" id="TileSet_tpavq"]
+tile_shape = 1
+tile_layout = 2
+tile_size = Vector2i(200, 60)
+
+[node name="GameManager" type="Node2D"]
+script = ExtResource("1_lhss8")
+
+[node name="Printer" type="Node2D" parent="."]
+script = ExtResource("2_hrmwn")
+
+[node name="Trader" type="Node2D" parent="."]
+script = ExtResource("3_amlxs")
+
+[node name="Map" type="TileMap" parent="."]
+y_sort_enabled = true
+tile_set = SubResource("TileSet_tpavq")
+format = 2
+layer_0/name = "ground"
+layer_0/y_sort_enabled = true
+layer_1/name = "ground2"
+layer_1/enabled = true
+layer_1/modulate = Color(1, 1, 1, 1)
+layer_1/y_sort_enabled = true
+layer_1/y_sort_origin = 0
+layer_1/z_index = 1
+layer_1/tile_data = PackedInt32Array()
+layer_2/name = "plottable"
+layer_2/enabled = true
+layer_2/modulate = Color(1, 1, 1, 1)
+layer_2/y_sort_enabled = true
+layer_2/y_sort_origin = 0
+layer_2/z_index = 2
+layer_2/tile_data = PackedInt32Array()
