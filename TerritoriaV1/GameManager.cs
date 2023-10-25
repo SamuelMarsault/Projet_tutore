@@ -19,5 +19,6 @@ public partial class GameManager : Node2D
 
 	public void updateGraphics()
 	{
+		
 	}
 }
