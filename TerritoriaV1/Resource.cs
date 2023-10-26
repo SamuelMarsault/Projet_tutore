@@ -68,7 +68,8 @@ public partial class Resource : Placeable
             resourceQuantities += (int)(maxQuantities * regenCoeff);
         }
     }
-    
+
+    override 
     //Renvoi la quantité de ressources dont l'objet à besoin, puisque c'est une source naturelle elle n'a besoin de rien
     public Godot.Collections.Dictionary<ResourceType, int> getResourceNeeds()
     {
@@ -77,7 +78,8 @@ public partial class Resource : Placeable
     }
 
     //Renvoi la quantité de ressources disponible dans l'objet
-    public Godot.Collections.Dictionary<ResourceType, int> getAvailableResources()
+    override 
+        public Godot.Collections.Dictionary<ResourceType, int> getAvailableResources()
     {
         //Une ressource naturelle dispose d'une certaine quantité de matériaux
         Dictionary<ResourceType, int> availableResources = new Dictionary<ResourceType, int>();

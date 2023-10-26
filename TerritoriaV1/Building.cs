@@ -11,13 +11,15 @@ public partial class Building : Placeable
     private Godot.Collections.Dictionary<ResourceType, int> output;
     //Représente la capacité de production : output * capacite = quantité totale
     private int productionCapacities;
-
+    
     public Building(Godot.Collections.Dictionary<ResourceType, int> input,Godot.Collections.Dictionary<ResourceType, int> output, int productionCapacities)
     {
         this.input = input.Duplicate(true);
         this.output = output.Duplicate(true);
         this.productionCapacities = productionCapacities;
     }
+    
+    //Produit des ressources en fonction des besoins et ressources disponibles
     public override void productResources(Godot.Collections.Dictionary<ResourceType, int> availableResources, Godot.Collections.Dictionary<ResourceType, int> neededResources)
     {
         int ?min = null;
@@ -46,12 +48,16 @@ public partial class Building : Placeable
         }
     }
 
+    //Renvoi la quantité de ressources dont l'objet à besoin
+    override 
     public Godot.Collections.Dictionary<ResourceType, int> getResourceNeeds()
     {
         return input.Duplicate(true);
     }
 
-    public Godot.Collections.Dictionary<ResourceType, int> getAvailableResources()
+    //Renvoi la quantité de ressources disponible dans l'objet, ici vide parce que le bâtiment ne stocke rien
+    override 
+        public Godot.Collections.Dictionary<ResourceType, int> getAvailableResources()
     {
         return new Godot.Collections.Dictionary<ResourceType, int>();
     }

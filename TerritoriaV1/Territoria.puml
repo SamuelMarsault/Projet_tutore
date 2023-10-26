@@ -11,7 +11,7 @@ class controler.GameManager {
 
 class view.TileMap implements model.VillageObserver{
 + reactToResourcesChange(resources : Map<ResourceType, Integer>)
-+ reactToPlaceableChange(placeable : Placeable)
++ reactToPlaceableChange(placeables : Placeable[])
 }
 
 class model.Building extends model.Placeable{
@@ -34,11 +34,13 @@ class model.PlaceableFactory {
 class view.Trader implements model.VillageObserver{
 + Trader(gameManager : GameManager) <<create>>
 + reactToResourcesChange(resources : Map<ResourceType, Integer>)
++ reactToPlaceableChange(placeables : Placeable[])
 + nextTurn()
 }
 
 class view.Printer implements model.VillageObserver{
 + reactToResourcesChange(resources : Map<ResourceType, Integer>)
++ reactToPlaceableChange(placeables : Placeable[])
 }
 
 class controler.VillageManager{
@@ -110,6 +112,7 @@ class model.Village {
 
 interface model.VillageObserver <<interface>>{
 + reactToResourcesChange(resources : Map<ResourceType, Integer>)
++ reactToPlaceableChange(placeables : Placeable[])
 }
 
 class model.EvolutionOfVillage {

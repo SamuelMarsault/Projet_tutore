@@ -10,6 +10,8 @@ public abstract class Placeable
 	abstract public void productResources(Dictionary<ResourceType, int> availableResources,
 		Dictionary<ResourceType, int> neededResources);
 
+	abstract public Godot.Collections.Dictionary<ResourceType, int> getAvailableResources();
+	abstract public Godot.Collections.Dictionary<ResourceType, int> getResourceNeeds();
 	public Vector2 getPosition()
 	{
 		return position;
