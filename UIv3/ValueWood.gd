@@ -13,3 +13,4 @@ func _process(delta):
 
 func _on_h_slider_value_changed(value):
 	self.text = str(value)
+	

@@ -21,11 +21,11 @@ public partial class printer : Control,gameObserver
 	 {
 		switch (ressource)
 		{
-			case RESSOURCES.WOOD : Label tempW =  (Label)GetNode("./MarginContainer/HBoxContainer/WoodView/Background/Value");tempW.Text = newValue.ToString(); break;
-    		case RESSOURCES.BEER : Label tempB =  (Label)GetNode("./MarginContainer/HBoxContainer/BeerView/Background/Value");tempB.Text = newValue.ToString(); break;
-    		case RESSOURCES.HOP : Label tempH =  (Label)GetNode("./MarginContainer/HBoxContainer/HopView/Background/Value");tempH.Text = newValue.ToString(); break;
-    		case RESSOURCES.ICE : Label tempI =  (Label)GetNode("./MarginContainer/HBoxContainer/IceView/Background/Value");tempI.Text = newValue.ToString(); break;
-    		case RESSOURCES.MONEY : Label tempM =  (Label)GetNode("./MarginContainer/HBoxContainer/MoneyView/Background/Value");tempM.Text = newValue.ToString(); break;
+			case RESSOURCES.WOOD : Label tempW =  (Label)GetNode("./MarginContainer/HBoxContainer/WoodView/Background/Value");tempW.Text = (int.Parse(tempW.Text)+newValue).ToString(); break;
+    		case RESSOURCES.BEER : Label tempB =  (Label)GetNode("./MarginContainer/HBoxContainer/BeerView/Background/Value");tempB.Text = (int.Parse(tempB.Text)+newValue).ToString(); break;
+    		case RESSOURCES.HOP : Label tempH =  (Label)GetNode("./MarginContainer/HBoxContainer/HopView/Background/Value");tempH.Text = (int.Parse(tempH.Text)+newValue).ToString(); break;
+    		case RESSOURCES.ICE : Label tempI =  (Label)GetNode("./MarginContainer/HBoxContainer/IceView/Background/Value");tempI.Text = (int.Parse(tempI.Text)+newValue).ToString(); break;
+    		case RESSOURCES.MONEY : Label tempM =  (Label)GetNode("./MarginContainer/HBoxContainer/MoneyView/Background/Value");tempM.Text  = (int.Parse(tempM.Text)+newValue).ToString(); break;
 			default: break;
 		}
 	}
