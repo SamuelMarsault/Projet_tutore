@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://inqrd5p7ip2n"]
+[gd_scene load_steps=7 format=3 uid="uid://inqrd5p7ip2n"]
 
 [ext_resource type="Script" path="res://trader.cs" id="1_7vsp2"]
 [ext_resource type="Texture2D" uid="uid://cj180ses2324r" path="res://assets/UI/UIValueBackground.png" id="1_8q2um"]
 [ext_resource type="Script" path="res://HSliderWood.gd" id="3_rhmdd"]
-[ext_resource type="Script" path="res://Value.gd" id="4_1vg45"]
+[ext_resource type="Script" path="res://ValueWood.gd" id="4_snuhm"]
+[ext_resource type="Script" path="res://ValidateWood.cs" id="5_2cwgp"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_4a687"]
 font_size = 30
@@ -59,7 +60,7 @@ offset_top = 126.0
 offset_right = 118.0
 offset_bottom = 149.0
 text = "000"
-script = ExtResource("4_1vg45")
+script = ExtResource("4_snuhm")
 
 [node name="Validate" type="Button" parent="MarginContainer/VBoxContainer/WoodTrader/Background"]
 layout_mode = 0
@@ -67,7 +68,8 @@ offset_left = 17.0
 offset_top = 158.0
 offset_right = 175.0
 offset_bottom = 189.0
-text = "VALIDER : [...] euros"
+text = "ACHETER : 0 euros"
+script = ExtResource("5_2cwgp")
 
 [node name="HopTrader" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -78,4 +80,7 @@ layout_mode = 2
 [node name="BeerTrader" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 
+[connection signal="value_changed" from="MarginContainer/VBoxContainer/WoodTrader/Background/HSlider" to="." method="_on_h_slider_value_changed"]
 [connection signal="value_changed" from="MarginContainer/VBoxContainer/WoodTrader/Background/HSlider" to="MarginContainer/VBoxContainer/WoodTrader/Background/Value" method="_on_h_slider_value_changed"]
+[connection signal="value_changed" from="MarginContainer/VBoxContainer/WoodTrader/Background/HSlider" to="MarginContainer/VBoxContainer/WoodTrader/Background/Validate" method="_on_h_slider_value_changed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/WoodTrader/Background/Validate" to="." method="_on_validate_pressed"]
