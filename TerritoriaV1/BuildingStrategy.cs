@@ -1,6 +1,6 @@
 using Godot;
 using System;
 
-interface BuildingStrategy {
+public interface BuildingStrategy {
     void buildStuff();
 }

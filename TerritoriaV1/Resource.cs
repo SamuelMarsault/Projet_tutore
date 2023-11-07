@@ -20,15 +20,17 @@ public partial class Resource : Placeable
     override 
     public void productResources(Godot.Collections.Dictionary<ResourceType, int> availableResources, Godot.Collections.Dictionary<ResourceType, int> neededResources)
     {
+        //Si on a pas besoin de la resource de cette source
         if (!neededResources.ContainsKey(resourceType))
         {
+            //Alors on ne produit rien
             return;   
         }
 
-        //Si on a besoin des ressources présentes dans l'objet
+        //Si on a encore besoin des ressources présentes dans l'objet
         if (neededResources[resourceType]>0)
         {
-            //Si on a besoin de moins de ressources
+            //Si on a besoin de moins de ressources que ce qu'on stocke ici
             if (neededResources[resourceType]<=resourceQuantities)
             {
                 //On prélève les ressources de l'objet
@@ -73,7 +75,7 @@ public partial class Resource : Placeable
     //Renvoi la quantité de ressources dont l'objet à besoin, puisque c'est une source naturelle elle n'a besoin de rien
     public Godot.Collections.Dictionary<ResourceType, int> getResourceNeeds()
     {
-        //Une ressource naturelle n'a pas besoin de ressources pour ce développer (pour le moment en tout cas)
+        //Une source naturelle n'a pas besoin de ressources pour ce développer (pour le moment en tout cas)
         return new Godot.Collections.Dictionary<ResourceType, int>();
     }
 

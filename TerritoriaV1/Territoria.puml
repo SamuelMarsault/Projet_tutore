@@ -16,19 +16,19 @@ class view.TileMap implements model.VillageObserver{
 
 class model.Building extends model.Placeable{
 - productionCapacities : Integer
-+ Building(input : Map<ResourceType,Integer>, input : Map<ResourceType,Integer>, productionCapacities : Integer) <<create>>
++ <<create>> Building(input : Map<ResourceType,Integer>, output : Map<ResourceType,Integer>, productionCapacities : Integer)
 + getResourceNeeds() : Map<ResourceType, Integer>
 + productResources(availableResources : Map<ResourceType,Integer>, neededResources : Map<ResourceType,Integer>)
 }
 
 class model.PlaceableFactory {
-    + createHouse(input : Map<ResourceType,Integer>, input : Map<ResourceType,Integer>, productionCapacities : Integer) : Placeable
-    + createSawmill(input : Map<ResourceType,Integer>, input : Map<ResourceType,Integer>, productionCapacities : Integer) : Placeable
-    + createRail(input : Map<ResourceType,Integer>, input : Map<ResourceType,Integer>, productionCapacities : Integer) : Placeable
-    + createBar(input : Map<ResourceType,Integer>, input : Map<ResourceType,Integer>, productionCapacities : Integer) : Placeable
-    + createTrainStation(input : Map<ResourceType,Integer>, input : Map<ResourceType,Integer>, productionCapacities : Integer) : Placeable
-    + createForest(resource : ResourceType, resourceQuantities : Integer) : Placeable
-    + createField(resource : ResourceType, resourceQuantities : Integer) : Placeable
+    + createHouse() : Placeable
+    + createSawmill() : Placeable
+    + createRail() : Placeable
+    + createBar() : Placeable
+    + createTrainStation() : Placeable
+    + createForest() : Placeable
+    + createField() : Placeable
 }
 
 class view.Trader implements model.VillageObserver{
@@ -60,6 +60,7 @@ FIELD
 class model.Resource extends model.Placeable{
 - resourceQuantities : Integer
 - maxQuantities : Integer
++ <<create>> Resource(resourceType : ResourceType, resourceQuantities : Integer)
 + productResources(availableResources : Map<ResourceType,Integer>, neededResources : Map<ResourceType,Integer>)
 + getResourceNeeds() : Map<ResourceType, Integer>
 - regenerateResources()
@@ -99,14 +100,15 @@ class model.BuildingStrategyFactory{
 }
 
 class model.Village {
++ productResources()
 + getNeededResources() : Map<ResourceType, Integer>
-+ getProducedResources() : Map<ResourceType, Integer>
++ getResources() : Map<ResourceType, Integer>
 + getAvailableResources() : Map<ResourceType, Integer>
 + fulfilmentOfNeeds(usableResources : Map<ResourceType, Integer>, neededResources : Map<ResourceType, Integer>) : Double
 + setBuildingStrategy(strategy : BuildingStrategy)
 + addObserver(observer : VillageObserver)
 - notifyResourceChange()
-+ seekCompatibleTiles(position : Integer[2], type : BuildingType) : Vector2
++ seekCompatibleTiles(position : Integer[2], type : BuildingType) : Integer[2]
 + applyStrategy()
 }
 
@@ -119,10 +121,16 @@ class model.EvolutionOfVillage {
 + determineStrategy()
 }
 
+class model.TileType{
+    GRASS
+    WATER
+}
+
 model.EvolutionOfVillage *--> "1\n-village" model.Village
 model.EvolutionOfVillage *--> "1\n-buildingStrategyFactory" model.BuildingStrategyFactory
 Village *--> "1\n-strategy" model.BuildingStrategy
-Village *.-> "0 .. *\n-placeable" model.Placeable : Compose <
+Village *--> "*\n-placeables" model.Placeable : Compose <
+Village *--> "*\n-tiles" model.TileType : construit sur >
 Village ..> "<<uses>>" PlaceableType
 view.TileMap ..> "<<uses>>" Placeable
 Village o--> "*\n-observers" model.VillageObserver : < Observe
