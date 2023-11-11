@@ -1,15 +1,16 @@
 using Godot;
 using System;
+using System.Transactions;
 using Godot.Collections;
 using TerritoriaV1;
 
-public partial class Resource : Placeable
+public class Resource : Placeable
 {
     private int resourceQuantities;
     private int maxQuantities;
     private ResourceType resourceType;
 
-    public Resource(ResourceType resource, int resourceQuantities)
+    public Resource(Vector2 position, PlaceableType placeableType, ResourceType resource, int resourceQuantities) : base(position,placeableType)
     {
         maxQuantities = resourceQuantities;
         this.resourceQuantities = resourceQuantities;
@@ -35,15 +36,11 @@ public partial class Resource : Placeable
             {
                 //On prélève les ressources de l'objet
                 resourceQuantities -= neededResources[resourceType];
-                //On ajoute ces ressources aux ressources disponibles
-                availableResources[resourceType] += neededResources[resourceType];
                 //Et on enlève le besoin de ressources
                 neededResources[resourceType] = 0;
             }
             else
             {
-                //On ajoute la totalité des ressources de l'objet
-                availableResources[resourceType] += resourceQuantities;
                 //On soustrait au besoin les ressources ajoutées
                 neededResources[resourceType] -= resourceQuantities;
                 //On actualise les ressoures de l'objet

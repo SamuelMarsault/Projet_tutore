@@ -7,17 +7,16 @@ using TerritoriaV1;
 public class Village
 {
     private BuildingStrategy strategy;
-    private List<VillageObserver> observers = new List<VillageObserver>();
-    private PlaceableFactory factory = new PlaceableFactory();
-    private List<Placeable> placeables = new List<Placeable>();
+    private List<VillageObserver> observers = new ();
+    private PlaceableFactory factory = new ();
+    private List<Placeable> placeables = new ();
     private TileType[][] tiles;
-
     private Godot.Collections.Dictionary<ResourceType, int> resources;
 
     public Village()
     {
         //Par défaut la stratégie est la croissance
-        strategy = new BuildingGrowthStrategy();
+        strategy = new BuildingGrowthStrategy(tiles);
         //On initialise le dictionnaire de ressources
         resources = new Godot.Collections.Dictionary<ResourceType, int>();
         //Définition du terrain :
@@ -29,6 +28,12 @@ public class Village
             new[] { TileType.GRASS, TileType.GRASS, TileType.WATER, TileType.WATER, TileType.GRASS },
             new[] { TileType.GRASS, TileType.GRASS, TileType.GRASS, TileType.WATER, TileType.GRASS}
         };
+    }
+
+    //Renvoi les ressources actuelles du village
+    public Godot.Collections.Dictionary<ResourceType, int> getResources()
+    {
+        return resources.Duplicate(true);
     }
     //Récupère les besoins en ressources de toutes les structures du village
     private Godot.Collections.Dictionary<ResourceType, int> getNeededResources()
@@ -90,19 +95,38 @@ public class Village
     {
         return 0;
     }
-
-    public void setBuilding(BuildingStrategy strategy)
+    
+    public void setBuildingStrategy(BuildingStrategy strategy)
     {
         this.strategy = strategy;
+    }
+
+    public void applyStrategy()
+    {
+        
     }
     public void addObservers(VillageObserver observer)
     {
         observers.Add(observer);
     }
 
-    public Vector2 seekCompatibleTiles(Vector2 position, BuildingType type)
+    private void notifyResourcesChange()
     {
-        return Vector2.Down;
+        foreach (VillageObserver observer in observers)
+        {
+            observer.reactToResourcesChange(resources.Duplicate(true));
+        }
+    }
+    private void notifyPlaceableChange()
+    {
+        foreach (VillageObserver observer in observers)
+        {
+            observer.reactToPlaceableChange(placeables);
+        }
     }
 
+    public TileType[][] getTiles()
+    {
+        return tiles;
+    }
 }
