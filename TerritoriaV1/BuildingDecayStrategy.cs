@@ -1,8 +1,11 @@
-using Godot;
 using System;
+using System.Collections.Generic;
+using TerritoriaV1;
 
-public partial class BuildingDecayStrategy : BuildingStrategy
+public class BuildingDecayStrategy : BuildingStrategy
 {
-    public void buildStuff() {
+    public List<Placeable> buildNewPlaceable(Godot.Collections.Dictionary<ResourceType, int> totalResources, Double fulfilementOfNeeds, List<Placeable> placeables, PlaceableFactory factory)
+    {
+        return null;
     }
 }

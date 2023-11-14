@@ -1,11 +1,12 @@
 using Godot;
 using System;
 
-public enum BuildingType {
+public enum PlaceableType {
     HOUSE,
     SAWMILL,
     RAIL,
     FOREST,
     BAR,
-    TRAIN_STATION
+    TRAIN_STATION,
+    FIELD
 }

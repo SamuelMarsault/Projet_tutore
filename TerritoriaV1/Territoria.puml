@@ -5,42 +5,45 @@ hide enum methods
 hide empty members
 
 class controler.GameManager {
-+ nextTurn(importedResources : Map<ResourceType, Integer>)
++ nextTurn(importedResources : Integer[*])
 + updateGraphics()
 }
 
 class view.TileMap implements model.VillageObserver{
-+ reactToResourcesChange(resources : Map<ResourceType, Integer>)
-+ reactToPlaceableChange(placeables : Placeable[])
++ reactToResourcesChange(resources : Integer[*])
++ reactToPlaceableChange(placeables : Placeable[*])
++ reactToTilesChange(tiles : TileType[*]);
 }
 
 class model.Building extends model.Placeable{
 - productionCapacities : Integer
-+ Building(input : Map<ResourceType,Integer>, input : Map<ResourceType,Integer>, productionCapacities : Integer) <<create>>
++ <<create>> Building(position : Integer[2], placeableType : PlaceableType, input : Map<ResourceType, Integer>, output : Map<ResourceType, Integer>, productionCapacities : Integer 
 + getResourceNeeds() : Map<ResourceType, Integer>
++ getAvailableResources() : Map<ResourceType, Integer>
 + productResources(availableResources : Map<ResourceType,Integer>, neededResources : Map<ResourceType,Integer>)
 }
 
 class model.PlaceableFactory {
-    + createHouse(input : Map<ResourceType,Integer>, input : Map<ResourceType,Integer>, productionCapacities : Integer) : Placeable
-    + createSawmill(input : Map<ResourceType,Integer>, input : Map<ResourceType,Integer>, productionCapacities : Integer) : Placeable
-    + createRail(input : Map<ResourceType,Integer>, input : Map<ResourceType,Integer>, productionCapacities : Integer) : Placeable
-    + createBar(input : Map<ResourceType,Integer>, input : Map<ResourceType,Integer>, productionCapacities : Integer) : Placeable
-    + createTrainStation(input : Map<ResourceType,Integer>, input : Map<ResourceType,Integer>, productionCapacities : Integer) : Placeable
-    + createForest(resource : ResourceType, resourceQuantities : Integer) : Placeable
-    + createField(resource : ResourceType, resourceQuantities : Integer) : Placeable
+    + createHouse(position : Intrger[2]) : Placeable
+    + createSawmill(position : Intrger[2]) : Placeable
+    + createRail(position : Intrger[2]) : Placeable
+    + createBar() position : Intrger[2]: Placeable
+    + createTrainStation(position : Intrger[2]) : Placeable
+    + createForest(position : Intrger[2]) : Placeable
+    + createField(position : Intrger[2]) : Placeable
 }
 
 class view.Trader implements model.VillageObserver{
-+ Trader(gameManager : GameManager) <<create>>
 + reactToResourcesChange(resources : Map<ResourceType, Integer>)
-+ reactToPlaceableChange(placeables : Placeable[])
++ reactToPlaceableChange(placeables : Placeable[*])
++ reactToTilesChange(tiles : TileType[*]);
 + nextTurn()
 }
 
 class view.Printer implements model.VillageObserver{
 + reactToResourcesChange(resources : Map<ResourceType, Integer>)
-+ reactToPlaceableChange(placeables : Placeable[])
++ reactToPlaceableChange(placeables : Placeable[*])
++ reactToTilesChange(tiles : TileType[*]);
 }
 
 class controler.VillageManager{
@@ -60,17 +63,21 @@ FIELD
 class model.Resource extends model.Placeable{
 - resourceQuantities : Integer
 - maxQuantities : Integer
++ <<create>> Resource(position : Integer[2], placeableType : PlaceableType, resourceType : ResourceType, resourceQuantities : Integer)
 + productResources(availableResources : Map<ResourceType,Integer>, neededResources : Map<ResourceType,Integer>)
 + getResourceNeeds() : Map<ResourceType, Integer>
++ getAvailableResources() : Map<ResourceType, Integer>
 - regenerateResources()
 }
 
 abstract class model.Placeable {
-# position : Integer[2]
+- position : Integer[2]
++ <<create>> Placeable(position : Integer[2], placeableType : PlaceableType)
 + {abstract} productResources(availableResources : Map<ResourceType,Integer>, neededResources : Map<ResourceType,Integer>)
 + {abstract} getResourceNeeds() : Map<ResourceType, Integer>
 + {abstract} getAvailableResources() : Map<ResourceType, Integer>
 + getPosition() : Integer[2]
++ getPlaceableType() : PlaceableType
 }
 
 class model.ResourceType <<enum>>{
@@ -83,55 +90,67 @@ MONEY
 }
 
 interface model.BuildingStrategy <<interface>> {
-    + numberOfNewPlaceable(totalResources : Map<ResourceType, Integer>, fulfilmentOfNeeds : Double) : Map<PlaceableType,List<Placeable>>
++ buildNewPlaceable(totalResources : Map<ResourceType, Integer>, fulfilmentOfNeeds : Double, placeables : Placeable[*], factory : PlaceableFactory) : Placeable[*]
++ seekCompatibleTiles(List<Placeable> currentPlaceables, List<Placeable> newPlaceables)
 }
 
 class model.BuildingGrowthStrategy implements model.BuildingStrategy {
-+ numberOfNewPlaceable(totalResources : Map<ResourceType, Integer>, fulfilmentOfNeeds : Double) : Map<PlaceableType,List<Placeable>>
++ buildNewPlaceable(totalResources : Map<ResourceType, Integer>, fulfilmentOfNeeds : Double, placeables : Placeable[*], factory : PlaceableFactory) : Placeable[*]
++ seekCompatibleTiles(List<Placeable> currentPlaceables, List<Placeable> newPlaceables)
 }
 class model.BuildingDecayStrategy implements model.BuildingStrategy {
-+ numberOfNewPlaceable(totalResources : Map<ResourceType, Integer>, fulfilmentOfNeeds : Double) : Map<PlaceableType,List<Placeable>>
++ buildNewPlaceable(totalResources : Map<ResourceType, Integer>, fulfilmentOfNeeds : Double, placeables : Placeable[*], factory : PlaceableFactory) : Placeable[*]
++ seekCompatibleTiles(List<Placeable> currentPlaceables, List<Placeable> newPlaceables)
 }
 
 class model.BuildingStrategyFactory{
-+ createGrowthStrategy()
-+ createDecayStrategy()
++ createGrowthStrategy() : BuildingStrategy
++ createDecayStrategy() : BuildingStrategy
 }
 
 class model.Village {
-+ getNeededResources() : Map<ResourceType, Integer>
-+ getProducedResources() : Map<ResourceType, Integer>
-+ getAvailableResources() : Map<ResourceType, Integer>
++ productResources()
++ getResources() : Map<ResourceType, Integer>
+- getNeededResources() : Map<ResourceType, Integer>
+- getAvailableResources() : Map<ResourceType, Integer>
 + fulfilmentOfNeeds(usableResources : Map<ResourceType, Integer>, neededResources : Map<ResourceType, Integer>) : Double
-+ setBuildingStrategy(strategy : BuildingStrategy)
 + addObserver(observer : VillageObserver)
 - notifyResourceChange()
-+ seekCompatibleTiles(position : Integer[2], type : BuildingType) : Vector2
+- notifyPlaceableChange()
++ setBuildingStrategy(strategy : BuildingStrategy)
 + applyStrategy()
++ getTiles() : TileType[*]
 }
 
 interface model.VillageObserver <<interface>>{
 + reactToResourcesChange(resources : Map<ResourceType, Integer>)
-+ reactToPlaceableChange(placeables : Placeable[])
++ reactToPlaceableChange(placeables : Placeable[*])
++ reactToTilesChange(tiles : TileType[*]);
 }
 
 class model.EvolutionOfVillage {
 + determineStrategy()
 }
 
+class model.TileType{
+    GRASS
+    WATER
+}
+
 model.EvolutionOfVillage *--> "1\n-village" model.Village
 model.EvolutionOfVillage *--> "1\n-buildingStrategyFactory" model.BuildingStrategyFactory
 Village *--> "1\n-strategy" model.BuildingStrategy
-Village *.-> "0 .. *\n-placeable" model.Placeable : Compose <
-Village ..> "<<uses>>" PlaceableType
+Village *--> "*\n-placeables" model.Placeable : Compose <
+Village *--> "*\n-tiles" model.TileType : construit sur >
+Village ..> "<<uses>>" model.PlaceableType
 view.TileMap ..> "<<uses>>" Placeable
 Village o--> "*\n-observers" model.VillageObserver : < Observe
 Village *--> "1\n-placeableFactory" model.PlaceableFactory
-model.PlaceableFactory ..> "<<uses>>" PlaceableType
+model.PlaceableFactory ..> "<<uses>>" model.PlaceableType
 model.PlaceableFactory .> "<<uses>>" Placeable
 model.PlaceableFactory .> "<<uses>>" Resource
 model.PlaceableFactory .> "<<uses>>" Building
-Placeable *--> "1\n-type" model.PlaceableType
+Placeable *-> "1\n-type" model.PlaceableType
 VillageManager o--> "1\n-tilemap" view.TileMap
 VillageManager *--> "1\n-village" Village
 VillageManager *--> "1\n-evolutionOfVillage" EvolutionOfVillage
@@ -140,7 +159,8 @@ GameManager *--u> "1\n-printer" view.Printer
 GameManager *--u> "1\n-trader" view.Trader
 BuildingStrategyFactory ..> "<<uses>>" model.BuildingStrategy
 BuildingStrategyFactory ..> "<<uses>>" model.BuildingGrowthStrategy
-model.Building *--> "2 .. 3\n-resources" model.ResourceType
+model.Building *--> "*\n-resources" model.ResourceType
 model.Resource *--> "1\n-resourceType" model.ResourceType
 BuildingStrategyFactory ..> "<<uses>>" model.BuildingDecayStrategy
+BuildingStrategy .> "<<uses>>" model.PlaceableType
 @enduml
