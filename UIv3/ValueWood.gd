@@ -10,7 +10,5 @@ func _ready():
 func _process(delta):
 	pass
 
-
-func _on_h_slider_value_changed(value):
+func _on_h_slider_wood_value_changed(value):
 	self.text = str(value)
-	

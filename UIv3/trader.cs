@@ -36,7 +36,7 @@ public partial class trader : Node,gameObserver
 		GM.funcname(RESSOURCES.WOOD,hWoodValue);
 	}
 
-	public void _on_h_slider_value_changed(float value)
+	public void _on_h_slider_wood_value_changed(float value)
 	{
 		hWoodValue =  (int)value;
 	}
