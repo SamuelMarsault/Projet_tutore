@@ -3,7 +3,6 @@ using System;
 
 public partial class ValidateWood : Button
 {
-	int tauxDeChangeAchatBois;
 
 	int woodValue;
 
@@ -19,11 +18,18 @@ public partial class ValidateWood : Button
 	{
 	}
 
-	private void _on_h_slider_value_changed(float value)
-	{
-		tauxDeChangeAchatBois = ressourcesDictionnary.ressourcesTradCost[RESSOURCES.WOOD];
-		woodValue = (int)value;
-		this.Text = "VALIDER : "+ (woodValue*tauxDeChangeAchatBois).ToString() + " euro";
+	private void _on_h_slider_wood_value_changed(float value)
+	{	
+		int temp = ((int)value*ressourcesDictionnary.ressourcesTradCost[RESSOURCES.WOOD]);
+
+		if(value > 0)
+		{
+			this.Text = "VALIDER : Payer "+ temp.ToString() + " euro(s)";
+		}
+		else
+		{
+			this.Text = "VALIDER : Recevoir "+ (-1*(temp/2)).ToString() + " euro(s)";
+		}
 	}
 }
 
