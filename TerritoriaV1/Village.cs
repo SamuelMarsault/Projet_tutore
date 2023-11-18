@@ -129,4 +129,16 @@ public class Village
     {
         return tiles;
     }
+
+    public Dictionary<Placeable,int> getNbPlaceables()
+    {
+        Dictionary<Placeable,int> nbPlaceables = new Dictionary<Placeable,int>;
+
+        foreach(Placeable placeable in this.Placeable)
+        {
+            // ici, une fonction qui associe a chaque placeable leur nombres dans le village
+        }
+
+        return nbPlaceables;
+    }
 }
