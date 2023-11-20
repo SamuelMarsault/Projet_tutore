@@ -14,6 +14,7 @@ public partial class VillageManager
     public void askNeededResources() {
     }
     
+
     public void nextTurn() {
     }
 }

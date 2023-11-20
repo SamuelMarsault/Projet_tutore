@@ -35,6 +35,7 @@ public class Village
     {
         return resources.Duplicate(true);
     }
+
     //Récupère les besoins en ressources de toutes les structures du village
     private Godot.Collections.Dictionary<ResourceType, int> getNeededResources()
     {
@@ -50,6 +51,11 @@ public class Village
             }
         }
         return neededResources;
+    }
+
+    public Godot.Collections.Dictionary<ResourceType, int> publicGetNeededRessources()  // la fonction de base est privée ? j'ai bricolé ca pour l'instant, a voir
+    {
+        return getNeededResources().Duplicate(true);
     }
 
     //"Joue le tour" pour les structures et permet de récupérer les ressources 
