@@ -27,4 +27,14 @@ public partial class Printer : Node2D, VillageObserver
 	{
 		
 	}
+
+    public void reactToTilesChangesTiles(Vector2I setTile, int layer,int ID)
+    {
+        
+    }
+
+    public void reactToInitialisePlaceable(List<Placeable> placeables)
+    {
+        throw new NotImplementedException();
+    }
 }

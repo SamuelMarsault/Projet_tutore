@@ -12,22 +12,17 @@ public class Village
     private List<Placeable> placeables = new ();
     private TileType[][] tiles;
     private Godot.Collections.Dictionary<ResourceType, int> resources;
-
-    public Village()
+    private TileMap map;
+    public Village(TileMap ground)
     {
         //Par défaut la stratégie est la croissance
         strategy = new BuildingGrowthStrategy(tiles);
         //On initialise le dictionnaire de ressources
         resources = new Godot.Collections.Dictionary<ResourceType, int>();
         //Définition du terrain :
-        tiles = new TileType[][]
-        {
-            new[] { TileType.GRASS, TileType.GRASS, TileType.GRASS, TileType.GRASS, TileType.GRASS },
-            new[] { TileType.GRASS, TileType.GRASS, TileType.GRASS, TileType.GRASS, TileType.GRASS },
-            new[] { TileType.WATER, TileType.WATER, TileType.WATER, TileType.GRASS, TileType.GRASS },
-            new[] { TileType.GRASS, TileType.GRASS, TileType.WATER, TileType.WATER, TileType.GRASS },
-            new[] { TileType.GRASS, TileType.GRASS, TileType.GRASS, TileType.WATER, TileType.GRASS}
-        };
+        this.map = ground;
+        initialiseTile();
+        initialisePleasable();
     }
 
     //Renvoi les ressources actuelles du village
@@ -50,6 +45,41 @@ public class Village
             }
         }
         return neededResources;
+    }
+
+    private void initialiseTile(){
+        // Récupérer les dimensions du TileMap
+        int largeur = this.map.GetUsedRect().Size.X;
+        int hauteur = this.map.GetUsedRect().Size.Y;
+
+        this.tiles = new TileType[largeur][];
+        for (int i = 0; i < largeur; i++)
+        {
+            this.tiles[i] = new TileType[hauteur];
+        }
+        // Parcourir chaque cellule du TileMap
+        for (int x = 0; x < largeur; x++)
+        {
+            for (int y = 0; y < hauteur; y++)
+            {
+                // Récupérer l'ID du tile à la position (x, y)
+                int tileID = this.map.GetCellSourceId(0,new Vector2I(x,y));
+                // Vérifier si le tile existe à cette position
+                if (tileID == 0)
+                {
+                    this.tiles[x][y] = TileType.GRASS;
+                }
+                else if(tileID ==1){
+                    this.tiles[x][y] = TileType.WATER;
+                }
+            }
+        }
+        addObservers(map);
+    }
+
+    private void initialisePleasable(){
+       placeables.Add(factory.createHouse(new Vector2I(9,4)));
+       notifySetPleaceable();
     }
 
     //"Joue le tour" pour les structures et permet de récupérer les ressources 
@@ -95,6 +125,24 @@ public class Village
     {
         return 0;
     }
+
+    public void setTiles(int x, int y, int layer){
+        Vector2I updateTile = new Vector2I(x,y);
+        int ID;
+        if(map.GetCellSourceId(0,updateTile) == 0){
+            this.tiles[x][y] = TileType.GRASS;
+            ID = 0;
+        }
+        else{
+            this.tiles[x][y] = TileType.WATER;
+            ID = 1;
+        }
+        notifyTilesType(updateTile, layer, ID);
+    }
+
+    public TileType getTile(int x, int y){
+        return tiles[x][y];
+    }
     
     public void setBuildingStrategy(BuildingStrategy strategy)
     {
@@ -122,6 +170,22 @@ public class Village
         foreach (VillageObserver observer in observers)
         {
             observer.reactToPlaceableChange(placeables);
+        }
+    }
+
+    private void notifyTilesType(Vector2I updateTile, int layeur, int ID)
+    {
+        foreach (VillageObserver observer in observers)
+        {
+            observer.reactToTilesChangesTiles(updateTile, layeur, ID);
+        }
+    }
+
+    private void notifySetPleaceable()
+    {
+        foreach (VillageObserver observer in observers)
+        {
+            observer.reactToInitialisePlaceable(placeables);
         }
     }
 
