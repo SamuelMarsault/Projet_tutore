@@ -37,7 +37,7 @@ public class PlaceableFactory
         Dictionary<ResourceType, int> input = new Dictionary<ResourceType, int>();
         Dictionary<ResourceType, int> output = new Dictionary<ResourceType, int>();
         Building trainStation = new Building(position, PlaceableType.TRAIN_STATION,input, output,0);
-        return trainStation;   
+        return trainStation;
     }
 
     public Placeable createBar(Vector2 position)

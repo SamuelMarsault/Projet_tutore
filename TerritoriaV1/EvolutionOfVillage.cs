@@ -3,8 +3,12 @@ namespace TerritoriaV1;
 public class EvolutionOfVillage
 {
     private Village village;
+
+    /*
     private Village ancienVillage;
 
+    g gardé l'ancienne version en commentaire au cas ou
+    
     public void determineStrategy()
     {
         village.setBuildingStrategy(new BuildingGrowthStrategy(village.getTiles()));
@@ -38,6 +42,26 @@ public class EvolutionOfVillage
             }
 
             // checker le nombre total de batiment pour savoir si il faut raser des trucs
+        }
+    }*/
+
+    public void determineStrategy() // les conditions de passage sont des sugestions
+    {
+        BuildingStrategyFactory factory;
+
+        Dictionary<Placeable,int> nbPlaceables =  village.getNbPlaceables()
+
+        if(nbPlaceables[PlaceableType.SAWMILL]  == 0 and nbPlaceables[PlaceableType.FIELD] == 0 and nbPlaceables[PlaceableType.ICE_USINE]  == 0)    // passe au tertiaire quand : plus aucune scierie, usine a glacon et champ
+        {
+            village.setBuildingStrategy(factory.createTertiaryStrategy());
+        }
+        else if()   // passe au secondaire quand : le joueur a fait 2 tour de jeu
+        {
+            village.setBuildingStrategy(factory.createSecondaryStrategy());
+        }
+        else
+        {
+            village.setBuildingStrategy(factory.createPrimaryStrategy());
         }
     }
 

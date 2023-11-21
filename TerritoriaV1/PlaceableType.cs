@@ -8,5 +8,7 @@ public enum PlaceableType {
     FOREST,
     BAR,
     TRAIN_STATION,
-    FIELD
+    FIELD,
+    ICE_USINE,
+    BEER_USINE
 }
