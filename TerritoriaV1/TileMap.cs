@@ -33,11 +33,12 @@ public partial class TileMap : Godot.TileMap, VillageObserver
 	{
 		
 	}
-    public void reactToTilesChangesTiles(Vector2I setTile, int layer,int ID)
+	//Allows you to change the floor
+	public void reactToTilesChangesTiles(Vector2I setTile, int layer,int ID)
 	{
 		SetCell(layer,setTile,0,new Vector2I(0,0));
 	}
-
+	//Allows you to place the buildings that are there when you start the game
     public void reactToInitialisePlaceable(List<Placeable> placeables)
     {
         for (int i = 0; i<placeables.Count;i++){

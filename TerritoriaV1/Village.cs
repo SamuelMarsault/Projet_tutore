@@ -47,6 +47,7 @@ public class Village
         return neededResources;
     }
 
+    //Initializes a 2D table containing the type of soil
     private void initialiseTile(){
         // Récupérer les dimensions du TileMap
         int largeur = this.map.GetUsedRect().Size.X;
@@ -76,7 +77,7 @@ public class Village
         }
         addObservers(map);
     }
-
+    //Initialize basic buildings
     private void initialisePleasable(){
        placeables.Add(factory.createHouse(new Vector2I(6,-1)));
        placeables.Add(factory.createHouse(new Vector2I(6,-3)));
@@ -134,7 +135,7 @@ public class Village
     {
         return 0;
     }
-
+    //Allows you to modify a Tile
     public void setTiles(int x, int y, int layer){
         Vector2I updateTile = new Vector2I(x,y);
         int ID;
@@ -148,7 +149,7 @@ public class Village
         }
         notifyTilesType(updateTile, layer, ID);
     }
-
+    //Retrieves a Tile
     public TileType getTile(int x, int y){
         return tiles[x][y];
     }
@@ -181,7 +182,7 @@ public class Village
             observer.reactToPlaceableChange(placeables);
         }
     }
-
+    
     private void notifyTilesType(Vector2I updateTile, int layeur, int ID)
     {
         foreach (VillageObserver observer in observers)
