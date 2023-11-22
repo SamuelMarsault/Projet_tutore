@@ -5,10 +5,10 @@ namespace TerritoriaV1;
 
 public abstract class Placeable
 {
-	private Vector2 position;
+	private Vector2I position;
 	private PlaceableType placeableType;
 
-	public Placeable(Vector2 position, PlaceableType placeableType)
+	public Placeable(Vector2I position, PlaceableType placeableType)
 	{
 		this.position = position;
 		this.placeableType = placeableType;
@@ -19,7 +19,7 @@ public abstract class Placeable
 
 	abstract public Godot.Collections.Dictionary<ResourceType, int> getAvailableResources();
 	abstract public Godot.Collections.Dictionary<ResourceType, int> getResourceNeeds();
-	public Vector2 getPosition()
+	public Vector2I getPosition()
 	{
 		return position;
 	}

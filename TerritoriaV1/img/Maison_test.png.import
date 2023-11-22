@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cggvorases6m6"
-path="res://.godot/imported/forest1_1.png-8f988373707e6db23b2857d98b396dd9.ctex"
+uid="uid://b15goqbgq4v31"
+path="res://.godot/imported/Maison_test.png-67a13d9aa9dc708e56ea35b8a3b1ac1a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://img/forest1_1.png"
-dest_files=["res://.godot/imported/forest1_1.png-8f988373707e6db23b2857d98b396dd9.ctex"]
+source_file="res://img/Maison_test.png"
+dest_files=["res://.godot/imported/Maison_test.png-67a13d9aa9dc708e56ea35b8a3b1ac1a.ctex"]
 
 [params]
 

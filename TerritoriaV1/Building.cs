@@ -4,7 +4,7 @@ using TerritoriaV1;
 
 public class Building : Placeable
 {
-	private Vector2 position;
+	private Vector2I position;
 	//Défini les types et la quantité de resssources nécéssaire pour produire n output
 	private Godot.Collections.Dictionary<ResourceType, int> input; 
 	//Défini les types et la quantité de resssources produite
@@ -12,7 +12,7 @@ public class Building : Placeable
 	//Représente la capacité de production : output * capacite = quantité totale
 	private int productionCapacities;
 	
-	public Building(Vector2 position, PlaceableType placeableType, Godot.Collections.Dictionary<ResourceType, int> input,Godot.Collections.Dictionary<ResourceType, int> output, int productionCapacities) : base(position,placeableType)
+	public Building(Vector2I position, PlaceableType placeableType, Godot.Collections.Dictionary<ResourceType, int> input,Godot.Collections.Dictionary<ResourceType, int> output, int productionCapacities) : base(position,placeableType)
 	{
 		this.input = input.Duplicate(true);
 		this.output = output.Duplicate(true);

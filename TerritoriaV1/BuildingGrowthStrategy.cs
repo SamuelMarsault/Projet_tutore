@@ -37,7 +37,7 @@ public class BuildingGrowthStrategy : BuildingStrategy
         return null;
     }
 
-    public Vector2 seekCompatibleTile(PlaceableType newPlaceableType,List<Placeable> currentPlaceables, List<Placeable> newPlaceables)
+    public Vector2I seekCompatibleTile(PlaceableType newPlaceableType,List<Placeable> currentPlaceables, List<Placeable> newPlaceables)
     {
         for (int i = currentPlaceables.Count - 1; i >= 0; i--)
         {
@@ -46,6 +46,6 @@ public class BuildingGrowthStrategy : BuildingStrategy
                 
             }
         }
-        return Vector2.Down;
+        return Vector2I.Down;
     }
 }
