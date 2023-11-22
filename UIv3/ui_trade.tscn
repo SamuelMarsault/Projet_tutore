@@ -1,0 +1,134 @@
+[gd_scene load_steps=7 format=3 uid="uid://inqrd5p7ip2n"]
+
+[ext_resource type="Script" path="res://trader.cs" id="1_7vsp2"]
+[ext_resource type="Texture2D" uid="uid://cj180ses2324r" path="res://assets/UI/UIValueBackground.png" id="1_8q2um"]
+[ext_resource type="Script" path="res://HSliderWood.gd" id="3_rhmdd"]
+[ext_resource type="Script" path="res://ValueWood.gd" id="4_snuhm"]
+[ext_resource type="Script" path="res://ValidateWood.cs" id="5_2cwgp"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_4a687"]
+font_size = 30
+
+[node name="ui_trade" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7vsp2")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="WoodTrader" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Background" type="NinePatchRect" parent="MarginContainer/VBoxContainer/WoodTrader"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+texture = ExtResource("1_8q2um")
+
+[node name="Name" type="Label" parent="MarginContainer/VBoxContainer/WoodTrader/Background"]
+layout_mode = 1
+offset_left = 21.0
+offset_top = 21.0
+offset_right = 91.0
+offset_bottom = 66.0
+text = "BOIS"
+label_settings = SubResource("LabelSettings_4a687")
+horizontal_alignment = 1
+
+[node name="HSliderWood" type="HSlider" parent="MarginContainer/VBoxContainer/WoodTrader/Background"]
+layout_mode = 2
+offset_left = 25.0
+offset_top = 70.0
+offset_right = 168.0
+offset_bottom = 128.0
+min_value = -100.0
+step = 10.0
+script = ExtResource("3_rhmdd")
+
+[node name="ValueWood" type="Label" parent="MarginContainer/VBoxContainer/WoodTrader/Background"]
+layout_mode = 0
+offset_left = 78.0
+offset_top = 126.0
+offset_right = 118.0
+offset_bottom = 149.0
+text = "000"
+script = ExtResource("4_snuhm")
+
+[node name="ValidateWood" type="Button" parent="MarginContainer/VBoxContainer/WoodTrader/Background"]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 158.0
+offset_right = 175.0
+offset_bottom = 189.0
+text = "ACHETER : 0 euros"
+script = ExtResource("5_2cwgp")
+
+[node name="HopTrader" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Background" type="NinePatchRect" parent="MarginContainer/VBoxContainer/HopTrader"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+texture = ExtResource("1_8q2um")
+
+[node name="Name" type="Label" parent="MarginContainer/VBoxContainer/HopTrader/Background"]
+layout_mode = 1
+offset_left = 21.0
+offset_top = 21.0
+offset_right = 91.0
+offset_bottom = 66.0
+text = "HOUBLON"
+label_settings = SubResource("LabelSettings_4a687")
+horizontal_alignment = 1
+
+[node name="HSliderHop" type="HSlider" parent="MarginContainer/VBoxContainer/HopTrader/Background"]
+layout_mode = 2
+offset_left = 25.0
+offset_top = 70.0
+offset_right = 168.0
+offset_bottom = 128.0
+min_value = -100.0
+step = 10.0
+script = ExtResource("3_rhmdd")
+
+[node name="ValueHop" type="Label" parent="MarginContainer/VBoxContainer/HopTrader/Background"]
+layout_mode = 0
+offset_left = 78.0
+offset_top = 126.0
+offset_right = 118.0
+offset_bottom = 149.0
+text = "000"
+script = ExtResource("4_snuhm")
+
+[node name="ValidateHop" type="Button" parent="MarginContainer/VBoxContainer/HopTrader/Background"]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 158.0
+offset_right = 175.0
+offset_bottom = 189.0
+text = "ACHETER : 0 euros"
+script = ExtResource("5_2cwgp")
+
+[node name="IceTrader" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="BeerTrader" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[connection signal="value_changed" from="MarginContainer/VBoxContainer/WoodTrader/Background/HSliderWood" to="." method="_on_h_slider_wood_value_changed"]
+[connection signal="value_changed" from="MarginContainer/VBoxContainer/WoodTrader/Background/HSliderWood" to="MarginContainer/VBoxContainer/WoodTrader/Background/ValueWood" method="_on_h_slider_wood_value_changed"]
+[connection signal="value_changed" from="MarginContainer/VBoxContainer/WoodTrader/Background/HSliderWood" to="MarginContainer/VBoxContainer/WoodTrader/Background/ValidateWood" method="_on_h_slider_value_wood_changed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/WoodTrader/Background/ValidateWood" to="." method="_on_validate_pressed"]
+[connection signal="value_changed" from="MarginContainer/VBoxContainer/HopTrader/Background/HSliderHop" to="." method="_on_h_slider_value_changed"]
+[connection signal="value_changed" from="MarginContainer/VBoxContainer/HopTrader/Background/HSliderHop" to="MarginContainer/VBoxContainer/HopTrader/Background/ValueHop" method="_on_h_slider_value_changed"]
+[connection signal="value_changed" from="MarginContainer/VBoxContainer/HopTrader/Background/HSliderHop" to="MarginContainer/VBoxContainer/HopTrader/Background/ValidateHop" method="_on_h_slider_value_changed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HopTrader/Background/ValidateHop" to="." method="_on_validate_pressed"]

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cglie1erobohh"
-path="res://.godot/imported/flowers2_1.png-cf1ab00acf8fbf60cd70e40647ae9b72.ctex"
+uid="uid://gccyx5bb0m34"
+path="res://.godot/imported/Water.png-19db3b58baa881025fe2955c63f63a07.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://img/flowers2_1.png"
-dest_files=["res://.godot/imported/flowers2_1.png-cf1ab00acf8fbf60cd70e40647ae9b72.ctex"]
+source_file="res://img/Layer 0 - Ground/Water.png"
+dest_files=["res://.godot/imported/Water.png-19db3b58baa881025fe2955c63f63a07.ctex"]
 
 [params]
 

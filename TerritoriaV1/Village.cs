@@ -52,6 +52,51 @@ public class Village
         return neededResources;
     }
 
+    //Initializes a 2D table containing the type of soil
+    private void initialiseTile(){
+        // Récupérer les dimensions du TileMap
+        int largeur = this.map.GetUsedRect().Size.X;
+        int hauteur = this.map.GetUsedRect().Size.Y;
+
+        this.tiles = new TileType[largeur][];
+        for (int i = 0; i < largeur; i++)
+        {
+            this.tiles[i] = new TileType[hauteur];
+        }
+        // Parcourir chaque cellule du TileMap
+        for (int x = 0; x < largeur; x++)
+        {
+            for (int y = 0; y < hauteur; y++)
+            {
+                // Récupérer l'ID du tile à la position (x, y)
+                int tileID = this.map.GetCellSourceId(0,new Vector2I(x,y));
+                // Vérifier si le tile existe à cette position
+                if (tileID == 0)
+                {
+                    this.tiles[x][y] = TileType.GRASS;
+                }
+                else if(tileID ==1){
+                    this.tiles[x][y] = TileType.WATER;
+                }
+            }
+        }
+        addObservers(map);
+    }
+    //Initialize basic buildings
+    private void initialisePleasable(){
+       placeables.Add(factory.createHouse(new Vector2I(6,-1)));
+       placeables.Add(factory.createHouse(new Vector2I(6,-3)));
+       placeables.Add(factory.createHouse(new Vector2I(8,-1)));
+       placeables.Add(factory.createBar(new Vector2I(6,2)));
+       placeables.Add(factory.createSawmill(new Vector2I(11,7)));
+       placeables.Add(factory.createTrainStation(new Vector2I(14,14)));
+       placeables.Add(factory.createField(new Vector2I(15,9)));
+       placeables.Add(factory.createField(new Vector2I(16,9)));
+       placeables.Add(factory.createField(new Vector2I(15,8)));
+       placeables.Add(factory.createField(new Vector2I(16,8)));
+       notifySetPleaceable();
+    }
+
     //"Joue le tour" pour les structures et permet de récupérer les ressources 
     public void productResources()
     {
@@ -95,6 +140,24 @@ public class Village
     {
         return 0;
     }
+    //Allows you to modify a Tile
+    public void setTiles(int x, int y, int layer){
+        Vector2I updateTile = new Vector2I(x,y);
+        int ID;
+        if(map.GetCellSourceId(0,updateTile) == 0){
+            this.tiles[x][y] = TileType.GRASS;
+            ID = 0;
+        }
+        else{
+            this.tiles[x][y] = TileType.WATER;
+            ID = 1;
+        }
+        notifyTilesType(updateTile, layer, ID);
+    }
+    //Retrieves a Tile
+    public TileType getTile(int x, int y){
+        return tiles[x][y];
+    }
     
     public void setBuildingStrategy(BuildingStrategy strategy)
     {
@@ -122,6 +185,22 @@ public class Village
         foreach (VillageObserver observer in observers)
         {
             observer.reactToPlaceableChange(placeables);
+        }
+    }
+    
+    private void notifyTilesType(Vector2I updateTile, int layeur, int ID)
+    {
+        foreach (VillageObserver observer in observers)
+        {
+            observer.reactToTilesChangesTiles(updateTile, layeur, ID);
+        }
+    }
+
+    private void notifySetPleaceable()
+    {
+        foreach (VillageObserver observer in observers)
+        {
+            observer.reactToInitialisePlaceable(placeables);
         }
     }
 

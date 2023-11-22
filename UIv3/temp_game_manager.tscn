@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://dcatsfeqoj61a"]
+
+[ext_resource type="Script" path="res://gameManager.cs" id="1_7o8aw"]
+[ext_resource type="PackedScene" uid="uid://brshdcbes5b3o" path="res://ui_view.tscn" id="1_m6kwv"]
+[ext_resource type="PackedScene" uid="uid://inqrd5p7ip2n" path="res://ui_trade.tscn" id="3_n0ioe"]
+
+[node name="tempGameManager" type="Node2D"]
+script = ExtResource("1_7o8aw")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="UIView" parent="." instance=ExtResource("1_m6kwv")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -382.0
+offset_top = -312.0
+offset_right = -382.0
+offset_bottom = -312.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="ui_trade" parent="." instance=ExtResource("3_n0ioe")]
+offset_left = -378.0
+offset_top = -240.0
+offset_right = -378.0
+offset_bottom = -240.0
