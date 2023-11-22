@@ -11,6 +11,8 @@ public partial class VillageManager
     public VillageManager(TileMap map){
         this.map = map;
         village = new Village(map);
+        village.addObservers(this.map);
+        village.startVillage();
     }
 
     public void askNeededResources() {

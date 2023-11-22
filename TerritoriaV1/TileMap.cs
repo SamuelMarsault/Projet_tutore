@@ -28,20 +28,28 @@ public partial class TileMap : Godot.TileMap, VillageObserver
 	{
 		
 	}
-
-	public void reactToPlaceableChange(List<Placeable> placeables)
-	{
-		
-	}
 	//Allows you to change the floor
-	public void reactToTilesChangesTiles(Vector2I setTile, int layer,int ID)
+	public void reactToTilesChange(TileType[][] tiles)
 	{
-		SetCell(layer,setTile,0,new Vector2I(0,0));
+		for (int i = 0; i < tiles.Length; i++)
+		{
+			for (int j = 0; j < tiles[i].Length; j++)
+			{
+				TileType tile = tiles[i][j];
+				switch (tile)
+				{
+					case TileType.GRASS:SetCell(0,new Vector2I(i,j),0,new Vector2I(0,0));
+						break;
+					default:SetCell(0,new Vector2I(i,j),1,new Vector2I(0,0));
+						break;
+				} 
+			}
+		}
 	}
 	//Allows you to place the buildings that are there when you start the game
-    public void reactToInitialisePlaceable(List<Placeable> placeables)
-    {
-        for (int i = 0; i<placeables.Count;i++){
+	public void reactToPlaceableChange(List<Placeable> placeables)
+	{
+		for (int i = 0; i<placeables.Count;i++){
 			int ID = -1;
 			if (GetCellSourceId(1,placeables[i].getPosition())==-1){
 				if (placeables[i].getPlaceableType() == PlaceableType.HOUSE){
@@ -62,8 +70,9 @@ public partial class TileMap : Godot.TileMap, VillageObserver
 				else if(placeables[i].getPlaceableType() == PlaceableType.FOREST){
 					ID=2;
 				}
+				Console.WriteLine("je place un "+placeables[i]);
 				SetCell(1,placeables[i].getPosition(),ID,new Vector2I(0,0));
 			}
 		}
-    }
+	}
 }

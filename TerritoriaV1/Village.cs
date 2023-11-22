@@ -12,8 +12,9 @@ public class Village
     private List<Placeable> placeables = new ();
     private TileType[][] tiles;
     private Godot.Collections.Dictionary<ResourceType, int> resources;
+    private TileMap map;
 
-    public Village()
+    public Village(TileMap map)
     {
         //Par défaut la stratégie est la croissance
         strategy = new BuildingGrowthStrategy(tiles);
@@ -28,7 +29,9 @@ public class Village
             new[] { TileType.GRASS, TileType.GRASS, TileType.WATER, TileType.WATER, TileType.GRASS },
             new[] { TileType.GRASS, TileType.GRASS, TileType.GRASS, TileType.WATER, TileType.GRASS}
         };
+        this.map = map;
     }
+    
 
     //Renvoi les ressources actuelles du village
     public Godot.Collections.Dictionary<ResourceType, int> getResources()
@@ -80,21 +83,7 @@ public class Village
                 }
             }
         }
-        addObservers(map);
-    }
-    //Initialize basic buildings
-    private void initialisePleasable(){
-       placeables.Add(factory.createHouse(new Vector2I(6,-1)));
-       placeables.Add(factory.createHouse(new Vector2I(6,-3)));
-       placeables.Add(factory.createHouse(new Vector2I(8,-1)));
-       placeables.Add(factory.createBar(new Vector2I(6,2)));
-       placeables.Add(factory.createSawmill(new Vector2I(11,7)));
-       placeables.Add(factory.createTrainStation(new Vector2I(14,14)));
-       placeables.Add(factory.createField(new Vector2I(15,9)));
-       placeables.Add(factory.createField(new Vector2I(16,9)));
-       placeables.Add(factory.createField(new Vector2I(15,8)));
-       placeables.Add(factory.createField(new Vector2I(16,8)));
-       notifySetPleaceable();
+        notifyTilesChange();
     }
 
     //"Joue le tour" pour les structures et permet de récupérer les ressources 
@@ -140,20 +129,6 @@ public class Village
     {
         return 0;
     }
-    //Allows you to modify a Tile
-    public void setTiles(int x, int y, int layer){
-        Vector2I updateTile = new Vector2I(x,y);
-        int ID;
-        if(map.GetCellSourceId(0,updateTile) == 0){
-            this.tiles[x][y] = TileType.GRASS;
-            ID = 0;
-        }
-        else{
-            this.tiles[x][y] = TileType.WATER;
-            ID = 1;
-        }
-        notifyTilesType(updateTile, layer, ID);
-    }
     //Retrieves a Tile
     public TileType getTile(int x, int y){
         return tiles[x][y];
@@ -167,6 +142,7 @@ public class Village
     public void applyStrategy()
     {
         
+        notifyPlaceableChange();
     }
     public void addObservers(VillageObserver observer)
     {
@@ -188,24 +164,31 @@ public class Village
         }
     }
     
-    private void notifyTilesType(Vector2I updateTile, int layeur, int ID)
+    private void notifyTilesChange()
     {
         foreach (VillageObserver observer in observers)
         {
-            observer.reactToTilesChangesTiles(updateTile, layeur, ID);
-        }
-    }
-
-    private void notifySetPleaceable()
-    {
-        foreach (VillageObserver observer in observers)
-        {
-            observer.reactToInitialisePlaceable(placeables);
+            observer.reactToTilesChange(tiles);
         }
     }
 
     public TileType[][] getTiles()
     {
         return tiles;
+    }
+
+    public void startVillage()
+    {
+        placeables.Add(factory.createHouse(new Vector2I(6,-1)));
+        placeables.Add(factory.createHouse(new Vector2I(6,-3)));
+        placeables.Add(factory.createHouse(new Vector2I(8,-1)));
+        placeables.Add(factory.createBar(new Vector2I(6,2)));
+        placeables.Add(factory.createSawmill(new Vector2I(11,7)));
+        placeables.Add(factory.createTrainStation(new Vector2I(14,14)));
+        placeables.Add(factory.createField(new Vector2I(15,9)));
+        placeables.Add(factory.createField(new Vector2I(16,9)));
+        placeables.Add(factory.createField(new Vector2I(15,8)));
+        placeables.Add(factory.createField(new Vector2I(16,8)));
+        notifyPlaceableChange();
     }
 }

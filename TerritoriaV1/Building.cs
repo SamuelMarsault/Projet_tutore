@@ -12,7 +12,7 @@ public class Building : Placeable
 	//Représente la capacité de production : output * capacite = quantité totale
 	private int productionCapacities;
 	
-	public Building(Vector2 position, PlaceableType placeableType, Godot.Collections.Dictionary<ResourceType, int> input,Godot.Collections.Dictionary<ResourceType, int> output, int productionCapacities) : base(position,placeableType)
+	public Building(Vector2I position, PlaceableType placeableType, Godot.Collections.Dictionary<ResourceType, int> input,Godot.Collections.Dictionary<ResourceType, int> output, int productionCapacities) : base(position,placeableType)
 	{
 		this.input = input.Duplicate(true);
 		this.output = output.Duplicate(true);

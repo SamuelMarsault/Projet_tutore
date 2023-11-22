@@ -1,24 +1,14 @@
 [gd_scene load_steps=6 format=3 uid="uid://bnwbhg48evf4l"]
 
 [ext_resource type="Script" path="res://GameManager.cs" id="1_lhss8"]
-[ext_resource type="Script" path="res://Printer.cs" id="2_hrmwn"]
-[ext_resource type="Script" path="res://Trader.cs" id="3_amlxs"]
 [ext_resource type="TileSet" uid="uid://cb3ppocddlos" path="res://Sol.tres" id="4_1tjtr"]
 [ext_resource type="Script" path="res://TileMap.cs" id="4_ywjhk"]
-
-[sub_resource type="TileSet" id="TileSet_tpavq"]
-tile_shape = 1
-tile_layout = 2
-tile_size = Vector2i(200, 60)
+[ext_resource type="PackedScene" uid="uid://c7k3xrl4l30a8" path="res://Printer.tscn" id="6_3ttkd"]
+[ext_resource type="PackedScene" uid="uid://fbnc7aslnn5" path="res://Trader.tscn" id="7_mhkkq"]
 
 [node name="GameManager" type="Node2D"]
+position = Vector2(30, 47)
 script = ExtResource("1_lhss8")
-
-[node name="Printer" type="Node2D" parent="."]
-script = ExtResource("2_hrmwn")
-
-[node name="Trader" type="Node2D" parent="."]
-script = ExtResource("3_amlxs")
 
 [node name="Map" type="TileMap" parent="."]
 y_sort_enabled = true
@@ -44,3 +34,7 @@ layer_2/y_sort_origin = 0
 layer_2/z_index = 2
 layer_2/tile_data = PackedInt32Array()
 script = ExtResource("4_ywjhk")
+
+[node name="Printer" parent="." instance=ExtResource("6_3ttkd")]
+
+[node name="Trader" parent="." instance=ExtResource("7_mhkkq")]
