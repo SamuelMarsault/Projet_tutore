@@ -8,13 +8,10 @@ public abstract class Placeable
 	private Vector2I position;
 	private PlaceableType placeableType;
 
-	private int ID;
-
-	public Placeable(Vector2I position, PlaceableType placeableType, int ID)
+	public Placeable(Vector2I position, PlaceableType placeableType)
 	{
 		this.position = position;
 		this.placeableType = placeableType;
-		this.ID = ID;
 	}
 
 	abstract public void productResources(Dictionary<ResourceType, int> availableResources,
@@ -29,9 +26,5 @@ public abstract class Placeable
 	public PlaceableType getPlaceableType()
 	{
 		return placeableType;
-	}
-	public int getID()
-	{
-		return ID;
 	}
 }

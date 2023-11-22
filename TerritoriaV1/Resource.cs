@@ -10,7 +10,7 @@ public class Resource : Placeable
     private int maxQuantities;
     private ResourceType resourceType;
 
-    public Resource(Vector2I position, PlaceableType placeableType, ResourceType resource, int resourceQuantities) : base(position,placeableType,-1)
+    public Resource(Vector2I position, PlaceableType placeableType, ResourceType resource, int resourceQuantities) : base(position,placeableType)
     {
         maxQuantities = resourceQuantities;
         this.resourceQuantities = resourceQuantities;

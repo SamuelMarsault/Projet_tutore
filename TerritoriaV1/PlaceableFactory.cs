@@ -10,7 +10,7 @@ public class PlaceableFactory
         Dictionary<ResourceType, int> input = new Dictionary<ResourceType, int>();
         Dictionary<ResourceType, int> output = new Dictionary<ResourceType, int>();
         output.Add(ResourceType.MONEY,2);
-        Building house = new Building(position, PlaceableType.HOUSE, input, output,200,7);
+        Building house = new Building(position, PlaceableType.HOUSE, input, output,200);
         return house;
     }
 
@@ -20,7 +20,7 @@ public class PlaceableFactory
         input.Add(ResourceType.WOOD,1);
         Dictionary<ResourceType, int> output = new Dictionary<ResourceType, int>();
         output.Add(ResourceType.PLANK,2);
-        Building sawmill = new Building(position, PlaceableType.SAWMILL,input, output,150,0);
+        Building sawmill = new Building(position, PlaceableType.SAWMILL,input, output,150);
         return sawmill;
     }
 
@@ -28,7 +28,7 @@ public class PlaceableFactory
     {
         Dictionary<ResourceType, int> input = new Dictionary<ResourceType, int>();
         Dictionary<ResourceType, int> output = new Dictionary<ResourceType, int>();
-        Building rail = new Building(position, PlaceableType.RAIL,input, output,0,0);
+        Building rail = new Building(position, PlaceableType.RAIL,input, output,0);
         return rail;
     }
 
@@ -36,7 +36,7 @@ public class PlaceableFactory
     {
         Dictionary<ResourceType, int> input = new Dictionary<ResourceType, int>();
         Dictionary<ResourceType, int> output = new Dictionary<ResourceType, int>();
-        Building trainStation = new Building(position, PlaceableType.TRAIN_STATION,input, output,0,6);
+        Building trainStation = new Building(position, PlaceableType.TRAIN_STATION,input, output,0);
         return trainStation;   
     }
 
@@ -46,7 +46,7 @@ public class PlaceableFactory
         input.Add(ResourceType.BEER,1);
         Dictionary<ResourceType, int> output = new Dictionary<ResourceType, int>();
         output.Add(ResourceType.MONEY,5);
-        Building sawmill = new Building(position, PlaceableType.BAR,input, output,300,5);
+        Building sawmill = new Building(position, PlaceableType.BAR,input, output,300);
         return sawmill;
     }
 
@@ -61,7 +61,7 @@ public class PlaceableFactory
         Dictionary<ResourceType, int> input = new Dictionary<ResourceType, int>();
         Dictionary<ResourceType, int> output = new Dictionary<ResourceType, int>();
         output.Add(ResourceType.HOP,10);
-        Building field = new Building(position, PlaceableType.FIELD,input, output,50,4);
+        Building field = new Building(position, PlaceableType.FIELD,input, output,50);
         return field;
     }
 }

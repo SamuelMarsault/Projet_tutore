@@ -78,7 +78,16 @@ public class Village
     }
 
     private void initialisePleasable(){
-       placeables.Add(factory.createHouse(new Vector2I(9,4)));
+       placeables.Add(factory.createHouse(new Vector2I(6,-1)));
+       placeables.Add(factory.createHouse(new Vector2I(6,-3)));
+       placeables.Add(factory.createHouse(new Vector2I(8,-1)));
+       placeables.Add(factory.createBar(new Vector2I(6,2)));
+       placeables.Add(factory.createSawmill(new Vector2I(11,7)));
+       placeables.Add(factory.createTrainStation(new Vector2I(14,14)));
+       placeables.Add(factory.createField(new Vector2I(15,9)));
+       placeables.Add(factory.createField(new Vector2I(16,9)));
+       placeables.Add(factory.createField(new Vector2I(15,8)));
+       placeables.Add(factory.createField(new Vector2I(16,8)));
        notifySetPleaceable();
     }
 

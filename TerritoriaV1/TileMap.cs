@@ -5,6 +5,7 @@ using TerritoriaV1;
 
 public partial class TileMap : Godot.TileMap, VillageObserver
 {
+	// !!!!!!!!!!!!!!!! Demander Damien si l'ID pour placeble est bonne idée ou un gros IF - ELSE sur les type est préférables.
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -39,10 +40,28 @@ public partial class TileMap : Godot.TileMap, VillageObserver
 
     public void reactToInitialisePlaceable(List<Placeable> placeables)
     {
-						GD.Print("test");
         for (int i = 0; i<placeables.Count;i++){
+			int ID = -1;
 			if (GetCellSourceId(1,placeables[i].getPosition())==-1){
-				SetCell(1,placeables[i].getPosition(),placeables[i].getID(),new Vector2I(0,0));
+				if (placeables[i].getPlaceableType() == PlaceableType.HOUSE){
+					ID=7;
+				}
+				else if(placeables[i].getPlaceableType() == PlaceableType.BAR){
+					ID=5;
+				}
+				else if(placeables[i].getPlaceableType() == PlaceableType.FIELD){
+					ID=4;
+				}
+				else if(placeables[i].getPlaceableType() == PlaceableType.TRAIN_STATION){
+					ID=6;
+				}
+				else if(placeables[i].getPlaceableType() == PlaceableType.SAWMILL){
+					ID=3;
+				}
+				else if(placeables[i].getPlaceableType() == PlaceableType.FOREST){
+					ID=2;
+				}
+				SetCell(1,placeables[i].getPosition(),ID,new Vector2I(0,0));
 			}
 		}
     }
