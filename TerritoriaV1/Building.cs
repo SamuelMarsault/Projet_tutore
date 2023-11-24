@@ -4,7 +4,7 @@ using TerritoriaV1;
 
 public class Building : Placeable
 {
-	private Vector2I position;
+	private Vector2 position;
 	//Défini les types et la quantité de resssources nécéssaire pour produire n output
 	private Godot.Collections.Dictionary<ResourceType, int> input; 
 	//Défini les types et la quantité de resssources produite

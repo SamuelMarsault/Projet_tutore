@@ -17,7 +17,7 @@ class view.TileMap implements model.VillageObserver{
 
 class model.Building extends model.Placeable{
 - productionCapacities : Integer
-+ <<create>> Building(position : Integer[2], placeableType : PlaceableType, input : Map<ResourceType, Integer>, output : Map<ResourceType, Integer>, productionCapacities : Integer 
++ <<create>> Building(placeableType : PlaceableType, input : Map<ResourceType, Integer>, output : Map<ResourceType, Integer>, productionCapacities : Integer 
 + getResourceNeeds() : Map<ResourceType, Integer>
 + getAvailableResources() : Map<ResourceType, Integer>
 + productResources(availableResources : Map<ResourceType,Integer>, neededResources : Map<ResourceType,Integer>)
@@ -63,7 +63,7 @@ FIELD
 class model.Resource extends model.Placeable{
 - resourceQuantities : Integer
 - maxQuantities : Integer
-+ <<create>> Resource(position : Integer[2], placeableType : PlaceableType, resourceType : ResourceType, resourceQuantities : Integer)
++ <<create>> Resource(placeableType : PlaceableType, resourceType : ResourceType, resourceQuantities : Integer)
 + productResources(availableResources : Map<ResourceType,Integer>, neededResources : Map<ResourceType,Integer>)
 + getResourceNeeds() : Map<ResourceType, Integer>
 + getAvailableResources() : Map<ResourceType, Integer>
@@ -71,8 +71,7 @@ class model.Resource extends model.Placeable{
 }
 
 abstract class model.Placeable {
-- position : Integer[2]
-+ <<create>> Placeable(position : Integer[2], placeableType : PlaceableType)
++ <<create>> Placeable(placeableType : PlaceableType)
 + {abstract} productResources(availableResources : Map<ResourceType,Integer>, neededResources : Map<ResourceType,Integer>)
 + {abstract} getResourceNeeds() : Map<ResourceType, Integer>
 + {abstract} getAvailableResources() : Map<ResourceType, Integer>

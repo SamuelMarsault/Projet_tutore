@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using TerritoriaV1;
 
-public partial class Printer : Node2D, VillageObserver
+public partial class Printer : Node, VillageObserver
 {
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -28,13 +28,8 @@ public partial class Printer : Node2D, VillageObserver
 		
 	}
 
-    public void reactToTilesChangesTiles(Vector2I setTile, int layer,int ID)
-    {
-        
-    }
-
-    public void reactToInitialisePlaceable(List<Placeable> placeables)
-    {
-        throw new NotImplementedException();
-    }
+	public void reactToTilesChange(TileType[][] tiles)
+	{
+		
+	}
 }

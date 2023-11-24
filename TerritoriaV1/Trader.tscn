@@ -1,0 +1,76 @@
+[gd_scene load_steps=6 format=3 uid="uid://fbnc7aslnn5"]
+
+[ext_resource type="PackedScene" uid="uid://cha8c53iom41i" path="res://ResourceTradeUnit.tscn" id="2_k3q8p"]
+[ext_resource type="Texture2D" uid="uid://c7gv4ulw8gayn" path="res://assets/UI/Wood.png" id="3_i66la"]
+[ext_resource type="Texture2D" uid="uid://4efoutvfs783" path="res://assets/UI/Hop.png" id="4_mxbxv"]
+[ext_resource type="Texture2D" uid="uid://dsov7h0m2d8m1" path="res://assets/UI/IceCube.png" id="5_wkj5r"]
+[ext_resource type="Texture2D" uid="uid://cxd30cqfpow6" path="res://assets/UI/Beer.png" id="6_y5ni6"]
+
+[node name="Trader" type="Node"]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -806.0
+offset_bottom = -56.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 10
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 386.0
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="ResourcesContainer" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 225)
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Control" parent="Control/MarginContainer/VBoxContainer/ResourcesContainer" instance=ExtResource("2_k3q8p")]
+custom_minimum_size = Vector2(130, 240)
+layout_mode = 2
+size_flags_horizontal = 3
+icon = ExtResource("3_i66la")
+
+[node name="Control2" parent="Control/MarginContainer/VBoxContainer/ResourcesContainer" instance=ExtResource("2_k3q8p")]
+custom_minimum_size = Vector2(130, 240)
+layout_mode = 2
+size_flags_horizontal = 3
+icon = ExtResource("4_mxbxv")
+
+[node name="ResourcesContainer2" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 225)
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Control3" parent="Control/MarginContainer/VBoxContainer/ResourcesContainer2" instance=ExtResource("2_k3q8p")]
+custom_minimum_size = Vector2(130, 240)
+layout_mode = 2
+size_flags_horizontal = 3
+icon = ExtResource("5_wkj5r")
+
+[node name="Control4" parent="Control/MarginContainer/VBoxContainer/ResourcesContainer2" instance=ExtResource("2_k3q8p")]
+custom_minimum_size = Vector2(130, 240)
+layout_mode = 2
+size_flags_horizontal = 3
+icon = ExtResource("6_y5ni6")
+
+[node name="Button" type="Button" parent="Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+text = "Passer au 
+tour suivant"

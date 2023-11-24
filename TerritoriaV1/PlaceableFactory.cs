@@ -10,7 +10,7 @@ public class PlaceableFactory
         Dictionary<ResourceType, int> input = new Dictionary<ResourceType, int>();
         Dictionary<ResourceType, int> output = new Dictionary<ResourceType, int>();
         output.Add(ResourceType.MONEY,2);
-        Building house = new Building(position, PlaceableType.HOUSE, input, output,200);
+        Building house = new Building(position, PlaceableType.HOUSE,input, output,200);
         return house;
     }
 

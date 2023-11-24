@@ -1,5 +1,6 @@
 using Godot;
 using Godot.Collections;
+using TileMap = Godot.TileMap;
 
 namespace TerritoriaV1;
 

@@ -3,6 +3,6 @@ using System;
 
 public enum TileType
 {
-	GRASS,
-	WATER
+	GRASS = 0,
+	WATER = 1
 }

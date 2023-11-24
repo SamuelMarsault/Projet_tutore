@@ -1,0 +1,46 @@
+[gd_scene load_steps=8 format=3 uid="uid://c7k3xrl4l30a8"]
+
+[ext_resource type="Script" path="res://Printer.cs" id="1_yi5de"]
+[ext_resource type="PackedScene" uid="uid://dyxcry3dcg4ej" path="res://ResourcePrintUnit.tscn" id="2_tnoob"]
+[ext_resource type="Texture2D" uid="uid://c7gv4ulw8gayn" path="res://assets/UI/Wood.png" id="3_fdlp2"]
+[ext_resource type="Texture2D" uid="uid://4efoutvfs783" path="res://assets/UI/Hop.png" id="4_30cnq"]
+[ext_resource type="Texture2D" uid="uid://dsov7h0m2d8m1" path="res://assets/UI/IceCube.png" id="5_olive"]
+[ext_resource type="Texture2D" uid="uid://cxd30cqfpow6" path="res://assets/UI/Beer.png" id="6_1coan"]
+[ext_resource type="Texture2D" uid="uid://dt4r2c7kppiht" path="res://assets/UI/Money.png" id="7_j243y"]
+
+[node name="Printer" type="Node"]
+script = ExtResource("1_yi5de")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -370.5
+offset_right = 370.5
+offset_bottom = 64.0
+grow_horizontal = 2
+
+[node name="Control" parent="HBoxContainer" instance=ExtResource("2_tnoob")]
+custom_minimum_size = Vector2(145, 0)
+layout_mode = 2
+icon = ExtResource("3_fdlp2")
+
+[node name="Control2" parent="HBoxContainer" instance=ExtResource("2_tnoob")]
+custom_minimum_size = Vector2(145, 0)
+layout_mode = 2
+icon = ExtResource("4_30cnq")
+
+[node name="Control3" parent="HBoxContainer" instance=ExtResource("2_tnoob")]
+custom_minimum_size = Vector2(145, 0)
+layout_mode = 2
+icon = ExtResource("5_olive")
+
+[node name="Control4" parent="HBoxContainer" instance=ExtResource("2_tnoob")]
+custom_minimum_size = Vector2(145, 0)
+layout_mode = 2
+icon = ExtResource("6_1coan")
+
+[node name="Control5" parent="HBoxContainer" instance=ExtResource("2_tnoob")]
+custom_minimum_size = Vector2(145, 0)
+layout_mode = 2
+icon = ExtResource("7_j243y")

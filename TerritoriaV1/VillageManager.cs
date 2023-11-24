@@ -6,18 +6,13 @@ public partial class VillageManager
 {
     // Dictionnaire correspondant aux différents bâtiments du village classés par type
     private Dictionary<PlaceableType, List<Building>> placeables;
-
-    private TileMap map;
-
+        private TileMap map;
     private Village village;
-
     public VillageManager(TileMap map){
         this.map = map;
         village = new Village(map);
-    }
-
-    public Vector2I seekCompatibleTiles(Vector2I position, PlaceableType type) {
-        return position;
+        village.addObservers(this.map);
+        village.startVillage();
     }
 
     public void askNeededResources() {
