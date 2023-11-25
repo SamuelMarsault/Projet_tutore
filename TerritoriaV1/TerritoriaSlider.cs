@@ -7,6 +7,8 @@ public partial class TerritoriaSlider : Control
 
 	[Export] private String actionString;
 	private Label valueLabel;
+	
+	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -34,6 +36,8 @@ public partial class TerritoriaSlider : Control
 	private void OnValueSliderValueChanged(double value)
 	{
 		valueLabel.Text = value.ToString();
+		EmitSignal(SignalName.ValueChanged);
 	}
+	[Signal] public delegate void ValueChangedEventHandler();
 }
 

@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://fbnc7aslnn5"]
+[gd_scene load_steps=7 format=3 uid="uid://fbnc7aslnn5"]
 
+[ext_resource type="Script" path="res://Trader.cs" id="1_o5u3t"]
 [ext_resource type="PackedScene" uid="uid://cha8c53iom41i" path="res://ResourceTradeUnit.tscn" id="2_k3q8p"]
 [ext_resource type="Texture2D" uid="uid://c7gv4ulw8gayn" path="res://assets/UI/Wood.png" id="3_i66la"]
 [ext_resource type="Texture2D" uid="uid://4efoutvfs783" path="res://assets/UI/Hop.png" id="4_mxbxv"]
@@ -7,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://cxd30cqfpow6" path="res://assets/UI/Beer.png" id="6_y5ni6"]
 
 [node name="Trader" type="Node"]
+script = ExtResource("1_o5u3t")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -40,13 +42,13 @@ custom_minimum_size = Vector2(0, 225)
 layout_mode = 2
 theme_override_constants/separation = 15
 
-[node name="Control" parent="Control/MarginContainer/VBoxContainer/ResourcesContainer" instance=ExtResource("2_k3q8p")]
+[node name="WoodResourceUnit" parent="Control/MarginContainer/VBoxContainer/ResourcesContainer" instance=ExtResource("2_k3q8p")]
 custom_minimum_size = Vector2(130, 240)
 layout_mode = 2
 size_flags_horizontal = 3
 icon = ExtResource("3_i66la")
 
-[node name="Control2" parent="Control/MarginContainer/VBoxContainer/ResourcesContainer" instance=ExtResource("2_k3q8p")]
+[node name="HopResourceUnit" parent="Control/MarginContainer/VBoxContainer/ResourcesContainer" instance=ExtResource("2_k3q8p")]
 custom_minimum_size = Vector2(130, 240)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -57,13 +59,13 @@ custom_minimum_size = Vector2(0, 225)
 layout_mode = 2
 theme_override_constants/separation = 15
 
-[node name="Control3" parent="Control/MarginContainer/VBoxContainer/ResourcesContainer2" instance=ExtResource("2_k3q8p")]
+[node name="IceResourceUnit" parent="Control/MarginContainer/VBoxContainer/ResourcesContainer2" instance=ExtResource("2_k3q8p")]
 custom_minimum_size = Vector2(130, 240)
 layout_mode = 2
 size_flags_horizontal = 3
 icon = ExtResource("5_wkj5r")
 
-[node name="Control4" parent="Control/MarginContainer/VBoxContainer/ResourcesContainer2" instance=ExtResource("2_k3q8p")]
+[node name="BeerResourceUnit" parent="Control/MarginContainer/VBoxContainer/ResourcesContainer2" instance=ExtResource("2_k3q8p")]
 custom_minimum_size = Vector2(130, 240)
 layout_mode = 2
 size_flags_horizontal = 3
