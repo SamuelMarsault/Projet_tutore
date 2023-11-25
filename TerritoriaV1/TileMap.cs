@@ -5,7 +5,6 @@ using TerritoriaV1;
 
 public partial class TileMap : Godot.TileMap, VillageObserver
 {
-	// !!!!!!!!!!!!!!!! Demander Damien si l'ID pour placeble est bonne idée ou un gros IF - ELSE sur les type est préférables.
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{

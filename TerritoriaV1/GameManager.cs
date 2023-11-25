@@ -13,10 +13,14 @@ public partial class GameManager : Node2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		
 	}
 
 	public void nextTurn()
 	{
+		Godot.Collections.Dictionary<ResourceType, int> NewChoiseTurn = new Godot.Collections.Dictionary<ResourceType, int>();
+		
+		villageManager.nextTurn();
 	}
 
 	public void updateGraphics()

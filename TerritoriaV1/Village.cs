@@ -38,6 +38,7 @@ public class Village
     {
         return resources.Duplicate(true);
     }
+    
     //Récupère les besoins en ressources de toutes les structures du village
     private Godot.Collections.Dictionary<ResourceType, int> getNeededResources()
     {

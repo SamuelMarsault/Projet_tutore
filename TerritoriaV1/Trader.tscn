@@ -1,12 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://fbnc7aslnn5"]
+[gd_scene load_steps=8 format=3 uid="uid://fbnc7aslnn5"]
 
+[ext_resource type="Script" path="res://Trader.cs" id="1_8d8a6"]
 [ext_resource type="PackedScene" uid="uid://cha8c53iom41i" path="res://ResourceTradeUnit.tscn" id="2_k3q8p"]
 [ext_resource type="Texture2D" uid="uid://c7gv4ulw8gayn" path="res://assets/UI/Wood.png" id="3_i66la"]
 [ext_resource type="Texture2D" uid="uid://4efoutvfs783" path="res://assets/UI/Hop.png" id="4_mxbxv"]
 [ext_resource type="Texture2D" uid="uid://dsov7h0m2d8m1" path="res://assets/UI/IceCube.png" id="5_wkj5r"]
+[ext_resource type="Script" path="res://Button.cs" id="6_7v7lg"]
 [ext_resource type="Texture2D" uid="uid://cxd30cqfpow6" path="res://assets/UI/Beer.png" id="6_y5ni6"]
 
 [node name="Trader" type="Node"]
+script = ExtResource("1_8d8a6")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -74,3 +77,6 @@ layout_mode = 2
 size_flags_vertical = 0
 text = "Passer au 
 tour suivant"
+script = ExtResource("6_7v7lg")
+
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]
