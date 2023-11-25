@@ -9,7 +9,7 @@ public partial class ResourcePrintUnit : Control
 	public override void _Ready()
 	{
 		valueLabel = this.FindChild("ResourceLabel") as Label;
-		valueLabel.Text = 0.ToString();
+		valueLabel.Text = 100.ToString();
 		TextureRect textureRect = this.FindChild("ResourceTexture") as TextureRect;
 		textureRect.Texture = icon;
 	}

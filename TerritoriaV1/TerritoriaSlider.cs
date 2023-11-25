@@ -7,6 +7,8 @@ public partial class TerritoriaSlider : Control
 
 	[Export] private String actionString;
 	private Label valueLabel;
+
+	private int MaxStartValue;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -14,11 +16,13 @@ public partial class TerritoriaSlider : Control
 		Label actionLabel = FindChild("ActionLabel", true, true) as Label;
 		actionLabel.Text = actionString;
 		valueLabel = FindChild("ValueLabel", true, true) as Label;
+		MaxStartValue = (int)slider.MaxValue;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+
 	}
 
 	public void UpdateSliderMax(int value)
@@ -29,6 +33,10 @@ public partial class TerritoriaSlider : Control
 	public int GetSliderValue()
 	{
 		return (int)slider.Value;
+	}
+
+	public int GetMaxSliderValue(){
+		return MaxStartValue;
 	}
 	
 	private void OnValueSliderValueChanged(double value)
