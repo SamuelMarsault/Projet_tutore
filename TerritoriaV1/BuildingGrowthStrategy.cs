@@ -38,6 +38,11 @@ public class BuildingGrowthStrategy : BuildingStrategy
         return null;
     }
 
+    public List<Placeable> BuildNewPlaceable(int[] totalResources, int[] neededResources, Placeable[][] placeables, PlaceableFactory factory)
+    {
+        throw new NotImplementedException();
+    }
+
     public Vector2 seekCompatibleTile(PlaceableType newPlaceableType,List<Placeable> currentPlaceables, List<Placeable> newPlaceables)
     {
         for (int i = currentPlaceables.Count - 1; i >= 0; i--)

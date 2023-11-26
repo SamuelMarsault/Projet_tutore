@@ -9,4 +9,9 @@ public class BuildingDecayStrategy : BuildingStrategy
     {
         return null;
     }
+
+    public List<Placeable> BuildNewPlaceable(int[] totalResources, int[] neededResources, Placeable[][] placeables, PlaceableFactory factory)
+    {
+        throw new NotImplementedException();
+    }
 }
