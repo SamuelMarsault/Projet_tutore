@@ -3,8 +3,13 @@ namespace TerritoriaV1;
 public class EvolutionOfVillage
 {
     private Village village;
-    public void determineStrategy()
+    public void DetermineStrategy()
     {
-        village.setBuildingStrategy(new BuildingGrowthStrategy(village.getTiles()));
+        village.SetBuildingStrategy(new BuildingGrowthStrategy(village.GetTiles()));
+    }
+
+    public void SetVillage(Village village)
+    {
+        this.village = village;
     }
 }

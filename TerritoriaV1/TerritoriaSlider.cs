@@ -42,6 +42,8 @@ public partial class TerritoriaSlider : Control
 	private void OnValueSliderValueChanged(double value)
 	{
 		valueLabel.Text = value.ToString();
+		EmitSignal(SignalName.ValueChanged);
 	}
+	[Signal] public delegate void ValueChangedEventHandler();
 }
 

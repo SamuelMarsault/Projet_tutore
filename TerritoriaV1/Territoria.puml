@@ -93,18 +93,23 @@ interface model.BuildingStrategy <<interface>> {
 + seekCompatibleTiles(List<Placeable> currentPlaceables, List<Placeable> newPlaceables)
 }
 
-class model.BuildingGrowthStrategy implements model.BuildingStrategy {
+class model.PrimaryStrategy implements model.BuildingStrategy {
 + buildNewPlaceable(totalResources : Map<ResourceType, Integer>, fulfilmentOfNeeds : Double, placeables : Placeable[*], factory : PlaceableFactory) : Placeable[*]
 + seekCompatibleTiles(List<Placeable> currentPlaceables, List<Placeable> newPlaceables)
 }
-class model.BuildingDecayStrategy implements model.BuildingStrategy {
+class model.SecondaryStrategy implements model.BuildingStrategy {
++ buildNewPlaceable(totalResources : Map<ResourceType, Integer>, fulfilmentOfNeeds : Double, placeables : Placeable[*], factory : PlaceableFactory) : Placeable[*]
++ seekCompatibleTiles(List<Placeable> currentPlaceables, List<Placeable> newPlaceables)
+}
+class model.TertiaryStrategy implements model.BuildingStrategy {
 + buildNewPlaceable(totalResources : Map<ResourceType, Integer>, fulfilmentOfNeeds : Double, placeables : Placeable[*], factory : PlaceableFactory) : Placeable[*]
 + seekCompatibleTiles(List<Placeable> currentPlaceables, List<Placeable> newPlaceables)
 }
 
 class model.BuildingStrategyFactory{
-+ createGrowthStrategy() : BuildingStrategy
-+ createDecayStrategy() : BuildingStrategy
++ createPrimaryStrategy() : BuildingStrategy
++ createSecondaryStrategy() : BuildingStrategy
++ createTertiaryStrategy() : BuildingStrategy
 }
 
 class model.Village {
@@ -157,9 +162,10 @@ GameManager *--> "1\n-villageManager" controler.VillageManager
 GameManager *--u> "1\n-printer" view.Printer
 GameManager *--u> "1\n-trader" view.Trader
 BuildingStrategyFactory ..> "<<uses>>" model.BuildingStrategy
-BuildingStrategyFactory ..> "<<uses>>" model.BuildingGrowthStrategy
+BuildingStrategyFactory ..> "<<uses>>" model.PrimaryStrategy
 model.Building *--> "*\n-resources" model.ResourceType
 model.Resource *--> "1\n-resourceType" model.ResourceType
-BuildingStrategyFactory ..> "<<uses>>" model.BuildingDecayStrategy
+BuildingStrategyFactory ..> "<<uses>>" model.SecondaryStrategy
+BuildingStrategyFactory ..> "<<uses>>" model.TertiaryStrategy
 BuildingStrategy .> "<<uses>>" model.PlaceableType
 @enduml

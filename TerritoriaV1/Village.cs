@@ -1,3 +1,4 @@
+using System;
 using Godot;
 
 using System.Collections.Generic;
@@ -9,55 +10,65 @@ public class Village
     private BuildingStrategy strategy;
     private List<VillageObserver> observers = new ();
     private PlaceableFactory factory = new ();
-    private List<Placeable> placeables = new ();
+    private Placeable[][] placeables;
     private TileType[][] tiles;
-    private Godot.Collections.Dictionary<ResourceType, int> resources;
+    private int [] resources;
     private TileMap map;
 
     public Village(TileMap map)
     {
+        resources = new int[Enum.GetNames(typeof(ResourceType)).Length];
         //Par défaut la stratégie est la croissance
         strategy = new BuildingGrowthStrategy(tiles);
-        //On initialise le dictionnaire de ressources
-        resources = new Godot.Collections.Dictionary<ResourceType, int>();
         //Définition du terrain :
-        tiles = new TileType[][]
+        tiles = new TileType[20][];
+        for (int i = 0; i < tiles.Length; i++)
         {
-            new[] { TileType.GRASS, TileType.GRASS, TileType.GRASS, TileType.GRASS, TileType.GRASS },
-            new[] { TileType.GRASS, TileType.GRASS, TileType.GRASS, TileType.GRASS, TileType.GRASS },
-            new[] { TileType.WATER, TileType.WATER, TileType.WATER, TileType.GRASS, TileType.GRASS },
-            new[] { TileType.GRASS, TileType.GRASS, TileType.WATER, TileType.WATER, TileType.GRASS },
-            new[] { TileType.GRASS, TileType.GRASS, TileType.GRASS, TileType.WATER, TileType.GRASS}
-        };
+            tiles[i] = new TileType[tiles.Length];
+        }
+        placeables = new Placeable[tiles.Length][];
+        for (int i = 0; i < placeables.Length; i++)
+        {
+            placeables[i] = new Placeable[tiles[i].Length];
+            for (int j = 0; j < placeables[i].Length; j++)
+            {
+                placeables[i][j] = null;
+            }
+        }
         this.map = map;
     }
     
 
     //Renvoi les ressources actuelles du village
-    public Godot.Collections.Dictionary<ResourceType, int> getResources()
+    public int[] GetResources()
     {
-        return resources.Duplicate(true);
+        return (int[])resources.Clone();
     }
     
     //Récupère les besoins en ressources de toutes les structures du village
-    private Godot.Collections.Dictionary<ResourceType, int> getNeededResources()
+    private int[] GetNeededResources()
     {
-        Godot.Collections.Dictionary<ResourceType, int> neededResources =
-            new Godot.Collections.Dictionary<ResourceType, int>();
-        foreach (Placeable placeable in placeables)
+        int[] neededResources = new int[resources.Length];
+        for (int i = 0; i < placeables.Length; i++)
         {
-            foreach (var (type,value) in placeable.getResourceNeeds() )
+            for (int j = 0; j < placeables[i].Length; j++)
             {
-                //Si elle n'a encore jamais été ajoutée on l'ajoute
-                if (!neededResources.TryAdd(type,value)) 
-                    neededResources[type] += value; //Sinon on incrémente juste la valeur
+                Placeable currentPlaceable = placeables[i][j];
+                if (currentPlaceable != null)
+                {
+                    int[] needs = currentPlaceable.getResourceNeeds();
+                    for (int c = 0; c < needs.Length; c++)
+                    {
+                        neededResources[c] += neededResources[c];
+                    }
+                }
             }
         }
         return neededResources;
     }
 
     //Initializes a 2D table containing the type of soil
-    private void initialiseTile(){
+    private void InitialiseTile(){
         // Récupérer les dimensions du TileMap
         int largeur = this.map.GetUsedRect().Size.X;
         int hauteur = this.map.GetUsedRect().Size.Y;
@@ -84,112 +95,94 @@ public class Village
                 }
             }
         }
-        notifyTilesChange();
+        NotifyTilesChange();
     }
 
     //"Joue le tour" pour les structures et permet de récupérer les ressources 
-    public void productResources()
+    private void ProductResources()
     {
-        //On ajoute chaque ressources aux ressources du village
-        foreach (var (type,value) in this.getAvailableResources() )
-        {
-            //Si elle n'a encore jamais été ajoutée on l'ajoute
-            if (!resources.TryAdd(type,value))
-                resources[type] += value; //Sinon on incrémente juste la valeur
-        }
         //On récupère le besoin en ressource
-        Godot.Collections.Dictionary<ResourceType, int> neededResources = getNeededResources();
+        int[] neededResources = GetNeededResources();
         //Et pour chaque bâtiment :
-        foreach (Placeable placeable in placeables)
+        for (int i = 0; i < placeables.Length; i++)
         {
-            //On lui demande de produire en fonction des ressources disponibles
-            placeable.productResources(resources,neededResources);
-        }
-    }
-    
-    //Récupère les disponibilités en ressources de toutes les structures du village
-    private Godot.Collections.Dictionary<ResourceType, int> getAvailableResources()
-    {
-        Godot.Collections.Dictionary<ResourceType, int> availableResources =
-            new Godot.Collections.Dictionary<ResourceType, int>();
-        foreach (Placeable placeable in placeables)
-        {
-            foreach (var (type,value) in placeable.getAvailableResources() )
+            for (int j = 0; j < placeables[i].Length; j++)
             {
-                //Si elle n'a encore jamais été ajoutée on l'ajoute
-                if (!availableResources.TryAdd(type,value)) 
-                    availableResources[type] += value; //Sinon on incrémente juste la valeur
+                //On lui demande de produire en fonction des ressources disponibles
+                if(placeables[i][j]!=null) placeables[i][j].ProductResources(resources, neededResources);
             }
         }
-        return availableResources;
+        NotifyResourcesChange();
     }
 
     //Calcule le % de remplissage des besoins du village
-    public double fulfilementOfNeeds(Dictionary usableResources, 
-        Godot.Collections.Dictionary<ResourceType,int> neededResources)
+    public double FulfilementOfNeeds(Dictionary usableResources,
+        Godot.Collections.Dictionary<ResourceType, int> neededResources)
     {
         return 0;
     }
-    //Retrieves a Tile
-    public TileType getTile(int x, int y){
-        return tiles[x][y];
-    }
     
-    public void setBuildingStrategy(BuildingStrategy strategy)
+    public void SetBuildingStrategy(BuildingStrategy strategy)
     {
         this.strategy = strategy;
     }
 
-    public void applyStrategy()
+    private void ApplyStrategy()
     {
-        
-        notifyPlaceableChange();
+        //strategy.BuildNewPlaceable();
+        NotifyPlaceableChange();
     }
-    public void addObservers(VillageObserver observer)
+    public void AddObservers(VillageObserver observer)
     {
         observers.Add(observer);
     }
 
-    private void notifyResourcesChange()
+    private void NotifyResourcesChange()
     {
         foreach (VillageObserver observer in observers)
         {
-            observer.reactToResourcesChange(resources.Duplicate(true));
+            observer.ReactToResourcesChange((int[])resources.Clone());
         }
     }
-    private void notifyPlaceableChange()
+    private void NotifyPlaceableChange()
     {
         foreach (VillageObserver observer in observers)
         {
-            observer.reactToPlaceableChange(placeables);
+            observer.ReactToPlaceableChange(placeables);
         }
     }
     
-    private void notifyTilesChange()
+    private void NotifyTilesChange()
     {
         foreach (VillageObserver observer in observers)
         {
-            observer.reactToTilesChange(tiles);
+            observer.ReactToTilesChange(tiles);
         }
     }
 
-    public TileType[][] getTiles()
+    public TileType[][] GetTiles()
     {
         return tiles;
     }
 
-    public void startVillage()
+    public void StartVillage()
     {
-        placeables.Add(factory.createHouse(new Vector2I(6,-1)));
-        placeables.Add(factory.createHouse(new Vector2I(6,-3)));
-        placeables.Add(factory.createHouse(new Vector2I(8,-1)));
-        placeables.Add(factory.createBar(new Vector2I(6,2)));
-        placeables.Add(factory.createSawmill(new Vector2I(11,7)));
-        placeables.Add(factory.createTrainStation(new Vector2I(14,14)));
-        placeables.Add(factory.createField(new Vector2I(15,9)));
-        placeables.Add(factory.createField(new Vector2I(16,9)));
-        placeables.Add(factory.createField(new Vector2I(15,8)));
-        placeables.Add(factory.createField(new Vector2I(16,8)));
-        notifyPlaceableChange();
+        placeables[6][2] = factory.CreateHouse();
+        placeables[6][0] = factory.CreateHouse();
+        placeables[8][2] = factory.CreateHouse();
+        placeables[6][4] = factory.CreateBar();
+        placeables[11][9] = factory.CreateSawmill();
+        placeables[14][16] = factory.CreateTrainStation();
+        placeables[15][11] = factory.CreateField();
+        placeables[16][11] = factory.CreateField();
+        placeables[15][10] = factory.CreateField();
+        placeables[16][10] = factory.CreateField();
+        NotifyPlaceableChange();
+    }
+
+    public void NextTurn()
+    {
+        ProductResources();
+        ApplyStrategy();
     }
 }

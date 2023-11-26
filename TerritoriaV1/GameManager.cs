@@ -16,11 +16,9 @@ public partial class GameManager : Node2D
 		
 	}
 
-	public void nextTurn()
+	public void nextTurn(int[] export, int[] import, int total)
 	{
-		Godot.Collections.Dictionary<ResourceType, int> NewChoiseTurn = new Godot.Collections.Dictionary<ResourceType, int>();
-		
-		villageManager.nextTurn();
+		villageManager.NextTurn(export, import, total);
 	}
 
 	public void updateGraphics()

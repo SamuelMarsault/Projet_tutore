@@ -6,11 +6,23 @@ using TerritoriaV1;
 public partial class Trader : Node, VillageObserver
 {
 
-	private Node parent;
+	private int[] resources;
+	[Export] private GameManager parent;
+
+	private List<ResourceTradeUnit> resourceTradeUnits = new ();
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		parent = GetParent();
+		Node container = this.GetNode("Control/MarginContainer/VBoxContainer");
+		foreach (HBoxContainer node in container.GetChildren())
+		{
+			foreach (ResourceTradeUnit resourceTradeUnit in node.GetChildren())
+			{
+				resourceTradeUnits.Add(resourceTradeUnit);
+				Action myAction = () => { TotalChanged(resourceTradeUnit.GetTotal()); };
+				resourceTradeUnit.Connect(ResourceTradeUnit.SignalName.TotalChanged,Callable.From(myAction));
+			}
+		}
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -18,44 +30,41 @@ public partial class Trader : Node, VillageObserver
 	{
 
 	}
-
-    public void reactToResourcesChange(Godot.Collections.Dictionary<ResourceType, int> resources)
-    {
-
-    }
-
-    public void reactToPlaceableChange(List<Placeable> placeables)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void reactToTilesChange(TileType[][] tiles)
-    {
-        throw new NotImplementedException();
-    }
-
-	public void _on_button_pressed(){
-		((GameManager)parent).nextTurn();
+	
+	public void TotalChanged(int total)
+	{
+		foreach (ResourceTradeUnit resourceTradeUnit in resourceTradeUnits)
+		{
+			Console.WriteLine("coucou");
+			resourceTradeUnit.SetExportMax(total);
+		}
+	}
+	
+	public void ReactToResourcesChange(int[] resources)
+	{
+		this.resources = resources;
 	}
 
-	public int getNewResource(ResourceType ressource){
-		int nbNewRessource = 0;
-		if(ressource == ResourceType.WOOD){
-			ResourceTradeUnit change = GetNode("./Control/MarginContainer/VBoxContainer/ResourcesContainer/Control") as ResourceTradeUnit;
-			nbNewRessource = change.getExportValue() - change.getImportValue();
+	public void ReactToPlaceableChange(Placeable[][] placeables)
+	{
+		
+	}
+
+	public void ReactToTilesChange(TileType[][] tiles)
+	{
+		
+	}
+	private void _on_button_pressed()
+	{
+		int total = 0;
+		int[] import = new int[Enum.GetNames(typeof(ResourceType)).Length];
+		int[] export = new int[Enum.GetNames(typeof(ResourceType)).Length];
+		for (int i = 0; i < resourceTradeUnits.Count; i++)
+		{
+			export[i] = resourceTradeUnits[i].GetExportValue();
+			import[i] = resourceTradeUnits[i].GetImportValue();
+			total += export[i] - import[i];
 		}
-		else if(ressource == ResourceType.HOP){
-			ResourceTradeUnit change = GetNode("./Control/MarginContainer/VBoxContainer/ResourcesContainer/Control2") as ResourceTradeUnit;
-			nbNewRessource = change.getExportValue() - change.getImportValue();
-		}
-		else if(ressource == ResourceType.ICE){
-			ResourceTradeUnit change = GetNode("./Control/MarginContainer/VBoxContainer/ResourcesContainer2/Control3") as ResourceTradeUnit;
-			nbNewRessource = change.getExportValue() - change.getImportValue();
-		}
-		else if(ressource == ResourceType.BEER){
-			ResourceTradeUnit change = GetNode("./Control/MarginContainer/VBoxContainer/ResourcesContainer2/Control4") as ResourceTradeUnit;
-			nbNewRessource = change.getExportValue() - change.getImportValue();
-		}
-		return nbNewRessource;
+		parent.nextTurn(export, import, total);
 	}
 }

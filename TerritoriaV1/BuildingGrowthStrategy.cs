@@ -11,7 +11,8 @@ public class BuildingGrowthStrategy : BuildingStrategy
     {
         this.tiles = tiles;
     }
-    public List<Placeable> buildNewPlaceable(Godot.Collections.Dictionary<ResourceType, int> totalResources, double fulfilementOfNeeds, List<Placeable> placeables, PlaceableFactory factory)
+    public List<Placeable> BuildNewPlaceable(Godot.Collections.Dictionary<ResourceType, int> totalResources,
+        double fulfilementOfNeeds, List<Placeable> placeables, PlaceableFactory factory)
     {
         List<Placeable> newPlaceables = new List<Placeable>();
         if (fulfilementOfNeeds>=0.95)
