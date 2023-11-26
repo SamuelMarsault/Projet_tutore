@@ -44,6 +44,11 @@ public class Village
     {
         return (int[])resources.Clone();
     }
+
+    public int[] GetNeededRessourcesPublic()
+    {
+        return (int[])this.GetNeededResources().Clone();
+    }
     
     //Récupère les besoins en ressources de toutes les structures du village
     private int[] GetNeededResources()
@@ -122,6 +127,26 @@ public class Village
         return 0;
     }
     
+    public int[] getNBPlaceables()
+    {
+     int[] NBPlaceables = new int[6];
+     for(int i = 0; i < 6; i++)
+     {
+        NBPlaceables[i] = 0;
+     }
+
+        for(int i = 0; i < placeables.GetLength(0); i++)
+        {
+            for(int j = 0; j < placeables.GetLength(1); j++)
+            {
+                PlaceableType currentPlaceable = placeables[i][j].getPlaceableType();
+                NBPlaceables[(int)currentPlaceable]++;
+            }
+        }
+        return NBPlaceables;
+    }
+   
+
     public void SetBuildingStrategy(BuildingStrategy strategy)
     {
         this.strategy = strategy;
