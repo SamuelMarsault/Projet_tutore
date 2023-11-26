@@ -2,10 +2,10 @@ using Godot;
 using System;
 
 public enum ResourceType {
-    WOOD,
-    PLANK,
-    BEER,
-    HOP,
-    ICE,
-    MONEY
+    WOOD = 0,
+    PLANK = 1,
+    BEER = 2,
+    HOP = 3,
+    ICE = 4,
+    MONEY = 5
 }

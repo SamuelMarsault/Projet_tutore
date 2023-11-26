@@ -48,7 +48,12 @@ public partial class ResourceTradeUnit : Control
 	{
 		return exportTerritoriaSlider.GetSliderValue() - importTerritoriaSlider.GetSliderValue();
 	}
-
+	public int GetExportValue(){
+		return exportTerritoriaSlider.GetSliderValue();
+	}
+	public int GetImportValue(){
+		return importTerritoriaSlider.GetSliderValue();
+	}
 	public void SetExportMax(int max)
 	{
 		if(exportTerritoriaSlider.GetSliderValue()<=max) exportTerritoriaSlider.UpdateSliderMax(max);

@@ -14,21 +14,23 @@ public partial class Printer : Node, VillageObserver
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		
 	}
 
 	public void updateResources(ResourceType[] resources, int[] quantities) {
+
 	}
-	public void reactToResourcesChange(Godot.Collections.Dictionary<ResourceType, int> resources)
+	public void ReactToResourcesChange(int[] resources)
 	{
 		
 	}
 
-	public void reactToPlaceableChange(List<Placeable> placeables)
+	public void ReactToPlaceableChange(Placeable[][] placeables)
 	{
 		
 	}
 
-	public void reactToTilesChange(TileType[][] tiles)
+	public void ReactToTilesChange(TileType[][] tiles)
 	{
 		
 	}

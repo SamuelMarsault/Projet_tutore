@@ -13,10 +13,12 @@ public partial class GameManager : Node2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		
 	}
 
-	public void nextTurn()
+	public void nextTurn(int[] export, int[] import, int total)
 	{
+		villageManager.NextTurn(export, import, total);
 	}
 
 	public void updateGraphics()

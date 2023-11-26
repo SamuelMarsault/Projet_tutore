@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://fbnc7aslnn5"]
+[gd_scene load_steps=7 format=3 uid="uid://bk7gbiw0048qm"]
 
 [ext_resource type="Script" path="res://Trader.cs" id="1_o5u3t"]
 [ext_resource type="PackedScene" uid="uid://cha8c53iom41i" path="res://ResourceTradeUnit.tscn" id="2_k3q8p"]
@@ -76,3 +76,5 @@ layout_mode = 2
 size_flags_vertical = 0
 text = "Passer au 
 tour suivant"
+
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]
