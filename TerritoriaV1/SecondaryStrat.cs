@@ -12,6 +12,18 @@ public partial class SecondaryStrat : BuildingStrategy
 
     public List<Placeable> BuildNewPlaceable(int[] totalResources, int[] neededResources, Placeable[][] placeables, PlaceableFactory factory)
     {
-        throw new NotImplementedException();
+        // si on a plus de glace et de houblon que ce que l'on consomme
+        if((neededResources[(int)ResourceType.HOP]*1.5 < totalResources[(int)ResourceType.HOP]) && (neededResources[(int)ResourceType.ICE]*1.5< totalResources[(int)ResourceType.ICE]))
+        {
+            factory.CreateBeerUsine();  // update les autres truc (cf primary)
+        }
+
+        while(totalResources[(int)ResourceType.WOOD] > 10)  // on dépense tout le bois en maison lol ( )
+        {
+            factory.CreateHouse();
+            totalResources[(int)ResourceType.WOOD] -= 10;
+        }
+
+        return null;
     }
 }

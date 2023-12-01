@@ -11,6 +11,6 @@ public partial class TertiaryStrat : BuildingStrategy
 
     public List<Placeable> BuildNewPlaceable(int[] totalResources, int[] neededResources, Placeable[][] placeables, PlaceableFactory factory)
     {
-        throw new NotImplementedException();
+        return null;
     }
 }

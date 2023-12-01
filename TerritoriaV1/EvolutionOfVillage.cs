@@ -10,7 +10,7 @@ public class EvolutionOfVillage
     private int[] neededRessources;    
     private int[] NBPlaceables;
 
-    public void determineStrategy()
+    public void DetermineStrategy()
     {
         BuildingStrategyFactory factory = new BuildingStrategyFactory();
 
@@ -30,5 +30,10 @@ public class EvolutionOfVillage
         {
             village.SetBuildingStrategy(factory.Primary());
         }
+    }
+
+    public void SetVillage(Village village)
+    {
+        this.village = village;
     }
 }
