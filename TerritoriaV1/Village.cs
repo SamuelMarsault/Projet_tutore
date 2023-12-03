@@ -229,20 +229,15 @@ public class Village
             switch (i)
             {
                 case 0:
-                    missingResources.Add("wood");
-                    break;
+                    missingResources.Add("wood"); break;
                 case 1:
-                    missingResources.Add("hop");
-                    break;
+                    missingResources.Add("hop"); break;
                 case 2:
-                    missingResources.Add("ice");
-                    break;
+                    missingResources.Add("ice"); break;
                 case 3:
-                    missingResources.Add("beer");
-                    break;
+                    missingResources.Add("beer"); break;
                 default:
-                    missingResources.Add("money");
-                    break;
+                    missingResources.Add("money"); break;
             }
             nbMissingRessource++;
         }
