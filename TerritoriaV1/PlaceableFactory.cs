@@ -10,6 +10,8 @@ public class PlaceableFactory
     {
         int[] input = new int[Enum.GetNames(typeof(ResourceType)).Length];
         int[] output = new int[Enum.GetNames(typeof(ResourceType)).Length];
+        GD.Print(output.Length);
+        GD.Print((int)ResourceType.MONEY);
         output[(int)ResourceType.MONEY] = 2;
         Placeable house = new Placeable(PlaceableType.HOUSE,input, output,200);
         return house;
