@@ -19,6 +19,7 @@ public partial class VillageManager
         //evolutionOfVillage.SetVillage(village);
         village.AddObservers(this.map);
         village.AddObservers(this.printer);
+                GD.Print("test");
         village.StartVillage();
     }
 

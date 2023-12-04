@@ -53,4 +53,23 @@ public class PlaceableFactory
         Placeable field = new Placeable(PlaceableType.FIELD,input, output,50);
         return field;
     }
+
+    public Placeable CreateIceUsine()
+    {
+        return null;
+    }
+
+    public Placeable CreateBeerUsine()
+    {
+        return null;
+    }
+
+    public void Destroy(PlaceableType type)
+    {
+        /*
+            détruit un batiment au hasard du type choisi
+            devrait pouvoir renvoyer les coordonnées du batiment détruit
+            si on part sur un syteme ou le joueur peut positionner les batiments, devrait etre géré par un noeud
+        */
+    }
 }

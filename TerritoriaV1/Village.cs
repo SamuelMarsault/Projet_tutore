@@ -15,7 +15,6 @@ public class Village
     private int[] resources;
     private TileMap map;
     private Printer printer;
-
     private int turn;
 
     public Village(TileMap map, Printer printer)
@@ -24,6 +23,7 @@ public class Village
         for(int i = 0;i<resources.Length;i++){
             resources[i] = printer.GetRessource(i);
         }
+
         //Par défaut la stratégie est la croissance
         strategy = new BuildingGrowthStrategy(tiles);
         //Définition du terrain :
@@ -43,8 +43,10 @@ public class Village
         }
         this.printer = printer;
         this.map = map;
+        BuildingStrategyFactory factoryStrat = new BuildingStrategyFactory();
+        this.SetBuildingStrategy(factoryStrat.Primary());
         GD.Print(this.map == null);
-        turn = 1;
+        this.turn = 1;
 
     }
     
@@ -165,7 +167,6 @@ public class Village
         }
         return NBPlaceables;
     }
-   
 
     public void SetBuildingStrategy(BuildingStrategy strategy)
     {
@@ -223,6 +224,52 @@ public class Village
         placeables[15][10] = factory.CreateField();
         placeables[16][10] = factory.CreateField();
         NotifyPlaceableChange();
+    }
+
+    public void placerBatimentRand( PlaceableFactory factory, PlaceableType placeable)
+    {
+
+        Random random = new Random();
+        int X = random.Next(0,tiles.GetLength(0));
+        int Y = random.Next(0,tiles.GetLength(1));
+
+        if(placeable == PlaceableType.ICE_USINE)
+        {
+            if(tiles[X][Y] != TileType.WATER)
+            {
+                placeables[X][Y] = factory.CreateIceUsine();
+            }
+            else
+            {
+                placerBatimentRand(factory,placeable);
+            }
+        }
+        else
+        {
+            if(tiles[X][Y] != TileType.GRASS)
+            {
+                 switch(placeable)
+            {
+                case PlaceableType.HOUSE:
+                    placeables[X][Y] = factory.CreateHouse();break;
+                case PlaceableType.SAWMILL:
+                    placeables[X][Y] =  factory.CreateSawmill();break;
+                case PlaceableType.TRAIN_STATION:
+                    placeables[X][Y] =  factory.CreateTrainStation();break;
+                case PlaceableType.BAR:
+                     placeables[X][Y] = factory.CreateBar();break;
+                case PlaceableType.FIELD:
+                     placeables[X][Y] =  factory.CreateField();break;
+                case PlaceableType.BEER_USINE:
+                     placeables[X][Y] =  factory.CreateBeerUsine();break;
+                default:break;
+            }
+            }
+            else
+            {
+                placerBatimentRand(factory,placeable);
+            }
+        }       
     }
 
    private bool UpdateResourceList(int[] export, int[] import)

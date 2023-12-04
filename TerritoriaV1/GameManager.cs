@@ -1,17 +1,17 @@
 using Godot;
 using System;
+using TerritoriaV1;
 
 public partial class GameManager : Node2D
 {
 	private VillageManager villageManager;
-	private TileMap map;
-	private Printer printer;
+	EvolutionOfVillage evolutionOfVillage;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		this.map = GetNode<TileMap>("Map");
-		this.printer = GetNode<Printer>("Printer");
-		this.villageManager = new VillageManager(map, printer);	
+		villageManager = new VillageManager(GetNode<TileMap>("Map"),GetNode<Printer>("Printer"));	
+		EvolutionOfVillage evolutionOfVillage = new EvolutionOfVillage();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

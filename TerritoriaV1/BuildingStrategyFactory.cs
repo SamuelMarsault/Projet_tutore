@@ -18,4 +18,19 @@ public partial class BuildingStrategyFactory
     {
         return new TertiaryStrat();
     }
+
+    public BuildingStrategy createPrimaryStrategy()
+    {
+        return new PrimaryStrat();
+    }
+
+    public BuildingStrategy createSecondaryStrategy()
+    {
+        return new SecondaryStrat();
+    }
+
+    public BuildingStrategy createTertiaryStrategy()
+    {
+        return new TertiaryStrat();
+    }
 }
