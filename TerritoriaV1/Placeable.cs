@@ -1,5 +1,7 @@
+using System.Xml;
 using Godot;
 using Godot.Collections;
+using Godot.NativeInterop;
 using TileMap = Godot.TileMap;
 
 namespace TerritoriaV1;
@@ -22,10 +24,10 @@ public class Placeable
 		this.productionCapacities = productionCapacities;
 	}
 
-	public void ProductResources(int[] availableResources,
-		int[] neededResources)
+	public bool ProductResources(int[] availableResources, int[] neededResources)
 	{
 		int min = 0;
+		bool availableRessourceExist = true;
 		//Pour chaque ressources en entrée
 		for (int i = 0; i < input.Length; i++)
 		{
@@ -50,14 +52,17 @@ public class Placeable
 			//On calcule combien on en prend
 			int usedResources = min * input[i];
 			//Et on les retire des ressources disponibles
-			availableResources[i] -= usedResources;
+			if ((availableResources[i] -= usedResources) <= 0){
+				availableResources[i] -= usedResources;
+				availableRessourceExist = false;
+			}
 		}
-		
 		for (int i = 0; i < output.Length; i++)
 		{
 			int producedResources = min * output[i];
 			availableResources[i] += producedResources;
 		}
+		return availableRessourceExist ;
 	}
 
 	public int[] getResourceNeeds()

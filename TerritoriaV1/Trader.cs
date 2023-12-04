@@ -64,7 +64,7 @@ public partial class Trader : Node, VillageObserver
 		{
 			export[i] = resourceTradeUnits[i].GetExportValue();
 			import[i] = resourceTradeUnits[i].GetImportValue();
-			total += export[i] - import[i];
+			total += import[i] - export[i];
 		}
 		export[Enum.GetNames(typeof(ResourceType)).Length-1] = total;
 		parent.nextTurn(export, import);

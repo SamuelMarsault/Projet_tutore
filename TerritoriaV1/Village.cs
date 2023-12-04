@@ -48,7 +48,6 @@ public class Village
 
     }
     
-
     //Renvoi les ressources actuelles du village
     public int[] GetResources()
     {
@@ -114,20 +113,31 @@ public class Village
     }
 
     //"Joue le tour" pour les structures et permet de récupérer les ressources 
-    private void ProductResources()
+    private bool ProductResources()
     {
         //On récupère le besoin en ressource
         int[] neededResources = GetNeededResources();
+        bool existRessource = true;
         //Et pour chaque bâtiment :
         for (int i = 0; i < placeables.Length; i++)
         {
             for (int j = 0; j < placeables[i].Length; j++)
             {
                 //On lui demande de produire en fonction des ressources disponibles
-                if(placeables[i][j]!=null) placeables[i][j].ProductResources(resources, neededResources);
+                if(placeables[i][j]!=null){
+                    if(placeables[i][j].ProductResources(resources, neededResources) == false){
+                        existRessource = false;
+                    }
+                }
             }
         }
+        if (existRessource == false){
+            printer.lackOfRessource("Impossible il n'y à pas assez de matériaux");
+            //printer.Defeat();
+            return false;
+        }
         NotifyResourcesChange();
+        return true;
     }
 
     //Calcule le % de remplissage des besoins du village
@@ -215,7 +225,7 @@ public class Village
         NotifyPlaceableChange();
     }
 
-   private void UpdateResourceList(int[] export, int[] import)
+   private bool UpdateResourceList(int[] export, int[] import)
 {
     List<string> missingResources = new List<string>();
     int[] resourcesVerif = new int[Enum.GetNames(typeof(ResourceType)).Length];
@@ -223,7 +233,7 @@ public class Village
 
     for (int i = 0; i < resources.Length; i++)
     {
-        resourcesVerif[i] = resources[i] + (export[i] - import[i]);
+        resourcesVerif[i] = resources[i] + (import[i] - export[i]);
         if (resourcesVerif[i] < 0)
         {
             switch (i)
@@ -247,23 +257,25 @@ public class Village
     }
     else if (missingResources.Count > 0)
     {
-        turn--;
         printer.lackOfRessource(string.Join(", ", missingResources));
-        return;
+        return false;
     }
     for (int i = 0; i < resources.Length; i++)
     {
-        resources[i] = resourcesVerif[i];
+            resources[i] = resourcesVerif[i];
     }
+    return true;
 }
 
-    
     public void NextTurn(int[] export, int[] import)
     {
-        turn++;
-        UpdateResourceList(export, import);
-        ProductResources();
-        NotifyResourcesChange();
+        if (UpdateResourceList(export, import) == false && ProductResources() == false){
+            turn++;
+        }
+        else{
+            UpdateResourceList(export, import);
+            ProductResources();
+        }
         ApplyStrategy();
     }
 }
