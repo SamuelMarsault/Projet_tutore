@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TerritoriaV1;
 
 public partial class Trader : Node, VillageObserver
@@ -67,6 +68,16 @@ public partial class Trader : Node, VillageObserver
 			total += import[i] - export[i];
 		}
 		export[Enum.GetNames(typeof(ResourceType)).Length-1] = total;
+		Console.WriteLine("import : ");
+		for (int i = 0; i < import.Length; i++)
+		{
+			Console.WriteLine(Enum.GetValues(typeof(ResourceType)).GetValue(i)+" : "+import[i]);
+		}
+		Console.WriteLine("export : ");
+		for (int i = 0; i < export.Length; i++)
+		{
+			Console.WriteLine(Enum.GetValues(typeof(ResourceType)).GetValue(i)+" : "+export[i]);
+		}
 		parent.nextTurn(export, import);
 	}
 }

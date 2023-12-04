@@ -52,7 +52,7 @@ public class Placeable
 			//On calcule combien on en prend
 			int usedResources = min * input[i];
 			//Et on les retire des ressources disponibles
-			if ((availableResources[i] -= usedResources) <= 0){
+			if ((availableResources[i] -= usedResources) < 0){
 				availableResources[i] -= usedResources;
 				availableRessourceExist = false;
 			}
