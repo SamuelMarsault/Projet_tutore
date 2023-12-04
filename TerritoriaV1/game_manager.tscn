@@ -10,10 +10,11 @@
 position = Vector2(30, 47)
 script = ExtResource("1_lhss8")
 
-[node name="Printer" parent="." instance=ExtResource("6_3ttkd")]
+[node name="Printer" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("6_3ttkd")]
+parent = NodePath("..")
 
 [node name="Trader" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("7_mhkkq")]
-parent = NodePath("")
+parent = NodePath("..")
 
 [node name="Map" type="TileMap" parent="."]
 z_index = -1

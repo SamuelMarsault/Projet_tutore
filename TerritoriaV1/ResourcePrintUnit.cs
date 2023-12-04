@@ -13,7 +13,7 @@ public partial class ResourcePrintUnit : Control
 	public override void _Ready()
 	{
 		valueLabel = this.FindChild("ResourceLabel") as Label;
-		valueLabel.Text = 100.ToString();
+		valueLabel.Text = 500.ToString();
 		TextureRect textureRect = this.FindChild("ResourceTexture") as TextureRect;
 		textureRect.Texture = icon;
 		exportTerritoriaSlider =
@@ -25,6 +25,7 @@ public partial class ResourcePrintUnit : Control
 		importTerritoriaSlider.Connect(TerritoriaSlider.SignalName.ValueChanged,Callable.From(myAction));
 		totalValueLabel =
 			GetNode("./PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/TotalValueLabel") as Label;
+		
 		int size =  totalValueLabel.LabelSettings.FontSize;
 		totalValueLabel.LabelSettings = new LabelSettings();
 		totalValueLabel.LabelSettings.FontSize = size;
@@ -70,5 +71,13 @@ public partial class ResourcePrintUnit : Control
 	}
 	[Signal] public delegate void TotalChangedEventHandler(int total);
 
+	public void SetNewRessources(int newValue){
+		GD.Print("fait");
+		valueLabel.Text = newValue.ToString();
+	}
+
+	public int GetRessources(){
+		return int.Parse(valueLabel.Text);
+	}
 	
 }

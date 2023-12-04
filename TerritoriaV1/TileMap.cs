@@ -11,11 +11,6 @@ public partial class TileMap : Godot.TileMap, VillageObserver
 		
 		TileSet tileSet = GD.Load<TileSet>("res://Sol.tres");
 		TileSet = tileSet;
-		/*
-		Vector2I atlas = new Vector2I(0,0);
-		SetCell(0,new Vector2I(2,2),0,atlas);
-		SetCell(0,new Vector2I(2,3),1,atlas);
-		*/
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -65,7 +60,7 @@ public partial class TileMap : Godot.TileMap, VillageObserver
 						case PlaceableType.SAWMILL: ID = 3; break;
 						case PlaceableType.FOREST: ID = 2; break;
 					}
-					Console.WriteLine("je place un "+placeables[i][j].getPlaceableType());
+					GD.Print("je place un "+placeables[i][j].getPlaceableType());
 					SetCell(1,new Vector2I(i,j),ID,new Vector2I(0,0));
 				}
 			}

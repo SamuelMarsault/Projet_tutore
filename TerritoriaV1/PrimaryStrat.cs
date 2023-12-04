@@ -31,6 +31,9 @@ public partial class PrimaryStrat : BuildingStrategy
                 // factory.CreateSawmill();    // la strat peut pas savoir ou est placé le batiment, et ne peux donc pas udpate la map
             }
 
+            List<Placeable> ForReturn = new List<Placeable>();
+
+            return ForReturn;
             // ce modele ne permet que 1 de chaque batiment par tour.
             // on parcours ensuite les batiment necessaire, et si on as assez on les construits
 

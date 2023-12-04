@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://r7ojkp43b0e6"]
+
+[ext_resource type="Script" path="res://MessageDialog.cs" id="1_j5f14"]
+
+[node name="AcceptDialog" type="AcceptDialog"]
+script = ExtResource("1_j5f14")
+
+[node name="DialogText" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
