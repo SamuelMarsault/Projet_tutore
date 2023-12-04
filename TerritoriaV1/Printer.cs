@@ -58,16 +58,16 @@ public partial class Printer : Node, VillageObserver
 
 	public void lackOfRessource(string missingRessource){
 		 // Créez une instance de la fenêtre de dialogue
-        var messageDialog = new MessageDialog();
+		var messageDialog = new MessageDialog();
 
-        // Définissez le message d'erreur
-        messageDialog.SetErrorMessage($"Vous n'avez pas assez de {missingRessource} pour faire la transaction.");
+		// Définissez le message d'erreur
+		messageDialog.SetErrorMessage($"Vous n'avez pas assez de {missingRessource} pour faire la transaction.");
 
-        // Ajoutez la fenêtre de dialogue à la scène
-        GetTree().Root.AddChild(messageDialog);
-        
-        // Affichez la fenêtre de dialogue
-        messageDialog.PopupCentered();
+		// Ajoutez la fenêtre de dialogue à la scène
+		GetTree().Root.AddChild(messageDialog);
+		
+		// Affichez la fenêtre de dialogue
+		messageDialog.PopupCentered();
 	}
 
 	public void Defeat()

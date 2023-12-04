@@ -16,13 +16,16 @@ public partial class Trader : Node, VillageObserver
 	{
 		GD.Print(parent.Name);
 		Node container = this.GetNode("Control/MarginContainer/VBoxContainer");
-		foreach (HBoxContainer node in container.GetChildren())
+		foreach (Node node in container.GetChildren())
 		{
-			foreach (ResourceTradeUnit resourceTradeUnit in node.GetChildren())
+			if (node.IsClass("HBoxContainer"))
 			{
-				resourceTradeUnits.Add(resourceTradeUnit);
-				Action myAction = () => { TotalChanged(resourceTradeUnit.GetTotal()); };
-				resourceTradeUnit.Connect(ResourceTradeUnit.SignalName.TotalChanged,Callable.From(myAction));
+				foreach (ResourceTradeUnit resourceTradeUnit in node.GetChildren())
+				{
+					resourceTradeUnits.Add(resourceTradeUnit);
+					Action myAction = () => { TotalChanged(resourceTradeUnit.GetTotal()); };
+					resourceTradeUnit.Connect(ResourceTradeUnit.SignalName.TotalChanged,Callable.From(myAction));
+				}
 			}
 		}
 	}

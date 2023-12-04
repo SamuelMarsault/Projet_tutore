@@ -175,7 +175,10 @@ public class Village
 
     private void ApplyStrategy()
     {
-        //strategy.BuildNewPlaceable();
+        foreach (Placeable placeable in strategy.BuildNewPlaceable(resources, GetNeededResources(), placeables, factory))
+        {
+            placerBatimentRand(factory,placeable);
+        }
         NotifyPlaceableChange();
     }
     public void AddObservers(VillageObserver observer)
@@ -226,14 +229,15 @@ public class Village
         NotifyPlaceableChange();
     }
 
-    public void placerBatimentRand( PlaceableFactory factory, PlaceableType placeable)
+    public void placerBatimentRand( PlaceableFactory factory, Placeable placeable)
     {
 
         Random random = new Random();
         int X = random.Next(0,tiles.GetLength(0));
-        int Y = random.Next(0,tiles.GetLength(1));
-
-        if(placeable == PlaceableType.ICE_USINE)
+        int Y = random.Next(0,tiles.GetLength(0));
+        placeables[X][Y] = placeable;
+        return;
+        if(placeable.getPlaceableType() == PlaceableType.ICE_USINE)
         {
             if(tiles[X][Y] != TileType.WATER)
             {
@@ -248,7 +252,7 @@ public class Village
         {
             if(tiles[X][Y] != TileType.GRASS)
             {
-                 switch(placeable)
+                 switch(placeable.getPlaceableType())
             {
                 case PlaceableType.HOUSE:
                     placeables[X][Y] = factory.CreateHouse();break;
@@ -262,7 +266,6 @@ public class Village
                      placeables[X][Y] =  factory.CreateField();break;
                 case PlaceableType.BEER_USINE:
                      placeables[X][Y] =  factory.CreateBeerUsine();break;
-                default:break;
             }
             }
             else
