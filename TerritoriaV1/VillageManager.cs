@@ -10,19 +10,21 @@ public partial class VillageManager
     private TileMap map;
     private Village village;
     private EvolutionOfVillage evolutionOfVillage;
-    public VillageManager(TileMap map){
+    private Printer printer;
+    public VillageManager(TileMap map, Printer printer){
         this.map = map;
+        this.printer = printer;
         evolutionOfVillage = new EvolutionOfVillage();
-        village = new Village(map);
-        evolutionOfVillage.SetVillage(village);
+        village = new Village(this.map, this.printer);
+        //evolutionOfVillage.SetVillage(village);
         village.AddObservers(this.map);
+        village.AddObservers(this.printer);
+                GD.Print("test");
         village.StartVillage();
     }
 
-    public void NextTurn(int[] export, int[] import, int total) {
-        evolutionOfVillage.DetermineStrategy();
-        village.NextTurn();
-        Console.WriteLine("Passage au tour suivant");
-        Console.WriteLine("Copain ?");
+    public void NextTurn(int[] export, int[] import) {
+        //evolutionOfVillage.DetermineStrategy();
+        village.NextTurn(export, import);
     }
 }

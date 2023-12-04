@@ -10,7 +10,7 @@ public partial class GameManager : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		villageManager = new VillageManager(GetNode<TileMap>("Map"));	
+		villageManager = new VillageManager(GetNode<TileMap>("Map"),GetNode<Printer>("Printer"));	
 		EvolutionOfVillage evolutionOfVillage = new EvolutionOfVillage();
 	}
 
@@ -20,13 +20,18 @@ public partial class GameManager : Node2D
 		
 	}
 
-	public void nextTurn(int[] export, int[] import, int total)
+	public void nextTurn(int[] export, int[] import)
 	{
-		villageManager.NextTurn(export, import, total);
+		villageManager.NextTurn(export, import);
 	}
 
 	public void updateGraphics()
 	{
 		
+	}
+
+	public void Defeat(){
+		GD.Print("Fin");
+		//TODO
 	}
 }

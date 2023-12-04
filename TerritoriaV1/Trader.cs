@@ -13,6 +13,7 @@ public partial class Trader : Node, VillageObserver
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		GD.Print(parent.Name);
 		Node container = this.GetNode("Control/MarginContainer/VBoxContainer");
 		foreach (HBoxContainer node in container.GetChildren())
 		{
@@ -35,7 +36,7 @@ public partial class Trader : Node, VillageObserver
 	{
 		foreach (ResourceTradeUnit resourceTradeUnit in resourceTradeUnits)
 		{
-			Console.WriteLine("coucou");
+			//Console.WriteLine("coucou");
 			resourceTradeUnit.SetExportMax(total);
 		}
 	}
@@ -63,8 +64,9 @@ public partial class Trader : Node, VillageObserver
 		{
 			export[i] = resourceTradeUnits[i].GetExportValue();
 			import[i] = resourceTradeUnits[i].GetImportValue();
-			total += export[i] - import[i];
+			total += import[i] - export[i];
 		}
-		parent.nextTurn(export, import, total);
+		export[Enum.GetNames(typeof(ResourceType)).Length-1] = total;
+		parent.nextTurn(export, import);
 	}
 }

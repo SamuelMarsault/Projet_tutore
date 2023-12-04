@@ -12,12 +12,18 @@ public class Village
     private PlaceableFactory factory = new ();
     private Placeable[][] placeables;
     private TileType[][] tiles;
-    private int [] resources;
+    private int[] resources;
     private TileMap map;
+    private Printer printer;
+    private int turn;
 
-    public Village(TileMap map)
+    public Village(TileMap map, Printer printer)
     {
         resources = new int[Enum.GetNames(typeof(ResourceType)).Length];
+        for(int i = 0;i<resources.Length;i++){
+            resources[i] = printer.GetRessource(i);
+        }
+
         //Par défaut la stratégie est la croissance
         strategy = new BuildingGrowthStrategy(tiles);
         //Définition du terrain :
@@ -35,12 +41,15 @@ public class Village
                 placeables[i][j] = null;
             }
         }
+        this.printer = printer;
         this.map = map;
         BuildingStrategyFactory factoryStrat = new BuildingStrategyFactory();
         this.SetBuildingStrategy(factoryStrat.Primary());
+        GD.Print(this.map == null);
+        this.turn = 1;
+
     }
     
-
     //Renvoi les ressources actuelles du village
     public int[] GetResources()
     {
@@ -66,7 +75,7 @@ public class Village
                     int[] needs = currentPlaceable.getResourceNeeds();
                     for (int c = 0; c < needs.Length; c++)
                     {
-                        neededResources[c] += neededResources[c];
+                        neededResources[c] += needs[c];
                     }
                 }
             }
@@ -106,20 +115,31 @@ public class Village
     }
 
     //"Joue le tour" pour les structures et permet de récupérer les ressources 
-    private void ProductResources()
+    private bool ProductResources()
     {
         //On récupère le besoin en ressource
         int[] neededResources = GetNeededResources();
+        bool existRessource = true;
         //Et pour chaque bâtiment :
         for (int i = 0; i < placeables.Length; i++)
         {
             for (int j = 0; j < placeables[i].Length; j++)
             {
                 //On lui demande de produire en fonction des ressources disponibles
-                if(placeables[i][j]!=null) placeables[i][j].ProductResources(resources, neededResources);
+                if(placeables[i][j]!=null){
+                    if(placeables[i][j].ProductResources(resources, neededResources) == false){
+                        existRessource = false;
+                    }
+                }
             }
         }
+        if (existRessource == false){
+            printer.lackOfRessource("Impossible il n'y à pas assez de matériaux");
+            //printer.Defeat();
+            return false;
+        }
         NotifyResourcesChange();
+        return true;
     }
 
     //Calcule le % de remplissage des besoins du village
@@ -252,9 +272,57 @@ public class Village
         }       
     }
 
-    public void NextTurn()
+   private bool UpdateResourceList(int[] export, int[] import)
+{
+    List<string> missingResources = new List<string>();
+    int[] resourcesVerif = new int[Enum.GetNames(typeof(ResourceType)).Length];
+    int nbMissingRessource = 0;
+
+    for (int i = 0; i < resources.Length; i++)
     {
-        ProductResources();
+        resourcesVerif[i] = resources[i] + (import[i] - export[i]);
+        if (resourcesVerif[i] < 0)
+        {
+            switch (i)
+            {
+                case 0:
+                    missingResources.Add("wood"); break;
+                case 1:
+                    missingResources.Add("hop"); break;
+                case 2:
+                    missingResources.Add("ice"); break;
+                case 3:
+                    missingResources.Add("beer"); break;
+                default:
+                    missingResources.Add("money"); break;
+            }
+            nbMissingRessource++;
+        }
+    }
+    if (nbMissingRessource >= 3){
+        printer.Defeat();
+    }
+    else if (missingResources.Count > 0)
+    {
+        printer.lackOfRessource(string.Join(", ", missingResources));
+        return false;
+    }
+    for (int i = 0; i < resources.Length; i++)
+    {
+            resources[i] = resourcesVerif[i];
+    }
+    return true;
+}
+
+    public void NextTurn(int[] export, int[] import)
+    {
+        if (UpdateResourceList(export, import) == false && ProductResources() == false){
+            turn++;
+        }
+        else{
+            UpdateResourceList(export, import);
+            ProductResources();
+        }
         ApplyStrategy();
     }
 }
