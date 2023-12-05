@@ -9,8 +9,19 @@ public partial class TertiaryStrat : BuildingStrategy
     {
     }
 
-    public List<Placeable> BuildNewPlaceable(int[] totalResources, int[] neededResources, Placeable[][] placeables, PlaceableFactory factory)
+    public List<Placeable> BuildNewPlaceable(int[] totalResources, int[] neededResources, Placeable[][] placeables, PlaceableFactory factory)   // enlever la liste placeable un jour
     {
+        factory.Destroy(PlaceableType.FIELD);   // en gros la deterritorialisation en phase finale c'est transformer des batiments de productions en trucs tertiaire
+        factory.Destroy(PlaceableType.ICE_USINE);
+        factory.Destroy(PlaceableType.BEER_USINE);
+        factory.Destroy(PlaceableType.BAR);
+
+        while(totalResources[(int)ResourceType.WOOD] > 10)  // on dépense tout le bois en maison lol ( )
+        {
+            factory.CreateHouse();
+            totalResources[(int)ResourceType.WOOD] -= 10;
+        }
+
         return null;
     }
 }

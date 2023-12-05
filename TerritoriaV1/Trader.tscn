@@ -11,23 +11,25 @@
 script = ExtResource("1_o5u3t")
 
 [node name="Control" type="Control" parent="."]
+layout_direction = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -806.0
-offset_bottom = -56.0
+offset_left = -191.0
+offset_top = 145.0
+offset_right = -997.0
+offset_bottom = 89.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 10
 size_flags_vertical = 3
 
 [node name="MarginContainer" type="MarginContainer" parent="Control"]
-layout_mode = 1
-anchors_preset = 9
-anchor_bottom = 1.0
+layout_direction = 1
+layout_mode = 0
 offset_right = 386.0
-grow_vertical = 2
+offset_bottom = 574.0
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 20

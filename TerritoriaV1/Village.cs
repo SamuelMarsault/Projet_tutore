@@ -213,7 +213,7 @@ public class Village
 
     public void StartVillage()
     {
-        placeables[6][2] = factory.CreateHouse();
+        /*placeables[6][2] = factory.CreateHouse();
         placeables[6][0] = factory.CreateHouse();
         placeables[8][2] = factory.CreateHouse();
         placeables[6][4] = factory.CreateBar();
@@ -222,7 +222,16 @@ public class Village
         placeables[15][11] = factory.CreateField();
         placeables[16][11] = factory.CreateField();
         placeables[15][10] = factory.CreateField();
-        placeables[16][10] = factory.CreateField();
+        placeables[16][10] = factory.CreateField();*/
+
+        for(int i = 0; i < placeables.GetLength(0); i++)
+        {
+            for(int j = 0; j < placeables.GetLength(0); j++)
+            {
+                placeables[i][j] = factory.CreateHouse();
+            }
+        }
+
         NotifyPlaceableChange();
     }
 
