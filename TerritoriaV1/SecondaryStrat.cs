@@ -5,9 +5,13 @@ using TerritoriaV1;
 
 public partial class SecondaryStrat : BuildingStrategy
 {
-    public SecondaryStrat()
+    private Placeable[][] placeables;
+    private TileType[][] tiles;
+
+    public SecondaryStrat(Placeable[][] placeables, TileType[][] tiles)
     {
-        
+        this.placeables = placeables;
+        this.tiles = tiles;
     }
 
     public List<Placeable> BuildNewPlaceable(int[] totalResources, int[] neededResources, Placeable[][] placeables, PlaceableFactory factory)

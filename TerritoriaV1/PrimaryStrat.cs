@@ -1,14 +1,18 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using TerritoriaV1;
 
 public partial class PrimaryStrat : BuildingStrategy
 {
-    public PrimaryStrat()
+    private Placeable[][] placeables;
+    private TileType[][] tiles;
+    public PrimaryStrat(Placeable[][] placeables, TileType[][] tiles)
     {
-        
+        this.placeables = placeables;
+        this.tiles = tiles;
     }
 
     public List<Placeable> BuildNewPlaceable(int[] totalResources, int[] neededResources, Placeable[][] placeables, PlaceableFactory factory)
@@ -52,5 +56,40 @@ public partial class PrimaryStrat : BuildingStrategy
             }
         
         return null;
+    }
+
+    private void Create(PlaceableType placeable, PlaceableFactory factory) // construit le placeable demandé dans sa map. le village doit ensuite se debrouiller pour update sa map a lui
+    {
+        switch(placeable)
+        {
+            case PlaceableType.HOUSE: 
+                for(int i = 0; i < placeables.GetLength(0); i++)
+                {
+                    for(int j = 0; j < placeables.GetLength(0); j++)
+                    {
+                        if((placeables[i][j] == null && tiles[i][j] == TileType.GRASS))
+                        {
+                            if(placeables[i][j-1].getPlaceableType() == PlaceableType.HOUSE || placeables[i][j+1].getPlaceableType() == PlaceableType.HOUSE || placeables[i-1][j].getPlaceableType() == PlaceableType.HOUSE || placeables[i+1][j].getPlaceableType() == PlaceableType.HOUSE )
+                            {
+                                placeables[i][j] = factory.CreateHouse(); break;
+                            }
+                        }
+                    }
+                }
+                var rand = new Random();
+                int x;
+                int y;
+                while(true != false)
+                {
+                    x = rand.Next(placeables.GetLength(0));
+                    y = rand.Next(placeables.GetLength(0));
+                    if((placeables[x][y] == null && tiles[x][y] == TileType.GRASS))
+                    {
+                        placeables[x][y] = factory.CreateHouse(); break;
+                    }
+                }
+
+            default: break;
+        }
     }
 }

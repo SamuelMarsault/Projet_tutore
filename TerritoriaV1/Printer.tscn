@@ -13,7 +13,6 @@ script = ExtResource("1_yi5de")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_direction = 2
-anchors_preset = -1
 offset_left = 925.0
 offset_top = 170.0
 offset_right = 1666.0

@@ -1,36 +1,23 @@
 using Godot;
 using System;
 using System.Runtime.InteropServices;
+using TerritoriaV1;
 
 public partial class BuildingStrategyFactory
 {
-    public BuildingStrategy Primary() 
+ 
+    public BuildingStrategy createPrimaryStrategy(Placeable[][] placeables, TileType[][] tiles)
     {
-        return new PrimaryStrat();
+        return new PrimaryStrat(placeables,tiles);
     }
 
-    public BuildingStrategy Secondary() 
+    public BuildingStrategy createSecondaryStrategy(Placeable[][] placeables, TileType[][] tiles)
     {
-        return new SecondaryStrat();
+        return new SecondaryStrat(placeables,tiles);
     }
 
-    public BuildingStrategy Tertiary() 
+    public BuildingStrategy createTertiaryStrategy(Placeable[][] placeables, TileType[][] tiles)
     {
-        return new TertiaryStrat();
-    }
-
-    public BuildingStrategy createPrimaryStrategy()
-    {
-        return new PrimaryStrat();
-    }
-
-    public BuildingStrategy createSecondaryStrategy()
-    {
-        return new SecondaryStrat();
-    }
-
-    public BuildingStrategy createTertiaryStrategy()
-    {
-        return new TertiaryStrat();
+        return new TertiaryStrat(placeables,tiles);
     }
 }

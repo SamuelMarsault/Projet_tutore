@@ -5,8 +5,13 @@ using TerritoriaV1;
 
 public partial class TertiaryStrat : BuildingStrategy
 {
-    public TertiaryStrat()
+    
+    private Placeable[][] placeables;
+    private TileType[][] tiles;
+    public TertiaryStrat(Placeable[][] placeables, TileType[][] tiles)
     {
+        this.placeables = placeables;
+        this.tiles = tiles;
     }
 
     public List<Placeable> BuildNewPlaceable(int[] totalResources, int[] neededResources, Placeable[][] placeables, PlaceableFactory factory)   // enlever la liste placeable un jour

@@ -25,7 +25,6 @@ public class Village
         }
 
         //Par défaut la stratégie est la croissance
-        strategy = new BuildingGrowthStrategy(tiles);
         //Définition du terrain :
         tiles = new TileType[20][];
         for (int i = 0; i < tiles.Length; i++)
@@ -44,7 +43,7 @@ public class Village
         this.printer = printer;
         this.map = map;
         BuildingStrategyFactory factoryStrat = new BuildingStrategyFactory();
-        this.SetBuildingStrategy(factoryStrat.Primary());
+        this.SetBuildingStrategy(factoryStrat.createPrimaryStrategy(this.placeables, this.GetTiles()));
         GD.Print(this.map == null);
         this.turn = 1;
 
@@ -235,7 +234,7 @@ public class Village
         NotifyPlaceableChange();
     }
 
-    public void placerBatimentRand( PlaceableFactory factory, PlaceableType placeable)
+   /* public void placerBatimentRand( PlaceableFactory factory, PlaceableType placeable)
     {
 
         Random random = new Random();
@@ -279,7 +278,7 @@ public class Village
                 placerBatimentRand(factory,placeable);
             }
         }       
-    }
+    }*/
 
    private bool UpdateResourceList(int[] export, int[] import)
 {

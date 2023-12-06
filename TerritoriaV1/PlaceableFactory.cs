@@ -71,7 +71,5 @@ public class PlaceableFactory
             devrait pouvoir renvoyer les coordonnées du batiment détruit
             si on part sur un syteme ou le joueur peut positionner les batiments, devrait etre géré par un noeud
         */
-
-        
     }
 }
