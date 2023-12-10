@@ -324,7 +324,8 @@ public class Village
 
     public void NextTurn(int[] export, int[] import)
     {
-        if (UpdateResourceList(export, import) == false && ProductResources() == false){
+        if (UpdateResourceList(export, import) == false && ProductResources() == false)
+        {
             turn++;
         }
         else{
@@ -332,5 +333,10 @@ public class Village
             ProductResources();
         }
         ApplyStrategy();
+    }
+
+    public Placeable[][] GetPlaceables()
+    {
+        return this.placeables;
     }
 }
