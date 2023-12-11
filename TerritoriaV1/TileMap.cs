@@ -1,6 +1,4 @@
 using Godot;
-using System;
-using System.Collections.Generic;
 using TerritoriaV1;
 
 public partial class TileMap : Godot.TileMap, VillageObserver
@@ -23,13 +21,13 @@ public partial class TileMap : Godot.TileMap, VillageObserver
 		
 	}
 	//Allows you to change the floor
-	public void ReactToTilesChange(TileType[][] tiles)
+	public void ReactToTilesChange(TileType[,] tiles)
 	{
-		for (int i = 0; i < tiles.Length; i++)
+		for (int i = 0; i < tiles.GetLength(0); i++)
 		{
-			for (int j = 0; j < tiles[i].Length; j++)
+			for (int j = 0; j < tiles.GetLength(1); j++)
 			{
-				TileType tile = tiles[i][j];
+				TileType tile = tiles[i,j];
 				switch (tile)
 				{
 					case TileType.GRASS:SetCell(0,new Vector2I(i,j),0,new Vector2I(0,0));
@@ -41,16 +39,16 @@ public partial class TileMap : Godot.TileMap, VillageObserver
 		}
 	}
 	//Allows you to place the buildings that are there when you start the game
-	public void ReactToPlaceableChange(Placeable[][] placeables)
+	public void ReactToPlaceableChange(Placeable[,] placeables)
 	{
-		for (int i = 0; i < placeables.Length; i++)
+		for (int i = 0; i < placeables.GetLength(0); i++)
 		{
-			for (int j = 0; j < placeables[i].Length; j++)
+			for (int j = 0; j < placeables.GetLength(1); j++)
 			{
-				if (placeables[i][j]!=null)
+				if (placeables[i,j]!=null)
 				{
 					int ID = -1;
-					PlaceableType cPlaceableType = placeables[i][j].getPlaceableType();
+					PlaceableType cPlaceableType = placeables[i,j].getPlaceableType();
 					switch (cPlaceableType)
 					{
 						case PlaceableType.HOUSE: ID=7; break;
@@ -60,10 +58,12 @@ public partial class TileMap : Godot.TileMap, VillageObserver
 						case PlaceableType.SAWMILL: ID = 3; break;
 						case PlaceableType.FOREST: ID = 2; break;
 					}
-					GD.Print("je place un "+placeables[i][j].getPlaceableType());
+					//GD.Print("je place un "+placeables[i][j].getPlaceableType());
 					SetCell(1,new Vector2I(i,j),ID,new Vector2I(0,0));
 				}
 			}
 		}
 	}
+	public void ReactToImpossibleTransaction() {}
+	public void ReactToExchangesRatesChange(int[,] exchangesRates) {}
 }

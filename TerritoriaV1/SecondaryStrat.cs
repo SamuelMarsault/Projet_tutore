@@ -10,7 +10,7 @@ public partial class SecondaryStrat : BuildingStrategy
         
     }
 
-    public List<Placeable> BuildNewPlaceable(int[] totalResources, int[] neededResources, Placeable[][] placeables, PlaceableFactory factory)
+    public List<Placeable> BuildNewPlaceable(int[] totalResources, int[] neededResources, Placeable[,] placeables, PlaceableFactory factory)
     {
         // si on a plus de glace et de houblon que ce que l'on consomme
         if((neededResources[(int)ResourceType.HOP]*1.5 < totalResources[(int)ResourceType.HOP]) && (neededResources[(int)ResourceType.ICE]*1.5< totalResources[(int)ResourceType.ICE]))
@@ -25,5 +25,15 @@ public partial class SecondaryStrat : BuildingStrategy
         }
 
         return null;
+    }
+    
+    public int[,] GetExchangesRates()
+    {
+        int[,] exchangesRates = new[,]
+        {
+            { 1, 2, 2, 6 }, //import
+            { 1, 1, 1, 6 } //export
+        };
+        return exchangesRates;
     }
 }

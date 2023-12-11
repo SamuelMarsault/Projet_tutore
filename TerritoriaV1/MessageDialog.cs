@@ -15,7 +15,7 @@ public partial class MessageDialog : AcceptDialog
 	}
 
 	public void SetErrorMessage(string errorMessage)
-    {
-        DialogText = errorMessage;
-    }
+	{
+		DialogText = errorMessage;
+	}
 }

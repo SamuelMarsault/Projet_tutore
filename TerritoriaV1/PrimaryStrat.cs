@@ -11,7 +11,7 @@ public partial class PrimaryStrat : BuildingStrategy
         
     }
 
-    public List<Placeable> BuildNewPlaceable(int[] totalResources, int[] neededResources, Placeable[][] placeables, PlaceableFactory factory)
+    public List<Placeable> BuildNewPlaceable(int[] totalResources, int[] neededResources, Placeable[,] placeables, PlaceableFactory factory)
     {
         List<Placeable> newPlaceables = new List<Placeable>();
             if(neededResources[(int)ResourceType.HOP] > totalResources[(int)ResourceType.HOP])
@@ -38,5 +38,15 @@ public partial class PrimaryStrat : BuildingStrategy
             }
         newPlaceables.Add(factory.CreateHouse());
         return newPlaceables;
+    }
+
+    public int[,] GetExchangesRates()
+    {
+        int[,] exchangesRates = new[,]
+        {
+            { 3, 2, 3, 6 }, //import
+            { 1, 1, 1, 6 } //export
+        };
+        return exchangesRates;
     }
 }

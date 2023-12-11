@@ -9,10 +9,10 @@ public class EvolutionOfVillage
     private int[] ressources;
     private int[] neededRessources;    
     private int[] NBPlaceables;
+    private BuildingStrategyFactory factory = new BuildingStrategyFactory();
 
     public void DetermineStrategy()
     {
-        BuildingStrategyFactory factory = new BuildingStrategyFactory();
 
         ressources = village.GetResources();
         neededRessources = village.GetNeededRessourcesPublic();

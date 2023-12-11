@@ -3,8 +3,11 @@
 [ext_resource type="Script" path="res://MessageDialog.cs" id="1_j5f14"]
 
 [node name="AcceptDialog" type="AcceptDialog"]
+title = "Transaction impossible !"
 script = ExtResource("1_j5f14")
 
 [node name="DialogText" type="Label" parent="."]
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 92.0
+offset_bottom = 51.0
