@@ -42,12 +42,12 @@ public partial class Printer : Node, VillageObserver
 		}		
 	}
 
-	public void ReactToPlaceableChange(Placeable[][] placeables)
+	public void ReactToPlaceableChange(Placeable[,] placeables)
 	{
 		
 	}
 
-	public void ReactToTilesChange(TileType[][] tiles)
+	public void ReactToTilesChange(TileType[,] tiles)
 	{
 		
 	}
@@ -55,21 +55,6 @@ public partial class Printer : Node, VillageObserver
 	public int GetRessource(int numResource){
 		return resourcePrintUnits[numResource].GetRessources();
 	}
-
-	public void lackOfRessource(string missingRessource){
-		 // Créez une instance de la fenêtre de dialogue
-		var messageDialog = new MessageDialog();
-
-		// Définissez le message d'erreur
-		messageDialog.SetErrorMessage($"Vous n'avez pas assez de {missingRessource} pour faire la transaction.");
-
-		// Ajoutez la fenêtre de dialogue à la scène
-		GetTree().Root.AddChild(messageDialog);
-		
-		// Affichez la fenêtre de dialogue
-		messageDialog.PopupCentered();
-	}
-
 	public void Defeat()
 	{
 		// Create an instance of the message dialog window
@@ -93,4 +78,20 @@ public partial class Printer : Node, VillageObserver
 		// Appeler la méthode Defeat du parent
 		parent.Defeat();
 	}
+
+	public void ReactToImpossibleTransaction()
+	{
+		// Créez une instance de la fenêtre de dialogue
+		var messageDialog = new MessageDialog();
+
+		// Définissez le message d'erreur
+		messageDialog.SetErrorMessage($"Vous n'avez pas assez de ressources pour faire la transaction.");
+
+		// Ajoutez la fenêtre de dialogue à la scène
+		GetTree().Root.AddChild(messageDialog);
+		
+		// Affichez la fenêtre de dialogue
+		messageDialog.PopupCentered();
+	}
+	public void ReactToExchangesRatesChange(int[,] exchangesRates) {}
 }

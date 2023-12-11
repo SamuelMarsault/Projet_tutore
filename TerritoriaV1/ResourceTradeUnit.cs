@@ -7,6 +7,7 @@ public partial class ResourceTradeUnit : Control
 	private TerritoriaSlider exportTerritoriaSlider;
 	private TerritoriaSlider importTerritoriaSlider;
 	private Label totalValueLabel;
+	private int[] exchangeRate = new int[2];
 	
 	
 	// Called when the node enters the scene tree for the first time.
@@ -36,7 +37,7 @@ public partial class ResourceTradeUnit : Control
 
 	public void ValueChanged()
 	{
-		int total = exportTerritoriaSlider.GetSliderValue() - importTerritoriaSlider.GetSliderValue();
+		int total = exportTerritoriaSlider.GetSliderValue() * exchangeRate[1] - importTerritoriaSlider.GetSliderValue() * exchangeRate[0];
 		totalValueLabel.Text = total + " €";
 		if(total==0) this.totalValueLabel.LabelSettings.FontColor = Colors.White;
 		else if(total>0) this.totalValueLabel.LabelSettings.FontColor = Colors.Green;
@@ -57,6 +58,12 @@ public partial class ResourceTradeUnit : Control
 	public void SetExportMax(int max)
 	{
 		if(exportTerritoriaSlider.GetSliderValue()<=max) exportTerritoriaSlider.UpdateSliderMax(max);
+	}
+
+	public void SetExchangeRate(int[] exchangeRate)
+	{
+		this.exchangeRate[0] = exchangeRate[0];
+		this.exchangeRate[1] = exchangeRate[1];
 	}
 	[Signal] public delegate void TotalChangedEventHandler(int total);
 }

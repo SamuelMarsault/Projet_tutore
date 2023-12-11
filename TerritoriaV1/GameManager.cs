@@ -10,7 +10,7 @@ public partial class GameManager : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		villageManager = new VillageManager(GetNode<TileMap>("Map"),GetNode<Printer>("Printer"));	
+		villageManager = new VillageManager(GetNode<TileMap>("Map"),GetNode<Printer>("Printer"),GetNode<Trader>("Trader"));	
 		EvolutionOfVillage evolutionOfVillage = new EvolutionOfVillage();
 	}
 

@@ -9,26 +9,26 @@ public class EvolutionOfVillage
     private int[] ressources;
     private int[] neededRessources;    
     private int[] NBPlaceables;
+    private BuildingStrategyFactory factory = new BuildingStrategyFactory();
 
     public void DetermineStrategy()
     {
-        BuildingStrategyFactory factory = new BuildingStrategyFactory();
 
         ressources = village.GetResources();
         neededRessources = village.GetNeededRessourcesPublic();
         this.NBPlaceables = village.getNBPlaceables();
 
-        if(this.NBPlaceables[(int)PlaceableType.SAWMILL] == 0 && this.NBPlaceables[(int)PlaceableType.FIELD] == 0 && NBPlaceables[(int)PlaceableType.ICE_USINE]  == 0)
+        if(this.NBPlaceables[(int)PlaceableType.SAWMILL] == 0 && this.NBPlaceables[(int)PlaceableType.FIELD] == 0 && NBPlaceables[(int)PlaceableType.ICE_USINE]  == 0)  // cette condition ne sera jamais remplit
         {
-            village.SetBuildingStrategy(factory.Tertiary());
+            village.SetBuildingStrategy(factory.createTertiaryStrategy(village.GetPlaceables(),village.GetTiles()));
         }
         else if(ressources[(int)ResourceType.MONEY]>10)  // 10 euro, peut etre augmenté
         {
-            village.SetBuildingStrategy(factory.Secondary());
+            village.SetBuildingStrategy(factory.createSecondaryStrategy(village.GetPlaceables(),village.GetTiles()));
         }
         else
         {
-            village.SetBuildingStrategy(factory.Primary());
+            village.SetBuildingStrategy(factory.createPrimaryStrategy(village.GetPlaceables(),village.GetTiles()));
         }
     }
 
