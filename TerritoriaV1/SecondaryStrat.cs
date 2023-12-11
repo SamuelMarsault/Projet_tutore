@@ -5,9 +5,13 @@ using TerritoriaV1;
 
 public partial class SecondaryStrat : BuildingStrategy
 {
-    public SecondaryStrat()
+    private Placeable[,] placeables;
+    private TileType[,] tiles;
+
+    public SecondaryStrat(Placeable[,] placeables, TileType[,] tiles)
     {
-        
+        this.placeables = placeables;
+        this.tiles = tiles;
     }
 
     public List<Placeable> BuildNewPlaceable(int[] totalResources, int[] neededResources, Placeable[,] placeables, PlaceableFactory factory)
@@ -17,6 +21,15 @@ public partial class SecondaryStrat : BuildingStrategy
         {
             factory.CreateBeerUsine();  // update les autres truc (cf primary)
         }
+
+        if(neededResources[(int)ResourceType.BEER] < totalResources[(int)ResourceType.BEER]) // le joueur a interet a exporter ses bieres si il veut pas qu'on construisent des bars partout
+            {
+                if(totalResources[(int)ResourceType.WOOD] > 10)
+                {
+                    factory.CreateBar();
+                    totalResources[(int)ResourceType.WOOD] -=10;
+                }
+            }
 
         while(totalResources[(int)ResourceType.WOOD] > 10)  // on dépense tout le bois en maison lol ( )
         {

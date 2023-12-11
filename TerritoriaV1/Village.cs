@@ -19,10 +19,7 @@ public class Village
 
     public Village(TileMap map)
     {
-        int resourceNumber = Enum.GetNames(typeof(ResourceType)).Length;
-        resources = new int[resourceNumber];
-        ;
-        
+        resources = new int[Enum.GetNames(typeof(ResourceType)).Length];
         for(int i = 0;i<resources.Length;i++){
             resources[i] = 500;
         }
@@ -40,7 +37,7 @@ public class Village
         }
         this.map = map;
         BuildingStrategyFactory factoryStrat = new BuildingStrategyFactory();
-        this.SetBuildingStrategy(factoryStrat.Primary());
+        this.SetBuildingStrategy(factoryStrat.createPrimaryStrategy(this.placeables, this.GetTiles()));
         GD.Print(this.map == null);
         this.turn = 1;
 
@@ -308,5 +305,10 @@ public class Village
     private void NotifyExchangesRatesChange()
     {
         foreach (VillageObserver observer in observers) observer.ReactToExchangesRatesChange(exchangesRates);
+    }
+
+    public Placeable[,] GetPlaceables()
+    {
+        return placeables;
     }
 }
