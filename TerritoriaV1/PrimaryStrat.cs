@@ -56,6 +56,7 @@ public partial class PrimaryStrat : BuildingStrategy
                 newPlaceables.Add(factory.CreateSawmill());
             }
         newPlaceables.Add(factory.CreateHouse());
+        foreach (Placeable placeable in newPlaceables) Console.WriteLine(placeable.getPlaceableType());
         return newPlaceables;
     }
 

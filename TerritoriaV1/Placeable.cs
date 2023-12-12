@@ -1,3 +1,4 @@
+using System;
 using System.Xml;
 using Godot;
 using Godot.Collections;
@@ -67,7 +68,12 @@ public class Placeable
 
 	public int[] getResourceNeeds()
 	{
-		return (int[])input.Clone();
+		int[] needs = new int[input.Length];
+		for (int i = 0; i < input.Length; i++)
+		{
+			needs[i] = input[i] * productionCapacities;
+		}
+		return needs;
 	}
 	public PlaceableType getPlaceableType()
 	{

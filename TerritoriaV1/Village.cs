@@ -120,13 +120,6 @@ public class Village
                 }
             }
         }
-        Console.WriteLine("Après production : ");
-        for (int i = 0; i < neededResources.Length; i++)
-        {
-            Console.WriteLine(Enum.GetNames(typeof(ResourceType)).GetValue(i)+" : ");
-            Console.WriteLine("Disponible : "+resources[i]);
-            Console.WriteLine("Besoin : "+neededResources[i]);
-        }
         NotifyResourcesChange();
         return true;
     }
@@ -218,61 +211,33 @@ public class Village
         placeables[15,10] = factory.CreateField();
         placeables[16,10] = factory.CreateField();
         NotifyPlaceableChange();
-        Console.WriteLine(strategy);
         exchangesRates = strategy.GetExchangesRates();
         NotifyExchangesRatesChange();
     }
 
     public void placerBatimentRand( PlaceableFactory factory, Placeable placeable)
     {
-
+        bool canBePlaced = false;
         Random random = new Random();
-        int X = random.Next(0,tiles.GetLength(0));
-        int Y = random.Next(0,tiles.GetLength(0));
-        placeables[X,Y] = placeable;
-        return;
-        if(placeable.getPlaceableType() == PlaceableType.ICE_USINE)
+        int x=0, y=0;
+        PlaceableType placeableType = placeable.getPlaceableType();
+        while (!canBePlaced)
         {
-            if(tiles[X,Y] != TileType.WATER)
-            {
-                placeables[X,Y] = factory.CreateIceUsine();
-            }
-            else
-            {
-                placerBatimentRand(factory,placeable);
-            }
-        }
-        else
-        {
-            if(tiles[X,Y] != TileType.GRASS)
-            {
-                 switch(placeable.getPlaceableType())
-            {
-                case PlaceableType.HOUSE:
-                    placeables[X,Y] = factory.CreateHouse();break;
-                case PlaceableType.SAWMILL:
-                    placeables[X,Y] =  factory.CreateSawmill();break;
-                case PlaceableType.TRAIN_STATION:
-                    placeables[X,Y] =  factory.CreateTrainStation();break;
-                case PlaceableType.BAR:
-                     placeables[X,Y] = factory.CreateBar();break;
-                case PlaceableType.FIELD:
-                     placeables[X,Y] =  factory.CreateField();break;
-                case PlaceableType.BEER_USINE:
-                     placeables[X,Y] =  factory.CreateBeerUsine();break;
-            }
-            }
-            else
-            {
-                placerBatimentRand(factory,placeable);
-            }
-        }       
+            canBePlaced = true;
+            y = random.Next(0,tiles.GetLength(0));
+            x = random.Next(0,tiles.GetLength(0));
+            if (placeableType != PlaceableType.ICE_USINE && tiles[x, y] == TileType.WATER) canBePlaced = false;
+            else if (placeableType == PlaceableType.ICE_USINE && tiles[x, y] != TileType.WATER) canBePlaced = false;
+
+            if (placeableType == PlaceableType.SAWMILL && placeables[x, y].getPlaceableType() != PlaceableType.FOREST)
+                canBePlaced = false;
+        } 
+        placeables[x, y] = placeable;
     }
     
 
    private bool MakeTransaction(int[] export, int[] import)
    {
-       int index = ResourceType.MONEY.GetHashCode();
        for (int i = 0; i < export.Length; i++)
        {
            if (resources[i] + import[i] - export[i] < 0)
