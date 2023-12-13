@@ -12,6 +12,7 @@ public partial class GameManager : Node2D
 	{
 		villageManager = new VillageManager(GetNode<TileMap>("Map"),GetNode<Printer>("Printer"),GetNode<Trader>("Trader"));	
 		EvolutionOfVillage evolutionOfVillage = new EvolutionOfVillage();
+		evolutionOfVillage.SetVillage(villageManager.GetVillage());
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -23,6 +24,7 @@ public partial class GameManager : Node2D
 	public void nextTurn(int[] export, int[] import)
 	{
 		villageManager.NextTurn(export, import);
+		evolutionOfVillage.DetermineStrategy();
 	}
 
 	public void updateGraphics()
