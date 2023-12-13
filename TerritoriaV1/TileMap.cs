@@ -38,6 +38,7 @@ public partial class TileMap : Godot.TileMap, VillageObserver
 			}
 		}
 	}
+	
 	//Allows you to place the buildings that are there when you start the game
 	public void ReactToPlaceableChange(Placeable[,] placeables)
 	{
@@ -64,6 +65,6 @@ public partial class TileMap : Godot.TileMap, VillageObserver
 			}
 		}
 	}
-	public void ReactToImpossibleTransaction() {}
+	public void ReactToImpossibleTransaction(int[] missingRessources) {}
 	public void ReactToExchangesRatesChange(int[,] exchangesRates) {}
 }

@@ -69,6 +69,10 @@ public class Placeable
 	{
 		return (int[])input.Clone();
 	}
+
+	public int getProductionCapacity(){
+		return productionCapacities;
+	}
 	public PlaceableType getPlaceableType()
 	{
 		return placeableType;

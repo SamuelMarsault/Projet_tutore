@@ -5,6 +5,18 @@ using System.Collections.Generic;
 using Godot.Collections;
 using TerritoriaV1;
 
+
+//Argent retirer trop fort pour export, matières de bases trop basses (OK)
+//Ou se créer les batiments sur la map pour le If else par rapport à créartion sur l'eau (DANS VILLAGE)
+//Ou on regarde la liste de placeables car seulement les maisons se créer pour le moment (A VOIR)
+//Ou Robin d'éfinit les ressources à enlever 
+//Comment définir que si on à pas assez d'argent pour importer une ressources maquantes et que l'on peux plus produire la ressource on à perdu
+//Comment faire pour que quand on as dépassé X tour on gagne
+
+//Quans pas ressource ne construit mais prend quand même les ressources
+//Faire vérif dans product ressources
+//Menu 2 bouton, lors message on affiche ressources manquantes et sois il les modifies sois passe le tours 
+
 public class Village
 {
     private BuildingStrategy strategy;
@@ -33,6 +45,12 @@ public class Village
             for (int j = 0; j < placeables.GetLength(1); j++)
             {
                 placeables[i,j] = null;
+                if(map.GetCellSourceId(0, new Vector2I(i,j))==0){
+                    tiles[i,j] = TileType.GRASS;
+                }
+                else{
+                     tiles[i,j] = TileType.WATER;
+                }
             }
         }
         this.map = map;
@@ -51,11 +69,11 @@ public class Village
 
     public int[] GetNeededRessourcesPublic()
     {
-        return (int[])this.GetNeededResources().Clone();
+        return (int[])this.GetNeededResources(true).Clone();
     }
     
     //Récupère les besoins en ressources de toutes les structures du village
-    private int[] GetNeededResources()
+    private int[] GetNeededResources(bool lequel)
     {
         int[] neededResources = new int[resources.Length];
         for (int i = 0; i < placeables.GetLength(0); i++)
@@ -66,15 +84,25 @@ public class Village
                 if (currentPlaceable != null)
                 {
                     int[] needs = currentPlaceable.getResourceNeeds();
-                    for (int c = 0; c < needs.Length; c++)
-                    {
-                        neededResources[c] += needs[c];
+                    if (lequel == true){
+                        for (int c = 0; c < needs.Length; c++)
+                        {
+                            neededResources[c] += needs[c];
+                        }
+                    }
+                    else{
+                        for (int c = 0; c < needs.Length; c++)
+                        {
+                            neededResources[c] += needs[c]*currentPlaceable.getProductionCapacity();
+                        }
                     }
                 }
             }
         }
         return neededResources;
     }
+
+    
 
     //Initializes a 2D table containing the type of soil
     private void InitialiseTile(){
@@ -107,7 +135,7 @@ public class Village
     private bool ProductResources()
     {
         //On récupère le besoin en ressource
-        int[] neededResources = GetNeededResources();
+        int[] neededResources = GetNeededResources(true);
         //Et pour chaque bâtiment :
         for (int i = 0; i < placeables.GetLength(0); i++)
         {
@@ -164,7 +192,7 @@ public class Village
 
     private void ApplyStrategy()
     {
-        foreach (Placeable placeable in strategy.BuildNewPlaceable(resources, GetNeededResources(), placeables, factory))
+        foreach (Placeable placeable in strategy.BuildNewPlaceable(resources, GetNeededResources(true), placeables, factory))
         {
             placerBatimentRand(factory,placeable);
         }
@@ -184,6 +212,7 @@ public class Village
             observer.ReactToResourcesChange((int[])resources.Clone());
         }
     }
+    
     private void NotifyPlaceableChange()
     {
         foreach (VillageObserver observer in observers)
@@ -212,7 +241,7 @@ public class Village
         placeables[8,2] = factory.CreateHouse();
         placeables[6,4] = factory.CreateBar();
         placeables[11,9] = factory.CreateSawmill();
-        placeables[14,16] = factory.CreateTrainStation();
+        placeables[12,19] = factory.CreateTrainStation();
         placeables[15,11] = factory.CreateField();
         placeables[16,11] = factory.CreateField();
         placeables[15,10] = factory.CreateField();
@@ -229,12 +258,14 @@ public class Village
         Random random = new Random();
         int X = random.Next(0,tiles.GetLength(0));
         int Y = random.Next(0,tiles.GetLength(0));
-        placeables[X,Y] = placeable;
-        return;
         if(placeable.getPlaceableType() == PlaceableType.ICE_USINE)
         {
-            if(tiles[X,Y] != TileType.WATER)
+            if(tiles[X,Y] == TileType.WATER)
             {
+                while (tiles[X,Y] != TileType.GRASS){
+                    X++;
+                    Y++;
+                }
                 placeables[X,Y] = factory.CreateIceUsine();
             }
             else
@@ -244,64 +275,91 @@ public class Village
         }
         else
         {
-            if(tiles[X,Y] != TileType.GRASS)
+            if(tiles[X,Y] == TileType.GRASS)
             {
-                 switch(placeable.getPlaceableType())
-            {
-                case PlaceableType.HOUSE:
-                    placeables[X,Y] = factory.CreateHouse();break;
-                case PlaceableType.SAWMILL:
-                    placeables[X,Y] =  factory.CreateSawmill();break;
-                case PlaceableType.TRAIN_STATION:
-                    placeables[X,Y] =  factory.CreateTrainStation();break;
-                case PlaceableType.BAR:
-                     placeables[X,Y] = factory.CreateBar();break;
-                case PlaceableType.FIELD:
-                     placeables[X,Y] =  factory.CreateField();break;
-                case PlaceableType.BEER_USINE:
-                     placeables[X,Y] =  factory.CreateBeerUsine();break;
-            }
+                switch(placeable.getPlaceableType())
+                {
+                    case PlaceableType.HOUSE:
+                        placeables[X,Y] = factory.CreateHouse();break;
+                    case PlaceableType.SAWMILL:
+                        placeables[X,Y] =  factory.CreateSawmill();break;
+                    case PlaceableType.TRAIN_STATION:
+                        placeables[X,Y] =  factory.CreateTrainStation();break;
+                    case PlaceableType.BAR:
+                        placeables[X,Y] = factory.CreateBar();break;
+                    case PlaceableType.FIELD:
+                        placeables[X,Y] =  factory.CreateField();break;
+                    case PlaceableType.BEER_USINE:
+                        placeables[X,Y] =  factory.CreateBeerUsine();break;
+                }
             }
             else
             {
                 placerBatimentRand(factory,placeable);
             }
-        }       
+        } 
+        placeables[X,Y] = placeable;      
     }
-    
 
-   private bool MakeTransaction(int[] export, int[] import)
-   {
-       int index = ResourceType.MONEY.GetHashCode();
-       for (int i = 0; i < export.Length; i++)
-       {
-           if (resources[i] + import[i] - export[i] < 0)
-           {
-               NotifyImpossibleTransaction();
-               return false;
-           }
-       } 
-           
-       for (int i = 0; i < export.Length; i++)
-       {
-           resources[i] += import[i];
-           resources[i] -= export[i];
-       }
-       return true;
-   }
-    public void NextTurn(int[] export, int[] import)
+  private bool MakeTransaction(int[] export, int[] import)
     {
+        int index = ResourceType.MONEY.GetHashCode();
+
+        int[] insufficientResources = new int[resources.Length];
+
+        bool inssufisant = false;
+
+        int[] needRessorcesNow = GetNeededResources(false);
+
+        for (int i = 0; i < export.Length; i++)
+        {
+            resources[i] += import[i];
+            resources[i] -= export[i];
+
+            if (resources[i] <= 0)
+            {
+                if (i != 3){
+                    // Ajouter le couple ResourceType et la valeur correspondante à la liste
+                    insufficientResources[i] = ((resources[i]-needRessorcesNow[i])*-1);
+                    inssufisant = true;
+                }
+                // Remettre la valeur à 0 si elle est devenue négative
+                resources[i] = 0;
+            }
+            else{
+                insufficientResources[i] = 0;
+            }
+        }
+
+        if (inssufisant == true){
+            NotifyImpossibleTransaction(insufficientResources);
+            return false;
+        }
+        
+
+        GD.Print("\n");
+        return true;
+    }
+
+    public void NextTurn(int[] export, int[] import)
+    {   
+        int[] oldRessources = GetResources();
+        ProductResources();
         if (MakeTransaction(export,import)){
             turn++;
-            ProductResources();
             ApplyStrategy();
+        }
+        else{
+            
+            resources = oldRessources;
         }
     }
 
-    private void NotifyImpossibleTransaction()
+    private void NotifyImpossibleTransaction(int[] missingRessources)
     {
-        foreach (VillageObserver observer in observers) observer.ReactToImpossibleTransaction();
+        foreach (VillageObserver observer in observers) observer.ReactToImpossibleTransaction(missingRessources);
     }
+
     private void NotifyExchangesRatesChange()
     {
         foreach (VillageObserver observer in observers) observer.ReactToExchangesRatesChange(exchangesRates);

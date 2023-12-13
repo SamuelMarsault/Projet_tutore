@@ -34,4 +34,8 @@ public partial class GameManager : Node2D
 		GD.Print("Fin");
 		//TODO
 	}
+
+	public void Victory(){
+		//TODO
+	}
 }

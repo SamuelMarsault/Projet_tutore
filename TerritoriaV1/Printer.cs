@@ -79,13 +79,39 @@ public partial class Printer : Node, VillageObserver
 		parent.Defeat();
 	}
 
-	public void ReactToImpossibleTransaction()
+	public void ReactToImpossibleTransaction(int[] missingRessources)
 	{
 		// Créez une instance de la fenêtre de dialogue
 		var messageDialog = new MessageDialog();
 
+		string message = "Vous n'avez pas assez de ressources, il vous manque : \n";
+
+		for (int i = 0; i<missingRessources.Length ; i++){
+			if (missingRessources[i] != 0){
+				switch(i){
+					case 0:
+						message = message+"	\u2022 "+missingRessources[i]+" de bois\n";
+						break;
+					case 1:
+						message = message+"	\u2022 "+missingRessources[i]+" de hoop\n";
+						break;
+					case 2:
+						message = message+"	\u2022 "+missingRessources[i]+" de glace\n";
+						break;
+					case 3:
+						message = message+"	\u2022 "+missingRessources[i]+" de bière\n";
+						break;
+					case 4:
+						message = message+"	\u2022 "+missingRessources[i]+" d'argent\n";
+						break;
+					default:
+						break;
+				}
+			}
+		}
+
 		// Définissez le message d'erreur
-		messageDialog.SetErrorMessage($"Vous n'avez pas assez de ressources pour faire la transaction.");
+		messageDialog.SetErrorMessage(message);
 
 		// Ajoutez la fenêtre de dialogue à la scène
 		GetTree().Root.AddChild(messageDialog);
