@@ -5,13 +5,9 @@ using System.Collections.Generic;
 using Godot.Collections;
 using TerritoriaV1;
 
-
-//Argent retirer trop fort pour export, matières de bases trop basses (OK)
-//Ou se créer les batiments sur la map pour le If else par rapport à créartion sur l'eau (DANS VILLAGE)
-//Ou on regarde la liste de placeables car seulement les maisons se créer pour le moment (A VOIR)
-//Ou Robin d'éfinit les ressources à enlever 
-//Comment définir que si on à pas assez d'argent pour importer une ressources maquantes et que l'on peux plus produire la ressource on à perdu
+//Pas bat sur eau mais sur la terre à coté
 //Comment faire pour que quand on as dépassé X tour on gagne
+//Corriger bug sur les ressources (exemple pas messages alors qu'il devrais)
 
 //Quans pas ressource ne construit mais prend quand même les ressources
 //Faire vérif dans product ressources
@@ -155,7 +151,6 @@ public class Village
             Console.WriteLine("Disponible : "+resources[i]);
             Console.WriteLine("Besoin : "+neededResources[i]);
         }
-        NotifyResourcesChange();
         return true;
     }
 
@@ -315,7 +310,7 @@ public class Village
         {
             resources[i] += import[i];
             resources[i] -= export[i];
-
+            
             if (resources[i] <= 0)
             {
                 if (i != 3){
@@ -335,23 +330,22 @@ public class Village
             NotifyImpossibleTransaction(insufficientResources);
             return false;
         }
-        
-
-        GD.Print("\n");
         return true;
     }
 
     public void NextTurn(int[] export, int[] import)
-    {   
+    { 
         int[] oldRessources = GetResources();
         ProductResources();
         if (MakeTransaction(export,import)){
-            turn++;
             ApplyStrategy();
+            NotifyResourcesChange();
+            turn++;
+            GD.Print(resources[0]);
         }
         else{
-            
             resources = oldRessources;
+            GD.Print(resources[0]);
         }
     }
 
