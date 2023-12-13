@@ -56,12 +56,22 @@ public class PlaceableFactory
 
     public Placeable CreateIceUsine()
     {
-        return null;
+        int[] input = new int[Enum.GetNames(typeof(ResourceType)).Length];
+        int[] output = new int[Enum.GetNames(typeof(ResourceType)).Length];
+        output[(int)ResourceType.ICE] = 10;
+        Placeable ice_usine = new Placeable(PlaceableType.ICE_USINE,input, output,50);
+        return ice_usine;
     }
 
     public Placeable CreateBeerUsine()
     {
-        return null;
+        int[] input = new int[Enum.GetNames(typeof(ResourceType)).Length];
+        int[] output = new int[Enum.GetNames(typeof(ResourceType)).Length];
+        input[(int)ResourceType.ICE] = 5;
+        input[(int)ResourceType.HOP] = 15;
+        output[(int)ResourceType.BEER] = 4;
+        Placeable beer_usine = new Placeable(PlaceableType.BEER_USINE,input, output,50);
+        return beer_usine;
     }
 
     public void Destroy(PlaceableType type)
