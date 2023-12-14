@@ -260,6 +260,7 @@ public class Village
             turn++;
             ProductResources();
             ApplyStrategy();
+            
         }
     }
 
