@@ -58,8 +58,9 @@ public partial class TileMap : Godot.TileMap, VillageObserver
 						case PlaceableType.TRAIN_STATION: ID = 6; break;
 						case PlaceableType.SAWMILL: ID = 3; break;
 						case PlaceableType.FOREST: ID = 2; break;
+						case PlaceableType.BEER_USINE: ID = 7; break;
 					}
-					//GD.Print("je place un "+placeables[i][j].getPlaceableType());
+					//GD.Print("je place un "+placeables[i,j].getPlaceableType());
 					SetCell(1,new Vector2I(i,j),ID,new Vector2I(0,0));
 				}
 			}

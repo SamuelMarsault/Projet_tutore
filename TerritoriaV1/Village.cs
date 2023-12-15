@@ -151,6 +151,7 @@ public class Village
             Console.WriteLine("Disponible : "+resources[i]);
             Console.WriteLine("Besoin : "+neededResources[i]);
         }
+        NotifyResourcesChange();
         return true;
     }
 
@@ -242,14 +243,13 @@ public class Village
         placeables[15,10] = factory.CreateField();
         placeables[16,10] = factory.CreateField();
         NotifyPlaceableChange();
-        Console.WriteLine(strategy);
         exchangesRates = strategy.GetExchangesRates();
         NotifyExchangesRatesChange();
     }
 
     public void placerBatimentRand( PlaceableFactory factory, Placeable placeable)
     {
-
+        //bool canBePlaced = false; C'était la avant je le laisse au cas ou
         Random random = new Random();
         int X = random.Next(0,tiles.GetLength(0));
         int Y = random.Next(0,tiles.GetLength(0));
