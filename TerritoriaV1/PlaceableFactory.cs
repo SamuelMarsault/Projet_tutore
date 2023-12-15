@@ -74,12 +74,18 @@ public class PlaceableFactory
         return beer_usine;
     }
 
-    public void Destroy(PlaceableType type)
+    public void Destroy(Placeable[,] placeables, PlaceableType type)
     {
-        /*
-            détruit un batiment au hasard du type choisi
-            devrait pouvoir renvoyer les coordonnées du batiment détruit
-            si on part sur un syteme ou le joueur peut positionner les batiments, devrait etre géré par un noeud
-        */
+        for (int i = 0; i < placeables.GetLength(0); i++)
+        {
+            for (int j = 0; j < placeables.GetLength(1); j++)
+            {
+                if (placeables[i, j].getPlaceableType() == type)
+                {
+                    placeables[i, j] = null;
+                    return;
+                }
+            }
+        }
     }
 }

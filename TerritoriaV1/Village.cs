@@ -12,6 +12,8 @@ public class Village
     private PlaceableFactory factory = new ();
     private Placeable[,] placeables;
     private TileType[,] tiles;
+    private TileType[] targetTiles = new []{TileType.GRASS, TileType.FOREST,TileType.GRASS, TileType.GRASS, 
+        TileType.GRASS, TileType.GRASS, TileType.GRASS, TileType.WATER, TileType.GRASS};
     private int[] resources;
     private TileMap map;
     private int turn;
@@ -19,6 +21,7 @@ public class Village
 
     public Village(TileMap map)
     {
+        this.map = map;
         resources = new int[Enum.GetNames(typeof(ResourceType)).Length];
         for(int i = 0;i<resources.Length;i++){
             resources[i] = 500;
@@ -27,6 +30,7 @@ public class Village
         //Par défaut la stratégie est la croissance
         //Définition du terrain :
         tiles = new TileType[20,20];
+        InitialiseTile();
         placeables = new Placeable[tiles.GetLength(0),tiles.GetLength(1)];
         for (int i = 0; i < placeables.GetLength(0); i++)
         {
@@ -35,9 +39,8 @@ public class Village
                 placeables[i,j] = null;
             }
         }
-        this.map = map;
         BuildingStrategyFactory factoryStrat = new BuildingStrategyFactory();
-        this.SetBuildingStrategy(factoryStrat.createPrimaryStrategy(this.placeables, this.GetTiles()));
+        this.SetBuildingStrategy(factoryStrat.createPrimaryStrategy(this.tiles));
         GD.Print(this.map == null);
         this.turn = 1;
 
@@ -78,15 +81,10 @@ public class Village
 
     //Initializes a 2D table containing the type of soil
     private void InitialiseTile(){
-        // Récupérer les dimensions du TileMap
-        int largeur = this.map.GetUsedRect().Size.X;
-        int hauteur = this.map.GetUsedRect().Size.Y;
-
-        this.tiles = new TileType[largeur,hauteur];
         // Parcourir chaque cellule du TileMap
-        for (int x = 0; x < largeur; x++)
+        for (int x = 0; x < tiles.GetLength(0); x++)
         {
-            for (int y = 0; y < hauteur; y++)
+            for (int y = 0; y < tiles.GetLength(1); y++)
             {
                 // Récupérer l'ID du tile à la position (x, y)
                 int tileID = this.map.GetCellSourceId(0,new Vector2I(x,y));
@@ -97,6 +95,9 @@ public class Village
                 }
                 else if(tileID ==1){
                     this.tiles[x,y] = TileType.WATER;
+                }
+                else{
+                    this.tiles[x,y] = TileType.FOREST;
                 }
             }
         }
@@ -133,21 +134,22 @@ public class Village
     
     public int[] getNBPlaceables()
     {
-     int[] NBPlaceables = new int[6];
-     for(int i = 0; i < 6; i++)
+     int[] NBPlaceables = new int[Enum.GetNames(typeof(PlaceableType)).Length];
+     for(int i = 0; i < NBPlaceables.Length; i++)
      {
         NBPlaceables[i] = 0;
      }
 
-        for(int i = 0; i < placeables.GetLength(0); i++)
+     for(int i = 0; i < placeables.GetLength(0); i++)
         {
             for(int j = 0; j < placeables.GetLength(1); j++)
             {
-                PlaceableType currentPlaceable = placeables[i,j].getPlaceableType();
-                NBPlaceables[(int)currentPlaceable]++;
+                if (placeables[i, j] != null)
+                    NBPlaceables[placeables[i, j].getPlaceableType().GetHashCode()]++;   
             }
         }
-        return NBPlaceables;
+     
+     return NBPlaceables;
     }
 
     public void SetBuildingStrategy(BuildingStrategy strategy)
@@ -155,12 +157,10 @@ public class Village
         this.strategy = strategy;
     }
 
-    private void ApplyStrategy()
+    private void ApplyStrategy(int[] resourcesBeforeProduct)
     {
-        foreach (Placeable placeable in strategy.BuildNewPlaceable(resources, GetNeededResources(), placeables, factory))
-        {
-            placerBatimentRand(factory,placeable);
-        }
+        Console.WriteLine("Statégie "+strategy.GetType());
+        placeables = strategy.BuildNewPlaceable(resources, GetNeededResources(), factory, targetTiles, placeables, resourcesBeforeProduct);
         NotifyPlaceableChange();
         exchangesRates = strategy.GetExchangesRates();
         NotifyExchangesRatesChange();
@@ -210,6 +210,7 @@ public class Village
         placeables[16,11] = factory.CreateField();
         placeables[15,10] = factory.CreateField();
         placeables[16,10] = factory.CreateField();
+        placeables[16, 12] = factory.CreateBeerUsine();
         NotifyPlaceableChange();
         exchangesRates = strategy.GetExchangesRates();
         NotifyExchangesRatesChange();
@@ -258,8 +259,11 @@ public class Village
     {
         if (MakeTransaction(export,import)){
             turn++;
+            int[] resourcesBeforeProduct = (int[])resources.Clone();
+            for (int i = 0; i < resources.Length; i++) 
+                resourcesBeforeProduct[i] = resources[i];
             ProductResources();
-            ApplyStrategy();
+            ApplyStrategy(resourcesBeforeProduct);
             
         }
     }

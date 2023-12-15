@@ -3,32 +3,46 @@ using System;
 using System.Collections.Generic;
 using TerritoriaV1;
 
-public partial class TertiaryStrat : BuildingStrategy
+public class TertiaryStrat : BuildingStrategy
 {
-    
-    private Placeable[,] placeables;
-    private TileType[,] tiles;
-    public TertiaryStrat(Placeable[,] placeables, TileType[,] tiles)
+    public TertiaryStrat(TileType[,] tiles)
     {
-        this.placeables = placeables;
-        this.tiles = tiles;
+        SetTiles(tiles);
     }
 
-    public List<Placeable> BuildNewPlaceable(int[] totalResources, int[] neededResources, Placeable[,] placeables, PlaceableFactory factory)
+    override 
+    public Placeable[,] BuildNewPlaceable(int[] totalResources,
+        int[] neededResources, PlaceableFactory factory, 
+        TileType[] targetTile, Placeable[,] placeables, int[] resourcesBeforeProduct)
     {
-        factory.Destroy(PlaceableType.FIELD);   // en gros la deterritorialisation en phase finale c'est transformer des batiments de productions en trucs tertiaire
-        factory.Destroy(PlaceableType.ICE_USINE);
-        factory.Destroy(PlaceableType.BEER_USINE);
-        factory.Destroy(PlaceableType.BAR);
+        List<Placeable> newPlaceables = new List<Placeable>();
+        if(neededResources[(int)ResourceType.HOP] < resourcesBeforeProduct[(int)ResourceType.HOP])
+        {
+            factory.Destroy(placeables, PlaceableType.FIELD);
+        }
+        if(neededResources[(int)ResourceType.ICE] < resourcesBeforeProduct[(int)ResourceType.ICE])
+        {
+            factory.Destroy(placeables, PlaceableType.ICE_USINE);
+        }
+        if(neededResources[(int)ResourceType.BEER] < resourcesBeforeProduct[(int)ResourceType.BEER])
+        {
+            factory.Destroy(placeables, PlaceableType.BEER_USINE);
+            newPlaceables.Add(factory.CreateBar());
+        }
 
         while(totalResources[(int)ResourceType.WOOD] > 10)  // on dépense tout le bois en maison lol ( )
         {
-            factory.CreateHouse();
+            newPlaceables.Add(factory.CreateHouse());
             totalResources[(int)ResourceType.WOOD] -= 10;
         }
-
-        return null;
+        foreach (Placeable placeable in newPlaceables)
+        {
+            PlacePlaceable(placeables,placeable, targetTile[placeable.getPlaceableType().GetHashCode()]);
+            Console.WriteLine(targetTile[placeable.getPlaceableType().GetHashCode()]+" "+placeable.getPlaceableType().GetHashCode());
+        }
+        return placeables;
     }
+    override 
     public int[,] GetExchangesRates()
     {
         int[,] exchangesRates = new[,]
