@@ -22,4 +22,8 @@ public class VillageManager
         //evolutionOfVillage.DetermineStrategy();
         village.NextTurn(export, import);
     }
+
+    public void applyNextTurn(bool confirm){
+        village.continueNextTurn(confirm);
+    }
 }

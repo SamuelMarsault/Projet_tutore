@@ -7,6 +7,7 @@ public partial class Printer : Node, VillageObserver
 {
 	// Called when the node enters the scene tree for the first time.
 	private List<ResourcePrintUnit> resourcePrintUnits = new ();
+	private MissingRessource windowMissingRessource;
 	[Export] private GameManager parent;
 	public override void _Ready()
 	{
@@ -25,6 +26,11 @@ public partial class Printer : Node, VillageObserver
 
 	private void updateResources(ResourceType resources, int[] quantities, int numResource) {
 		resourcePrintUnits[numResource].SetNewRessources(quantities[numResource]);
+	}
+
+	
+	public void setMessageWindow(MissingRessource missingRessource){
+		this.windowMissingRessource = missingRessource;
 	}
 
 	public void ReactToResourcesChange(int[] resources)
@@ -79,19 +85,44 @@ public partial class Printer : Node, VillageObserver
 		parent.Defeat();
 	}
 
-	public void ReactToImpossibleTransaction()
+	public void ReactToImpossibleTransaction(int[] missingRessources)
 	{
 		// Créez une instance de la fenêtre de dialogue
-		var messageDialog = new MessageDialog();
+
+		string message = "Vous n'avez pas assez de ressources, il vous manque : \n";
+
+		for (int i = 0; i<missingRessources.Length ; i++){
+			if (missingRessources[i] != 0){
+				switch(i){
+					case 0:
+						message = message+"	\u2022 "+missingRessources[i]+" de bois\n";
+						break;
+					case 1:
+						message = message+"	\u2022 "+missingRessources[i]+" de hoop\n";
+						break;
+					case 2:
+						message = message+"	\u2022 "+missingRessources[i]+" de glace\n";
+						break;
+					case 3:
+						message = message+"	\u2022 "+missingRessources[i]+" de bière\n";
+						break;
+					case 4:
+						message = message+"	\u2022 "+missingRessources[i]+" d'argent\n";
+						break;
+					default:
+						break;
+				}
+			}
+		}
 
 		// Définissez le message d'erreur
-		messageDialog.SetErrorMessage($"Vous n'avez pas assez de ressources pour faire la transaction.");
+		windowMissingRessource.SetMessageMissingRessource(message);
 
-		// Ajoutez la fenêtre de dialogue à la scène
-		GetTree().Root.AddChild(messageDialog);
-		
-		// Affichez la fenêtre de dialogue
-		messageDialog.PopupCentered();
+		windowMissingRessource.MinSize = new Vector2I();
+
+		windowMissingRessource.PopupCentered();
+
 	}
+
 	public void ReactToExchangesRatesChange(int[,] exchangesRates) {}
 }

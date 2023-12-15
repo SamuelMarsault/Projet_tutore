@@ -10,9 +10,9 @@ public class PlaceableFactory
     {
         int[] input = new int[Enum.GetNames(typeof(ResourceType)).Length];
         int[] output = new int[Enum.GetNames(typeof(ResourceType)).Length];
-        //input[(int)ResourceType.WOOD] = 1;
+        input[(int)ResourceType.WOOD] = 1;
         output[(int)ResourceType.MONEY] = 2;
-        Placeable house = new Placeable(PlaceableType.HOUSE,input, output,150);
+        Placeable house = new Placeable(PlaceableType.HOUSE,input, output,20);
         return house;
     }
 
