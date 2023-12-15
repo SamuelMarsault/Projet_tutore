@@ -37,6 +37,12 @@ public class Village
             for (int j = 0; j < placeables.GetLength(1); j++)
             {
                 placeables[i,j] = null;
+                if(map.GetCellSourceId(0, new Vector2I(i,j))==0){
+                    tiles[i,j] = TileType.GRASS;
+                }
+                else{
+                     tiles[i,j] = TileType.WATER;
+                }
             }
         }
         BuildingStrategyFactory factoryStrat = new BuildingStrategyFactory();
@@ -54,11 +60,11 @@ public class Village
 
     public int[] GetNeededRessourcesPublic()
     {
-        return (int[])this.GetNeededResources().Clone();
+        return (int[])this.GetNeededResources(true).Clone();
     }
     
     //Récupère les besoins en ressources de toutes les structures du village
-    private int[] GetNeededResources()
+    private int[] GetNeededResources(bool lequel)
     {
         int[] neededResources = new int[resources.Length];
         for (int i = 0; i < placeables.GetLength(0); i++)
@@ -69,15 +75,25 @@ public class Village
                 if (currentPlaceable != null)
                 {
                     int[] needs = currentPlaceable.getResourceNeeds();
-                    for (int c = 0; c < needs.Length; c++)
-                    {
-                        neededResources[c] += needs[c];
+                    if (lequel == true){
+                        for (int c = 0; c < needs.Length; c++)
+                        {
+                            neededResources[c] += needs[c];
+                        }
+                    }
+                    else{
+                        for (int c = 0; c < needs.Length; c++)
+                        {
+                            neededResources[c] += needs[c]*currentPlaceable.getProductionCapacity();
+                        }
                     }
                 }
             }
         }
         return neededResources;
     }
+
+    
 
     //Initializes a 2D table containing the type of soil
     private void InitialiseTile(){
@@ -108,7 +124,7 @@ public class Village
     private bool ProductResources()
     {
         //On récupère le besoin en ressource
-        int[] neededResources = GetNeededResources();
+        int[] neededResources = GetNeededResources(true);
         //Et pour chaque bâtiment :
         for (int i = 0; i < placeables.GetLength(0); i++)
         {
@@ -120,6 +136,13 @@ public class Village
                     placeables[i,j].ProductResources(resources, neededResources);
                 }
             }
+        }
+        Console.WriteLine("Après production : ");
+        for (int i = 0; i < neededResources.Length; i++)
+        {
+            Console.WriteLine(Enum.GetNames(typeof(ResourceType)).GetValue(i)+" : ");
+            Console.WriteLine("Disponible : "+resources[i]);
+            Console.WriteLine("Besoin : "+neededResources[i]);
         }
         NotifyResourcesChange();
         return true;
@@ -160,7 +183,7 @@ public class Village
     private void ApplyStrategy(int[] resourcesBeforeProduct)
     {
         Console.WriteLine("Statégie "+strategy.GetType());
-        placeables = strategy.BuildNewPlaceable(resources, GetNeededResources(), factory, targetTiles, placeables, resourcesBeforeProduct);
+        placeables = strategy.BuildNewPlaceable(resources, GetNeededResources(true), factory, targetTiles, placeables, resourcesBeforeProduct);
         NotifyPlaceableChange();
         exchangesRates = strategy.GetExchangesRates();
         NotifyExchangesRatesChange();
@@ -177,6 +200,7 @@ public class Village
             observer.ReactToResourcesChange((int[])resources.Clone());
         }
     }
+    
     private void NotifyPlaceableChange()
     {
         foreach (VillageObserver observer in observers)
@@ -235,43 +259,76 @@ public class Village
         } 
         placeables[x, y] = placeable;
     }
-    
 
-   private bool MakeTransaction(int[] export, int[] import)
-   {
-       for (int i = 0; i < export.Length; i++)
-       {
-           if (resources[i] + import[i] - export[i] < 0)
-           {
-               NotifyImpossibleTransaction();
-               return false;
-           }
-       } 
-           
-       for (int i = 0; i < export.Length; i++)
-       {
-           resources[i] += import[i];
-           resources[i] -= export[i];
-       }
-       return true;
-   }
-    public void NextTurn(int[] export, int[] import)
+  private bool MakeTransaction(int[] export, int[] import)
     {
-        if (MakeTransaction(export,import)){
-            turn++;
-            int[] resourcesBeforeProduct = (int[])resources.Clone();
-            for (int i = 0; i < resources.Length; i++) 
-                resourcesBeforeProduct[i] = resources[i];
-            ProductResources();
-            ApplyStrategy(resourcesBeforeProduct);
+        int[] oldRessources = GetResources();
+
+        ProductResources();
+
+        int index = ResourceType.MONEY.GetHashCode();
+
+        int[] insufficientResources = new int[resources.Length];
+
+        bool inssufisant = false;
+
+        int[] needRessorcesNow = GetNeededResources(false);
+
+        for (int i = 0; i < export.Length; i++)
+        {
+            resources[i] += import[i];
+            resources[i] -= export[i];
+
+            if (i == 0){
+                GD.Print(resources[i]);
+            }
             
+            if ((resources[i]-needRessorcesNow[i]) < 0)
+            {
+                if (i != 3){
+                    // Ajouter le couple ResourceType et la valeur correspondante à la liste
+                    insufficientResources[i] = ((resources[i]-needRessorcesNow[i])*-1);
+                    inssufisant = true;
+                }
+                // Remettre la valeur à 0 si elle est devenue négative
+                //resources[i] = 0;
+            }
+            else{
+                insufficientResources[i] = 0;
+            }
+        }
+        resources = oldRessources;
+        if (inssufisant == true){
+            NotifyImpossibleTransaction(insufficientResources);
+            return false;
+        }
+        return true;
+    }
+
+    public void NextTurn(int[] export, int[] import)
+    { 
+        continueNextTurn(MakeTransaction(export,import));
+    }
+
+    public void continueNextTurn(bool contnue)
+    {
+        if (contnue)
+        {
+            int[] oldResources = (int[])resources.Clone();
+            for (int i = 0; i < resources.Length; i++)
+                oldResources[i] = resources[i];
+            ProductResources();
+            NotifyResourcesChange();
+            ApplyStrategy(oldResources);
+            turn++;
         }
     }
 
-    private void NotifyImpossibleTransaction()
+    private void NotifyImpossibleTransaction(int[] missingRessources)
     {
-        foreach (VillageObserver observer in observers) observer.ReactToImpossibleTransaction();
+        foreach (VillageObserver observer in observers) observer.ReactToImpossibleTransaction(missingRessources);
     }
+
     private void NotifyExchangesRatesChange()
     {
         foreach (VillageObserver observer in observers) observer.ReactToExchangesRatesChange(exchangesRates);

@@ -13,10 +13,14 @@ script = ExtResource("1_yi5de")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_direction = 2
-offset_left = 925.0
-offset_top = 170.0
-offset_right = 1666.0
-offset_bottom = 170.0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -26.0
+offset_top = 150.0
+offset_right = 719.0
+offset_bottom = 210.0
+grow_horizontal = 2
 
 [node name="Control" parent="HBoxContainer" instance=ExtResource("2_tnoob")]
 custom_minimum_size = Vector2(145, 0)

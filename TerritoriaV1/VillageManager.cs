@@ -23,8 +23,7 @@ public class VillageManager
         village.NextTurn(export, import);
     }
 
-    public Village GetVillage()
-    {
-        return this.village;
+    public void applyNextTurn(bool confirm){
+        village.continueNextTurn(confirm);
     }
 }

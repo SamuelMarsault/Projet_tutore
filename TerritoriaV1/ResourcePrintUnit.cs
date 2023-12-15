@@ -33,7 +33,6 @@ public partial class ResourcePrintUnit : Control
 	[Signal] public delegate void TotalChangedEventHandler(int total);
 
 	public void SetNewRessources(int newValue){
-		GD.Print("fait");
 		valueLabel.Text = newValue.ToString();
 	}
 

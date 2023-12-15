@@ -23,7 +23,6 @@ public class PrimaryStrat : BuildingStrategy
                 if(totalResources[(int)ResourceType.WOOD] > 10)//si on a assez pour construire, on peut plutot tester ca dans Create
                 {
                 newPlaceables.Add(factory.CreateField());
-                GD.Print("j'ai crée un champ !");
                 totalResources[(int)ResourceType.WOOD] -=10; // je met a jour manuellement les valeurs, on peux peut etre l'automatiser 
                 }
             }
@@ -34,14 +33,12 @@ public class PrimaryStrat : BuildingStrategy
                 {
                     newPlaceables.Add(factory.CreateIceUsine());
                     totalResources[(int)ResourceType.WOOD] -=10;
-                    GD.Print("j'ai crée une usine a glacon !");
                 }
             }
 
             if(neededResources[(int)ResourceType.WOOD] > resourcesBeforeProduct[(int)ResourceType.WOOD])    // on devrait la créer a chaque tour meme si on as assez de bois 
             {
                 newPlaceables.Add(factory.CreateSawmill());
-                GD.Print("j'ai crée une scierie !");
             }
         //newPlaceables.Add(factory.CreateHouse());
         foreach (Placeable placeable in newPlaceables)
