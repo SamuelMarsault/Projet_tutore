@@ -298,6 +298,10 @@ public class Village
 
   private bool MakeTransaction(int[] export, int[] import)
     {
+        int[] oldRessources = GetResources();
+
+        ProductResources();
+
         int index = ResourceType.MONEY.GetHashCode();
 
         int[] insufficientResources = new int[resources.Length];
@@ -310,8 +314,12 @@ public class Village
         {
             resources[i] += import[i];
             resources[i] -= export[i];
+
+            if (i == 0){
+                GD.Print(resources[i]);
+            }
             
-            if (resources[i] <= 0)
+            if ((resources[i]-needRessorcesNow[i]) < 0)
             {
                 if (i != 3){
                     // Ajouter le couple ResourceType et la valeur correspondante à la liste
@@ -319,13 +327,13 @@ public class Village
                     inssufisant = true;
                 }
                 // Remettre la valeur à 0 si elle est devenue négative
-                resources[i] = 0;
+                //resources[i] = 0;
             }
             else{
                 insufficientResources[i] = 0;
             }
         }
-
+        resources = oldRessources;
         if (inssufisant == true){
             NotifyImpossibleTransaction(insufficientResources);
             return false;
@@ -335,17 +343,16 @@ public class Village
 
     public void NextTurn(int[] export, int[] import)
     { 
-        int[] oldRessources = GetResources();
-        ProductResources();
-        if (MakeTransaction(export,import)){
-            ApplyStrategy();
+        continueNextTurn(MakeTransaction(export,import));
+    }
+
+    public void continueNextTurn(bool contnue)
+    {
+        if (contnue){
+            ProductResources();
             NotifyResourcesChange();
+            ApplyStrategy();
             turn++;
-            GD.Print(resources[0]);
-        }
-        else{
-            resources = oldRessources;
-            GD.Print(resources[0]);
         }
     }
 

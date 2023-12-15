@@ -7,6 +7,7 @@ public partial class Printer : Node, VillageObserver
 {
 	// Called when the node enters the scene tree for the first time.
 	private List<ResourcePrintUnit> resourcePrintUnits = new ();
+	private MissingRessource windowMissingRessource;
 	[Export] private GameManager parent;
 	public override void _Ready()
 	{
@@ -25,6 +26,11 @@ public partial class Printer : Node, VillageObserver
 
 	private void updateResources(ResourceType resources, int[] quantities, int numResource) {
 		resourcePrintUnits[numResource].SetNewRessources(quantities[numResource]);
+	}
+
+	
+	public void setMessageWindow(MissingRessource missingRessource){
+		this.windowMissingRessource = missingRessource;
 	}
 
 	public void ReactToResourcesChange(int[] resources)
@@ -82,7 +88,6 @@ public partial class Printer : Node, VillageObserver
 	public void ReactToImpossibleTransaction(int[] missingRessources)
 	{
 		// Créez une instance de la fenêtre de dialogue
-		var messageDialog = new MessageDialog();
 
 		string message = "Vous n'avez pas assez de ressources, il vous manque : \n";
 
@@ -111,13 +116,13 @@ public partial class Printer : Node, VillageObserver
 		}
 
 		// Définissez le message d'erreur
-		messageDialog.SetErrorMessage(message);
+		windowMissingRessource.SetMessageMissingRessource(message);
 
-		// Ajoutez la fenêtre de dialogue à la scène
-		GetTree().Root.AddChild(messageDialog);
-		
-		// Affichez la fenêtre de dialogue
-		messageDialog.PopupCentered();
+		windowMissingRessource.MinSize = new Vector2I();
+
+		windowMissingRessource.PopupCentered();
+
 	}
+
 	public void ReactToExchangesRatesChange(int[,] exchangesRates) {}
 }

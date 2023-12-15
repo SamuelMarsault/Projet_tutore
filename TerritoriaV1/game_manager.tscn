@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://bnwbhg48evf4l"]
+[gd_scene load_steps=7 format=3 uid="uid://bnwbhg48evf4l"]
 
 [ext_resource type="Script" path="res://GameManager.cs" id="1_lhss8"]
 [ext_resource type="TileSet" uid="uid://cb3ppocddlos" path="res://Sol.tres" id="4_1tjtr"]
 [ext_resource type="Script" path="res://TileMap.cs" id="4_ywjhk"]
 [ext_resource type="PackedScene" uid="uid://c7k3xrl4l30a8" path="res://Printer.tscn" id="6_3ttkd"]
+[ext_resource type="Script" path="res://MissingRessource.cs" id="6_rqr1e"]
 [ext_resource type="PackedScene" uid="uid://bk7gbiw0048qm" path="res://Trader.tscn" id="7_mhkkq"]
 
 [node name="GameManager" type="Node2D"]
@@ -46,3 +47,16 @@ parent = NodePath("..")
 
 [node name="Trader" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("7_mhkkq")]
 parent = NodePath("..")
+
+[node name="MissingRessource" type="ConfirmationDialog" parent="."]
+title = "Attentions"
+position = Vector2i(380, 74)
+size = Vector2i(600, 400)
+unresizable = true
+popup_window = true
+ok_button_text = "Continuer quand meme"
+cancel_button_text = "Changer les données"
+script = ExtResource("6_rqr1e")
+
+[connection signal="canceled" from="MissingRessource" to="." method="_on_missing_ressource_canceled"]
+[connection signal="confirmed" from="MissingRessource" to="." method="_on_missing_ressource_confirmed"]
