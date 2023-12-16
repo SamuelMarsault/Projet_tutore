@@ -72,6 +72,8 @@ public partial class GameManager : Node2D
 	}
 
 	public void _on_missing_ressource_canceled(){
+		currentTurnNb--;
+		turn.updateCurrentTurn(currentTurnNb);
 		villageManager.applyNextTurn(false);
 	}
 
