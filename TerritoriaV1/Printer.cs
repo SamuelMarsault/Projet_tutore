@@ -76,7 +76,7 @@ public partial class Printer : Node, VillageObserver
 	private void DefeatParent()
 	{
 		// Appeler la méthode Defeat du parent
-		parent.Defeat();
+		
 	}
 
 	public void ReactToImpossibleTransaction()

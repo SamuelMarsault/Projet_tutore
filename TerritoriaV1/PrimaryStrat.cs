@@ -255,7 +255,7 @@ private void PlaceRandomly(PlaceableFactory factory, TileType targetTileType, Pl
             break;
         default:
             break;
-    }
+        }
             return;
         }
     }

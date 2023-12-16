@@ -98,6 +98,10 @@ public class Village
                 else if(tileID ==1){
                     this.tiles[x,y] = TileType.WATER;
                 }
+                else if(tileID == 2)
+                {
+                    this.tiles[x,y] = TileType.FOREST;
+                }
             }
         }
         NotifyTilesChange();

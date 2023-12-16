@@ -9,6 +9,7 @@ public partial class TileMap : Godot.TileMap, VillageObserver
 		
 		TileSet tileSet = GD.Load<TileSet>("res://Sol.tres");
 		TileSet = tileSet;
+	
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
