@@ -7,15 +7,16 @@ public class VillageManager
     // Dictionnaire correspondant aux différents bâtiments du village classés par type
     private Dictionary<PlaceableType, List<Placeable>> placeables;
     private Village village;
-    private EvolutionOfVillage evolutionOfVillage = new EvolutionOfVillage();
-    public VillageManager(TileMap map, Printer printer,Trader trader){
+    private EvolutionOfVillage evolutionOfVillage;
+    public VillageManager(TileMap map, Printer printer,Trader trader, EvolutionOfVillage evolutionOfVillage){
         village = new Village(map);
+        this.evolutionOfVillage = evolutionOfVillage;
         evolutionOfVillage.SetVillage(village);
         village.AddObservers(map);
         village.AddObservers(printer);
         village.AddObservers(trader);
         village.StartVillage();
-        GD.Print("taux de change actualisé");
+        //GD.Print("taux de change actualisé");
     }
 
     public void NextTurn(int[] export, int[] import) {

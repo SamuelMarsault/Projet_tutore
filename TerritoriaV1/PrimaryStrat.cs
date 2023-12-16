@@ -30,7 +30,7 @@ public class PrimaryStrat : BuildingStrategy
             if(neededResources[(int)ResourceType.ICE] > resourcesBeforeProduct[(int)ResourceType.ICE])
             {
                 if(totalResources[(int)ResourceType.WOOD] > 50)
-                {
+                {   
                     newPlaceables.Add(factory.CreateIceUsine());
                     totalResources[(int)ResourceType.WOOD] -=50;
                 }

@@ -7,7 +7,6 @@ public partial class turnNB : Control
     {
         Label l = (Label)GetNode("Panel/VBoxContainer/HBoxContainer/labelCurrentTurn");
         l.Text = currentTurnNb.ToString();  
-        GD.Print("turn");
     }
 }
 

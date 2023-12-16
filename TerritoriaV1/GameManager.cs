@@ -17,19 +17,20 @@ public partial class GameManager : Node2D
 	{
 		turn = GetNode<turnNB>("t");
 		turn.updateCurrentTurn(1);
-
-		if(turn == null)
-		{
-			GD.Print("turn null");
-		}
 	
-		var printer = GetNode<Printer>("Printer");
-		villageManager = new VillageManager(GetNode<TileMap>("Map"),GetNode<Printer>("Printer"),GetNode<Trader>("Trader"));
-			
-		evolutionOfVillage = new EvolutionOfVillage();
 		MissingRessource missingResource = GetNode<MissingRessource>("MissingRessource");
-		printer.setMessageWindow(missingResource);
-		evolutionOfVillage.SetVillage(villageManager.GetVillage());
+		var printer = GetNode<Printer>("Printer");
+		printer.setMessageWindow(missingResource);	
+		
+		evolutionOfVillage = new EvolutionOfVillage(this);
+		if(evolutionOfVillage != null)
+	
+		villageManager = new VillageManager(GetNode<TileMap>("Map"),GetNode<Printer>("Printer"),GetNode<Trader>("Trader"),evolutionOfVillage);		
+		
+        var messageDialog = new MessageDialog();
+		messageDialog.SetErrorMessage("bienvenue, vous êtes responsables de l'import et de l'export des ressources de notre village. nous comptons sur vous");
+		AddChild(messageDialog);
+		messageDialog.PopupCentered();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -50,7 +51,6 @@ public partial class GameManager : Node2D
 		}
 		
 		villageManager.NextTurn(export, import);
-		evolutionOfVillage.DetermineStrategy();
 	}
 
 	public void updateGraphics()
