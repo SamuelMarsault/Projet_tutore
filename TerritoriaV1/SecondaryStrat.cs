@@ -6,7 +6,7 @@ using TerritoriaV1;
 public class SecondaryStrat : BuildingStrategy
 {
 
-    public SecondaryStrat(TileType[,] tiles)
+    public SecondaryStrat(Placeable[,] placeables,TileType[,] tiles)
     {
         SetTiles(tiles);
     }

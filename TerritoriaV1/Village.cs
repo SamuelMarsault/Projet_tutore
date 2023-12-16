@@ -45,8 +45,9 @@ public class Village
                 }
             }
         }
+        this.map = map;
         BuildingStrategyFactory factoryStrat = new BuildingStrategyFactory();
-        this.SetBuildingStrategy(factoryStrat.createPrimaryStrategy(this.tiles));
+        this.SetBuildingStrategy(factoryStrat.createPrimaryStrategy(this.placeables, this.GetTiles()));
         GD.Print(this.map == null);
         this.turn = 1;
 
@@ -97,10 +98,15 @@ public class Village
 
     //Initializes a 2D table containing the type of soil
     private void InitialiseTile(){
+        // Récupérer les dimensions du TileMap
+        int largeur = this.map.GetUsedRect().Size.X;
+        int hauteur = this.map.GetUsedRect().Size.Y;
+
+        this.tiles = new TileType[largeur,hauteur];
         // Parcourir chaque cellule du TileMap
-        for (int x = 0; x < tiles.GetLength(0); x++)
+        for (int x = 0; x < largeur; x++)
         {
-            for (int y = 0; y < tiles.GetLength(1); y++)
+            for (int y = 0; y < hauteur; y++)
             {
                 // Récupérer l'ID du tile à la position (x, y)
                 int tileID = this.map.GetCellSourceId(0,new Vector2I(x,y));
@@ -112,7 +118,8 @@ public class Village
                 else if(tileID ==1){
                     this.tiles[x,y] = TileType.WATER;
                 }
-                else{
+                else if(tileID == 2)
+                {
                     this.tiles[x,y] = TileType.FOREST;
                 }
             }
@@ -259,6 +266,7 @@ public class Village
         } 
         placeables[x, y] = placeable;
     }
+    
 
   private bool MakeTransaction(int[] export, int[] import)
     {

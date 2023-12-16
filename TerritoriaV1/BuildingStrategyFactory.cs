@@ -6,18 +6,18 @@ using TerritoriaV1;
 public partial class BuildingStrategyFactory
 {
  
-    public BuildingStrategy createPrimaryStrategy(TileType[,] tiles)
+    public BuildingStrategy createPrimaryStrategy(Placeable[,] placeables, TileType[,] tiles)
     {
-        return new PrimaryStrat(tiles);
+        return new PrimaryStrat(placeables, tiles);
     }
 
-    public BuildingStrategy createSecondaryStrategy(TileType[,] tiles)
+    public BuildingStrategy createSecondaryStrategy(Placeable[,] placeables, TileType[,] tiles)
     {
-        return new SecondaryStrat(tiles);
+        return new SecondaryStrat(placeables, tiles);
     }
 
-    public BuildingStrategy createTertiaryStrategy(TileType[,] tiles)
+    public BuildingStrategy createTertiaryStrategy(Placeable[,] placeables, TileType[,] tiles)
     {
-        return new TertiaryStrat(tiles);
+        return new TertiaryStrat(placeables, tiles);
     }
 }

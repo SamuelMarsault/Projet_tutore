@@ -82,7 +82,7 @@ public partial class Printer : Node, VillageObserver
 	private void DefeatParent()
 	{
 		// Appeler la méthode Defeat du parent
-		parent.Defeat();
+		
 	}
 
 	public void ReactToImpossibleTransaction(int[] missingRessources)
@@ -117,8 +117,6 @@ public partial class Printer : Node, VillageObserver
 
 		// Définissez le message d'erreur
 		windowMissingRessource.SetMessageMissingRessource(message);
-
-		windowMissingRessource.MinSize = new Vector2I();
 
 		windowMissingRessource.PopupCentered();
 

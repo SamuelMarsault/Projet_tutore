@@ -20,19 +20,19 @@ public class EvolutionOfVillage
 
         if(this.NBPlaceables[(int)PlaceableType.SAWMILL] == 0 && this.NBPlaceables[(int)PlaceableType.FIELD] == 0 && NBPlaceables[(int)PlaceableType.ICE_USINE]  == 0)  // cette condition ne sera jamais remplit
         {
-            village.SetBuildingStrategy(factory.createTertiaryStrategy(village.GetTiles()));
+            village.SetBuildingStrategy(factory.createTertiaryStrategy(village.GetPlaceables(),village.GetTiles()));
         }
         else if(ressources[(int)ResourceType.MONEY]>10000)
         {
-            village.SetBuildingStrategy(factory.createSecondaryStrategy(village.GetTiles()));
+            village.SetBuildingStrategy(factory.createSecondaryStrategy(village.GetPlaceables(),village.GetTiles()));
         }
         else
         {
-            village.SetBuildingStrategy(factory.createPrimaryStrategy(village.GetTiles()));
+            village.SetBuildingStrategy(factory.createPrimaryStrategy(village.GetPlaceables(),village.GetTiles()));
         }
     }
 
-    public void SetVillage(Village village)
+    public void SetVillage(Village village) 
     {
         this.village = village;
     }

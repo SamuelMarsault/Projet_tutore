@@ -26,4 +26,9 @@ public class VillageManager
     public void applyNextTurn(bool confirm){
         village.continueNextTurn(confirm);
     }
+
+    public Village GetVillage()
+    {
+        return this.village;
+    }
 }
