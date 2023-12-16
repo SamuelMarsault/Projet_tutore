@@ -20,27 +20,24 @@ public class PrimaryStrat : BuildingStrategy
         List<Placeable> newPlaceables = new List<Placeable>();
             if(neededResources[(int)ResourceType.HOP] > resourcesBeforeProduct[(int)ResourceType.HOP])
             {
-                if(totalResources[(int)ResourceType.WOOD] > 10)//si on a assez pour construire, on peut plutot tester ca dans Create
+                if(totalResources[(int)ResourceType.WOOD] > 50)//si on a assez pour construire, on peut plutot tester ca dans Create
                 {
                 newPlaceables.Add(factory.CreateField());
-                totalResources[(int)ResourceType.WOOD] -=10; // je met a jour manuellement les valeurs, on peux peut etre l'automatiser 
+                totalResources[(int)ResourceType.WOOD] -=50; // je met a jour manuellement les valeurs, on peux peut etre l'automatiser 
                 }
             }
 
             if(neededResources[(int)ResourceType.ICE] > resourcesBeforeProduct[(int)ResourceType.ICE])
             {
-                if(totalResources[(int)ResourceType.WOOD] > 10)
+                if(totalResources[(int)ResourceType.WOOD] > 50)
                 {
                     newPlaceables.Add(factory.CreateIceUsine());
-                    totalResources[(int)ResourceType.WOOD] -=10;
+                    totalResources[(int)ResourceType.WOOD] -=50;
                 }
             }
 
-            if(neededResources[(int)ResourceType.WOOD] > resourcesBeforeProduct[(int)ResourceType.WOOD])    // on devrait la créer a chaque tour meme si on as assez de bois 
-            {
-                newPlaceables.Add(factory.CreateSawmill());
-            }
-        //newPlaceables.Add(factory.CreateHouse());
+            newPlaceables.Add(factory.CreateSawmill());
+
         foreach (Placeable placeable in newPlaceables)
         {
             PlacePlaceable(placeables,placeable, targetTile[placeable.getPlaceableType().GetHashCode()]);
