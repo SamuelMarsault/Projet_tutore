@@ -118,8 +118,6 @@ public partial class Printer : Node, VillageObserver
 		// Définissez le message d'erreur
 		windowMissingRessource.SetMessageMissingRessource(message);
 
-		windowMissingRessource.MinSize = new Vector2I();
-
 		windowMissingRessource.PopupCentered();
 
 	}
