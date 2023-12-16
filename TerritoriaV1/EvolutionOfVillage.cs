@@ -22,7 +22,7 @@ public class EvolutionOfVillage
         {
             village.SetBuildingStrategy(factory.createTertiaryStrategy(village.GetPlaceables(),village.GetTiles()));
         }
-        else if(ressources[(int)ResourceType.MONEY]>10)  // 10 euro, peut etre augmenté
+        else if(ressources[(int)ResourceType.MONEY]>10000)
         {
             village.SetBuildingStrategy(factory.createSecondaryStrategy(village.GetPlaceables(),village.GetTiles()));
         }
@@ -32,7 +32,7 @@ public class EvolutionOfVillage
         }
     }
 
-    public void SetVillage(Village village)
+    public void SetVillage(Village village) 
     {
         this.village = village;
     }

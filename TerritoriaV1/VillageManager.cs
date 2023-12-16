@@ -10,7 +10,7 @@ public class VillageManager
     private EvolutionOfVillage evolutionOfVillage = new EvolutionOfVillage();
     public VillageManager(TileMap map, Printer printer,Trader trader){
         village = new Village(map);
-        //evolutionOfVillage.SetVillage(village);
+        evolutionOfVillage.SetVillage(village);
         village.AddObservers(map);
         village.AddObservers(printer);
         village.AddObservers(trader);
@@ -19,8 +19,12 @@ public class VillageManager
     }
 
     public void NextTurn(int[] export, int[] import) {
-        //evolutionOfVillage.DetermineStrategy();
+        evolutionOfVillage.DetermineStrategy();
         village.NextTurn(export, import);
+    }
+
+    public void applyNextTurn(bool confirm){
+        village.continueNextTurn(confirm);
     }
 
     public Village GetVillage()

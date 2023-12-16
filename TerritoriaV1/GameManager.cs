@@ -22,9 +22,13 @@ public partial class GameManager : Node2D
 		{
 			GD.Print("turn null");
 		}
-
-		villageManager = new VillageManager(GetNode<TileMap>("Map"),GetNode<Printer>("Printer"),GetNode<Trader>("Trader"));	
-		EvolutionOfVillage evolutionOfVillage = new EvolutionOfVillage();
+	
+		var printer = GetNode<Printer>("Printer");
+		villageManager = new VillageManager(GetNode<TileMap>("Map"),GetNode<Printer>("Printer"),GetNode<Trader>("Trader"));
+			
+		evolutionOfVillage = new EvolutionOfVillage();
+		MissingRessource missingResource = GetNode<MissingRessource>("MissingRessource");
+		printer.setMessageWindow(missingResource);
 		evolutionOfVillage.SetVillage(villageManager.GetVillage());
 	}
 
@@ -47,7 +51,6 @@ public partial class GameManager : Node2D
 		
 		villageManager.NextTurn(export, import);
 		evolutionOfVillage.DetermineStrategy();
-		//turn.updateCurrentTurn(currentTurnNb);
 	}
 
 	public void updateGraphics()
@@ -64,4 +67,15 @@ public partial class GameManager : Node2D
 		GetTree().Quit();
 	}
 
+	public void Victory(){
+		//TODO
+	}
+
+	public void _on_missing_ressource_canceled(){
+		villageManager.applyNextTurn(false);
+	}
+
+	public void _on_missing_ressource_confirmed(){
+		villageManager.applyNextTurn(true);
+	}
 }

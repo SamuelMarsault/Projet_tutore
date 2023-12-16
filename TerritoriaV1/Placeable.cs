@@ -75,6 +75,10 @@ public class Placeable
 		}
 		return needs;
 	}
+
+	public int getProductionCapacity(){
+		return productionCapacities;
+	}
 	public PlaceableType getPlaceableType()
 	{
 		return placeableType;

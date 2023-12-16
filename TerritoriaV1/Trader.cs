@@ -83,7 +83,7 @@ public partial class Trader : Node, VillageObserver
 		parent.nextTurn(export, import);
 	}
 
-	public void ReactToImpossibleTransaction()
+	public void ReactToImpossibleTransaction(int[] missingRessources)
 	{
 		
 	}
