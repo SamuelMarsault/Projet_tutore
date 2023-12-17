@@ -41,3 +41,4 @@
 /T3/assets/city_texture/Top[[:space:]]Down[[:space:]]City[[:space:]]Pack.jpg filter=lfs diff=lfs merge=lfs -text
 /T3/assets/city_texture/banner.png filter=lfs diff=lfs merge=lfs -text
 /T3/assets/city_texture_autre/aenclaveTownPack.png filter=lfs diff=lfs merge=lfs -text
+/TerritoriaV1/game_manager.tscn filter=lfs diff=lfs merge=lfs -text

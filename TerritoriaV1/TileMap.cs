@@ -63,6 +63,7 @@ public partial class TileMap : Godot.TileMap, VillageObserver
 					}
 					//GD.Print("je place un "+placeables[i,j].getPlaceableType());
 					SetCell(1,new Vector2I(i,j),ID,new Vector2I(0,0));
+					GD.Print("map : nouveau "+ placeables[i,j].getPlaceableType()+" ajouté aux coordonnée" + i +","+j+" "+(TileType) GetCellSourceId(0,new Vector2I(i,j)));
 				}
 			}
 		}

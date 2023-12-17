@@ -77,6 +77,6 @@ public partial class GameManager : Node2D
 		var messageDialog = new MessageDialog();
 		messageDialog.SetErrorMessage(message);
 		AddChild(messageDialog);
-		messageDialog.PopupCentered();
+		messageDialog.PopupCenteredClamped();
 	}
 }

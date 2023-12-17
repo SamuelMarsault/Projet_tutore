@@ -52,4 +52,9 @@ public class TertiaryStrat : BuildingStrategy
         };
         return exchangesRates;
     }
+
+    override public Placeable[,] PlacePlaceable(Placeable[,] placeables,Placeable placeable, TileType targetTile)
+     {
+        return null;
+     }
 }

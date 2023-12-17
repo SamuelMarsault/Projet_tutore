@@ -38,7 +38,7 @@ public class EvolutionOfVillage
         NBPlaceables[(int)PlaceableType.ICE_USINE]  == 0
         && alreadySecondary == true) 
         {
-            //GD.Print("tertiary");
+            GD.Print("tertiary");
             alreadyTertiary = true;
 
             village.SetBuildingStrategy(factory.createTertiaryStrategy(village.GetPlaceables(),village.GetTiles()));
@@ -46,7 +46,7 @@ public class EvolutionOfVillage
         }
         else if(ressources[(int)ResourceType.MONEY]>10000 && alreadyTertiary == false)
         {
-            //GD.Print("secondary");
+            GD.Print("secondary");
             alreadySecondary = true;
 
             village.SetBuildingStrategy(factory.createSecondaryStrategy(village.GetPlaceables(),village.GetTiles()));

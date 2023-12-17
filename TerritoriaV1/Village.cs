@@ -29,7 +29,7 @@ public class Village
 
         //Par défaut la stratégie est la croissance
         //Définition du terrain :
-        tiles = new TileType[20,20];
+        tiles = new TileType[15,15];
         InitialiseTile();
         placeables = new Placeable[tiles.GetLength(0),tiles.GetLength(1)];
         for (int i = 0; i < placeables.GetLength(0); i++)
@@ -194,6 +194,16 @@ public class Village
         NotifyPlaceableChange();
         exchangesRates = strategy.GetExchangesRates();
         NotifyExchangesRatesChange();
+        for(int i = 0; i < placeables.GetLength(0); i++)
+        {
+            for(int j = 0; j < placeables.GetLength(0); j++)
+            {
+                if(placeables[i,j] != null)
+                {
+                    GD.Print(placeables[i,j].getPlaceableType());
+                }
+            }
+        }
     }
     public void AddObservers(VillageObserver observer)
     {
@@ -231,17 +241,17 @@ public class Village
 
     public void StartVillage()
     {
-        placeables[6,2] = factory.CreateHouse();
+        /*placeables[6,2] = factory.CreateHouse();
         placeables[6,0] = factory.CreateHouse();
-        placeables[8,2] = factory.CreateHouse();
-        placeables[6,4] = factory.CreateBar();
-        placeables[11,9] = factory.CreateSawmill();
-        placeables[14,16] = factory.CreateTrainStation();
-        placeables[15,11] = factory.CreateField();
+        placeables[8,2] = factory.CreateHouse();*/
+        placeables[12,12] = factory.CreateBar();
+        //placeables[11,9] = factory.CreateSawmill();
+        //placeables[20,16] = factory.CreateTrainStation();
+        /*placeables[15,11] = factory.CreateField();
         placeables[16,11] = factory.CreateField();
         placeables[15,10] = factory.CreateField();
-        placeables[16,10] = factory.CreateField();
-        placeables[16, 12] = factory.CreateBeerUsine();
+        placeables[16,10] = factory.CreateField();*/
+        placeables[12, 10] = factory.CreateBeerUsine();
         NotifyPlaceableChange();
         exchangesRates = strategy.GetExchangesRates();
         NotifyExchangesRatesChange();
@@ -268,7 +278,7 @@ public class Village
             
             if (i == 0){
                //GD.Print(resources[i]);
-                GD.Print("village-test maketransaction");
+                //GD.Print("village-test maketransaction");
             }
             
             if ((resources[i]-needRessorcesNow[i]) < 0)

@@ -4,13 +4,15 @@ using TerritoriaV1;
 
 public abstract class BuildingStrategy {
     private TileType[,] tiles;
+
     public abstract Placeable[,] BuildNewPlaceable(int[] totalResources,
         int[] neededResources, PlaceableFactory factory, 
         TileType[] targetTile,Placeable[,] placeables, int[] resourcesBeforeProduct);
 
+
     public abstract int[,] GetExchangesRates();
-    public Placeable[,] PlacePlaceable(Placeable[,] placeables,Placeable placeable, TileType targetTile)
-    {
+    public abstract Placeable[,] PlacePlaceable(Placeable[,] placeables,Placeable placeable, TileType targetTile);
+    /*{
         bool notPlaced = true;
         for (int i = 0; i < placeables.GetLength(0) && notPlaced; i++)
         {
@@ -30,13 +32,13 @@ public abstract class BuildingStrategy {
         }
 
         return placeables;
-    }
+    }*/
 
-    private bool CanPlaceAtLocation(int x, int y, TileType targetTileType, Placeable[,] placeables) {
+    protected bool CanPlaceAtLocation(int x, int y, TileType targetTileType, Placeable[,] placeables) {
         return placeables[x, y] == null && tiles[x, y] == targetTileType;
     }
 
-    private bool HasAdjacentPlaceableOfType(int x, int y, PlaceableType type, Placeable[,] placeables){
+    protected bool HasAdjacentPlaceableOfType(int x, int y, PlaceableType type, Placeable[,] placeables){
         if (x-1>0 && placeables[x - 1, y]?.getPlaceableType() == type ||
             x+1<placeables.GetLength(0) && placeables[x + 1, y]?.getPlaceableType() == type ||
             y-1>0 && placeables[x, y - 1]?.getPlaceableType() == type ||
@@ -48,10 +50,10 @@ public abstract class BuildingStrategy {
         return false;
     }
 
-    private void PlaceRandomly(TileType targetTileType, Placeable placeable, Placeable[,] placeables) {
+    protected void PlaceRandomly(TileType targetTileType, Placeable placeable, Placeable[,] placeables) {
         var rand = new Random();
-        int x = rand.Next(placeables.GetLength(0));
-        int y = rand.Next(placeables.GetLength(1));
+        int x = rand.Next(15);
+        int y = rand.Next(15);
         while (CanPlaceAtLocation(x, y, targetTileType, placeables))
         {
             x = rand.Next(placeables.GetLength(0));
