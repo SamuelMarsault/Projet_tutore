@@ -8,23 +8,38 @@ public class VillageManager
     private Dictionary<PlaceableType, List<Placeable>> placeables;
     private Village village;
     private EvolutionOfVillage evolutionOfVillage;
-    public VillageManager(TileMap map, Printer printer,Trader trader, EvolutionOfVillage evolutionOfVillage){
+    public VillageManager(TileMap map, Printer printer,Trader trader, EvolutionOfVillage evolutionOfVillage)
+    {
         village = new Village(map);
         this.evolutionOfVillage = evolutionOfVillage;
         evolutionOfVillage.SetVillage(village);
+        
         village.AddObservers(map);
         village.AddObservers(printer);
         village.AddObservers(trader);
+
         village.StartVillage();
-        //GD.Print("taux de change actualisé");
     }
 
-    public void NextTurn(int[] export, int[] import) {
+    public void NextTurn(int[] export, int[] import)
+    {
+        /*for(int i = 0; i < export.Length; i++)
+        {
+            GD.Print("VM-export["+i+"] :" +export[i]);
+        }
+
+        for(int i = 0; i < import.Length; i++)
+        {
+            GD.Print("VM-import["+i+"] :" +import[i]);
+        }*/
+
+
         evolutionOfVillage.DetermineStrategy();
         village.NextTurn(export, import);
     }
 
-    public void applyNextTurn(bool confirm){
+    public void applyNextTurn(bool confirm)
+    {
         village.continueNextTurn(confirm);
     }
 

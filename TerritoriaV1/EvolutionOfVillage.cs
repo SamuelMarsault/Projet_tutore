@@ -21,47 +21,51 @@ public class EvolutionOfVillage
         this.gameManager = gm;
     }
 
-    public void DetermineStrategy()
+    public void DetermineStrategy() 
     {
-        var messageDialog = gameManager.GetNode<MessageDialog>("messageDialog");
-        messageDialog.SetErrorMessage("hello");
-
-        messageDialog.PopupCentered();
+        if(village == null)// test de village, car le EoV est crée par le GM, 
+         //qui le passe ensuite à VM. mais comme c'est VM qui crée Village, on le passe par setter a EoV 
+        {
+            GD.Print("EoV - village est null");
+        }
 
         ressources = village.GetResources();
         neededRessources = village.GetNeededRessourcesPublic();
         this.NBPlaceables = village.getNBPlaceables();
 
-        if(this.NBPlaceables[(int)PlaceableType.SAWMILL] == 0 && this.NBPlaceables[(int)PlaceableType.FIELD] == 0 && NBPlaceables[(int)PlaceableType.ICE_USINE]  == 0 && alreadySecondary == true)  // cette condition ne sera jamais remplit
+        if(this.NBPlaceables[(int)PlaceableType.SAWMILL] == 0 && 
+        this.NBPlaceables[(int)PlaceableType.FIELD] == 0 &&
+        NBPlaceables[(int)PlaceableType.ICE_USINE]  == 0
+        && alreadySecondary == true) 
         {
+            //GD.Print("tertiary");
             alreadyTertiary = true;
+
             village.SetBuildingStrategy(factory.createTertiaryStrategy(village.GetPlaceables(),village.GetTiles()));
-            messageDialog = gameManager.GetNode<MessageDialog>("messageDialog");
-		    messageDialog.SetErrorMessage("le village a atteint une phase de tertiarisation : il se délaisse de la production et compte sur l'import pour satisfaire la consommation");
-		    
-		    messageDialog.PopupCentered();
+		    gameManager.printMessage("le village a atteint une phase de tertiarisation : il se délaisse de la production et compte sur l'import pour satisfaire la consommation");
         }
         else if(ressources[(int)ResourceType.MONEY]>10000 && alreadyTertiary == false)
         {
+            //GD.Print("secondary");
             alreadySecondary = true;
+
             village.SetBuildingStrategy(factory.createSecondaryStrategy(village.GetPlaceables(),village.GetTiles()));
-              messageDialog = gameManager.GetNode<MessageDialog>("messageDialog");
-		    messageDialog.SetErrorMessage("le village a atteint une phase de deterritorialisation: des habitants viennent y vivrent, et certaines usines de ressources primaires commencent à fermer, au profit de l'import des ressources nécéssaire à son dévellopement");
-		    messageDialog.PopupCentered();
+		    gameManager.printMessage("le village a atteint une phase de deterritorialisation: des habitants viennent y vivrent, et certaines usines de ressources primaires commencent à fermer, au profit de l'import des ressources nécéssaire à son dévellopement");
+	
         }
-        else if(alreadyTertiary == false && alreadyTertiary == false)
+        else if(alreadyTertiary == false && alreadySecondary == false)
         {
-            village.SetBuildingStrategy(factory.createPrimaryStrategy(village.GetPlaceables(),village.GetTiles()));
+            //village.SetBuildingStrategy(factory.createPrimaryStrategy(village.GetPlaceables(),village.GetTiles()));
+            // garde la stratégie primaire actuelle, pas besoin de la rechanger
+        }
+        else
+        {
+            GD.Print("on ne devrais pas être ici");
         }
     }
 
     public void SetVillage(Village village) 
     {
         this.village = village;
-    }
-
-    public void setGameManager(GameManager gameManager)
-    {
-        this.gameManager = gameManager;
     }
 }

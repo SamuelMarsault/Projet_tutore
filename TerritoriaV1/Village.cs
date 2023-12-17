@@ -189,7 +189,7 @@ public class Village
 
     private void ApplyStrategy(int[] resourcesBeforeProduct)
     {
-        Console.WriteLine("Statégie "+strategy.GetType());
+        //Console.WriteLine("Statégie "+strategy.GetType());
         placeables = strategy.BuildNewPlaceable(resources, GetNeededResources(true), factory, targetTiles, placeables, resourcesBeforeProduct);
         NotifyPlaceableChange();
         exchangesRates = strategy.GetExchangesRates();
@@ -247,27 +247,6 @@ public class Village
         NotifyExchangesRatesChange();
     }
 
-    public void placerBatimentRand( PlaceableFactory factory, Placeable placeable)
-    {
-        bool canBePlaced = false;
-        Random random = new Random();
-        int x=0, y=0;
-        PlaceableType placeableType = placeable.getPlaceableType();
-        while (!canBePlaced)
-        {
-            canBePlaced = true;
-            y = random.Next(0,tiles.GetLength(0));
-            x = random.Next(0,tiles.GetLength(0));
-            if (placeableType != PlaceableType.ICE_USINE && tiles[x, y] == TileType.WATER) canBePlaced = false;
-            else if (placeableType == PlaceableType.ICE_USINE && tiles[x, y] != TileType.WATER) canBePlaced = false;
-
-            if (placeableType == PlaceableType.SAWMILL && placeables[x, y].getPlaceableType() != PlaceableType.FOREST)
-                canBePlaced = false;
-        } 
-        placeables[x, y] = placeable;
-    }
-    
-
   private bool MakeTransaction(int[] export, int[] import)
     {
         int[] oldRessources = GetResources();
@@ -286,9 +265,10 @@ public class Village
         {
             resources[i] += import[i];
             resources[i] -= export[i];
-
+            
             if (i == 0){
-                GD.Print(resources[i]);
+               //GD.Print(resources[i]);
+                GD.Print("village-test maketransaction");
             }
             
             if ((resources[i]-needRessorcesNow[i]) < 0)

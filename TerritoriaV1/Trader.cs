@@ -70,15 +70,15 @@ public partial class Trader : Node, VillageObserver
 			import[i] = resourceTradeUnits[i].GetImportValue();
 			export[ResourceType.MONEY.GetHashCode()] += resourceTradeUnits[i].GetImportValue() * exchangesRates[1,i];
 		}
-		Console.WriteLine("import : ");
+		//Console.WriteLine("import : ");
 		for (int i = 0; i < import.Length; i++)
 		{
-			Console.WriteLine(Enum.GetValues(typeof(ResourceType)).GetValue(i)+" : "+import[i]);
+			//Console.WriteLine(Enum.GetValues(typeof(ResourceType)).GetValue(i)+" : "+import[i]);
 		}
-		Console.WriteLine("export : ");
+		//Console.WriteLine("export : ");
 		for (int i = 0; i < export.Length; i++)
 		{
-			Console.WriteLine(Enum.GetValues(typeof(ResourceType)).GetValue(i)+" : "+export[i]);
+			//Console.WriteLine(Enum.GetValues(typeof(ResourceType)).GetValue(i)+" : "+export[i]);
 		}
 		parent.nextTurn(export, import);
 	}
@@ -94,7 +94,7 @@ public partial class Trader : Node, VillageObserver
 		for (int i = 0; i < resourceTradeUnits.Count; i++)
 		{
 			int[] newRates = { exchangesRates[0,i],exchangesRates[1,i] };
-			Console.WriteLine("coucou : "+this.exchangesRates[1,i]+" "+exchangesRates[0,i]);
+			//Console.WriteLine("coucou : "+this.exchangesRates[1,i]+" "+exchangesRates[0,i]);
 			resourceTradeUnits[i].SetExchangeRate(newRates);
 		}
 	}

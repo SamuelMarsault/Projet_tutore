@@ -27,18 +27,9 @@ public partial class GameManager : Node2D
 	
 		villageManager = new VillageManager(GetNode<TileMap>("Map"),GetNode<Printer>("Printer"),GetNode<Trader>("Trader"),evolutionOfVillage);		
 		
-        var messageDialog = new MessageDialog();
-		messageDialog.SetErrorMessage("bienvenue, vous êtes responsables de l'import et de l'export des ressources de notre village. nous comptons sur vous");
-		AddChild(messageDialog);
-		messageDialog.PopupCentered();
+		printMessage("bienvenue, vous êtes responsables de l'import et de l'export des ressources de notre village. nous comptons sur vous");
 	}
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-		
-	}
-
+	
 	public void nextTurn(int[] export, int[] import)
 	{
 		
@@ -79,5 +70,13 @@ public partial class GameManager : Node2D
 
 	public void _on_missing_ressource_confirmed(){
 		villageManager.applyNextTurn(true);
+	}
+
+	public void printMessage(string message)
+	{
+		var messageDialog = new MessageDialog();
+		messageDialog.SetErrorMessage(message);
+		AddChild(messageDialog);
+		messageDialog.PopupCentered();
 	}
 }

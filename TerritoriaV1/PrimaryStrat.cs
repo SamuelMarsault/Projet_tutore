@@ -20,10 +20,11 @@ public class PrimaryStrat : BuildingStrategy
         List<Placeable> newPlaceables = new List<Placeable>();
             if(neededResources[(int)ResourceType.HOP] > resourcesBeforeProduct[(int)ResourceType.HOP])
             {
-                if(totalResources[(int)ResourceType.WOOD] > 50)//si on a assez pour construire, on peut plutot tester ca dans Create
+                if(totalResources[(int)ResourceType.WOOD] > 50)
                 {
                 newPlaceables.Add(factory.CreateField());
-                totalResources[(int)ResourceType.WOOD] -=50; // je met a jour manuellement les valeurs, on peux peut etre l'automatiser 
+                totalResources[(int)ResourceType.WOOD] -=50; 
+                //GD.Print("Primary-construction champ");
                 }
             }
 
@@ -33,15 +34,17 @@ public class PrimaryStrat : BuildingStrategy
                 {   
                     newPlaceables.Add(factory.CreateIceUsine());
                     totalResources[(int)ResourceType.WOOD] -=50;
+                    //GD.Print("Primary-construction iceUsine");
                 }
             }
 
-            newPlaceables.Add(factory.CreateSawmill());
+        newPlaceables.Add(factory.CreateSawmill());
+        //GD.Print("Primary-construction scierie");
 
         foreach (Placeable placeable in newPlaceables)
         {
             PlacePlaceable(placeables,placeable, targetTile[placeable.getPlaceableType().GetHashCode()]);
-            Console.WriteLine(targetTile[placeable.getPlaceableType().GetHashCode()]+" "+placeable.getPlaceableType().GetHashCode());
+            //Console.WriteLine(targetTile[placeable.getPlaceableType().GetHashCode()]+" "+placeable.getPlaceableType().GetHashCode());
         }
         return placeables;
     }
@@ -56,7 +59,7 @@ public class PrimaryStrat : BuildingStrategy
         return exchangesRates;
     }
 
-    private void Create(Placeable[,] placeables,TileType[,] tiles,PlaceableType placeable, PlaceableFactory factory)
+   /* private void Create(Placeable[,] placeables,TileType[,] tiles,PlaceableType placeable, PlaceableFactory factory)
 {
     switch (placeable)
     {
@@ -239,6 +242,6 @@ private void PlaceRandomly(Placeable[,] placeables,TileType[,] tiles, PlaceableF
             return;
         }
     }
-}
+}*/
 
 }

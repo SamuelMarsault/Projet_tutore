@@ -9,7 +9,7 @@ public abstract class BuildingStrategy {
         TileType[] targetTile,Placeable[,] placeables, int[] resourcesBeforeProduct);
 
     public abstract int[,] GetExchangesRates();
-    public void PlacePlaceable(Placeable[,] placeables,Placeable placeable, TileType targetTile)
+    public Placeable[,] PlacePlaceable(Placeable[,] placeables,Placeable placeable, TileType targetTile)
     {
         bool notPlaced = true;
         for (int i = 0; i < placeables.GetLength(0) && notPlaced; i++)
@@ -28,6 +28,8 @@ public abstract class BuildingStrategy {
         {
             PlaceRandomly(targetTile, placeable, placeables);
         }
+
+        return placeables;
     }
 
     private bool CanPlaceAtLocation(int x, int y, TileType targetTileType, Placeable[,] placeables) {
