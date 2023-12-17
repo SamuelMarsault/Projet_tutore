@@ -41,7 +41,7 @@ public abstract class BuildingStrategy {
 
     protected bool HasAdjacentPlaceableOfType(int x, int y, PlaceableType type, Placeable[,] placeables){
 
-    if(placeables == null)
+    /*if(placeables == null)
     {
         GD.Print("placeables est nulle");
     }
@@ -58,8 +58,38 @@ public abstract class BuildingStrategy {
             return true;
         }
 
-    return false;
+    return false;*/
+
+
+   /* for(int i = 0; i < placeables.GetLength(0); i++)
+    {
+        for(int j = 0; j < placeables.GetLength(0); j++)
+        {
+            if(placeables[i,j] != null)
+            {
+                GD.Print(placeables[i,j] + " "+x+" "+y);
+            }
+        }
+        GD.Print("transition");
     }
+    return true;*/
+
+    //GD.Print("type " + type);
+    GD.Print(placeables.GetLength(0));
+
+    while(x<placeables.GetLength(0)-2 && y<placeables.GetLength(0)-2)
+    {
+        if(placeables[x+1,y] != null && placeables[x+1,y].getPlaceableType() == type || placeables[x,y+1] != null && placeables[x,y+1].getPlaceableType() == type)
+        {
+            return true;
+        }
+        x++;
+        y++;
+    }
+    return false;
+   }
+
+
 
     protected void PlaceRandomly(TileType targetTileType, Placeable placeable, Placeable[,] placeables) {
         var rand = new Random();
