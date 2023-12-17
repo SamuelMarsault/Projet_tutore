@@ -44,6 +44,10 @@ public class PrimaryStrat : BuildingStrategy
 
         foreach (Placeable placeable in newPlaceables)
         {
+            if(placeable == null)
+            {
+                GD.Print(placeable);
+            }
            placeables =  PlacePlaceable(placeables,placeable, targetTile[placeable.getPlaceableType().GetHashCode()]);
             //Console.WriteLine(targetTile[placeable.getPlaceableType().GetHashCode()]+" "+placeable.getPlaceableType().GetHashCode());
         }
@@ -63,10 +67,18 @@ public class PrimaryStrat : BuildingStrategy
 
         override public Placeable[,] PlacePlaceable(Placeable[,] placeables,Placeable placeable, TileType targetTile)
         {
+            if(placeable == null)
+            {
+                GD.Print("placeable est nulle");
+            }
+            if(placeables == null)
+            {
+                GD.Print("placeables est nulle");
+            }
             bool notPlaced = true;
             for (int i = 0; i < placeables.GetLength(0) && notPlaced; i++)
             {
-                for (int j = 0; j < placeables.GetLength(0) && notPlaced; j++)
+                for (int j = 0; j < placeables.GetLength(1) && notPlaced; j++)
                 {
                     if (HasAdjacentPlaceableOfType(i, j, placeable.getPlaceableType(), placeables) && CanPlaceAtLocation(i, j, targetTile, placeables))
                     {

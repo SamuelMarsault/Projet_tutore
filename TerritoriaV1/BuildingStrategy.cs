@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Godot;
 using TerritoriaV1;
 
 public abstract class BuildingStrategy {
@@ -39,15 +40,25 @@ public abstract class BuildingStrategy {
     }
 
     protected bool HasAdjacentPlaceableOfType(int x, int y, PlaceableType type, Placeable[,] placeables){
-        if (x-1>0 && placeables[x - 1, y]?.getPlaceableType() == type ||
-            x+1<placeables.GetLength(0) && placeables[x + 1, y]?.getPlaceableType() == type ||
-            y-1>0 && placeables[x, y - 1]?.getPlaceableType() == type ||
-            y+1<placeables.GetLength(1) && placeables[x, y + 1]?.getPlaceableType() == type)
+
+    if(placeables == null)
+    {
+        GD.Print("placeables est nulle");
+    }
+
+    GD.Print("x : " + x);
+    GD.Print("y : " + y);
+    GD.Print("type : " + type);
+    
+    if ((x - 1 >= 0 && placeables[x - 1, y].getPlaceableType() == type) ||
+        (x + 1 < placeables.GetLength(0) && placeables[x + 1, y].getPlaceableType() == type) ||
+        (y - 1 >= 0 && placeables[x, y - 1].getPlaceableType() == type) ||
+        (y + 1 < placeables.GetLength(0) && placeables[x, y + 1].getPlaceableType() == type))
         {
             return true;
         }
 
-        return false;
+    return false;
     }
 
     protected void PlaceRandomly(TileType targetTileType, Placeable placeable, Placeable[,] placeables) {

@@ -30,7 +30,6 @@ public class Village
         //Par défaut la stratégie est la croissance
         //Définition du terrain :
         tiles = new TileType[15,15];
-        InitialiseTile();
         placeables = new Placeable[tiles.GetLength(0),tiles.GetLength(1)];
         for (int i = 0; i < placeables.GetLength(0); i++)
         {
@@ -45,6 +44,7 @@ public class Village
                 }
             }
         }
+        InitialiseTile();
         this.map = map;
         BuildingStrategyFactory factoryStrat = new BuildingStrategyFactory();
         this.SetBuildingStrategy(factoryStrat.createPrimaryStrategy(this.placeables, this.GetTiles()));
@@ -189,6 +189,10 @@ public class Village
 
     private void ApplyStrategy(int[] resourcesBeforeProduct)
     {
+        if(placeables == null)
+        {
+            GD.Print("placeables == null");
+        }
         //Console.WriteLine("Statégie "+strategy.GetType());
         placeables = strategy.BuildNewPlaceable(resources, GetNeededResources(true), factory, targetTiles, placeables, resourcesBeforeProduct);
         NotifyPlaceableChange();
@@ -252,6 +256,15 @@ public class Village
         placeables[15,10] = factory.CreateField();
         placeables[16,10] = factory.CreateField();*/
         placeables[12, 10] = factory.CreateBeerUsine();
+
+        /*for(int i = 0; i < placeables.GetLength(0); i++)
+        {
+            for(int j = 0; j < placeables.GetLength(1); j++)
+            {
+                placeables[i,j] = factory.CreateHouse();
+            }
+        }*/
+
         NotifyPlaceableChange();
         exchangesRates = strategy.GetExchangesRates();
         NotifyExchangesRatesChange();
