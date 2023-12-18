@@ -21,25 +21,28 @@ public class PrimaryStrat : BuildingStrategy
         List<Placeable> newPlaceables = new List<Placeable>();
             if(neededResources[(int)ResourceType.HOP] > resourcesBeforeProduct[(int)ResourceType.HOP])
             {
-                if(totalResources[(int)ResourceType.WOOD] > 50)
+                if(totalResources[(int)ResourceType.WOOD] > 5)
                 {
                 newPlaceables.Add(factory.CreateField());
-                totalResources[(int)ResourceType.WOOD] -=50; 
+                totalResources[(int)ResourceType.WOOD] -=5; 
                 //GD.Print("Primary- veut construction champ");
                 }
             }
 
             if(neededResources[(int)ResourceType.ICE] > resourcesBeforeProduct[(int)ResourceType.ICE])
             {
-                if(totalResources[(int)ResourceType.WOOD] > 50)
+                if(totalResources[(int)ResourceType.WOOD] > 5)
                 {   
                     newPlaceables.Add(factory.CreateIceUsine());
-                    totalResources[(int)ResourceType.WOOD] -=50;
+                    totalResources[(int)ResourceType.WOOD] -=5;
                     //GD.Print("Primary- veut construction iceUsine");
                 }
             }
-
-        newPlaceables.Add(factory.CreateSawmill());
+        if(resourcesBeforeProduct[(int)ResourceType.WOOD] < 25 ) 
+        {
+            newPlaceables.Add(factory.CreateSawmill());
+        }   
+        
         //GD.Print("Primary- veut construction scierie");
 
         foreach (Placeable placeable in newPlaceables)
