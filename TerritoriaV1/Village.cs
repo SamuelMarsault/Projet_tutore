@@ -144,14 +144,14 @@ public class Village
                 }
             }
         }
+        /*
         Console.WriteLine("Après production : ");
         for (int i = 0; i < neededResources.Length; i++)
         {
             Console.WriteLine(Enum.GetNames(typeof(ResourceType)).GetValue(i)+" : ");
             Console.WriteLine("Disponible : "+resources[i]);
             Console.WriteLine("Besoin : "+neededResources[i]);
-        }
-        NotifyResourcesChange();
+        }*/
         return true;
     }
 
@@ -209,6 +209,7 @@ public class Village
             }
         }
     }
+    
     public void AddObservers(VillageObserver observer)
     {
         observers.Add(observer);

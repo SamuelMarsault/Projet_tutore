@@ -25,7 +25,7 @@ public partial class GameManager : Node2D
 		evolutionOfVillage = new EvolutionOfVillage(this);
 		if(evolutionOfVillage != null)
 	
-		villageManager = new VillageManager(GetNode<TileMap>("Map"),GetNode<Printer>("Printer"),GetNode<Trader>("Trader"),evolutionOfVillage);		
+		villageManager = new VillageManager(GetNode<TileMap>("Map"),printer,GetNode<Trader>("Trader"),evolutionOfVillage);		
 		
 		printMessage("bienvenue, vous êtes responsables de l'import et de l'export des ressources de notre village. nous comptons sur vous");
 	}
