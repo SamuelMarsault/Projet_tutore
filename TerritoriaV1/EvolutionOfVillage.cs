@@ -16,6 +16,8 @@ public class EvolutionOfVillage
     bool alreadySecondary = false;
     bool alreadyTertiary = false;
 
+    int turn = 1;
+
     public EvolutionOfVillage(GameManager gm)
     {
         this.gameManager = gm;
@@ -36,7 +38,7 @@ public class EvolutionOfVillage
         if(this.NBPlaceables[(int)PlaceableType.SAWMILL] == 0 && 
         this.NBPlaceables[(int)PlaceableType.FIELD] == 0 &&
         NBPlaceables[(int)PlaceableType.ICE_USINE]  == 0
-        && alreadySecondary == true) 
+        && alreadySecondary == true && alreadyTertiary == false) 
         {
             GD.Print("tertiary");
             alreadyTertiary = true;
@@ -44,7 +46,7 @@ public class EvolutionOfVillage
             village.SetBuildingStrategy(factory.createTertiaryStrategy(village.GetPlaceables(),village.GetTiles()));
 		    gameManager.printMessage("le village a atteint une phase de tertiarisation : il se délaisse de la production et compte sur l'import pour satisfaire la consommation");
         }
-        else if(ressources[(int)ResourceType.MONEY]>10000 && alreadyTertiary == false)
+        else if(turn > 10 && alreadyTertiary == false && alreadySecondary == false)
         {
             GD.Print("secondary");
             alreadySecondary = true;
@@ -62,6 +64,7 @@ public class EvolutionOfVillage
         {
             GD.Print("on ne devrais pas être ici");
         }
+        turn++;
     }
 
     public void SetVillage(Village village) 
