@@ -204,7 +204,7 @@ public class Village
             {
                 if(placeables[i,j] != null)
                 {
-                    GD.Print(placeables[i,j].getPlaceableType());
+                    //GD.Print(placeables[i,j].getPlaceableType());
                 }
             }
         }

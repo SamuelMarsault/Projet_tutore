@@ -35,11 +35,28 @@ public abstract class BuildingStrategy {
         return placeables;
     }*/
 
-    protected bool CanPlaceAtLocation(int x, int y, TileType targetTileType, Placeable[,] placeables) {
-        return placeables[x, y] == null && tiles[x, y] == targetTileType;
+ protected bool CanPlaceAtLocation(int x, int y, TileType targetTileType, Placeable[,] placeables)
+{
+if (x < placeables.GetLength(0) && y < placeables.GetLength(1))
+{
+    if ((tiles[x, y] != targetTileType) || (placeables[x, y] != null))
+    {
+        
+        return false;
     }
+    else
+    {
+    GD.Print("tiles : "+ tiles[x,y]); GD.Print("target : "+targetTileType);
+    return true; 
+    }
+}
+return false;
 
-    protected bool HasAdjacentPlaceableOfType(int x, int y, PlaceableType type, Placeable[,] placeables){
+}
+
+
+    protected bool HasAdjacentPlaceableOfType(int x, int y, PlaceableType type, Placeable[,] placeables)
+    {
 
     /*if(placeables == null)
     {
@@ -75,17 +92,18 @@ public abstract class BuildingStrategy {
     return true;*/
 
     //GD.Print("type " + type);
-    GD.Print(placeables.GetLength(0));
+    //GD.Print(placeables.GetLength(0));
 
-    while(x<placeables.GetLength(0)-2 && y<placeables.GetLength(0)-2)
-    {
-        if(placeables[x+1,y] != null && placeables[x+1,y].getPlaceableType() == type || placeables[x,y+1] != null && placeables[x,y+1].getPlaceableType() == type)
+
+
+        if(((x<placeables.GetLength(0)-1)   &&    (placeables[x+1,y] != null)    && (placeables[x+1,y].getPlaceableType() == type)) ||
+        ((y<placeables.GetLength(0)-1)  &&  (placeables[x,y+1] != null )    &&  ( placeables[x,y+1].getPlaceableType() == type)) ||
+        ((x>0)  &&  (placeables[x-1,y] != null )    &&  ( placeables[x-1,y].getPlaceableType() == type)) ||
+        ((y>0)  &&  (placeables[x,y-1] != null )    &&  ( placeables[x,y-1].getPlaceableType() == type)))
         {
             return true;
         }
-        x++;
-        y++;
-    }
+
     return false;
    }
 
@@ -95,12 +113,14 @@ public abstract class BuildingStrategy {
         var rand = new Random();
         int x = rand.Next(15);
         int y = rand.Next(15);
-        while (CanPlaceAtLocation(x, y, targetTileType, placeables))
+        if(CanPlaceAtLocation(x, y, targetTileType, placeables))
         {
-            x = rand.Next(placeables.GetLength(0));
-            y = rand.Next(placeables.GetLength(1));
+            placeables[x, y] = placeable;
         }
-        placeables[x, y] = placeable;
+        else
+        {
+            PlaceRandomly(targetTileType,placeable,placeables);
+        }
     }
     public void SetTiles(TileType[,] tiles) {this.tiles = tiles;}
 }
