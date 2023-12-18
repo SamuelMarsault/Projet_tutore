@@ -1,16 +1,19 @@
 using System;
 using System.Collections.Generic;
+using Godot;
 using TerritoriaV1;
 
 public abstract class BuildingStrategy {
     private TileType[,] tiles;
+
     public abstract Placeable[,] BuildNewPlaceable(int[] totalResources,
         int[] neededResources, PlaceableFactory factory, 
         TileType[] targetTile,Placeable[,] placeables, int[] resourcesBeforeProduct);
 
+
     public abstract int[,] GetExchangesRates();
-    public void PlacePlaceable(Placeable[,] placeables,Placeable placeable, TileType targetTile)
-    {
+    public abstract Placeable[,] PlacePlaceable(Placeable[,] placeables,Placeable placeable, TileType targetTile);
+    /*{
         bool notPlaced = true;
         for (int i = 0; i < placeables.GetLength(0) && notPlaced; i++)
         {
@@ -28,28 +31,70 @@ public abstract class BuildingStrategy {
         {
             PlaceRandomly(targetTile, placeable, placeables);
         }
-    }
 
-    private bool CanPlaceAtLocation(int x, int y, TileType targetTileType, Placeable[,] placeables) {
+        return placeables;
+    }*/
+
+    protected bool CanPlaceAtLocation(int x, int y, TileType targetTileType, Placeable[,] placeables) {
         return placeables[x, y] == null && tiles[x, y] == targetTileType;
     }
 
-    private bool HasAdjacentPlaceableOfType(int x, int y, PlaceableType type, Placeable[,] placeables){
-        if (x-1>0 && placeables[x - 1, y]?.getPlaceableType() == type ||
-            x+1<placeables.GetLength(0) && placeables[x + 1, y]?.getPlaceableType() == type ||
-            y-1>0 && placeables[x, y - 1]?.getPlaceableType() == type ||
-            y+1<placeables.GetLength(1) && placeables[x, y + 1]?.getPlaceableType() == type)
+    protected bool HasAdjacentPlaceableOfType(int x, int y, PlaceableType type, Placeable[,] placeables){
+
+    /*if(placeables == null)
+    {
+        GD.Print("placeables est nulle");
+    }
+
+    GD.Print("x : " + x);
+    GD.Print("y : " + y);
+    GD.Print("type : " + type);
+    
+    if ((x - 1 >= 0 && placeables[x - 1, y].getPlaceableType() == type) ||
+        (x + 1 < placeables.GetLength(0) && placeables[x + 1, y].getPlaceableType() == type) ||
+        (y - 1 >= 0 && placeables[x, y - 1].getPlaceableType() == type) ||
+        (y + 1 < placeables.GetLength(0) && placeables[x, y + 1].getPlaceableType() == type))
         {
             return true;
         }
 
-        return false;
-    }
+    return false;*/
 
-    private void PlaceRandomly(TileType targetTileType, Placeable placeable, Placeable[,] placeables) {
+
+   /* for(int i = 0; i < placeables.GetLength(0); i++)
+    {
+        for(int j = 0; j < placeables.GetLength(0); j++)
+        {
+            if(placeables[i,j] != null)
+            {
+                GD.Print(placeables[i,j] + " "+x+" "+y);
+            }
+        }
+        GD.Print("transition");
+    }
+    return true;*/
+
+    //GD.Print("type " + type);
+    GD.Print(placeables.GetLength(0));
+
+    while(x<placeables.GetLength(0)-2 && y<placeables.GetLength(0)-2)
+    {
+        if(placeables[x+1,y] != null && placeables[x+1,y].getPlaceableType() == type || placeables[x,y+1] != null && placeables[x,y+1].getPlaceableType() == type)
+        {
+            return true;
+        }
+        x++;
+        y++;
+    }
+    return false;
+   }
+
+
+
+    protected void PlaceRandomly(TileType targetTileType, Placeable placeable, Placeable[,] placeables) {
         var rand = new Random();
-        int x = rand.Next(placeables.GetLength(0));
-        int y = rand.Next(placeables.GetLength(1));
+        int x = rand.Next(15);
+        int y = rand.Next(15);
         while (CanPlaceAtLocation(x, y, targetTileType, placeables))
         {
             x = rand.Next(placeables.GetLength(0));

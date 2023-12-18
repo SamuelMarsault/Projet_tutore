@@ -17,17 +17,23 @@ public class Placeable
 	//Représente la capacité de production : output * capacite = quantité totale
 	private int productionCapacities;
 
-	public Placeable(PlaceableType placeableType, int[] input, int[] output, int productionCapacities)
+	//private int[] needCapacities;
+
+	//Demander si bonne idée et comment remplacer 
+
+	public Placeable(PlaceableType placeableType, int[] input, int[] output, int productionCapacities, int[] needCapacitie)
 	{
 		this.placeableType = placeableType;
 		this.input = input;
 		this.output = output;
 		this.productionCapacities = productionCapacities;
+		//this.needCapacities = needCapacitie;
 	}
 
 	public bool ProductResources(int[] availableResources, int[] neededResources)
 	{
 		int min = 0;
+		//int max = 0;
 		bool availableRessourceExist = true;
 		//Pour chaque ressources en entrée
 		for (int i = 0; i < input.Length; i++)
@@ -50,18 +56,25 @@ public class Placeable
 		//Et pour chaque ressources en entrée
 		for (int i = 0; i < input.Length; i++)
 		{
-			//On calcule combien on en prend
-			int usedResources = min * input[i];
-			//Et on les retire des ressources disponibles
-			if ((availableResources[i] -= usedResources) < 0){
-				availableResources[i] -= usedResources;
-				availableRessourceExist = false;
+			if (availableResources[i] > 0){
+				//On calcule combien on en prend
+				int usedResources = min * input[i];
+				//Et on les retire des ressources disponibles
+				if ((availableResources[i] -= usedResources) <= 0){
+					availableResources[i] = 0;
+					availableRessourceExist = false;
+				}
+				else{
+					availableResources[i] -= usedResources;
+				}
 			}
 		}
-		for (int i = 0; i < output.Length; i++)
-		{
-			int producedResources = min * output[i];
-			availableResources[i] += producedResources;
+		if (availableRessourceExist == true){
+			for (int i = 0; i < output.Length; i++)
+			{
+				int producedResources = min * output[i];
+				availableResources[i] += producedResources;
+			}
 		}
 		return availableRessourceExist ;
 	}

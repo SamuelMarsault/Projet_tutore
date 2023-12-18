@@ -7,11 +7,12 @@ using TerritoriaV1;
 
 public class PrimaryStrat : BuildingStrategy
 {
-    
+    private TileType[,] tiles;
     public PrimaryStrat(Placeable[,] placeables, TileType[,] tiles)
     {
         SetTiles(tiles);
     }
+
     override 
     public Placeable[,] BuildNewPlaceable(int[] totalResources,
         int[] neededResources, PlaceableFactory factory, 
@@ -20,35 +21,40 @@ public class PrimaryStrat : BuildingStrategy
         List<Placeable> newPlaceables = new List<Placeable>();
             if(neededResources[(int)ResourceType.HOP] > resourcesBeforeProduct[(int)ResourceType.HOP])
             {
-                if(totalResources[(int)ResourceType.WOOD] > 10)//si on a assez pour construire, on peut plutot tester ca dans Create
+                if(totalResources[(int)ResourceType.WOOD] > 50)
                 {
                 newPlaceables.Add(factory.CreateField());
-                totalResources[(int)ResourceType.WOOD] -=10; // je met a jour manuellement les valeurs, on peux peut etre l'automatiser 
+                totalResources[(int)ResourceType.WOOD] -=50; 
+                GD.Print("Primary- veut construction champ");
                 }
             }
 
             if(neededResources[(int)ResourceType.ICE] > resourcesBeforeProduct[(int)ResourceType.ICE])
             {
-                if(totalResources[(int)ResourceType.WOOD] > 10)
-                {
+                if(totalResources[(int)ResourceType.WOOD] > 50)
+                {   
                     newPlaceables.Add(factory.CreateIceUsine());
-                    totalResources[(int)ResourceType.WOOD] -=10;
+                    totalResources[(int)ResourceType.WOOD] -=50;
+                    GD.Print("Primary- veut construction iceUsine");
                 }
             }
 
-            if(neededResources[(int)ResourceType.WOOD] > resourcesBeforeProduct[(int)ResourceType.WOOD])    // on devrait la créer a chaque tour meme si on as assez de bois 
-            {
-                newPlaceables.Add(factory.CreateSawmill());
-            }
-        //newPlaceables.Add(factory.CreateHouse());
+        newPlaceables.Add(factory.CreateSawmill());
+        GD.Print("Primary- veut construction scierie");
+
         foreach (Placeable placeable in newPlaceables)
         {
-            PlacePlaceable(placeables,placeable, targetTile[placeable.getPlaceableType().GetHashCode()]);
-            Console.WriteLine(targetTile[placeable.getPlaceableType().GetHashCode()]+" "+placeable.getPlaceableType().GetHashCode());
+            if(placeable == null)
+            {
+                GD.Print(placeable);
+            }
+           placeables =  PlacePlaceable(placeables,placeable, targetTile[placeable.getPlaceableType().GetHashCode()]);
+            //Console.WriteLine(targetTile[placeable.getPlaceableType().GetHashCode()]+" "+placeable.getPlaceableType().GetHashCode());
         }
         return placeables;
     }
     override 
+
     public int[,] GetExchangesRates()
     {
         int[,] exchangesRates = new[,]
@@ -57,6 +63,60 @@ public class PrimaryStrat : BuildingStrategy
             { 1, 1, 1, 6 } //export
         };
         return exchangesRates;
+    }
+
+        override public Placeable[,] PlacePlaceable(Placeable[,] placeables,Placeable placeable, TileType targetTile)
+        {
+            if(placeable == null)
+            {
+                GD.Print("placeable est nulle");
+            }
+            if(placeables == null)
+            {
+                GD.Print("placeables est nulle");
+            }
+            bool notPlaced = true;
+            for (int i = 0; i < placeables.GetLength(0) && notPlaced; i++)
+            {
+                for (int j = 0; j < placeables.GetLength(1) && notPlaced; j++)
+                {
+                    if (HasAdjacentPlaceableOfType(i, j, placeable.getPlaceableType(), placeables) && CanPlaceAtLocation(i, j, targetTile, placeables))
+                    {
+                        placeables[i, j] = placeable;
+                        notPlaced = false;
+                        GD.Print("placePlaceable - insertion de" + placeable.getPlaceableType());
+                    }
+                }
+            }
+               if (notPlaced)
+                {
+                    PlaceRandomly(targetTile, placeable, placeables);
+                }
+
+        return placeables;
+        }
+
+      /*new public Placeable[,] PlacePlaceable(Placeable[,] placeables,Placeable placeable, TileType targetTile)
+    {
+        bool notPlaced = true;
+        for (int i = 0; i < placeables.GetLength(0) && notPlaced; i++)
+        {
+            for (int j = 0; j < placeables.GetLength(1) && notPlaced; j++)
+            {
+                if (HasAdjacentPlaceableOfType(i, j, placeable.getPlaceableType(), placeables) && CanPlaceAtLocation(i, j, targetTile, placeables))
+                {
+                    placeables[i, j] = placeable;
+                    notPlaced = false;
+                }
+            }
+        }
+
+        if (notPlaced)
+        {
+            PlaceRandomly(targetTile, placeable, placeables);
+        }
+
+        return placeables;
     }
 
     private void Create(Placeable[,] placeables,TileType[,] tiles,PlaceableType placeable, PlaceableFactory factory)
@@ -92,14 +152,14 @@ public class PrimaryStrat : BuildingStrategy
     {
         for (int j = 0; j < placeables.GetLength(0); j++)
         {
-            if (CanPlaceAtLocation(placeables,tiles,i, j, TileType.GRASS) && HasAdjacentPlaceableOfType(placeables,i, j, PlaceableType.HOUSE))
+            if (CanPlaceAtLocation(i, j, TileType.GRASS,placeables) && HasAdjacentPlaceableOfType(i, j, PlaceableType.HOUSE,placeables))
             {
                 placeables[i, j] = factory.CreateHouse();
                 return;
             }
         }
     }
-    PlaceRandomly(placeables,tiles,factory, TileType.GRASS,PlaceableType.HOUSE);
+    PlaceRandomly(factory, TileType.GRASS,PlaceableType.HOUSE,placeables);
 }
 
 private void PlaceField(Placeable[,] placeables,TileType[,] tiles,PlaceableFactory factory)
@@ -108,7 +168,7 @@ private void PlaceField(Placeable[,] placeables,TileType[,] tiles,PlaceableFacto
     {
         for (int j = 0; j < placeables.GetLength(0); j++)
         {
-            if (CanPlaceAtLocation(placeables,tiles,i, j, TileType.GRASS) && HasAdjacentPlaceableOfType(placeables,i, j, PlaceableType.BEER_USINE))
+            if (CanPlaceAtLocation(i, j, TileType.GRASS,placeables) && HasAdjacentPlaceableOfType(i, j, PlaceableType.BEER_USINE,placeables))
             {
                 placeables[i, j] = factory.CreateField();
                 return;
@@ -182,7 +242,7 @@ private void PlaceBeerUsine(Placeable[,] placeables,TileType[,] tiles,PlaceableF
     PlaceRandomly(placeables,tiles,factory, TileType.GRASS,PlaceableType.BEER_USINE);
 }
 
-private bool CanPlaceAtLocation(Placeable[,] placeables,TileType[,] tiles,int x, int y, TileType targetTileType)
+/*private bool CanPlaceAtLocation(Placeable[,] placeables,TileType[,] tiles,int x, int y, TileType targetTileType)
 {
     return placeables[x, y] == null && tiles[x, y] == targetTileType;
 }
@@ -242,6 +302,6 @@ private void PlaceRandomly(Placeable[,] placeables,TileType[,] tiles, PlaceableF
             return;
         }
     }
-}
+}*/
 
 }
