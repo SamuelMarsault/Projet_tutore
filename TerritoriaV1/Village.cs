@@ -2,6 +2,7 @@ using System;
 using Godot;
 
 using System.Collections.Generic;
+using System.Linq;
 using Godot.Collections;
 using TerritoriaV1;
 
@@ -24,7 +25,7 @@ public class Village
         this.map = map;
         resources = new int[Enum.GetNames(typeof(ResourceType)).Length];
         for(int i = 0;i<resources.Length;i++){
-            resources[i] =50;
+            resources[i] =-50;
         }
 
         //Par défaut la stratégie est la croissance
@@ -159,6 +160,16 @@ public class Village
     {
         //On récupère le besoin en ressource
         int[] neededResources = GetNeededResources();
+        
+        /*Console.WriteLine("##### Avant production : #####");
+        for (int i = 0; i < neededResources.Length; i++)
+        {
+            Console.WriteLine(Enum.GetNames(typeof(ResourceType)).GetValue(i)+" : ");
+            Console.WriteLine("Disponible : "+resources[i]);
+            Console.WriteLine("Besoin : "+neededResources[i]);
+        }*/
+        
+        
         //Et pour chaque bâtiment :
         for (int i = 0; i < placeables.GetLength(0); i++)
         {
@@ -167,14 +178,16 @@ public class Village
                 //On lui demande de produire en fonction des ressources disponibles
                 if(placeables[i,j]!=null)
                 {
-                    //GD.Print("Avant : "+resources[1]);
+                    GD.Print(placeables[i,j].getPlaceableType());
+                    for(int c=0;c<resources.Length;c++)GD.Print("Avant : "+resources[c]);
                     placeables[i,j].ProductResources(resources, neededResources);
-                    //GD.Print("Après : "+resources[1]);
+                    GD.Print("####");
+                    for(int c=0;c<resources.Length;c++)GD.Print("Après : "+resources[c]);
                 }
             }
         }
-        /*
-        Console.WriteLine("Après production : ");
+        
+        /*Console.WriteLine("##### Après production : #####");
         for (int i = 0; i < neededResources.Length; i++)
         {
             Console.WriteLine(Enum.GetNames(typeof(ResourceType)).GetValue(i)+" : ");
@@ -300,8 +313,8 @@ public class Village
     public void StartVillage()
     {
         /*placeables[6,2] = factory.CreateHouse();
-        placeables[6,0] = factory.CreateHouse();
-        placeables[8,2] = factory.CreateHouse();*/
+        placeables[6,0] = factory.CreateHouse();*/
+        placeables[13,12] = factory.CreateHouse();
         placeables[12,12] = factory.CreateBar();
         //placeables[11,9] = factory.CreateSawmill();
         //placeables[20,16] = factory.CreateTrainStation();
