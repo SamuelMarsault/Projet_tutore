@@ -19,12 +19,16 @@ public class Village
     private int turn;
     private int[,] exchangesRates;
 
+    private int[] old_export;
+
+    private int[] old_import;
+
     public Village(TileMap map)
     {
         this.map = map;
         resources = new int[Enum.GetNames(typeof(ResourceType)).Length];
         for(int i = 0;i<resources.Length;i++){
-            resources[i] =50;
+            resources[i] =100;
         }
 
         //Par défaut la stratégie est la croissance
@@ -128,33 +132,6 @@ public class Village
     }
 
     //"Joue le tour" pour les structures et permet de récupérer les ressources 
-    /*private bool ProductResources()
-    {
-        //On récupère le besoin en ressource
-        int[] neededResources = GetNeededResources(true);
-        //Et pour chaque bâtiment :
-        for (int i = 0; i < placeables.GetLength(0); i++)
-        {
-            for (int j = 0; j < placeables.GetLength(1); j++)
-            {
-                //On lui demande de produire en fonction des ressources disponibles
-                if(placeables[i,j]!=null)
-                {
-                    placeables[i,j].ProductResources(resources, neededResources);
-                }
-            }
-        }
-        /*
-        Console.WriteLine("Après production : ");
-        for (int i = 0; i < neededResources.Length; i++)
-        {
-            Console.WriteLine(Enum.GetNames(typeof(ResourceType)).GetValue(i)+" : ");
-            Console.WriteLine("Disponible : "+resources[i]);
-            Console.WriteLine("Besoin : "+neededResources[i]);
-        }*/
-        //return true;
-    //}
-
     private bool ProductResources()
     {
         //On récupère le besoin en ressource
@@ -215,29 +192,6 @@ public class Village
     {
         this.strategy = strategy;
     }
-
-    /*private void ApplyStrategy(int[] resourcesBeforeProduct)
-    {
-        if(placeables == null)
-        {
-            GD.Print("placeables == null");
-        }
-        //Console.WriteLine("Statégie "+strategy.GetType());
-        placeables = strategy.BuildNewPlaceable(resources, GetNeededResources(true), factory, targetTiles, placeables, resourcesBeforeProduct);
-        NotifyPlaceableChange();
-        exchangesRates = strategy.GetExchangesRates();
-        NotifyExchangesRatesChange();
-        for(int i = 0; i < placeables.GetLength(0); i++)
-        {
-            for(int j = 0; j < placeables.GetLength(0); j++)
-            {
-                if(placeables[i,j] != null)
-                {
-                    //GD.Print(placeables[i,j].getPlaceableType());
-                }
-            }
-        }
-    }*/
 
      private void ApplyStrategy(int[] resourcesBeforeProduct)
     {
@@ -324,72 +278,7 @@ public class Village
         NotifyExchangesRatesChange();
     }
 
-  /*private bool MakeTransaction(int[] export, int[] import)    //version du 18decembre de robin
-    {
-        int[] oldRessources = GetResources();
-
-        ProductResources();
-
-        int index = ResourceType.MONEY.GetHashCode();
-
-        int[] insufficientResources = new int[resources.Length];
-
-        bool inssufisant = false;
-
-        int[] needRessorcesNow = GetNeededResources(false);
-
-        for (int i = 0; i < export.Length; i++)
-        {
-            resources[i] += import[i];
-            resources[i] -= export[i];
-            
-            if (i == 0){
-               //GD.Print(resources[i]);
-                //GD.Print("village-test maketransaction");
-            }
-            
-            if ((resources[i]-needRessorcesNow[i]) < 0)
-            {
-                if (i != 3){
-                    // Ajouter le couple ResourceType et la valeur correspondante à la liste
-                    insufficientResources[i] = ((resources[i]-needRessorcesNow[i])*-1);
-                    inssufisant = true;
-                }
-                // Remettre la valeur à 0 si elle est devenue négative
-                //resources[i] = 0;
-            }
-            else{
-                insufficientResources[i] = 0;
-            }
-        }
-        resources = oldRessources;
-        if (inssufisant == true){
-            NotifyImpossibleTransaction(insufficientResources);
-            return false;
-        }
-        return true;
-    }
-
-    public void NextTurn(int[] export, int[] import)
-    { 
-        continueNextTurn(MakeTransaction(export,import));
-    }
-
-    public void continueNextTurn(bool contnue)
-    {
-        if (contnue)
-        {
-            int[] oldResources = (int[])resources.Clone();
-            for (int i = 0; i < resources.Length; i++)
-                oldResources[i] = resources[i];
-            ProductResources();
-            NotifyResourcesChange();
-            ApplyStrategy(oldResources);
-            turn++;
-        }
-    }*/
-
-private bool MakeTransaction(int[] export, int[] import)
+    private bool MakeTransaction(int[] export, int[] import)
     {
         int[] oldRessources = GetResources();
 
@@ -408,11 +297,6 @@ private bool MakeTransaction(int[] export, int[] import)
             resources[i] += import[i];
             resources[i] -= export[i];
             
-            if (i == 0){
-               //GD.Print(resources[i]);
-                //GD.Print("village-test maketransaction");
-            }
-            
             if ((resources[i]-needRessorcesNow[i]) < 0)
             {
                 if (i != 3){
@@ -437,6 +321,8 @@ private bool MakeTransaction(int[] export, int[] import)
 
     public void NextTurn(int[] export, int[] import)
     { 
+        this.old_export = export;
+        this.old_import = import;
         continueNextTurn(MakeTransaction(export,import));
     }
 
@@ -447,9 +333,18 @@ private bool MakeTransaction(int[] export, int[] import)
             int[] oldResources = (int[])resources.Clone();
             for (int i = 0; i < resources.Length; i++)
                 oldResources[i] = resources[i];
+            applyResourcesTransaction();
             ProductResources();
             ApplyStrategy(oldResources);
             turn++;
+        }
+    }
+
+    public void applyResourcesTransaction(){
+         for (int i = 0; i < old_export.Length; i++)
+        {
+            resources[i] += old_import[i];
+            resources[i] -= old_export[i];
         }
     }
 
