@@ -21,7 +21,7 @@ public class VillageManager
         village.StartVillage();
     }
 
-    public void NextTurn(int[] export, int[] import)
+    public void NextTurn(int[] export, int[] import, int[] money)
     {
         /*for(int i = 0; i < export.Length; i++)
         {
@@ -35,7 +35,7 @@ public class VillageManager
 
 
         evolutionOfVillage.DetermineStrategy();
-        village.NextTurn(export, import);
+        village.NextTurn(export, import, money);
     }
 
     public void applyNextTurn(bool confirm)

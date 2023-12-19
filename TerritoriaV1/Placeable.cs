@@ -47,7 +47,6 @@ public class Placeable
             //Alors le minimum devient la capaité de production
             min = productionCapacities;
         }
-
         //Et pour chaque ressources en entrée
         for (int i = 0; i < input.Length; i++)
         {
