@@ -24,7 +24,7 @@ public class Village
         this.map = map;
         resources = new int[Enum.GetNames(typeof(ResourceType)).Length];
         for(int i = 0;i<resources.Length;i++){
-            resources[i] =500;
+            resources[i] =50;
         }
 
         //Par défaut la stratégie est la croissance

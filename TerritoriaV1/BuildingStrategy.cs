@@ -107,6 +107,46 @@ return false;
     return false;
    }
 
+    public bool HasTwoNeighbours(int x, int y, PlaceableType type, Placeable[,] placeables)
+{
+    int rowCount = placeables.GetLength(0);
+    int colCount = placeables.GetLength(1);
+
+    int neighbourCount = 0;
+
+    // Check right neighbor
+    if (x < rowCount - 1 && placeables[x + 1, y] != null && placeables[x + 1, y].getPlaceableType() == type)
+        neighbourCount++;
+
+    // Check bottom neighbor
+    if (y < colCount - 1 && placeables[x, y + 1] != null && placeables[x, y + 1].getPlaceableType() == type)
+        neighbourCount++;
+
+    // Check left neighbor
+    if (x > 0 && placeables[x - 1, y] != null && placeables[x - 1, y].getPlaceableType() == type)
+        neighbourCount++;
+
+    // Check top neighbor
+    if (y > 0 && placeables[x, y - 1] != null && placeables[x, y - 1].getPlaceableType() == type)
+        neighbourCount++;
+
+    // Check diagonal neighbors
+    if (x < rowCount - 1 && y < colCount - 1 && placeables[x + 1, y + 1] != null && placeables[x + 1, y + 1].getPlaceableType() == type)
+        neighbourCount++;
+
+    if (x > 0 && y < colCount - 1 && placeables[x - 1, y + 1] != null && placeables[x - 1, y + 1].getPlaceableType() == type)
+        neighbourCount++;
+
+    if (x < rowCount - 1 && y > 0 && placeables[x + 1, y - 1] != null && placeables[x + 1, y - 1].getPlaceableType() == type)
+        neighbourCount++;
+
+    if (x > 0 && y > 0 && placeables[x - 1, y - 1] != null && placeables[x - 1, y - 1].getPlaceableType() == type)
+        neighbourCount++;
+
+    return neighbourCount >= 2;
+}
+
+
 
 
     protected void PlaceRandomly(TileType targetTileType, Placeable placeable, Placeable[,] placeables) {
