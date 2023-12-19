@@ -257,6 +257,7 @@ public class Village
         placeables[15,10] = factory.CreateField();
         placeables[16,10] = factory.CreateField();*/
         placeables[12, 10] = factory.CreateBeerUsine();
+        placeables[14, 14] = factory.CreateTrainStation();
 
         /*for(int i = 0; i < placeables.GetLength(0); i++)
         {
