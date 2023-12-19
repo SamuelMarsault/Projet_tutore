@@ -61,11 +61,11 @@ public class Village
 
     public int[] GetNeededRessourcesPublic()
     {
-        return (int[])this.GetNeededResources(true).Clone();
+        return (int[])this.GetNeededResources().Clone();
     }
     
     //Récupère les besoins en ressources de toutes les structures du village
-    private int[] GetNeededResources(bool lequel)
+    private int[] GetNeededResources()
     {
         int[] neededResources = new int[resources.Length];
         for (int i = 0; i < placeables.GetLength(0); i++)
@@ -76,17 +76,8 @@ public class Village
                 if (currentPlaceable != null)
                 {
                     int[] needs = currentPlaceable.getResourceNeeds();
-                    if (lequel == true){
-                        for (int c = 0; c < needs.Length; c++)
-                        {
-                            neededResources[c] += needs[c];
-                        }
-                    }
-                    else{
-                        for (int c = 0; c < needs.Length; c++)
-                        {
-                            neededResources[c] += needs[c]*currentPlaceable.getProductionCapacity();
-                        }
+                    for (int c = 0; c < resources.Length;c++){
+                        neededResources[c] += needs[c];
                     }
                 }
             }
@@ -131,7 +122,7 @@ public class Village
     /*private bool ProductResources()
     {
         //On récupère le besoin en ressource
-        int[] neededResources = GetNeededResources(true);
+        int[] neededResources = GetNeededResources();
         //Et pour chaque bâtiment :
         for (int i = 0; i < placeables.GetLength(0); i++)
         {
@@ -140,7 +131,9 @@ public class Village
                 //On lui demande de produire en fonction des ressources disponibles
                 if(placeables[i,j]!=null)
                 {
+                    //GD.Print("Avant : "+resources[1]);
                     placeables[i,j].ProductResources(resources, neededResources);
+                    //GD.Print("Après : "+resources[1]);
                 }
             }
         }
@@ -223,7 +216,7 @@ public class Village
             GD.Print("placeables == null");
         }
         //Console.WriteLine("Statégie "+strategy.GetType());
-        placeables = strategy.BuildNewPlaceable(resources, GetNeededResources(true), factory, targetTiles, placeables, resourcesBeforeProduct);
+        placeables = strategy.BuildNewPlaceable(resources, GetNeededResources(), factory, targetTiles, placeables, resourcesBeforeProduct);
         NotifyPlaceableChange();
         exchangesRates = strategy.GetExchangesRates();
         NotifyExchangesRatesChange();
@@ -237,6 +230,7 @@ public class Village
                 }
             }
         }
+<<<<<<< HEAD
     }*/
 
      private void ApplyStrategy(int[] resourcesBeforeProduct)
@@ -260,6 +254,8 @@ public class Village
                 }
             }
         }
+=======
+>>>>>>> 725df5bb28a4ba84483eb76119cbb885ef7e4291
         NotifyResourcesChange();
     }
     
@@ -336,8 +332,8 @@ public class Village
         int[] insufficientResources = new int[resources.Length];
 
         bool inssufisant = false;
-
-        int[] needRessorcesNow = GetNeededResources(false);
+    
+        int[] needRessorcesNow = GetNeededResources();
 
         for (int i = 0; i < export.Length; i++)
         {
@@ -384,7 +380,6 @@ public class Village
             for (int i = 0; i < resources.Length; i++)
                 oldResources[i] = resources[i];
             ProductResources();
-            NotifyResourcesChange();
             ApplyStrategy(oldResources);
             turn++;
         }
