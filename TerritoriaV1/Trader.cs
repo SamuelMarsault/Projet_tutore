@@ -71,7 +71,7 @@ public partial class Trader : Node, VillageObserver
 			import[i] = resourceTradeUnits[i].GetImportValue();
 			money[i] -= resourceTradeUnits[i].GetImportValue() * exchangesRates[0,i];
 		}
-		
+		/*
 		for (int i = 0; i < export.Length; i++)
 		{
 			GD.Print("export : "+export[i]);
@@ -84,7 +84,7 @@ public partial class Trader : Node, VillageObserver
 		{
 			GD.Print("money : "+money[i]);
 		}
-		
+		*/
 		parent.nextTurn(export, import, money);
 	}
 

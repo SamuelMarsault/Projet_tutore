@@ -273,9 +273,6 @@ public class Village
 
     private bool MakeTransaction()
     {
-        for (int i = 0;i<resources.Length;i++){
-            GD.Print("Ressources avant"+resources[i]);
-        }
         int[] export = new int[Enum.GetNames(typeof(ResourceType)).Length-1];
         int[] import = new int[Enum.GetNames(typeof(ResourceType)).Length-1]; 
 
@@ -283,23 +280,8 @@ public class Village
             export[i] = old_export[i];
             import[i] = old_import[i];
         }
-
-        for (int i = 0;i<old_export.Length;i++){
-            GD.Print("export"+old_export[i]);
-            GD.Print("import"+old_import[i]);
-        }
         
         int[] oldRessources = GetResources();
-
-        ProductResources();
-
-        int index = ResourceType.MONEY.GetHashCode();
-
-        int[] insufficientResources = new int[resources.Length];
-
-        bool inssufisant = false;
-    
-        int[] needRessorcesNow = GetNeededResources();
 
         for (int i = 0; i < export.Length; i++)
         {
@@ -312,26 +294,27 @@ public class Village
                     resources[i] += old_money[j];
                 }
             }
-                            GD.Print("\n");
-            for (int j = 0;j<resources.Length;j++){
-                GD.Print("Ressources pendant"+resources[j]);
-            }
-                             GD.Print("\n");
-            if ((resources[i]-needRessorcesNow[i]) < 0)
+        }
+
+        ProductResources();
+
+        int[] insufficientResources = new int[resources.Length];
+
+        bool inssufisant = false;
+
+        for (int i = 0; i < export.Length; i++)
+        {
+
+            if ((resources[i]) <= 0)
             {
-                //if (i != 3){
-                    // Ajouter le couple ResourceType et la valeur correspondante à la liste
-                    insufficientResources[i] = ((resources[i]-needRessorcesNow[i])*-1);
-                    inssufisant = true;
-                //}
+                insufficientResources[i] = (resources[i]*-1);
+                inssufisant = true;
             }
             else{
                 insufficientResources[i] = 0;
             }
         }
-        for (int i = 0;i<resources.Length;i++){
-            GD.Print("Ressources après"+resources[i]);
-        }
+
         resources = oldRessources;
         if (inssufisant == true){
             NotifyImpossibleTransaction(insufficientResources);
@@ -352,11 +335,11 @@ public class Village
     {
         if (contnue)
         {
-            ProductResources();
+            applyResourcesTransaction();
             int[] oldResources = (int[])resources.Clone();
             for (int i = 0; i < resources.Length; i++)
                 oldResources[i] = resources[i];
-            applyResourcesTransaction();
+            ProductResources();
             ApplyStrategy(oldResources);
             turn++;
         }
