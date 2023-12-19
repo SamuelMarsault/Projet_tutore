@@ -123,4 +123,21 @@ return false;
         }
     }
     public void SetTiles(TileType[,] tiles) {this.tiles = tiles;}
+
+    public void Destroy(PlaceableType type, Placeable[,] placeables)
+    {
+        Boolean Destroyed = false; 
+        for(int i = 0; i < placeables.GetLength(0) && !Destroyed; i++)
+        {
+            for(int j = 0; j < placeables.GetLength(1) && !Destroyed; j++)
+            {
+                if(placeables[i,j] != null && placeables[i,j].getPlaceableType() == type)
+                {
+                    GD.Print("destroyed "+i +" "+ j + " "+ placeables[i,j].getPlaceableType());
+                    placeables[i,j] = null;
+                    Destroyed = true;
+                }
+            }
+        }
+    }
 }

@@ -24,7 +24,7 @@ public class Village
         this.map = map;
         resources = new int[Enum.GetNames(typeof(ResourceType)).Length];
         for(int i = 0;i<resources.Length;i++){
-            resources[i] =50;
+            resources[i] =500;
         }
 
         //Par défaut la stratégie est la croissance
@@ -310,6 +310,7 @@ public class Village
         placeables[15,10] = factory.CreateField();
         placeables[16,10] = factory.CreateField();*/
         placeables[12, 10] = factory.CreateBeerUsine();
+        placeables[14, 14] = factory.CreateTrainStation();
 
         /*for(int i = 0; i < placeables.GetLength(0); i++)
         {
