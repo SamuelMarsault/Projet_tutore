@@ -1,0 +1,13 @@
+res://game_manager.tscn
+res://Sol.tres
+res://Printer.tscn
+res://GameManager.cs
+res://MessageDialog.cs
+res://MissingRessource.cs
+res://Printer.cs
+res://ResourcePrintUnit.cs
+res://ResourceTradeUnit.cs
+res://TerritoriaSlider.cs
+res://TileMap.cs
+res://Trader.cs
+res://turnNB.cs

@@ -1,0 +1,78 @@
+{
+  "format": 1,
+  "restore": {
+    "/home/miniotti/Documents/depotT3/han23-t3-a/TerritoriaV1/TerritoriaV1.csproj": {}
+  },
+  "projects": {
+    "/home/miniotti/Documents/depotT3/han23-t3-a/TerritoriaV1/TerritoriaV1.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/miniotti/Documents/depotT3/han23-t3-a/TerritoriaV1/TerritoriaV1.csproj",
+        "projectName": "TerritoriaV1",
+        "projectPath": "/home/miniotti/Documents/depotT3/han23-t3-a/TerritoriaV1/TerritoriaV1.csproj",
+        "packagesPath": "/home/miniotti/.nuget/packages/",
+        "outputPath": "/home/miniotti/Documents/depotT3/han23-t3-a/TerritoriaV1/.godot/mono/temp/obj/",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "/home/miniotti/.local/share/godot/mono/GodotNuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "/home/miniotti/.nuget/NuGet/NuGet.Config",
+          "/home/miniotti/.nuget/NuGet/config/Godot.Offline.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Godot.SourceGenerators": {
+              "target": "Package",
+              "version": "[4.1.1, )"
+            },
+            "GodotSharp": {
+              "target": "Package",
+              "version": "[4.1.1, )"
+            },
+            "GodotSharpEditor": {
+              "target": "Package",
+              "version": "[4.1.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/6.0.121/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

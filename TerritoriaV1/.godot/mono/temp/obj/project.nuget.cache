@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "jBwMRMuQFhnTRBbTtWGbTTgm6hnVxnzwZUvpNLpCBYRXUC3Qg2WDbXQhFIYGVNMp/+9mnY6qQOQAGyTVpAxX5Q==",
+  "success": true,
+  "projectFilePath": "/home/miniotti/Documents/depotT3/han23-t3-a/TerritoriaV1/TerritoriaV1.csproj",
+  "expectedPackageFiles": [
+    "/home/miniotti/.nuget/packages/godot.sourcegenerators/4.1.1/godot.sourcegenerators.4.1.1.nupkg.sha512",
+    "/home/miniotti/.nuget/packages/godotsharp/4.1.1/godotsharp.4.1.1.nupkg.sha512",
+    "/home/miniotti/.nuget/packages/godotsharpeditor/4.1.1/godotsharpeditor.4.1.1.nupkg.sha512"
+  ],
+  "logs": []
+}
