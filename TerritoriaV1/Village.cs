@@ -275,7 +275,11 @@ public class Village
     {
         int[] export = new int[Enum.GetNames(typeof(ResourceType)).Length-1];
         int[] import = new int[Enum.GetNames(typeof(ResourceType)).Length-1]; 
-
+        
+        for (int i = 0; i < resources.Length;i++){
+            GD.Print("Avant : "+resources[i]);
+        }
+        
         for (int i = 0;i<export.Length;i++){
             export[i] = old_export[i];
             import[i] = old_import[i];
@@ -283,7 +287,7 @@ public class Village
         
         int[] oldRessources = GetResources();
 
-        for (int i = 0; i < export.Length; i++)
+        for (int i = 0; i < resources.Length; i++)
         {
             if (i != 4){
                 resources[i] += import[i];
@@ -295,19 +299,35 @@ public class Village
                 }
             }
         }
-
+        
+        for (int i = 0; i < resources.Length;i++){
+            GD.Print("après import export : "+resources[i]);
+        }
+        
         ProductResources();
-
+        
+        for (int i = 0; i < resources.Length;i++){
+            GD.Print("apres production : "+resources[i]);
+        }
+        
         int[] insufficientResources = new int[resources.Length];
 
         bool inssufisant = false;
 
-        for (int i = 0; i < export.Length; i++)
+        int[] needRessorcesNow = GetNeededResources();
+
+        for (int i = 0; i < resources.Length; i++)
         {
 
-            if ((resources[i]) <= 0)
+            if ((resources[i]) < 0)
             {
+                GD.Print("ici");
                 insufficientResources[i] = (resources[i]*-1);
+                inssufisant = true;
+            }
+            else if ((resources[i]) == 0){
+                GD.Print("la");
+                insufficientResources[i] = ((resources[i] - needRessorcesNow[i])*-1);
                 inssufisant = true;
             }
             else{

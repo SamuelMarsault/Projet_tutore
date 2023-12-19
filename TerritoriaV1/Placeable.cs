@@ -25,6 +25,7 @@ public class Placeable
 		this.productionCapacities = productionCapacities;
 	}
 
+	/*
 	public bool ProductResources(int[] availableResources, int[] neededResources)
     {
         int min = 0;
@@ -34,7 +35,7 @@ public class Placeable
         for (int i = 0; i < input.Length; i++)
         {
             /*Si -> on n'a pas de minimum, ou qu'on a besoin de cette ressource
-             et qu'elle est en + faible quantité que les autres*/
+             et qu'elle est en + faible quantité que les autres* /
             if (input[i]!=0 && (min==0 || availableResources[i]/input[i]<min))
             {
                 //Alors on définit un nouveau minium
@@ -78,8 +79,40 @@ public class Placeable
             }
         }
         return availableRessourceExist ;
-    }
+    }*/
 
+	public bool ProductResources(int[] availableResources, int[] neededResources)
+    {
+        int min = productionCapacities;
+        bool availableRessourceExist = true;
+        //Pour chaque ressources en entrée
+        for (int i = 0; i < input.Length; i++)
+        {
+			if (availableResources[i] <0){
+				availableResources[i] = 0;
+			}
+            /*Si -> on n'a pas de minimum, ou qu'on a besoin de cette ressource
+             et qu'elle est en + faible quantité que les autres*/
+            if (input[i]!=0 && availableResources[i]/input[i]<min)
+            {
+                //Alors on définit un nouveau minium
+                min = availableResources[i]/input[i];
+            }
+        }
+        
+        for (int i = 0; i < input.Length; i++)
+        {
+            //On calcule combien on en prend
+            int usedResources = min * input[i];
+            availableResources[i] -= usedResources;
+        }
+        for (int i = 0; i < output.Length; i++)
+        {
+            int producedResources = min * output[i];
+            availableResources[i] += producedResources;
+        }
+        return availableRessourceExist ;
+    }
 
 	public int[] getResourceNeeds()
 	{
