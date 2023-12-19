@@ -15,21 +15,8 @@ public class TertiaryStrat : BuildingStrategy
         int[] neededResources, PlaceableFactory factory, 
         TileType[] targetTile, Placeable[,] placeables, int[] resourcesBeforeProduct)
     {
+        GD.Print("on est dans le teritiary là");
         List<Placeable> newPlaceables = new List<Placeable>();
-        if(neededResources[(int)ResourceType.HOP] < resourcesBeforeProduct[(int)ResourceType.HOP])
-        {
-            factory.Destroy(placeables, PlaceableType.FIELD);
-        }
-        if(neededResources[(int)ResourceType.ICE] < resourcesBeforeProduct[(int)ResourceType.ICE])
-        {
-            factory.Destroy(placeables, PlaceableType.ICE_USINE);
-        }
-        if(neededResources[(int)ResourceType.BEER] < resourcesBeforeProduct[(int)ResourceType.BEER])
-        {
-            factory.Destroy(placeables, PlaceableType.BEER_USINE);
-            newPlaceables.Add(factory.CreateBar());
-        }
-
         while(totalResources[(int)ResourceType.WOOD] > 10)  // on dépense tout le bois en maison lol ( )
         {
             newPlaceables.Add(factory.CreateHouse());
@@ -38,8 +25,11 @@ public class TertiaryStrat : BuildingStrategy
         foreach (Placeable placeable in newPlaceables)
         {
             PlacePlaceable(placeables,placeable, targetTile[placeable.getPlaceableType().GetHashCode()]);
-            Console.WriteLine(targetTile[placeable.getPlaceableType().GetHashCode()]+" "+placeable.getPlaceableType().GetHashCode());
+            //Console.WriteLine(targetTile[placeable.getPlaceableType().GetHashCode()]+" "+placeable.getPlaceableType().GetHashCode());
         }
+
+        Destroy(PlaceableType.BEER_USINE,placeables);
+
         return placeables;
     }
     override 
@@ -55,6 +45,35 @@ public class TertiaryStrat : BuildingStrategy
 
     override public Placeable[,] PlacePlaceable(Placeable[,] placeables,Placeable placeable, TileType targetTile)
      {
-        return null;
-     }
+      
+     if(placeable == null)
+            {
+                //GD.Print("placeable est nulle");
+            }
+            if(placeables == null)
+            {
+                //GD.Print("placeables est nulle");
+            }
+            bool notPlaced = true;
+            for (int i = 0; i < placeables.GetLength(0) && notPlaced; i++)
+            {
+                for (int j = 0; j < placeables.GetLength(1) && notPlaced; j++)
+                {
+                    if (HasAdjacentPlaceableOfType(i, j, placeable.getPlaceableType(), placeables) && CanPlaceAtLocation(i, j, targetTile, placeables))
+                    {  GD.Print(i); GD.Print(j);
+                       GD.Print(HasAdjacentPlaceableOfType(i, j, placeable.getPlaceableType(), placeables)); GD.Print(CanPlaceAtLocation(i, j, targetTile, placeables));
+                       GD.Print(targetTile); GD.Print(placeable.getPlaceableType());
+                        placeables[i, j] = placeable;
+                        notPlaced = false;
+                        //GD.Print("placePlaceable - insertion de" + placeable.getPlaceableType());
+                    }
+                }
+            }
+               if (notPlaced)
+                {
+                    PlaceRandomly(targetTile, placeable, placeables);
+                }
+
+        return placeables;
+        }
 }

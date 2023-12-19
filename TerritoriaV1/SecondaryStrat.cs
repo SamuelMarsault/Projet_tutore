@@ -19,28 +19,38 @@ public class SecondaryStrat : BuildingStrategy
         // si on a plus de glace et de houblon que ce que l'on consomme
         if((neededResources[(int)ResourceType.HOP]*1.5 < resourcesBeforeProduct[(int)ResourceType.HOP]) && (neededResources[(int)ResourceType.ICE]*1.5< totalResources[(int)ResourceType.ICE]))
         {
-            newPlaceables.Add(factory.CreateBeerUsine());
+            if(totalResources[(int)ResourceType.WOOD] > 10)
+                {
+                    newPlaceables.Add(factory.CreateBeerUsine());
+                    totalResources[(int)ResourceType.WOOD] -=10;
+                }
         }
 
         if(neededResources[(int)ResourceType.BEER] < resourcesBeforeProduct[(int)ResourceType.BEER]) // le joueur a interet a exporter ses bieres si il veut pas qu'on construisent des bars partout
-            {
+        {
                 if(totalResources[(int)ResourceType.WOOD] > 10)
                 {
                     newPlaceables.Add(factory.CreateBar());
                     totalResources[(int)ResourceType.WOOD] -=10;
                 }
-            }
+        }
 
-        while(totalResources[(int)ResourceType.WOOD] > 100)  // on dépense tout le bois en maison lol ( )
+        for(int i = 0; i < 5 && (totalResources[(int)ResourceType.WOOD] > 10); i++)  // on dépense tout le bois en maison lol ( )
         {
             newPlaceables.Add(factory.CreateHouse());
-            totalResources[(int)ResourceType.WOOD] -= 100;
+            totalResources[(int)ResourceType.WOOD] -= 10;
         }
         foreach (Placeable placeable in newPlaceables)
         {
             PlacePlaceable(placeables,placeable, targetTile[placeable.getPlaceableType().GetHashCode()]);
-            Console.WriteLine(targetTile[placeable.getPlaceableType().GetHashCode()]+" "+placeable.getPlaceableType().GetHashCode());
+            //Console.WriteLine(targetTile[placeable.getPlaceableType().GetHashCode()]+" "+placeable.getPlaceableType().GetHashCode());
         }
+
+        Destroy(PlaceableType.SAWMILL,placeables);
+        Destroy(PlaceableType.SAWMILL,placeables);
+        Destroy(PlaceableType.FIELD,placeables);
+        Destroy(PlaceableType.ICE_USINE,placeables);
+
         return placeables;
     }
     override
@@ -56,6 +66,32 @@ public class SecondaryStrat : BuildingStrategy
 
      override public Placeable[,] PlacePlaceable(Placeable[,] placeables,Placeable placeable, TileType targetTile)
      {
-        return null;
-     }
+        
+            if(placeable == null)
+            {
+                //GD.Print("placeable est nulle");
+            }
+            if(placeables == null)
+            {
+                //GD.Print("placeables est nulle");
+            }
+            bool notPlaced = true;
+            for (int i = 0; i < placeables.GetLength(0) && notPlaced; i++)
+            {
+                for (int j = 0; j < placeables.GetLength(1) && notPlaced; j++)
+                {
+                    if ((HasAdjacentPlaceableOfType(i, j, PlaceableType.TRAIN_STATION, placeables)||HasAdjacentPlaceableOfType(i, j, PlaceableType.RAIL, placeables)) && CanPlaceAtLocation(i, j, targetTile, placeables))
+                    {
+                        placeables[i, j] = placeable;
+                        notPlaced = false;
+                    }
+                }
+            }
+               if (notPlaced)
+                {
+                    PlaceRandomly(targetTile, placeable, placeables);
+                }
+
+        return placeables;
+    }
 }
