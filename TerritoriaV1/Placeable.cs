@@ -101,7 +101,6 @@ public class Placeable
 		}
 	}
 
-
 	public int[] getResourceNeeds()
 	{
 		int[] needs = new int[input.Length];

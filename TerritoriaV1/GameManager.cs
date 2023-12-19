@@ -30,7 +30,7 @@ public partial class GameManager : Node2D
 		printMessage("bienvenue, vous êtes responsables de l'import et de l'export des ressources de notre village. nous comptons sur vous");
 	}
 	
-	public void nextTurn(int[] export, int[] import)
+	public void nextTurn(int[] export, int[] import, int[] money)
 	{
 		
 		currentTurnNb++;
@@ -41,7 +41,7 @@ public partial class GameManager : Node2D
 			EndGame(); return;
 		}
 		
-		villageManager.NextTurn(export, import);
+		villageManager.NextTurn(export, import, money);
 	}
 
 	public void updateGraphics()

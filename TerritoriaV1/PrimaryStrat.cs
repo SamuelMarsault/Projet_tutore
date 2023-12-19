@@ -83,7 +83,7 @@ public class PrimaryStrat : BuildingStrategy
             {
                 for (int j = 0; j < placeables.GetLength(1) && notPlaced; j++)
                 {
-                    if (HasAdjacentPlaceableOfType(i, j, placeable.getPlaceableType(), placeables) && CanPlaceAtLocation(i, j, targetTile, placeables))
+                    if (  HasTwoNeighbours(i, j, placeable.getPlaceableType(), placeables) && CanPlaceAtLocation(i, j, targetTile, placeables))
                     {  GD.Print(i); GD.Print(j);
                        GD.Print(HasAdjacentPlaceableOfType(i, j, placeable.getPlaceableType(), placeables)); GD.Print(CanPlaceAtLocation(i, j, targetTile, placeables));
                        GD.Print(targetTile); GD.Print(placeable.getPlaceableType());
@@ -94,6 +94,23 @@ public class PrimaryStrat : BuildingStrategy
                 }
             }
                if (notPlaced)
+                {
+                   for (int i = 0; i < placeables.GetLength(0) && notPlaced; i++)
+            {
+                for (int j = 0; j < placeables.GetLength(1) && notPlaced; j++)
+                {
+                    if (  HasAdjacentPlaceableOfType(i, j, placeable.getPlaceableType(), placeables) && CanPlaceAtLocation(i, j, targetTile, placeables))
+                    {  GD.Print(i); GD.Print(j);
+                       GD.Print(HasAdjacentPlaceableOfType(i, j, placeable.getPlaceableType(), placeables)); GD.Print(CanPlaceAtLocation(i, j, targetTile, placeables));
+                       GD.Print(targetTile); GD.Print(placeable.getPlaceableType());
+                        placeables[i, j] = placeable;
+                        notPlaced = false;
+                        //GD.Print("placePlaceable - insertion de" + placeable.getPlaceableType());
+                    }
+                }
+            } 
+                }
+                if(notPlaced)
                 {
                     PlaceRandomly(targetTile, placeable, placeables);
                 }

@@ -61,26 +61,31 @@ public partial class Trader : Node, VillageObserver
 	}
 	private void _on_button_pressed()
 	{
-		int[] import = new int[Enum.GetNames(typeof(ResourceType)).Length];
-		int[] export = new int[Enum.GetNames(typeof(ResourceType)).Length];
+		int[] import = new int[Enum.GetNames(typeof(ResourceType)).Length-1];
+		int[] export = new int[Enum.GetNames(typeof(ResourceType)).Length-1];
+		int[] money = new int[Enum.GetNames(typeof(ResourceType)).Length-1];
 		for (int i = 0; i < resourceTradeUnits.Count; i++)
 		{
 			export[i] = resourceTradeUnits[i].GetExportValue();
-			import[ResourceType.MONEY.GetHashCode()] += resourceTradeUnits[i].GetExportValue() * exchangesRates[0,i]; 
+			money[i] += resourceTradeUnits[i].GetExportValue() * exchangesRates[1,i]; 
 			import[i] = resourceTradeUnits[i].GetImportValue();
-			export[ResourceType.MONEY.GetHashCode()] += resourceTradeUnits[i].GetImportValue() * exchangesRates[1,i];
+			money[i] -= resourceTradeUnits[i].GetImportValue() * exchangesRates[0,i];
 		}
-		//Console.WriteLine("import : ");
-		for (int i = 0; i < import.Length; i++)
-		{
-			//Console.WriteLine(Enum.GetValues(typeof(ResourceType)).GetValue(i)+" : "+import[i]);
-		}
-		//Console.WriteLine("export : ");
+		/*
 		for (int i = 0; i < export.Length; i++)
 		{
-			//Console.WriteLine(Enum.GetValues(typeof(ResourceType)).GetValue(i)+" : "+export[i]);
+			GD.Print("export : "+export[i]);
 		}
-		parent.nextTurn(export, import);
+		for (int i = 0; i < import.Length; i++)
+		{
+			GD.Print("import : "+import[i]);
+		}
+		for (int i = 0; i < import.Length; i++)
+		{
+			GD.Print("money : "+money[i]);
+		}
+		*/
+		parent.nextTurn(export, import, money);
 	}
 
 	public void ReactToImpossibleTransaction(int[] missingRessources)
