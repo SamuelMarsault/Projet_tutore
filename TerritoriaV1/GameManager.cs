@@ -37,7 +37,7 @@ public partial class GameManager : Node2D
 		currentTurnNb++;
 		turn.updateCurrentTurn(currentTurnNb);
 
-		if(currentTurnNb > nbMaxTurn)
+		if(currentTurnNb > nbMaxTurn || !villageManager.IsVillageOk())
 		{
 			EndGame(); return;
 		}

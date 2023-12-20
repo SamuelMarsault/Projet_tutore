@@ -4,8 +4,6 @@ using TerritoriaV1;
 
 public class VillageManager
 {
-    // Dictionnaire correspondant aux différents bâtiments du village classés par type
-    private Dictionary<PlaceableType, List<Placeable>> placeables;
     private Village village;
     private EvolutionOfVillage evolutionOfVillage;
     public VillageManager(TileMap map, Printer printer,Trader trader, EvolutionOfVillage evolutionOfVillage)
@@ -46,5 +44,23 @@ public class VillageManager
     public Village GetVillage()
     {
         return this.village;
+    }
+
+    public bool IsVillageOk()
+    {
+        bool ok = false;
+        Placeable[,] placeables = village.GetPlaceables();
+        for (int i = 0; i < placeables.GetLength(0) && !ok; i++)
+        {
+            for (int j = 0; j < placeables.GetLength(1) && !ok; j++)
+            {
+                if (placeables[i,j]!=null && placeables[i,j].getPlaceableType()==PlaceableType.HOUSE)
+                {
+                    ok = true;
+                }
+            }
+        }
+
+        return ok;
     }
 }
