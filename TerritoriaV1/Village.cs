@@ -132,16 +132,7 @@ public class Village
     {
         //On récupère le besoin en ressource
         int[] neededResources = GetNeededResources();
-        
-        /*Console.WriteLine("##### Avant production : #####");
-        for (int i = 0; i < neededResources.Length; i++)
-        {
-            Console.WriteLine(Enum.GetNames(typeof(ResourceType)).GetValue(i)+" : ");
-            Console.WriteLine("Disponible : "+resources[i]);
-            Console.WriteLine("Besoin : "+neededResources[i]);
-        }*/
-        
-        
+              
         //Et pour chaque bâtiment :
         for (int i = 0; i < placeables.GetLength(0); i++)
         {
@@ -283,33 +274,32 @@ public class Village
         NotifyExchangesRatesChange();
     }
 
-    private bool MakeTransaction()
+    private bool MakeTransaction(bool verif)
     {
-        int[] export = new int[Enum.GetNames(typeof(ResourceType)).Length-1];
-        int[] import = new int[Enum.GetNames(typeof(ResourceType)).Length-1]; 
-                
-        for (int i = 0;i<export.Length;i++){
-            export[i] = old_export[i];
-            import[i] = old_import[i];
-        }
-        
         int[] oldRessources = GetResources();
 
-        for (int j = 0; j<old_money.Length-1;j++){
-            resources[4] += old_money[j];
+        GD.Print("Avant import/export");
+        for (int i = 0;i<resources.Length;i++){
+            GD.Print(resources[i]);
         }
+        GD.Print("\n");
 
-        for (int i = 0; i < import.Length; i++)
-        {
-            if ((old_money[i] + oldRessources[4]) > 0){
-                resources[i] += import[i];
-                resources[i] -= export[i];
-            }
+        this.resources = applyResourcesTransaction();
+
+        GD.Print("Après import/export et avant production ressources");
+        for (int i = 0;i<resources.Length;i++){
+            GD.Print(resources[i]);
         }
+        GD.Print("\n");
         
         ProductResources();
 
-        if (this.printNeedResources){
+        GD.Print("Après production ressources");
+        for (int i = 0;i<resources.Length;i++){
+            GD.Print(resources[i]);
+        }
+        GD.Print("\n");
+        if (this.printNeedResources && verif == true){
 
             int[] insufficientResources = new int[resources.Length];
             
@@ -329,14 +319,18 @@ public class Village
                 }
             }
 
-            resources = oldRessources;
             if (inssufisant == true){
                 NotifyImpossibleTransaction(insufficientResources);
                 return false;
             }
+            return true;
         }
-
-        return true;
+        else{
+            if (verif == true){
+                resources = oldRessources;
+            }
+            return true;
+        }
     }
 
     public void NextTurn(int[] export, int[] import, int[] money)
@@ -344,33 +338,44 @@ public class Village
         this.old_export = export;
         this.old_import = import;
         this.old_money = money;
-        continueNextTurn(MakeTransaction());
+        continueNextTurn(MakeTransaction(true));
     }
 
     public void continueNextTurn(bool contnue)
     {
         if (contnue)
         {
-            applyResourcesTransaction();
-            int[] oldResources = (int[])resources.Clone();
-            for (int i = 0; i < resources.Length; i++)
-                oldResources[i] = resources[i];
+            int[] oldResources = applyResourcesTransaction();
+            MakeTransaction(false);
             ProductResources();
             ApplyStrategy(oldResources);
             turn++;
         }
     }
 
-    public void applyResourcesTransaction(){
-        int[] oldResources = GetResources();
-        for (int i = 0; i < old_export.Length; i++)
+    public int[] applyResourcesTransaction(){
+        int[] actualResource = resources;
+        int[] export = new int[Enum.GetNames(typeof(ResourceType)).Length-1];
+        int[] import = new int[Enum.GetNames(typeof(ResourceType)).Length-1]; 
+                
+        for (int i = 0;i<export.Length;i++){
+            export[i] = old_export[i];
+            import[i] = old_import[i];
+        }
+
+        for (int j = 0; j<old_money.Length-1;j++){
+            actualResource[4] += old_money[j];
+        }
+
+        for (int i = 0; i < import.Length; i++)
         {
-            if (((resources[i]+ old_import[i]) - old_export[i])>0 && (old_money[i] + oldResources[4])>0){
-                resources[i] += old_import[i];
-                resources[i] -= old_export[i];
-                resources[4] += old_money[i];
+            if ((old_money[i] + actualResource[4]) > 0){
+                resources[i] += import[i];
+                resources[i] -= export[i];
             }
         }
+
+        return actualResource;
     }
 
     public void setMessageNeedResources(bool display){
