@@ -97,7 +97,7 @@ public partial class GameManager : Node2D
 		this.print.setVisibility();
 		turn.Visible = true;
 		menu.Visible = false;
-		printMessage("bienvenue, vous êtes responsables de l'import et de l'export des ressources de notre village. nous comptons sur vous");
+		printMessage("Bienvenue ! Vous êtes responsables de l'import et de l'export des ressources de notre village. Nous comptons sur vous.");
 	}
 
 	public void _on_exit_pressed(){
