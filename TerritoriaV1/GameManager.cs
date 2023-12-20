@@ -48,13 +48,27 @@ public partial class GameManager : Node2D
 		currentTurnNb++;
 		turn.updateCurrentTurn(currentTurnNb);
 
-		if(currentTurnNb > nbMaxTurn || !villageManager.IsVillageOk())
+
+		if(currentTurnNb > nbMaxTurn)
 		{
-			EndGame("felicitation, vous avez fait progresser le village à travers les phases de son dévellopement urbain : vous avez gagné");
+			EndGame("felicitation, vous avez fait progresser le village à travers les phases de son dévellopement urbain : vous avez gagné !");
+			return;
+		}
+
+		if(!villageManager.IsVillageOk())
+		{
+			EndGame("vous avez perdu ! : tous les habitant ont quittés votre village");
+			return;
+		}
+
+		if(villageManager.change == false && currentTurnNb > 2)
+		{
+			EndGame("vous avez perdu ! : il n'y a eu aucune activité économique dans votre village");
 			return;
 		}
 		
 		villageManager.NextTurn(export, import, money);
+
 	}
 
 	public void updateGraphics()

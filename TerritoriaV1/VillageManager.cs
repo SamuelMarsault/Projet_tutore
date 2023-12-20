@@ -6,6 +6,7 @@ public class VillageManager
 {
     private Village village;
     private EvolutionOfVillage evolutionOfVillage;
+    public bool change = true;
     public VillageManager(TileMap map, Printer printer,Trader trader, EvolutionOfVillage evolutionOfVillage)
     {
         village = new Village(map);
@@ -21,6 +22,8 @@ public class VillageManager
 
     public void NextTurn(int[] export, int[] import, int[] money)
     {
+        change = false;
+
         /*for(int i = 0; i < export.Length; i++)
         {
             GD.Print("VM-export["+i+"] :" +export[i]);
@@ -31,9 +34,22 @@ public class VillageManager
             GD.Print("VM-import["+i+"] :" +import[i]);
         }*/
 
+        int[] currentResources =  village.GetResources();
 
         evolutionOfVillage.DetermineStrategy();
         village.NextTurn(export, import, money);
+
+        int[] newResources =  village.GetResources();
+
+        change = false;
+        for(int i = 0; i < newResources.Length; i++)
+        {
+            if(currentResources[i] != newResources[i])
+            {
+                change = true;
+            }
+        }
+        
     }
 
     public void applyNextTurn(bool confirm)
