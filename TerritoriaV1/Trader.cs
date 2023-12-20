@@ -6,12 +6,15 @@ using TerritoriaV1;
 public partial class Trader : Node, VillageObserver
 {
 	private int[,] exchangesRates;
+	private Control control;
 	[Export] private GameManager parent;
 
 	private List<ResourceTradeUnit> resourceTradeUnits = new ();
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		Control containerParent = this.GetNode<Control>("Control");
+		this.control = containerParent;
 		GD.Print(parent.Name);
 		Node container = this.GetNode("Control/MarginContainer/VBoxContainer");
 		foreach (Node node in container.GetChildren())
@@ -32,6 +35,10 @@ public partial class Trader : Node, VillageObserver
 	public override void _Process(double delta)
 	{
 
+	}
+
+	public void setVisibility(){
+		this.control.Visible = true;
 	}
 	
 	public void TotalChanged(int total)

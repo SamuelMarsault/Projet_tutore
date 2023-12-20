@@ -8,20 +8,26 @@ public partial class Printer : Node, VillageObserver
 	// Called when the node enters the scene tree for the first time.
 	private List<ResourcePrintUnit> resourcePrintUnits = new ();
 	private MissingRessource windowMissingRessource;
+	private BoxContainer boxContainer;
 	[Export] private GameManager parent;
 	public override void _Ready()
 	{
-		Node container = this.GetNode("HBoxContainer");
+		BoxContainer container = this.GetNode<BoxContainer>("HBoxContainer");
 		foreach (ResourcePrintUnit resourcePrintUnit in container.GetChildren())
 		{
 			resourcePrintUnits.Add(resourcePrintUnit);
 		}
+		this.boxContainer = container;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
 		
+	}
+
+	public void setVisibility(){
+		this.boxContainer.Visible = true;
 	}
 
 	private void updateResources(ResourceType resources, int[] quantities, int numResource) {

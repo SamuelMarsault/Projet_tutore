@@ -8,6 +8,12 @@ public partial class turnNB : Control
         Label l = (Label)GetNode("Panel/VBoxContainer/HBoxContainer/labelCurrentTurn");
         l.Text = currentTurnNb.ToString();  
     }
+
+    public void updateLabel(string txt)
+    {
+        Label label = (Label)GetNode("Panel/VBoxContainer/Label");
+        label.Text = txt;
+    }
 }
 
 

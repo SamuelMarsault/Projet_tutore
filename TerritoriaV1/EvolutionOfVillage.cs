@@ -58,14 +58,14 @@ public class EvolutionOfVillage
             alreadyTertiary = true;
 
             village.SetBuildingStrategy(factory.createTertiaryStrategy(village.GetPlaceables(),village.GetTiles()));
-		    gameManager.printMessage("le village a atteint une phase de tertiarisation : il se délaisse de la production et compte sur l'import pour satisfaire la consommation");
+		    gameManager.printMessage("Le village a atteint une phase de tertiarisation : il se délaisse de la production et compte sur l'import pour satisfaire la consommation");
         }
         else if(turn > 10 && alreadyTertiary == false && alreadySecondary == false)
         {
             alreadySecondary = true;
 
             village.SetBuildingStrategy(factory.createSecondaryStrategy(village.GetPlaceables(),village.GetTiles()));
-		    gameManager.printMessage("le village a atteint une phase de deterritorialisation: des habitants viennent y vivrent, et certaines usines de ressources primaires commencent à fermer, au profit de l'import des ressources nécéssaire à son dévellopement");
+		    gameManager.printMessage("Le village a atteint une phase de deterritorialisation: des habitants viennent y vivrent, et certaines usines de ressources primaires commencent à fermer, au profit de l'import des ressources nécéssaire à son dévellopement");
 	
         }
         else if(alreadyTertiary == false && alreadySecondary == false)

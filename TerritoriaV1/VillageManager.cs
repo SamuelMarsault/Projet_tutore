@@ -6,6 +6,9 @@ public class VillageManager
 {
     private Village village;
     private EvolutionOfVillage evolutionOfVillage;
+    public bool change = true;
+
+    int[] oldressources;
     public VillageManager(TileMap map, Printer printer,Trader trader, EvolutionOfVillage evolutionOfVillage)
     {
         village = new Village(map);
@@ -17,10 +20,13 @@ public class VillageManager
         village.AddObservers(trader);
 
         village.StartVillage();
+        oldressources = village.GetResources();
     }
 
     public void NextTurn(int[] export, int[] import, int[] money)
     {
+        GD.Print("------------------------------------------- next turn");
+
         /*for(int i = 0; i < export.Length; i++)
         {
             GD.Print("VM-export["+i+"] :" +export[i]);
@@ -34,11 +40,39 @@ public class VillageManager
 
         evolutionOfVillage.DetermineStrategy();
         village.NextTurn(export, import, money);
+
+        int[] newResources =  village.GetResources();
+
+        change = false;
+        for(int i = 0; i < newResources.Length; i++)
+        {
+            GD.Print("current "+oldressources[i]); GD.Print("new "+newResources[i]); 
+            if(oldressources[i] != newResources[i])
+            {
+                change = true;
+                GD.Print("changement");
+            }
+        }
+        oldressources = village.GetResources();
+        
     }
 
     public void applyNextTurn(bool confirm)
-    {
+    {    change = false;
         village.continueNextTurn(confirm);
+        int[] newResources =  village.GetResources();
+
+        for(int i = 0; i < newResources.Length; i++)
+        {
+            GD.Print("current "+oldressources[i]); GD.Print("new "+newResources[i]); 
+            if(oldressources[i] != newResources[i])
+            {
+                change = true;
+                GD.Print("changement");
+            }
+        }
+        oldressources = village.GetResources();
+
     }
 
     public Village GetVillage()
@@ -62,5 +96,24 @@ public class VillageManager
         }
 
         return ok;
+    }
+
+    public int getNumberCitizen()
+    {
+        int nbCitizen = 0;
+
+        foreach(Placeable placeable in village.GetPlaceables())
+        {
+            if(placeable != null && placeable.getPlaceableType() == PlaceableType.HOUSE)
+            {
+                nbCitizen+=10;
+            }
+        }
+
+        return nbCitizen;
+    }
+
+      public void setMessage(bool display){
+        village.setMessageNeedResources(display);
     }
 }
