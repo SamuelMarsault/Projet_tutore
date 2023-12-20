@@ -58,7 +58,6 @@ public class Village
         this.map = map;
         BuildingStrategyFactory factoryStrat = new BuildingStrategyFactory();
         this.SetBuildingStrategy(factoryStrat.createPrimaryStrategy(this.placeables, this.GetTiles()));
-        GD.Print(this.map == null);
         this.turn = 1;
 
     }
@@ -200,7 +199,7 @@ public class Village
     {
         if(placeables == null)
         {
-            GD.Print("placeables == null");
+            //GD.Print("placeables == null");
         }
         //Console.WriteLine("Statégie "+strategy.GetType());
         placeables = strategy.BuildNewPlaceable(old_import, old_export, factory, targetTiles, placeables, resources);
@@ -361,7 +360,6 @@ public class Village
         int[] oldResources = GetResources();
         for (int i = 0; i < old_export.Length; i++)
         {
-            GD.Print(old_export.Length);
             if (((resources[i]+ old_import[i]) - old_export[i])>0 && (old_money[i] + oldResources[4])>0){
                 resources[i] += old_import[i];
                 resources[i] -= old_export[i];
