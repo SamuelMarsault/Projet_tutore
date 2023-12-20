@@ -44,7 +44,7 @@ public partial class GameManager : Node2D
 
 		if(currentTurnNb > nbMaxTurn || !villageManager.IsVillageOk())
 		{
-			EndGame();
+			EndGame("felicitation, vous avez fait progresser le village à travers les phases de son dévellopement urbain : vous avez gagné");
 			return;
 		}
 		
@@ -56,9 +56,9 @@ public partial class GameManager : Node2D
 		
 	}
 
-	public void EndGame()
+	public void EndGame(string message)
 	{
-		acd.SetErrorMessage("felicitation, vous avez fait progresser le village à travers les phases de son dévellopement urbain : vous avez gagné",true);
+		acd.SetErrorMessage(message,true);
 		acd.PopupCentered();
 
 	}
@@ -92,7 +92,7 @@ public partial class GameManager : Node2D
 
 	public void _on_accept_dialog_end_canceled()
 	{
-		GetTree().ReloadCurrentScene();
+		GetTree().ReloadCurrentScene();	
 	}
 
 }
