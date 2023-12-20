@@ -23,7 +23,6 @@ public partial class GameManager : Node2D
 	public override void _Ready()
 	{
 		Button Button = GetNode<Button>("Printer/ChangeMessageNeedResources");
-		Button.Visible = false;
 		this.button = Button;
 
 		acd = GetNode<MessageDialog>("AcceptDialogEND");
@@ -122,11 +121,11 @@ public partial class GameManager : Node2D
 
 	public void _on_change_message_need_resources_pressed(){
 		if(this.button.ButtonPressed){
-			this.button.Text = "Affichages des ressources manquantes : OUI";
+			this.button.Text = "Affichage des ressources manquantes : OUI";
 			villageManager.setMessage(true);
 		}
 		else{
-			this.button.Text = "Affichages des ressources manquantes : NON";
+			this.button.Text = "Affichage des ressources manquantes : NON";
 			villageManager.setMessage(false);
 		}
 	}
