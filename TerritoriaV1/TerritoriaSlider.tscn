@@ -58,7 +58,5 @@ label_settings = SubResource("LabelSettings_2dafe")
 [node name="ValueSlider" type="HSlider" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-max_value = 1000.0
-step = 10.0
 
 [connection signal="value_changed" from="MarginContainer/VBoxContainer/ValueSlider" to="." method="OnValueSliderValueChanged"]

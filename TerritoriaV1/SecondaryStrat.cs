@@ -16,19 +16,29 @@ public class SecondaryStrat : BuildingStrategy
     {
         int[] resourcesNeed = new int[Enum.GetNames(typeof(ResourceType)).Length-1];
         int[] resourcesProduction = new int[Enum.GetNames(typeof(ResourceType)).Length-1];
+        int nbDestroyedHouses = 0;
         foreach (Placeable placeable in placeables)
         {
             if (placeable != null)
             {
-                int[] needs = placeable.getResourceNeeds();
-                int[] prod = placeable.getResourceProduction();
-                for (int i = 0 ; i < resourcesNeed.Length; i++)
+                if (placeable.getPlaceableType()!=PlaceableType.HOUSE || placeable.getMaxProduct())
                 {
-                    resourcesNeed[i] += resources[i] + export[i] + needs[i];
-                    resourcesProduction[i] += import[i] + prod[i];
+                    int[] needs = placeable.getResourceNeeds();
+                    int[] prod = placeable.getResourceProduction();
+                    for (int i = 0 ; i < resourcesNeed.Length; i++)
+                    {
+                        resourcesNeed[i] += resources[i] + export[i] + needs[i];
+                        resourcesProduction[i] += import[i] + prod[i];
+                    }
+                }
+                else
+                {
+                    nbDestroyedHouses++;
                 }
             }
         }
+        for(int i=0;i<nbDestroyedHouses;i++)
+            Destroy(PlaceableType.HOUSE,placeables);
         List<Placeable> newPlaceables = new List<Placeable>();
         // si on a plus de glace et de houblon que ce que l'on consomme
         if((resourcesProduction[ResourceType.HOP.GetHashCode()]*1.5 > resourcesNeed[(int)ResourceType.HOP]) && (resourcesProduction[(int)ResourceType.ICE]*1.5 > resourcesNeed[(int)ResourceType.ICE]))
@@ -48,7 +58,7 @@ public class SecondaryStrat : BuildingStrategy
                     resources[(int)ResourceType.WOOD] -=10;
                 }
         }
-
+        
         for(int i = 0; i < 3 && (resources[(int)ResourceType.WOOD] > 10); i++)
         {
             newPlaceables.Add(factory.CreateHouse());
@@ -58,6 +68,8 @@ public class SecondaryStrat : BuildingStrategy
         {
             PlacePlaceable(placeables,placeable, targetTile[placeable.getPlaceableType().GetHashCode()]);
         }
+        
+        
         
         Destroy(PlaceableType.SAWMILL,placeables);
         Destroy(PlaceableType.FIELD,placeables);
