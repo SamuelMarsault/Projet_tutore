@@ -71,19 +71,4 @@ public class PlaceableFactory
         Placeable beer_usine = new Placeable(PlaceableType.BEER_USINE,input, output,10);
         return beer_usine;
     }
-
-    /*public void Destroy(Placeable[,] placeables, PlaceableType type)
-    {
-        for (int i = 0; i < placeables.GetLength(0); i++)
-        {
-            for (int j = 0; j < placeables.GetLength(1); j++)
-            {
-                if (placeables[i,j] != null && placeables[i, j].getPlaceableType() == type)
-                {
-                    placeables[i, j] = null;
-                    return;
-                }
-            }
-        }
-    }*/
 }

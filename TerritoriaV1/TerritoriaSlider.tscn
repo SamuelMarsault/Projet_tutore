@@ -3,10 +3,10 @@
 [ext_resource type="Script" path="res://TerritoriaSlider.cs" id="1_37y6b"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_df05m"]
-font_size = 23
+font_size = 18
 
 [sub_resource type="LabelSettings" id="LabelSettings_2dafe"]
-font_size = 23
+font_size = 18
 
 [node name="TerritoriaSlider" type="Control"]
 layout_mode = 3
