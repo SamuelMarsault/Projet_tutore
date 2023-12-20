@@ -79,8 +79,4 @@ public class VillageManager
 
         return ok;
     }
-
-    public void setMessage(bool display){
-        village.setMessageNeedResources(display);
-    }
 }

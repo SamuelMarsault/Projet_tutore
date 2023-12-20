@@ -56,12 +56,12 @@ public partial class Printer : Node, VillageObserver
 
 	public void ReactToPlaceableChange(Placeable[,] placeables)
 	{
-		return;
+		
 	}
 
 	public void ReactToTilesChange(TileType[,] tiles)
 	{
-		return;
+		
 	}
 
 	public int GetRessource(int numResource){
@@ -90,6 +90,43 @@ public partial class Printer : Node, VillageObserver
 		// Appeler la méthode Defeat du parent
 		
 	}
+
+	/*public void ReactToImpossibleTransaction(int[] missingRessources)
+	{
+		// Créez une instance de la fenêtre de dialogue
+
+		string message = "Vous n'avez pas assez de ressources, il vous manque : \n";
+
+		for (int i = 0; i<missingRessources.Length ; i++){
+			if (missingRessources[i] != 0){
+				switch(i){
+					case 0:
+						message = message+"	\u2022 "+missingRessources[i]+" de bois\n";
+						break;
+					case 1:
+						message = message+"	\u2022 "+missingRessources[i]+" de hoop\n";
+						break;
+					case 2:
+						message = message+"	\u2022 "+missingRessources[i]+" de glace\n";
+						break;
+					case 3:
+						message = message+"	\u2022 "+missingRessources[i]+" de bière\n";
+						break;
+					case 4:
+						message = message+"	\u2022 "+missingRessources[i]+" d'argent\n";
+						break;
+					default:
+						break;
+				}
+			}
+		}
+
+		// Définissez le message d'erreur
+		windowMissingRessource.SetMessageMissingRessource(message);
+
+		windowMissingRessource.PopupCentered();
+
+	}*/
 
 	public void ReactToImpossibleTransaction(int[] missingRessources)
 	{
@@ -136,7 +173,7 @@ public partial class Printer : Node, VillageObserver
 
 		windowMissingRessource.PopupCentered();
 	}
-	public void ReactToExchangesRatesChange(int[,] exchangesRates) {return;}
+	public void ReactToExchangesRatesChange(int[,] exchangesRates) {}
 
 	// Determine the range based on the missing resources value
 	private string DetermineRange(int value)
