@@ -7,6 +7,8 @@ public class VillageManager
     private Village village;
     private EvolutionOfVillage evolutionOfVillage;
     public bool change = true;
+
+    int[] oldressources;
     public VillageManager(TileMap map, Printer printer,Trader trader, EvolutionOfVillage evolutionOfVillage)
     {
         village = new Village(map);
@@ -18,11 +20,12 @@ public class VillageManager
         village.AddObservers(trader);
 
         village.StartVillage();
+        oldressources = village.GetResources();
     }
 
     public void NextTurn(int[] export, int[] import, int[] money)
     {
-        change = false;
+        GD.Print("------------------------------------------- next turn");
 
         /*for(int i = 0; i < export.Length; i++)
         {
@@ -34,7 +37,6 @@ public class VillageManager
             GD.Print("VM-import["+i+"] :" +import[i]);
         }*/
 
-        int[] currentResources =  village.GetResources();
 
         evolutionOfVillage.DetermineStrategy();
         village.NextTurn(export, import, money);
@@ -44,17 +46,33 @@ public class VillageManager
         change = false;
         for(int i = 0; i < newResources.Length; i++)
         {
-            if(currentResources[i] != newResources[i])
+            GD.Print("current "+oldressources[i]); GD.Print("new "+newResources[i]); 
+            if(oldressources[i] != newResources[i])
             {
                 change = true;
+                GD.Print("changement");
             }
         }
+        oldressources = village.GetResources();
         
     }
 
     public void applyNextTurn(bool confirm)
-    {
+    {    change = false;
         village.continueNextTurn(confirm);
+        int[] newResources =  village.GetResources();
+
+        for(int i = 0; i < newResources.Length; i++)
+        {
+            GD.Print("current "+oldressources[i]); GD.Print("new "+newResources[i]); 
+            if(oldressources[i] != newResources[i])
+            {
+                change = true;
+                GD.Print("changement");
+            }
+        }
+        oldressources = village.GetResources();
+
     }
 
     public Village GetVillage()
