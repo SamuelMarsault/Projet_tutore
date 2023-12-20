@@ -148,11 +148,7 @@ public class Village
                 //On lui demande de produire en fonction des ressources disponibles
                 if(placeables[i,j]!=null)
                 {
-                    GD.Print(placeables[i,j].getPlaceableType());
-                    for(int c=0;c<resources.Length;c++)GD.Print("Avant : "+resources[c]);
                     placeables[i,j].ProductResources(resources, neededResources);
-                    GD.Print("####");
-                    for(int c=0;c<resources.Length;c++)GD.Print("Après : "+resources[c]);
                 }
             }
         }
@@ -289,11 +285,7 @@ public class Village
     {
         int[] export = new int[Enum.GetNames(typeof(ResourceType)).Length-1];
         int[] import = new int[Enum.GetNames(typeof(ResourceType)).Length-1]; 
-        
-        for (int i = 0; i < resources.Length;i++){
-            GD.Print("Avant : "+resources[i]);
-        }
-        
+                
         for (int i = 0;i<export.Length;i++){
             export[i] = old_export[i];
             import[i] = old_import[i];
@@ -301,28 +293,20 @@ public class Village
         
         int[] oldRessources = GetResources();
 
-        for (int i = 0; i < resources.Length; i++)
+        for (int j = 0; j<old_money.Length-1;j++){
+            resources[4] += old_money[j];
+        }
+
+        for (int i = 0; i < import.Length; i++)
         {
-            if (i != 4){
+            if ((old_money[i] + oldRessources[4]) > 0){
                 resources[i] += import[i];
                 resources[i] -= export[i];
             }
-            else{
-                for (int j = 0; j<export.Length-1;j++){
-                    resources[i] += old_money[j];
-                }
-            }
-        }
-        
-        for (int i = 0; i < resources.Length;i++){
-            GD.Print("après import export : "+resources[i]);
         }
         
         ProductResources();
-        
-        for (int i = 0; i < resources.Length;i++){
-            GD.Print("apres production : "+resources[i]);
-        }
+    
         
         int[] insufficientResources = new int[resources.Length];
 
@@ -335,13 +319,7 @@ public class Village
 
             if ((resources[i]) < 0)
             {
-                GD.Print("ici");
                 insufficientResources[i] = (resources[i]*-1);
-                inssufisant = true;
-            }
-            else if ((resources[i]) == 0){
-                GD.Print("la");
-                insufficientResources[i] = ((resources[i] - needRessorcesNow[i])*-1);
                 inssufisant = true;
             }
             else{
@@ -380,10 +358,11 @@ public class Village
     }
 
     public void applyResourcesTransaction(){
+        int[] oldResources = GetResources();
         for (int i = 0; i < old_export.Length; i++)
         {
             GD.Print(old_export.Length);
-            if (((resources[i]+ old_import[i]) - old_export[i])>0){
+            if (((resources[i]+ old_import[i]) - old_export[i])>0 && (old_money[i] + oldResources[4])>0){
                 resources[i] += old_import[i];
                 resources[i] -= old_export[i];
                 resources[4] += old_money[i];
