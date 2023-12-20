@@ -11,6 +11,9 @@ public partial class GameManager : Node2D
 
 	turnNB turn;
 	turnNB citizen;
+
+	end_screen end_Screen;
+
 	int nbMaxTurn = 50;
 	int currentTurnNb = 1;
 
@@ -38,6 +41,10 @@ public partial class GameManager : Node2D
 		citizen.updateLabel("citoyens");
 		citizen.updateCurrentTurn(10);
 		citizen.Visible = false;
+
+		end_Screen = GetNode<end_screen>("endScreen");
+		end_Screen.Visible = false;
+
 	
 		MissingRessource missingResource = GetNode<MissingRessource>("MissingRessource");
 		var printer = GetNode<Printer>("Printer");
@@ -91,9 +98,14 @@ public partial class GameManager : Node2D
 
 	public void EndGame(string message)
 	{
-		acd.SetErrorMessage(message,true);
-		acd.PopupCentered();
-
+		Printer printer  = (Printer)GetNode<Printer>("Printer");
+		print.setVisibility(false);
+		var trader = GetNode<Trader>("Trader");
+		trader.setVisibility(false);
+		turn.Visible = false;
+		citizen.Visible = false;
+		end_Screen.setText(message);
+		end_Screen.Visible = true;
 	}
 
 	public void Victory(){
@@ -120,8 +132,8 @@ public partial class GameManager : Node2D
 
 	public void _on_start_pressed(){
 		var menu = GetNode<TextureRect>("StartMenu");
-		this.trade.setVisibility();
-		this.print.setVisibility();
+		this.trade.setVisibility(true);
+		this.print.setVisibility(true);
 		this.button.Visible = true;
 		turn.Visible = true;
 		menu.Visible = false;

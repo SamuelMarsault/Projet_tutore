@@ -26,8 +26,8 @@ public partial class Printer : Node, VillageObserver
 		
 	}
 
-	public void setVisibility(){
-		this.boxContainer.Visible = true;
+	public void setVisibility(bool vis){
+		this.boxContainer.Visible = vis;
 	}
 
 	private void updateResources(ResourceType resources, int[] quantities, int numResource) {
