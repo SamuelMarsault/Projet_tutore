@@ -206,7 +206,7 @@ public class Village
         NotifyPlaceableChange();
         exchangesRates = strategy.GetExchangesRates();
         NotifyExchangesRatesChange();
-        for(int i = 0; i < placeables.GetLength(0); i++)
+        /*for(int i = 0; i < placeables.GetLength(0); i++)
         {
             for(int j = 0; j < placeables.GetLength(0); j++)
             {
@@ -215,7 +215,7 @@ public class Village
                     GD.Print(placeables[i,j].getPlaceableType());
                 }
             }
-        }
+        }*/
         NotifyResourcesChange();
     }
     

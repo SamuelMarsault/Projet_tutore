@@ -15,12 +15,57 @@ public class TertiaryStrat : BuildingStrategy
         int[] export, PlaceableFactory factory, 
         TileType[] targetTile, Placeable[,] placeables, int[] resources)
     {
-        GD.Print("on est dans le teritiary là");
-        List<Placeable> newPlaceables = new List<Placeable>();
-        while(import[(int)ResourceType.WOOD] > 10)  // on dépense tout le bois en maison lol ( )
+        int[] resourcesNeed = new int[Enum.GetNames(typeof(ResourceType)).Length-1];
+        int[] resourcesProduction = new int[Enum.GetNames(typeof(ResourceType)).Length-1];
+        
+        foreach (Placeable placeable in placeables)
         {
-            newPlaceables.Add(factory.CreateHouse());
-            import[(int)ResourceType.WOOD] -= 10;
+            if (placeable != null)
+            {
+                int[] needs = placeable.getResourceNeeds();
+                int[] prod = placeable.getResourceProduction();
+                for (int i = 0 ; i < resourcesNeed.Length; i++)
+                {
+                    resourcesNeed[i] += needs[i]+export[i];
+                    resourcesProduction[i] += prod[i]+import[i];
+                }
+            }
+        }
+        
+        List<Placeable> newPlaceables = new List<Placeable>();
+        int nbHouse = 0, nbBar = 0;
+        foreach (Placeable placeable in placeables)
+        {
+            if (placeable!=null)
+            {
+                if (placeable.getPlaceableType() == PlaceableType.HOUSE)
+                    nbHouse++;
+                else if (placeable.getPlaceableType() == PlaceableType.BAR)
+                    nbBar++;
+            }
+        }
+        GD.Print("Début Bar : "+nbBar+" - Maison : "+nbHouse);
+        if(resourcesProduction[ResourceType.BEER.GetHashCode()]*1.25 > resourcesNeed[ResourceType.BEER.GetHashCode()]) // le joueur a interet a exporter ses bieres si il veut pas qu'on construisent des bars partout
+        {
+            if(resources[(int)ResourceType.WOOD] > 10 && nbBar*10<=nbHouse)
+            {
+                newPlaceables.Add(factory.CreateBar());
+                resources[(int)ResourceType.WOOD] -=10;
+                nbBar++;
+            }
+
+            for (int i = 0; i < 3 && nbBar*10>nbHouse && resources[(int)ResourceType.WOOD] > 10; i++)
+            {
+                newPlaceables.Add(factory.CreateHouse());
+                resources[(int)ResourceType.WOOD] -= 10;
+                nbHouse++;
+            }
+        }
+
+        while (nbBar*10<nbHouse)
+        {
+            Destroy(PlaceableType.HOUSE,placeables);
+            nbHouse--;
         }
         foreach (Placeable placeable in newPlaceables)
         {
@@ -37,8 +82,8 @@ public class TertiaryStrat : BuildingStrategy
     {
         int[,] exchangesRates = new[,]
         {
-            { 1, 1, 2, 6 }, //import
-            { 2, 1, 1, 6 } //export
+            { 1, 1, 2, 4 }, //import
+            { 1, 1, 1, 2 } //export
         };
         return exchangesRates;
     }

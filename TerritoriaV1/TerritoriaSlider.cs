@@ -27,7 +27,20 @@ public partial class TerritoriaSlider : Control
 
 	public void UpdateSliderMax(int value)
 	{
+		GD.Print("##########\n##########\n##########\n##########\n##########\n##########\n##########\n##########\n##########\n##########\n##########\n##########\n##########\n##########\n");
 		slider.MaxValue = value;
+		int scale = 0;
+		while (value > 100)
+		{
+			scale++;
+			value /= 10;
+		}
+
+		slider.Step = 1;
+		for (int i = 0; i < scale; i++)
+			slider.Step *= 10;
+		GD.Print(slider.MaxValue+" "+slider.Step);
+		this.ForceUpdateTransform();
 	}
 
 	public int GetSliderValue()
@@ -36,7 +49,7 @@ public partial class TerritoriaSlider : Control
 	}
 
 	public int GetMaxSliderValue(){
-		return MaxStartValue;
+		return (int)slider.MaxValue;
 	}
 	
 	private void OnValueSliderValueChanged(double value)

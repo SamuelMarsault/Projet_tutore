@@ -25,26 +25,29 @@ public class EvolutionOfVillage
 
     public void DetermineStrategy() 
     {
-        if(village == null)// test de village, car le EoV est crée par le GM, 
-         //qui le passe ensuite à VM. mais comme c'est VM qui crée Village, on le passe par setter a EoV 
-        {
-            GD.Print("EoV - village est null");
-        }
 
         ressources = village.GetResources();
         neededRessources = village.GetNeededRessourcesPublic();
         this.NBPlaceables = village.getNBPlaceables();
+        int nbHouse = NBPlaceables[PlaceableType.HOUSE.GetHashCode()];
         
-        
-        /*int barCap = NBPlaceables[PlaceableType.HOUSE.GetHashCode()] * 10;
-        if (barCap > 100) barCap = 100;
         foreach (Placeable placeable in village.GetPlaceables())
         {
             if (placeable!=null && placeable.getPlaceableType() == PlaceableType.BAR)
             {
-                placeable.setProductionCapacity(barCap);
+                if (nbHouse > 10)
+                {
+                    placeable.setProductionCapacity(100);
+                    nbHouse -= 10;
+                }
+                else
+                {
+                    placeable.setProductionCapacity(nbHouse*10);
+                    nbHouse = 0;
+                }
+                GD.Print("ProdCap : "+placeable.getProductionCapacity());
             }
-        }*/
+        }
         
         if(this.NBPlaceables[(int)PlaceableType.SAWMILL] == 0 && 
         this.NBPlaceables[(int)PlaceableType.FIELD] == 0 &&
@@ -52,7 +55,6 @@ public class EvolutionOfVillage
         && alreadySecondary == true && alreadyTertiary == false
         && NBPlaceables[(int)PlaceableType.HOUSE]>20) 
         {
-            GD.Print("tertiary");
             alreadyTertiary = true;
 
             village.SetBuildingStrategy(factory.createTertiaryStrategy(village.GetPlaceables(),village.GetTiles()));
@@ -60,7 +62,6 @@ public class EvolutionOfVillage
         }
         else if(turn > 10 && alreadyTertiary == false && alreadySecondary == false)
         {
-            GD.Print("secondary");
             alreadySecondary = true;
 
             village.SetBuildingStrategy(factory.createSecondaryStrategy(village.GetPlaceables(),village.GetTiles()));
@@ -76,6 +77,7 @@ public class EvolutionOfVillage
         {
             GD.Print("on ne devrais pas être ici");
         }
+        GD.Print(alreadyTertiary+" "+alreadySecondary);
         turn++;
     }
 
