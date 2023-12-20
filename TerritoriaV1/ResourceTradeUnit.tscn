@@ -5,10 +5,10 @@
 [ext_resource type="PackedScene" uid="uid://c5nv72bh4nup" path="res://TerritoriaSlider.tscn" id="3_nehkv"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_h4ueb"]
-font_size = 20
+font_size = 26
 
 [sub_resource type="LabelSettings" id="LabelSettings_ghh8e"]
-font_size = 20
+font_size = 26
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -21,9 +21,11 @@ script = ExtResource("1_lcioo")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = -1
+anchor_right = 1.487
+anchor_bottom = 1.601
+offset_right = 55.86
+offset_bottom = -98.033
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -50,9 +52,10 @@ texture = ExtResource("2_iqbq8")
 expand_mode = 3
 
 [node name="ExportSlider" parent="PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("3_nehkv")]
-custom_minimum_size = Vector2(0, 40)
+custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 size_flags_horizontal = 1
+size_flags_vertical = 6
 actionString = "Export :"
 
 [node name="ImportSlider" parent="PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("3_nehkv")]
@@ -63,8 +66,10 @@ size_flags_vertical = 10
 actionString = "Import :"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
-size_flags_vertical = 10
+size_flags_horizontal = 4
+size_flags_vertical = 6
 theme_override_constants/separation = 20
 
 [node name="TotalLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
