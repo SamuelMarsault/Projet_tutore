@@ -11,6 +11,7 @@
 script = ExtResource("1_o5u3t")
 
 [node name="Control" type="Control" parent="."]
+visible = false
 layout_direction = 1
 layout_mode = 3
 anchors_preset = 15

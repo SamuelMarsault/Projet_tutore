@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://MessageDialog.cs" id="1_j5f14"]
 
 [node name="AcceptDialog" type="AcceptDialog"]
-title = "Transaction impossible !"
+title = ""
 script = ExtResource("1_j5f14")
 
 [node name="DialogText" type="Label" parent="."]
