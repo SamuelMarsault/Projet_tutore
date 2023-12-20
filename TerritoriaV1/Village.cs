@@ -31,14 +31,14 @@ public class Village
         this.map = map;
         resources = new int[Enum.GetNames(typeof(ResourceType)).Length];
         for(int i = 0;i<resources.Length;i++){
-            resources[i] =100;
+            resources[i] =20;
         }
         this.old_export = new int[Enum.GetNames(typeof(ResourceType)).Length-1];
         this.old_import = new int[Enum.GetNames(typeof(ResourceType)).Length-1];
         this.old_money = new int[Enum.GetNames(typeof(ResourceType)).Length-1];
         //Par défaut la stratégie est la croissance
         //Définition du terrain :
-        tiles = new TileType[15,15];
+        tiles = new TileType[25,25];
         placeables = new Placeable[tiles.GetLength(0),tiles.GetLength(1)];
         for (int i = 0; i < placeables.GetLength(0); i++)
         {

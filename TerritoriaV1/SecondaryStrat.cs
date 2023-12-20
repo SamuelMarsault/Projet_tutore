@@ -1,5 +1,3 @@
-using Godot;
-using System;
 using System.Collections.Generic;
 using TerritoriaV1;
 
@@ -43,7 +41,6 @@ public class SecondaryStrat : BuildingStrategy
         foreach (Placeable placeable in newPlaceables)
         {
             PlacePlaceable(placeables,placeable, targetTile[placeable.getPlaceableType().GetHashCode()]);
-            //Console.WriteLine(targetTile[placeable.getPlaceableType().GetHashCode()]+" "+placeable.getPlaceableType().GetHashCode());
         }
 
         Destroy(PlaceableType.SAWMILL,placeables);
