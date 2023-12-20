@@ -45,15 +45,6 @@ public class TertiaryStrat : BuildingStrategy
 
     override public Placeable[,] PlacePlaceable(Placeable[,] placeables,Placeable placeable, TileType targetTile)
      {
-      
-     if(placeable == null)
-            {
-                //GD.Print("placeable est nulle");
-            }
-            if(placeables == null)
-            {
-                //GD.Print("placeables est nulle");
-            }
             bool notPlaced = true;
             for (int i = 0; i < placeables.GetLength(0) && notPlaced; i++)
             {
@@ -64,8 +55,7 @@ public class TertiaryStrat : BuildingStrategy
                        GD.Print(HasAdjacentPlaceableOfType(i, j, placeable.getPlaceableType(), placeables)); GD.Print(CanPlaceAtLocation(i, j, targetTile, placeables));
                        GD.Print(targetTile); GD.Print(placeable.getPlaceableType());
                         placeables[i, j] = placeable;
-                        notPlaced = false;
-                        //GD.Print("placePlaceable - insertion de" + placeable.getPlaceableType());
+                        notPlaced = false; 
                     }
                 }
             }

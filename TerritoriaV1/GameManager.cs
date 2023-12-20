@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Security.Principal;
+using System.Threading;
 using TerritoriaV1;
 
 public partial class GameManager : Node2D
@@ -15,9 +16,13 @@ public partial class GameManager : Node2D
 	private Printer print;
 	private Trader trade;
 
+	MessageDialog acd;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		acd = GetNode<MessageDialog>("AcceptDialogEND");
+
 		turn = GetNode<turnNB>("t");
 		turn.updateCurrentTurn(1);
 		turn.Visible = false;
@@ -43,9 +48,10 @@ public partial class GameManager : Node2D
 		currentTurnNb++;
 		turn.updateCurrentTurn(currentTurnNb);
 
-		if(currentTurnNb > nbMaxTurn)
+		if(currentTurnNb > nbMaxTurn || !villageManager.IsVillageOk())
 		{
-			EndGame(); return;
+			EndGame();
+			return;
 		}
 		
 		villageManager.NextTurn(export, import, money);
@@ -58,11 +64,9 @@ public partial class GameManager : Node2D
 
 	public void EndGame()
 	{
-		var messageDialog = new MessageDialog();
-		messageDialog.SetErrorMessage("You have lost.");
-		AddChild(messageDialog);
-		messageDialog.PopupCentered();
-		GetTree().ReloadCurrentScene();
+		acd.SetErrorMessage("felicitation, vous avez fait progresser le village à travers les phases de son dévellopement urbain : vous avez gagné",true);
+		acd.PopupCentered();
+
 	}
 
 	public void Victory(){
@@ -82,7 +86,7 @@ public partial class GameManager : Node2D
 	public void printMessage(string message)
 	{
 		var messageDialog = new MessageDialog();
-		messageDialog.SetErrorMessage(message);
+		messageDialog.SetErrorMessage(message,false);
 		AddChild(messageDialog);
 		messageDialog.PopupCentered();
 	}
@@ -99,4 +103,15 @@ public partial class GameManager : Node2D
 	public void _on_exit_pressed(){
 		GetTree().Quit();
 	}
+
+	public void _on_accept_dialog_end_confirmed()
+	{
+		GetTree().ReloadCurrentScene();
+	}
+
+	public void _on_accept_dialog_end_canceled()
+	{
+		GetTree().ReloadCurrentScene();
+	}
+
 }

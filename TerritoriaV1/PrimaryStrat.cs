@@ -71,7 +71,7 @@ public class PrimaryStrat : BuildingStrategy
     {
         int[,] exchangesRates = new[,]
         {
-            { 3, 2, 3, 6 }, //import
+            { 3, 2, 3, 8 }, //import
             { 1, 1, 1, 6 } //export
         };
         return exchangesRates;

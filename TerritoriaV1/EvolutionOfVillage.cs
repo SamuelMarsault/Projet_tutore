@@ -34,7 +34,18 @@ public class EvolutionOfVillage
         ressources = village.GetResources();
         neededRessources = village.GetNeededRessourcesPublic();
         this.NBPlaceables = village.getNBPlaceables();
-
+        
+        
+        /*int barCap = NBPlaceables[PlaceableType.HOUSE.GetHashCode()] * 10;
+        if (barCap > 100) barCap = 100;
+        foreach (Placeable placeable in village.GetPlaceables())
+        {
+            if (placeable!=null && placeable.getPlaceableType() == PlaceableType.BAR)
+            {
+                placeable.setProductionCapacity(barCap);
+            }
+        }*/
+        
         if(this.NBPlaceables[(int)PlaceableType.SAWMILL] == 0 && 
         this.NBPlaceables[(int)PlaceableType.FIELD] == 0 &&
         NBPlaceables[(int)PlaceableType.ICE_USINE]  == 0
