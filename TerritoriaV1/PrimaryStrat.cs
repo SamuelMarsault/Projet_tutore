@@ -14,12 +14,13 @@ public class PrimaryStrat : BuildingStrategy
     }
 
     override 
-    public Placeable[,] BuildNewPlaceable(int[] totalResources,
-        int[] neededResources, PlaceableFactory factory, 
-        TileType[] targetTile, Placeable[,] placeables, int[] resourcesBeforeProduct)
+    public Placeable[,] BuildNewPlaceable(int[] import,
+        int[] export, PlaceableFactory factory, 
+        TileType[] targetTile, Placeable[,] placeables, int[] resources)
     {
         int[] resourcesNeed = new int[Enum.GetNames(typeof(ResourceType)).Length];
         int[] resourcesProduction = new int[Enum.GetNames(typeof(ResourceType)).Length];
+        int nbSawmill = 0;
         foreach (Placeable placeable in placeables)
         {
             if (placeable != null)
@@ -31,27 +32,29 @@ public class PrimaryStrat : BuildingStrategy
                     resourcesNeed[i] += needs[i];
                     resourcesProduction[i] += prod[i];
                 }
+
+                if (placeable.getPlaceableType() == PlaceableType.SAWMILL) nbSawmill++;
             }
         }
         List<Placeable> newPlaceables = new List<Placeable>();
             if(1.25 * resourcesNeed[ResourceType.HOP.GetHashCode()] > resourcesProduction[ResourceType.HOP.GetHashCode()])
             {
-                if(totalResources[(int)ResourceType.WOOD] > 5)
+                if(resources[(int)ResourceType.WOOD] > 5)
                 {
                 newPlaceables.Add(factory.CreateField());
-                totalResources[(int)ResourceType.WOOD] -=5; 
+                resources[(int)ResourceType.WOOD] -=5; 
                 }
             }
 
             if(1.25 * resourcesNeed[ResourceType.ICE.GetHashCode()] > resourcesProduction[ResourceType.ICE.GetHashCode()])
             {
-                if(totalResources[(int)ResourceType.WOOD] > 5)
+                if(resources[(int)ResourceType.WOOD] > 5)
                 {   
                     newPlaceables.Add(factory.CreateIceUsine());
-                    totalResources[(int)ResourceType.WOOD] -=5; 
+                    resources[(int)ResourceType.WOOD] -=5; 
                 }
             }
-        if(1.25 * neededResources[ResourceType.WOOD.GetHashCode()] >  resourcesProduction[ResourceType.WOOD.GetHashCode()]) 
+        if(nbSawmill<2) 
         {
             newPlaceables.Add(factory.CreateSawmill());
         }   

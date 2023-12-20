@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TerritoriaV1;
 
@@ -9,41 +10,55 @@ public class SecondaryStrat : BuildingStrategy
         SetTiles(tiles);
     }
     override 
-    public Placeable[,] BuildNewPlaceable(int[] totalResources,
-        int[] neededResources, PlaceableFactory factory, 
-        TileType[] targetTile, Placeable[,] placeables, int[] resourcesBeforeProduct)
+    public Placeable[,] BuildNewPlaceable(int[] import,
+        int[] export, PlaceableFactory factory, 
+        TileType[] targetTile, Placeable[,] placeables, int[] resources)
     {
+        int[] resourcesNeed = new int[Enum.GetNames(typeof(ResourceType)).Length-1];
+        int[] resourcesProduction = new int[Enum.GetNames(typeof(ResourceType)).Length-1];
+        foreach (Placeable placeable in placeables)
+        {
+            if (placeable != null)
+            {
+                int[] needs = placeable.getResourceNeeds();
+                int[] prod = placeable.getResourceProduction();
+                for (int i = 0 ; i < resourcesNeed.Length; i++)
+                {
+                    resourcesNeed[i] += resources[i] + export[i] + needs[i];
+                    resourcesProduction[i] += import[i] + prod[i];
+                }
+            }
+        }
         List<Placeable> newPlaceables = new List<Placeable>();
         // si on a plus de glace et de houblon que ce que l'on consomme
-        if((neededResources[(int)ResourceType.HOP]*1.5 < resourcesBeforeProduct[(int)ResourceType.HOP]) && (neededResources[(int)ResourceType.ICE]*1.5< totalResources[(int)ResourceType.ICE]))
+        if((resourcesProduction[ResourceType.HOP.GetHashCode()]*1.5 > resourcesNeed[(int)ResourceType.HOP]) && (resourcesProduction[(int)ResourceType.ICE]*1.5 > resourcesNeed[(int)ResourceType.ICE]))
         {
-            if(totalResources[(int)ResourceType.WOOD] > 10)
+            if(resources[(int)ResourceType.WOOD] > 10)
                 {
                     newPlaceables.Add(factory.CreateBeerUsine());
-                    totalResources[(int)ResourceType.WOOD] -=10;
+                    resources[(int)ResourceType.WOOD] -=10;
                 }
         }
 
-        if(neededResources[(int)ResourceType.BEER] < resourcesBeforeProduct[(int)ResourceType.BEER]) // le joueur a interet a exporter ses bieres si il veut pas qu'on construisent des bars partout
+        if(resourcesProduction[ResourceType.BEER.GetHashCode()]*1.25 > resourcesNeed[ResourceType.BEER.GetHashCode()]) // le joueur a interet a exporter ses bieres si il veut pas qu'on construisent des bars partout
         {
-                if(totalResources[(int)ResourceType.WOOD] > 10)
+                if(resources[(int)ResourceType.WOOD] > 10)
                 {
                     newPlaceables.Add(factory.CreateBar());
-                    totalResources[(int)ResourceType.WOOD] -=10;
+                    resources[(int)ResourceType.WOOD] -=10;
                 }
         }
 
-        for(int i = 0; i < 5 && (totalResources[(int)ResourceType.WOOD] > 10); i++)  // on dépense tout le bois en maison lol ( )
+        for(int i = 0; i < 3 && (resources[(int)ResourceType.WOOD] > 10); i++)
         {
             newPlaceables.Add(factory.CreateHouse());
-            totalResources[(int)ResourceType.WOOD] -= 10;
+            resources[(int)ResourceType.WOOD] -= 10;
         }
         foreach (Placeable placeable in newPlaceables)
         {
             PlacePlaceable(placeables,placeable, targetTile[placeable.getPlaceableType().GetHashCode()]);
         }
-
-        Destroy(PlaceableType.SAWMILL,placeables);
+        
         Destroy(PlaceableType.SAWMILL,placeables);
         Destroy(PlaceableType.FIELD,placeables);
         Destroy(PlaceableType.ICE_USINE,placeables);

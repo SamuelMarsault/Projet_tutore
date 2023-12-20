@@ -38,7 +38,8 @@ public class EvolutionOfVillage
         if(this.NBPlaceables[(int)PlaceableType.SAWMILL] == 0 && 
         this.NBPlaceables[(int)PlaceableType.FIELD] == 0 &&
         NBPlaceables[(int)PlaceableType.ICE_USINE]  == 0
-        && alreadySecondary == true && alreadyTertiary == false) 
+        && alreadySecondary == true && alreadyTertiary == false
+        && NBPlaceables[(int)PlaceableType.HOUSE]>20) 
         {
             GD.Print("tertiary");
             alreadyTertiary = true;

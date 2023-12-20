@@ -38,7 +38,7 @@ public class Village
         this.old_money = new int[Enum.GetNames(typeof(ResourceType)).Length-1];
         //Par défaut la stratégie est la croissance
         //Définition du terrain :
-        tiles = new TileType[25,25];
+        tiles = new TileType[15,15];
         placeables = new Placeable[tiles.GetLength(0),tiles.GetLength(1)];
         for (int i = 0; i < placeables.GetLength(0); i++)
         {
@@ -202,7 +202,7 @@ public class Village
             GD.Print("placeables == null");
         }
         //Console.WriteLine("Statégie "+strategy.GetType());
-        placeables = strategy.BuildNewPlaceable(resources, GetNeededResources(), factory, targetTiles, placeables, resourcesBeforeProduct);
+        placeables = strategy.BuildNewPlaceable(old_import, old_export, factory, targetTiles, placeables, resources);
         NotifyPlaceableChange();
         exchangesRates = strategy.GetExchangesRates();
         NotifyExchangesRatesChange();
