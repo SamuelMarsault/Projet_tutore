@@ -316,12 +316,11 @@ public class Village
 
         for (int i = 0; i < resources.Length; i++)
         {
-
-            if ((resources[i]) < 0)
-            {
-                insufficientResources[i] = (resources[i]*-1);
+            if ((resources[i]- needRessorcesNow[i]) < 0){
+                insufficientResources[i] = ((resources[i] - needRessorcesNow[i])*-1);
                 inssufisant = true;
             }
+
             else{
                 insufficientResources[i] = 0;
             }
