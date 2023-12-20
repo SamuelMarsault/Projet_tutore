@@ -39,8 +39,8 @@ public partial class Trader : Node, VillageObserver
 
 	}
 
-	public void setVisibility(){
-		this.control.Visible = true;
+	public void setVisibility(bool vis){
+		this.control.Visible = vis;
 	}
 	
 	public void TotalChanged(int total)

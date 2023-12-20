@@ -1,0 +1,93 @@
+[gd_scene load_steps=6 format=3 uid="uid://d4ctxppw6jhk3"]
+
+[ext_resource type="Script" path="res://end_screen.cs" id="1_5kufq"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_ixshy"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4ndyo"]
+texture = SubResource("CanvasTexture_ixshy")
+modulate_color = Color(0, 0, 0, 1)
+
+[sub_resource type="FontFile" id="FontFile_bjw1h"]
+cache/0/19/0/ascent = 0.0
+cache/0/19/0/descent = 0.0
+cache/0/19/0/underline_position = 0.0
+cache/0/19/0/underline_thickness = 0.0
+cache/0/19/0/scale = 1.0
+cache/0/19/0/kerning_overrides/19/0 = Vector2(0, 0)
+cache/0/19/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/19/0/kerning_overrides/75/0 = Vector2(0, 0)
+cache/0/19/0/kerning_overrides/90/0 = Vector2(0, 0)
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/19/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/75/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/90/0 = Vector2(0, 0)
+cache/0/75/0/ascent = 0.0
+cache/0/75/0/descent = 0.0
+cache/0/75/0/underline_position = 0.0
+cache/0/75/0/underline_thickness = 0.0
+cache/0/75/0/scale = 1.0
+cache/0/75/0/kerning_overrides/19/0 = Vector2(0, 0)
+cache/0/75/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/75/0/kerning_overrides/75/0 = Vector2(0, 0)
+cache/0/75/0/kerning_overrides/90/0 = Vector2(0, 0)
+cache/0/90/0/ascent = 0.0
+cache/0/90/0/descent = 0.0
+cache/0/90/0/underline_position = 0.0
+cache/0/90/0/underline_thickness = 0.0
+cache/0/90/0/scale = 1.0
+cache/0/90/0/kerning_overrides/19/0 = Vector2(0, 0)
+cache/0/90/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/90/0/kerning_overrides/75/0 = Vector2(0, 0)
+cache/0/90/0/kerning_overrides/90/0 = Vector2(0, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_dwrqm"]
+font = SubResource("FontFile_bjw1h")
+font_size = 75
+font_color = Color(0.784314, 0, 0, 1)
+
+[node name="endScreen" type="Panel"]
+offset_left = -1.0
+offset_top = -3.0
+offset_right = 670.0
+offset_bottom = 37.0
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxTexture_4ndyo")
+script = ExtResource("1_5kufq")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -46.5
+offset_top = -15.0
+offset_right = 46.5
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "YOU DIED"
+label_settings = SubResource("LabelSettings_dwrqm")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="."]
+modulate = Color(0.996078, 0.988235, 1, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.434
+anchor_right = 0.434
+offset_left = -4571.21
+offset_top = -2133.0
+offset_right = 4523.79
+offset_bottom = 2215.0
+toggle_mode = true
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
