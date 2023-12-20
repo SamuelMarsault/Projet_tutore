@@ -27,7 +27,7 @@ public class SecondaryStrat : BuildingStrategy
                     int[] prod = placeable.getResourceProduction();
                     for (int i = 0 ; i < resourcesNeed.Length; i++)
                     {
-                        resourcesNeed[i] += resources[i] + export[i] + needs[i];
+                        resourcesNeed[i] += export[i] + needs[i];
                         resourcesProduction[i] += import[i] + prod[i];
                     }
                 }
@@ -90,15 +90,6 @@ public class SecondaryStrat : BuildingStrategy
 
      override public Placeable[,] PlacePlaceable(Placeable[,] placeables,Placeable placeable, TileType targetTile)
      {
-        
-            if(placeable == null)
-            {
-                //GD.Print("placeable est nulle");
-            }
-            if(placeables == null)
-            {
-                //GD.Print("placeables est nulle");
-            }
             bool notPlaced = true;
             for (int i = 0; i < placeables.GetLength(0) && notPlaced; i++)
             {

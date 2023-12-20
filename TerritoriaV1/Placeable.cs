@@ -48,8 +48,9 @@ public class Placeable
 		else if (min > productionCapacities)
 		{
 			min = productionCapacities;
-			maxProduct = true;
 		}
+
+		maxProduct = min == productionCapacities;
 		
 		for (int i = 0; i < input.Length; i++)
 		{

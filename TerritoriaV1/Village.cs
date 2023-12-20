@@ -25,6 +25,7 @@ public class Village
     private int[] old_import;
 
     private int[] old_money;
+    
 
     public Village(TileMap map)
     {

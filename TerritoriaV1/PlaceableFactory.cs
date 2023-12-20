@@ -11,7 +11,7 @@ public class PlaceableFactory
         int[] input = new int[Enum.GetNames(typeof(ResourceType)).Length];
         int[] output = new int[Enum.GetNames(typeof(ResourceType)).Length];
         input[(int)ResourceType.BEER] = 1;
-        output[(int)ResourceType.MONEY] = 1;
+        output[(int)ResourceType.MONEY] = 6;
         Placeable house = new Placeable(PlaceableType.HOUSE,input, output,5);
         return house;
     }

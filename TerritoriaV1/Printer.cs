@@ -67,7 +67,7 @@ public partial class Printer : Node, VillageObserver
 		var messageDialog = new MessageDialog();
 
 		// Set the defeat message
-		messageDialog.SetErrorMessage("You have lost.");
+		messageDialog.SetErrorMessage("You have lost.",true);
 
 		// Add the window to the scene
 		GetTree().Root.AddChild(messageDialog);
