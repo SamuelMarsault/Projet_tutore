@@ -39,6 +39,7 @@ public partial class ResourceTradeUnit : Control
 	{
 		int total = exportTerritoriaSlider.GetSliderValue() * exchangeRate[1] - importTerritoriaSlider.GetSliderValue() * exchangeRate[0];
 		totalValueLabel.Text = total + " €";
+		
 		if(total==0) this.totalValueLabel.LabelSettings.FontColor = Colors.White;
 		else if(total>0) this.totalValueLabel.LabelSettings.FontColor = Colors.Green;
 		else this.totalValueLabel.LabelSettings.FontColor = Colors.Red;

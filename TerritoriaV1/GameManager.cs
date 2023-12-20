@@ -1,6 +1,5 @@
 using Godot;
 using System;
-using System.Reflection;
 using System.Security.Principal;
 using System.Threading;
 using TerritoriaV1;
@@ -11,10 +10,16 @@ public partial class GameManager : Node2D
 	private EvolutionOfVillage evolutionOfVillage;
 
 	turnNB turn;
+	turnNB citizen;
+
+	end_screen end_Screen;
+
 	int nbMaxTurn = 50;
 	int currentTurnNb = 1;
+
 	private Printer print;
 	private Trader trade;
+
 	MessageDialog acd;
 
 	private Button button;
@@ -28,8 +33,18 @@ public partial class GameManager : Node2D
 		acd = GetNode<MessageDialog>("AcceptDialogEND");
 
 		turn = GetNode<turnNB>("t");
+		turn.updateLabel("tour actuel : ");
 		turn.updateCurrentTurn(1);
 		turn.Visible = false;
+
+		citizen = GetNode<turnNB>("citizens");
+		citizen.updateLabel("citoyens");
+		citizen.updateCurrentTurn(10);
+		citizen.Visible = false;
+
+		end_Screen = GetNode<end_screen>("endScreen");
+		end_Screen.Visible = false;
+
 	
 		MissingRessource missingResource = GetNode<MissingRessource>("MissingRessource");
 		var printer = GetNode<Printer>("Printer");
@@ -51,14 +66,29 @@ public partial class GameManager : Node2D
 		
 		currentTurnNb++;
 		turn.updateCurrentTurn(currentTurnNb);
+		
 
-		if(currentTurnNb > nbMaxTurn || !villageManager.IsVillageOk())
+
+		if(currentTurnNb > nbMaxTurn)
 		{
-			EndGame();
+			EndGame("felicitation, vous avez fait progresser le village à travers les phases de son dévellopement urbain : vous avez gagné !");
+			return;
+		}
+
+		if(!villageManager.IsVillageOk())
+		{
+			EndGame("vous avez perdu ! : tous les habitant ont quittés votre village");
+			return;
+		}
+
+		if(villageManager.change == false && currentTurnNb > 2)
+		{
+			EndGame("vous avez perdu ! : il n'y a eu aucune activité économique dans votre village");
 			return;
 		}
 		
 		villageManager.NextTurn(export, import, money);
+		citizen.updateCurrentTurn(villageManager.getNumberCitizen());
 	}
 
 	public void updateGraphics()
@@ -66,11 +96,16 @@ public partial class GameManager : Node2D
 		
 	}
 
-	public void EndGame()
+	public void EndGame(string message)
 	{
-		acd.SetErrorMessage("felicitation, vous avez fait progresser le village à travers les phases de son dévellopement urbain : vous avez gagné",true);
-		acd.PopupCentered();
-
+		Printer printer  = (Printer)GetNode<Printer>("Printer");
+		print.setVisibility(false);
+		var trader = GetNode<Trader>("Trader");
+		trader.setVisibility(false);
+		turn.Visible = false;
+		citizen.Visible = false;
+		end_Screen.setText(message);
+		end_Screen.Visible = true;
 	}
 
 	public void Victory(){
@@ -97,11 +132,12 @@ public partial class GameManager : Node2D
 
 	public void _on_start_pressed(){
 		var menu = GetNode<TextureRect>("StartMenu");
-		this.trade.setVisibility();
-		this.print.setVisibility();
+		this.trade.setVisibility(true);
+		this.print.setVisibility(true);
 		this.button.Visible = true;
 		turn.Visible = true;
 		menu.Visible = false;
+		citizen.Visible = true;
 		printMessage("Bienvenue ! Vous êtes responsables de l'import et de l'export des ressources de notre village. Nous comptons sur vous.");
 	}
 

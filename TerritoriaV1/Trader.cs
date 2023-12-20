@@ -39,8 +39,8 @@ public partial class Trader : Node, VillageObserver
 
 	}
 
-	public void setVisibility(){
-		this.control.Visible = true;
+	public void setVisibility(bool vis){
+		this.control.Visible = vis;
 	}
 	
 	public void TotalChanged(int total)
@@ -59,14 +59,13 @@ public partial class Trader : Node, VillageObserver
 
 	public void ReactToPlaceableChange(Placeable[,] placeables)
 	{
-		return;
+		
 	}
 
 	public void ReactToTilesChange(TileType[,] tiles)
 	{
-		return;
+		
 	}
-
 	private void _on_button_pressed()
 	{
 		int[] import = new int[Enum.GetNames(typeof(ResourceType)).Length-1];
@@ -98,7 +97,7 @@ public partial class Trader : Node, VillageObserver
 
 	public void ReactToImpossibleTransaction(int[] missingRessources)
 	{
-		return;
+		
 	}
 
 	public void ReactToExchangesRatesChange(int[,] exchangesRates)
