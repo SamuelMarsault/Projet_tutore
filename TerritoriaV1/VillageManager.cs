@@ -97,4 +97,19 @@ public class VillageManager
 
         return ok;
     }
+
+    public int getNumberCitizen()
+    {
+        int nbCitizen = 0;
+
+        foreach(Placeable placeable in village.GetPlaceables())
+        {
+            if(placeable.getPlaceableType() == PlaceableType.HOUSE)
+            {
+                nbCitizen+=10;
+            }
+        }
+
+        return nbCitizen;
+    }
 }
