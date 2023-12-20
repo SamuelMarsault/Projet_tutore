@@ -377,6 +377,10 @@ public class Village
         return actualResource;
     }
 
+          public void setMessageNeedResources(bool display){
+        this.printNeedResources = display;
+    }
+
     private void NotifyImpossibleTransaction(int[] missingRessources)
     {
         foreach (VillageObserver observer in observers) observer.ReactToImpossibleTransaction(missingRessources);

@@ -10,6 +10,7 @@ public partial class GameManager : Node2D
 	private EvolutionOfVillage evolutionOfVillage;
 
 	turnNB turn;
+	turnNB citizen;
 	int nbMaxTurn = 50;
 	int currentTurnNb = 1;
 
@@ -29,8 +30,14 @@ public partial class GameManager : Node2D
 		acd = GetNode<MessageDialog>("AcceptDialogEND");
 
 		turn = GetNode<turnNB>("t");
+		turn.updateLabel("tour actuel : ");
 		turn.updateCurrentTurn(1);
 		turn.Visible = false;
+
+		citizen = GetNode<turnNB>("citizens");
+		citizen.updateLabel("citoyens");
+		citizen.updateCurrentTurn(10);
+		citizen.Visible = false;
 	
 		MissingRessource missingResource = GetNode<MissingRessource>("MissingRessource");
 		var printer = GetNode<Printer>("Printer");
@@ -52,6 +59,7 @@ public partial class GameManager : Node2D
 		
 		currentTurnNb++;
 		turn.updateCurrentTurn(currentTurnNb);
+		
 
 
 		if(currentTurnNb > nbMaxTurn)
@@ -73,7 +81,7 @@ public partial class GameManager : Node2D
 		}
 		
 		villageManager.NextTurn(export, import, money);
-
+		citizen.updateCurrentTurn(villageManager.getNumberCitizen());
 	}
 
 	public void updateGraphics()
@@ -117,6 +125,7 @@ public partial class GameManager : Node2D
 		this.button.Visible = true;
 		turn.Visible = true;
 		menu.Visible = false;
+		citizen.Visible = true;
 		printMessage("Bienvenue ! Vous êtes responsables de l'import et de l'export des ressources de notre village. Nous comptons sur vous.");
 	}
 

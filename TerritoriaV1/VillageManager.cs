@@ -104,12 +104,16 @@ public class VillageManager
 
         foreach(Placeable placeable in village.GetPlaceables())
         {
-            if(placeable.getPlaceableType() == PlaceableType.HOUSE)
+            if(placeable != null && placeable.getPlaceableType() == PlaceableType.HOUSE)
             {
                 nbCitizen+=10;
             }
         }
 
         return nbCitizen;
+    }
+
+      public void setMessage(bool display){
+        village.setMessageNeedResources(display);
     }
 }
