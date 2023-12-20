@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Reflection;
 using System.Security.Principal;
 using System.Threading;
 using TerritoriaV1;
@@ -12,15 +13,19 @@ public partial class GameManager : Node2D
 	turnNB turn;
 	int nbMaxTurn = 50;
 	int currentTurnNb = 1;
-
 	private Printer print;
 	private Trader trade;
-
 	MessageDialog acd;
+
+	private Button button;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		Button Button = GetNode<Button>("Printer/ChangeMessageNeedResources");
+		Button.Visible = false;
+		this.button = Button;
+
 		acd = GetNode<MessageDialog>("AcceptDialogEND");
 
 		turn = GetNode<turnNB>("t");
@@ -109,6 +114,7 @@ public partial class GameManager : Node2D
 		var menu = GetNode<TextureRect>("StartMenu");
 		this.trade.setVisibility();
 		this.print.setVisibility();
+		this.button.Visible = true;
 		turn.Visible = true;
 		menu.Visible = false;
 		printMessage("Bienvenue ! Vous êtes responsables de l'import et de l'export des ressources de notre village. Nous comptons sur vous.");
@@ -126,6 +132,17 @@ public partial class GameManager : Node2D
 	public void _on_accept_dialog_end_canceled()
 	{
 		GetTree().ReloadCurrentScene();	
+	}
+
+	public void _on_change_message_need_resources_pressed(){
+		if(this.button.ButtonPressed){
+			this.button.Text = "Affichages des ressources manquantes : OUI";
+			villageManager.setMessage(true);
+		}
+		else{
+			this.button.Text = "Affichages des ressources manquantes : NON";
+			villageManager.setMessage(false);
+		}
 	}
 
 }
