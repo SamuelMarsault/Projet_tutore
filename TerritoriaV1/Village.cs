@@ -25,10 +25,12 @@ public class Village
     private int[] old_import;
 
     private int[] old_money;
-    
+
+    private bool printNeedResources;    
 
     public Village(TileMap map)
     {
+        this.printNeedResources = false;
         this.map = map;
         resources = new int[Enum.GetNames(typeof(ResourceType)).Length];
         for(int i = 0;i<resources.Length;i++){
@@ -306,31 +308,34 @@ public class Village
         }
         
         ProductResources();
-    
-        
-        int[] insufficientResources = new int[resources.Length];
 
-        bool inssufisant = false;
+        if (this.printNeedResources){
 
-        int[] needRessorcesNow = GetNeededResources();
+            int[] insufficientResources = new int[resources.Length];
+            
+             bool inssufisant = false;
 
-        for (int i = 0; i < resources.Length; i++)
-        {
-            if ((resources[i]- needRessorcesNow[i]) < 0){
-                insufficientResources[i] = ((resources[i] - needRessorcesNow[i])*-1);
-                inssufisant = true;
+             int[] needRessorcesNow = GetNeededResources();
+
+            for (int i = 0; i < resources.Length; i++)
+            {
+                if ((resources[i]- needRessorcesNow[i]) < 0){
+                    insufficientResources[i] = ((resources[i] - needRessorcesNow[i])*-1);
+                    inssufisant = true;
+                }
+
+                else{
+                    insufficientResources[i] = 0;
+                }
             }
 
-            else{
-                insufficientResources[i] = 0;
+            resources = oldRessources;
+            if (inssufisant == true){
+                NotifyImpossibleTransaction(insufficientResources);
+                return false;
             }
         }
 
-        resources = oldRessources;
-        if (inssufisant == true){
-            NotifyImpossibleTransaction(insufficientResources);
-            return false;
-        }
         return true;
     }
 
@@ -366,6 +371,10 @@ public class Village
                 resources[4] += old_money[i];
             }
         }
+    }
+
+    public void setMessageNeedResources(bool display){
+        this.printNeedResources = display;
     }
 
     private void NotifyImpossibleTransaction(int[] missingRessources)
