@@ -13,9 +13,13 @@ public partial class GameManager : Node2D
 	int nbMaxTurn = 5;
 	int currentTurnNb = 1;
 
+		MessageDialog acd;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		acd = GetNode<MessageDialog>("AcceptDialogEND");
+
 		turn = GetNode<turnNB>("t");
 		turn.updateCurrentTurn(1);
 	
@@ -53,10 +57,9 @@ public partial class GameManager : Node2D
 
 	public void EndGame()
 	{
-		var messageDialog = new MessageDialog();
-		messageDialog.SetErrorMessage("felicitation, vous avez fait progresser le village à travers les phases de son dévellopement urbain : vous avez gagné");
-		AddChild(messageDialog);
-		messageDialog.PopupCentered();
+		acd.SetErrorMessage("felicitation, vous avez fait progresser le village à travers les phases de son dévellopement urbain : vous avez gagné",true);
+		acd.PopupCentered();
+
 	}
 
 	public void Victory(){
@@ -76,8 +79,19 @@ public partial class GameManager : Node2D
 	public void printMessage(string message)
 	{
 		var messageDialog = new MessageDialog();
-		messageDialog.SetErrorMessage(message);
+		messageDialog.SetErrorMessage(message,false);
 		AddChild(messageDialog);
-		messageDialog.PopupCenteredClamped();
+		messageDialog.PopupCentered();
 	}
+
+	public void _on_accept_dialog_end_confirmed()
+	{
+		GetTree().ReloadCurrentScene();
+	}
+
+	public void _on_accept_dialog_end_canceled()
+	{
+		GetTree().ReloadCurrentScene();
+	}
+
 }

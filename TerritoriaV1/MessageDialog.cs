@@ -14,8 +14,12 @@ public partial class MessageDialog : AcceptDialog
 	{
 	}
 
-	public void SetErrorMessage(string errorMessage)
+	public void SetErrorMessage(string errorMessage, bool end)
 	{
 		DialogText = errorMessage;
+		if(end)
+		{
+			
+		}
 	}
 }

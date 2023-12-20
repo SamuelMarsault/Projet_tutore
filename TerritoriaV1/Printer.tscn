@@ -18,31 +18,33 @@ anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -26.0
 offset_top = 150.0
-offset_right = 719.0
+offset_right = 829.0
 offset_bottom = 210.0
 grow_horizontal = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
 
 [node name="Control" parent="HBoxContainer" instance=ExtResource("2_tnoob")]
-custom_minimum_size = Vector2(145, 0)
+custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 icon = ExtResource("3_fdlp2")
 
 [node name="Control2" parent="HBoxContainer" instance=ExtResource("2_tnoob")]
-custom_minimum_size = Vector2(145, 0)
+custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 icon = ExtResource("4_30cnq")
 
 [node name="Control3" parent="HBoxContainer" instance=ExtResource("2_tnoob")]
-custom_minimum_size = Vector2(145, 0)
+custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 icon = ExtResource("5_olive")
 
 [node name="Control4" parent="HBoxContainer" instance=ExtResource("2_tnoob")]
-custom_minimum_size = Vector2(145, 0)
+custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 icon = ExtResource("6_1coan")
 
 [node name="Control5" parent="HBoxContainer" instance=ExtResource("2_tnoob")]
-custom_minimum_size = Vector2(145, 0)
+custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 icon = ExtResource("7_j243y")
