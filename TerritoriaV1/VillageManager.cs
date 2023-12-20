@@ -42,9 +42,4 @@ public class VillageManager
     {
         village.continueNextTurn(confirm);
     }
-
-    public Village GetVillage()
-    {
-        return this.village;
-    }
 }

@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Threading;
 using TerritoriaV1;
 
 public partial class GameManager : Node2D
@@ -9,7 +10,7 @@ public partial class GameManager : Node2D
 
 	turnNB turn;
 
-	int nbMaxTurn = 25;
+	int nbMaxTurn = 5;
 	int currentTurnNb = 1;
 
 	// Called when the node enters the scene tree for the first time.
@@ -38,7 +39,8 @@ public partial class GameManager : Node2D
 
 		if(currentTurnNb > nbMaxTurn)
 		{
-			EndGame(); return;
+			EndGame();
+			return;
 		}
 		
 		villageManager.NextTurn(export, import, money);
@@ -52,10 +54,9 @@ public partial class GameManager : Node2D
 	public void EndGame()
 	{
 		var messageDialog = new MessageDialog();
-		messageDialog.SetErrorMessage("You have lost.");
+		messageDialog.SetErrorMessage("felicitation, vous avez fait progresser le village à travers les phases de son dévellopement urbain : vous avez gagné");
 		AddChild(messageDialog);
 		messageDialog.PopupCentered();
-		GetTree().Quit();
 	}
 
 	public void Victory(){
