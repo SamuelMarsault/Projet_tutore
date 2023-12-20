@@ -9,7 +9,7 @@ public partial class GameManager : Node2D
 
 	turnNB turn;
 
-	int nbMaxTurn = 25;
+	int nbMaxTurn = 50;
 	int currentTurnNb = 1;
 
 	// Called when the node enters the scene tree for the first time.
@@ -55,7 +55,7 @@ public partial class GameManager : Node2D
 		messageDialog.SetErrorMessage("You have lost.");
 		AddChild(messageDialog);
 		messageDialog.PopupCentered();
-		GetTree().Quit();
+		GetTree().ReloadCurrentScene();
 	}
 
 	public void Victory(){

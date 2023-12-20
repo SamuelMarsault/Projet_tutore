@@ -123,78 +123,78 @@ public partial class Printer : Node, VillageObserver
 	}*/
 
 	public void ReactToImpossibleTransaction(int[] missingRessources)
-    {
-        // Créez une instance de la fenêtre de dialogue
+	{
+		// Créez une instance de la fenêtre de dialogue
 
-        string message = "Vous n'avez pas assez de ressources, il vous manque : \n";
+		string message = "Vous n'avez pas assez de ressources, il vous manque : \n";
 
-        for (int i = 0; i < missingRessources.Length; i++)
-        {
-            if (missingRessources[i] != 0)
-            {
-                string resourceType = "";
-                switch (i)
-                {
-                    case 0:
-                        resourceType = "de bois";
-                        break;
-                    case 1:
-                        resourceType = "de houblon";
-                        break;
-                    case 2:
-                        resourceType = "de glace";
-                        break;
-                    case 3:
-                        resourceType = "de bière";
-                        break;
-                    case 4:
-                        resourceType = "d'argent";
-                        break;
-                    default:
-                        break;
-                }
+		for (int i = 0; i < missingRessources.Length; i++)
+		{
+			if (missingRessources[i] != 0)
+			{
+				string resourceType = "";
+				switch (i)
+				{
+					case 0:
+						resourceType = "de bois";
+						break;
+					case 1:
+						resourceType = "de houblon";
+						break;
+					case 2:
+						resourceType = "de glace";
+						break;
+					case 3:
+						resourceType = "de bière";
+						break;
+					case 4:
+						resourceType = "d'argent";
+						break;
+					default:
+						break;
+				}
 
-                // Determine the range based on the missing resources value
-                string range = DetermineRange(missingRessources[i]);
+				// Determine the range based on the missing resources value
+				string range = DetermineRange(missingRessources[i]);
 
-                // Append the message with the resource type and range
-                message += $"\u2022 {range} {resourceType}\n";
-            }
-        }
+				// Append the message with the resource type and range
+				message += $"\u2022 {range} {resourceType}\n";
+			}
+		}
 
-        // Définissez le message d'erreur
-        windowMissingRessource.SetMessageMissingRessource(message);
+		// Définissez le message d'erreur
+		windowMissingRessource.SetMessageMissingRessource(message);
 
-        windowMissingRessource.PopupCentered();
-    }
+		windowMissingRessource.PopupCentered();
+	}
 	public void ReactToExchangesRatesChange(int[,] exchangesRates) {}
 
 	// Determine the range based on the missing resources value
-    private string DetermineRange(int value)
-    {
-        if (value <= 50)
-            return "entre 0 et 50";
-        else if (value <= 100)
-            return "entre 51 et 100";
-        else if (value <= 200)
-            return "entre 101 et 200";
-        else if (value <= 300)
-            return "entre 201 et 300";
-        else if (value <= 400)
-            return "entre 301 et 400";
-        else if (value <= 500)
-            return "entre 401 et 500";
-        else if (value <= 1000)
-            return "entre 501 et 1000";
-        else if (value <= 2000)
-            return "entre 1001 et 2000";
-        else if (value <= 3000)
-            return "entre 2001 et 3000";
-        else if (value <= 4000)
-            return "entre 3001 et 4000";
-        else if (value <= 5000)
-            return "entre 4001 et 5000";
-        else
-            return "plus de 5000";
-    }
+	private string DetermineRange(int value)
+	{
+		if (value <= 50)
+			return "entre 0 et 50";
+		else if (value <= 100)
+			return "entre 51 et 100";
+		else if (value <= 200)
+			return "entre 101 et 200";
+		else if (value <= 300)
+			return "entre 201 et 300";
+		else if (value <= 400)
+			return "entre 301 et 400";
+		else if (value <= 500)
+			return "entre 401 et 500";
+		else if (value <= 1000)
+			return "entre 501 et 1000";
+		else if (value <= 2000)
+			return "entre 1001 et 2000";
+		else if (value <= 3000)
+			return "entre 2001 et 3000";
+		else if (value <= 4000)
+			return "entre 3001 et 4000";
+		else if (value <= 5000)
+			return "entre 4001 et 5000";
+		else
+			return "plus de 5000";
+	}
 }

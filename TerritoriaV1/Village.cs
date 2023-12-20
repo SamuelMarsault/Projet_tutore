@@ -31,7 +31,7 @@ public class Village
         this.map = map;
         resources = new int[Enum.GetNames(typeof(ResourceType)).Length];
         for(int i = 0;i<resources.Length;i++){
-            resources[i] =100;
+            resources[i] =20;
         }
         this.old_export = new int[Enum.GetNames(typeof(ResourceType)).Length-1];
         this.old_import = new int[Enum.GetNames(typeof(ResourceType)).Length-1];
@@ -202,7 +202,7 @@ public class Village
             GD.Print("placeables == null");
         }
         //Console.WriteLine("Statégie "+strategy.GetType());
-        placeables = strategy.BuildNewPlaceable(resources, GetNeededResources(), factory, targetTiles, placeables, resourcesBeforeProduct);
+        placeables = strategy.BuildNewPlaceable(old_import, old_export, factory, targetTiles, placeables, resources);
         NotifyPlaceableChange();
         exchangesRates = strategy.GetExchangesRates();
         NotifyExchangesRatesChange();

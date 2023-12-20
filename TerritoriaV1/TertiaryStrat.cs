@@ -11,16 +11,16 @@ public class TertiaryStrat : BuildingStrategy
     }
 
     override 
-    public Placeable[,] BuildNewPlaceable(int[] totalResources,
-        int[] neededResources, PlaceableFactory factory, 
-        TileType[] targetTile, Placeable[,] placeables, int[] resourcesBeforeProduct)
+    public Placeable[,] BuildNewPlaceable(int[] import,
+        int[] export, PlaceableFactory factory, 
+        TileType[] targetTile, Placeable[,] placeables, int[] resources)
     {
         GD.Print("on est dans le teritiary là");
         List<Placeable> newPlaceables = new List<Placeable>();
-        while(totalResources[(int)ResourceType.WOOD] > 10)  // on dépense tout le bois en maison lol ( )
+        while(import[(int)ResourceType.WOOD] > 10)  // on dépense tout le bois en maison lol ( )
         {
             newPlaceables.Add(factory.CreateHouse());
-            totalResources[(int)ResourceType.WOOD] -= 10;
+            import[(int)ResourceType.WOOD] -= 10;
         }
         foreach (Placeable placeable in newPlaceables)
         {
