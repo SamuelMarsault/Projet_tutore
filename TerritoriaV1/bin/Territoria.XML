@@ -1,23 +1,970 @@
 <?xml version="1.0"?>
-<?xml-stylesheet type="text/xsl" href="style.xsl"?>
 <doc>
     <assembly>
         <name>TerritoriaV1</name>
     </assembly>
     <members>
+        <member name="T:BuildingStrategy">
+            <summary>
+            Représente une stratégie de construction d'un village, permet la construction mais aussi la destruction
+            </summary>
+        </member>
+        <member name="M:BuildingStrategy.BuildNewPlaceable(System.Int32[],System.Int32[],TerritoriaV1.PlaceableFactory,TileType[],TerritoriaV1.Placeable[0:,0:],System.Int32[],System.Int32[])">
+            <summary>
+            Créé et place les bâtiments dans le village
+            </summary>
+            <param name="import">Les imports de ce tour</param>
+            <param name="export">Les exports de ce tour</param>
+            <param name="factory">La factory de Placeable</param>
+            <param name="targetTile">Un tableau de TileType cible, 1 pour chaque bâtiment</param>
+            <param name="placeables">Les Placeable du village</param>
+            <param name="resources">Les ressources actuelles</param>
+            <param name="oldResources">Les ressources avant production</param>
+            <returns>La nouvelle grille de Placeable</returns>
+        </member>
+        <member name="M:BuildingStrategy.GetExchangesRates">
+            <summary>
+            getter des taux de changes pour l'import/export par ressource
+            </summary>
+            <returns>Les taux de change</returns>
+        </member>
+        <member name="M:BuildingStrategy.PlacePlaceable(TerritoriaV1.Placeable[0:,0:],TerritoriaV1.Placeable,TileType)">
+            <summary>
+            Place un Placeable dans le tableau 2D des Placeable en fonction du TileType cibe
+            </summary>
+            <param name="placeables">Les Placeable du village</param>
+            /// <param name="placeable">Le Placeable en question</param>
+            <param name="targetTile">TileType cible du Placeable</param>
+            <returns>La nouvelle grille de bâtiment</returns>
+        </member>
+        <member name="M:BuildingStrategy.CanPlaceAtLocation(System.Int32,System.Int32,TileType,TerritoriaV1.Placeable[0:,0:])">
+            <summary>
+            Vérifie si la case indiqué peut accueillir le Placeable
+            </summary>
+            <param name="x">Position en x du Placeable</param>
+            <param name="y">Position en y du Placeable</param>
+            <param name="targetTileType">TileType cible du Placeable</param>
+            <param name="placeables">Les Placeable du village</param>
+            <returns>Si oui ou non la case est valide</returns>
+        </member>
+        <member name="M:BuildingStrategy.HasAdjacentPlaceableOfType(System.Int32,System.Int32,PlaceableType,TerritoriaV1.Placeable[0:,0:])">
+            <summary>
+            Vérifie si la case indiqué possède des bâtiments du même type que le type donné
+            </summary>
+            <param name="x">Position en x du Placeable</param>
+            <param name="y">Position en y du Placeable</param>
+            <param name="type">Type du Placeable en question</param>
+            <param name="placeables">Les Placeable du village</param>
+            <returns>Si oui ou non la case a des voisins Placeable du type indiqué</returns>
+        </member>
+        <member name="M:BuildingStrategy.HasTwoNeighbours(System.Int32,System.Int32,PlaceableType,TerritoriaV1.Placeable[0:,0:])">
+            <summary>
+            Regarde si la case a au moins 2 voisins du PlaceableType type
+            </summary>
+            <param name="x">Position en x du Placeable</param>
+            <param name="y">Position en y du Placeable</param>
+            <param name="type">Type du Placeable en question</param>
+            <param name="placeables">Les Placeable du village</param>
+            <returns>Si oui ou non la case a au moins 2 Placeable voisins du type indiqué</returns>
+        </member>
+        <member name="M:BuildingStrategy.PlaceRandomly(TileType,TerritoriaV1.Placeable,TerritoriaV1.Placeable[0:,0:])">
+            <summary>
+            Place un Placeable à un endroit aléatoire sur la carte sur une TileType cible
+            </summary>
+            <param name="targetTileType">Le TileType cible du placeable</param>
+            <param name="placeable">Position en y du Placeable</param>
+            <param name="placeables">Les Placeable du village</param>
+        </member>
+        <member name="M:BuildingStrategy.SetTiles(TileType[0:,0:])">
+            <summary>
+            setter de tiles
+            </summary>
+            <param name="tiles">Tableau 2D de TileType, représente le sol</param>
+        </member>
+        <member name="M:BuildingStrategy.Destroy(PlaceableType,TerritoriaV1.Placeable[0:,0:])">
+            <summary>
+            Trouve et détruit un Placeable du type indiqué
+            </summary>
+            <param name="type">Le type de Placeable à détruire</param>
+            <param name="placeables">Les Placeable du village</param>
+        </member>
+        <member name="T:BuildingStrategyFactory">
+            <summary>
+            Factory de BuildingStrategy
+            </summary>
+        </member>
+        <member name="M:BuildingStrategyFactory.createPrimaryStrategy(TerritoriaV1.Placeable[0:,0:],TileType[0:,0:])">
+            <summary>
+            Construit une PrimaryStrategy
+            </summary>
+            <param name="placeables">Les Placeable du village</param>
+            <param name="tiles">Le sol du village</param>
+        </member>
+        <member name="M:BuildingStrategyFactory.createSecondaryStrategy(TerritoriaV1.Placeable[0:,0:],TileType[0:,0:])">
+            <summary>
+            Construit une SecondaryStrategy
+            </summary>
+            <param name="placeables">Les Placeable du village</param>
+            <param name="tiles">Le sol du village</param>
+        </member>
+        <member name="M:BuildingStrategyFactory.createTertiaryStrategy(TerritoriaV1.Placeable[0:,0:],TileType[0:,0:])">
+            <summary>
+            Construit une TertiaryStrategy
+            </summary>
+            <param name="placeables">Les Placeable du village</param>
+            <param name="tiles">Le sol du village</param>
+        </member>
+        <member name="T:end_screen">
+            <summary>
+            l'ecran qui s'affiche quand on perd ou gagne
+            </summary>
+        </member>
+        <member name="M:end_screen.setText(System.String,Godot.Color)">
+            <summary>
+            change le texte affiché
+            </summary>
+            <param name="text">le texte en question</param>
+            <param name="color">la couleur du texte</param>
+        </member>
+        <member name="M:end_screen._on_button_pressed">
+            <summary>
+            relance le jeu le joueur clique apres une défaite
+            </summary>
+        </member>
+        <member name="T:TerritoriaV1.EvolutionOfVillage">
+            <summary>
+            permet de choisir quel strategies de développement le village va appliquer
+            </summary>
+        </member>
+        <member name="M:TerritoriaV1.EvolutionOfVillage.DetermineStrategy(System.Int32)">
+            <summary>
+            permet de determiner la strategie qu'utilisera le village, parmi la premiere, la deuxieme et la troisième ( cf leurs doc respectives)
+            </summary>
+        </member>
+        <member name="M:TerritoriaV1.EvolutionOfVillage.SetVillage(Village)">
+            <summary>
+            simple setter pour l'attribut village
+            </summary>
+            <param name="village">le village en question</param>
+        </member>
+        <member name="T:TerritoriaV1.Placeable">
+            <summary>
+            les objets utilisé pour representer les batiments du jeux
+            </summary>
+        </member>
+        <member name="M:TerritoriaV1.Placeable.#ctor(PlaceableType,System.Int32[],System.Int32[],System.Int32)">
+            <summary>
+            crée un placeable
+            </summary>
+            <param name="placeableType">le type de batiment voulu</param>
+            <param name="input">ce que le batiment doit prendre par tour au joueur</param>
+            <param name="output">ce que le batiment doit donner par tour au joueur</param>
+            <param name="productionCapacities">la capacité de production</param>
+        </member>
+        <member name="M:TerritoriaV1.Placeable.ProductResources(System.Int32[],System.Int32[])">
+            <summary>
+            
+            </summary>
+            <param name="availableResources">les ressources disponibles actuellement</param>
+            <param name="neededResources">les ressources nécessaire au village	</param>
+        </member>
+        <member name="M:TerritoriaV1.Placeable.getResourceNeeds">
+            <summary>
+            getter pour les besoins en ressources
+            </summary>
+            <returns>le tableau d'entier representant les besoins</returns>
+        </member>
+        <member name="M:TerritoriaV1.Placeable.getResourceProduction">
+            <summary>
+            getter pour les ressources produitent
+            </summary>
+            <returns>le tableau d'entiers representant la production</returns>
+        </member>
+        <member name="M:TerritoriaV1.Placeable.getProduct">
+            <summary>
+            getter pour la production max
+            </summary>
+            <returns>boolean indiquant si le batiment a produit au max</returns>
+        </member>
+        <member name="M:TerritoriaV1.Placeable.getPlaceableType">
+            <summary>
+            le type de batiment du placeable
+            </summary>
+            <returns>une instance de l'enum placeabeType</returns>
+        </member>
+        <member name="T:TerritoriaV1.PlaceableFactory">
+            <summary>
+            construit des placeables ( batiments)
+            </summary>
+        </member>
+        <member name="M:TerritoriaV1.PlaceableFactory.CreateHouse">
+            <summary>
+            crée une maison
+            </summary>
+            <returns>une maison</returns>
+        </member>
+        <member name="M:TerritoriaV1.PlaceableFactory.CreateSawmill">
+            <summary>
+            crée une scierie
+            </summary>
+            <returns>une scierie</returns>
+        </member>
+        <member name="M:TerritoriaV1.PlaceableFactory.CreateTrainStation">
+            <summary>
+            crée une gare
+            </summary>
+            <returns>une gare</returns>
+        </member>
+        <member name="M:TerritoriaV1.PlaceableFactory.CreateBar">
+            <summary>
+            crée un bar
+            </summary>
+            <returns>un bar</returns>
+        </member>
+        <member name="M:TerritoriaV1.PlaceableFactory.CreateField">
+            <summary>
+            crée un champ
+            </summary>
+            <returns>un champ</returns>
+        </member>
+        <member name="M:TerritoriaV1.PlaceableFactory.CreateIceUsine">
+            <summary>
+            crée une usine a glacon
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TerritoriaV1.PlaceableFactory.CreateBeerUsine">
+            <summary>
+            crée une usine à bière
+            </summary>
+            <returns>une usine à bière</returns>
+        </member>
+        <member name="T:TerritoriaV1.VillageObserver">
+            <summary>
+            les observeurs du village
+            </summary>
+        </member>
+        <member name="M:TerritoriaV1.VillageObserver.ReactToResourcesChange(System.Int32[])">
+            <summary>
+            ce qui se passe quand les ressources du village change
+            </summary>
+            <param name="resources">les nouvelles ressources</param>
+        </member>
+        <member name="M:TerritoriaV1.VillageObserver.ReactToExchangesRatesChange(System.Int32[0:,0:])">
+            <summary>
+            ce qui se passe quand les taux de change, changent
+            </summary>
+            <param name="exchangesRates">les nouveaux de taux de changes</param>
+        </member>
+        <member name="M:TerritoriaV1.VillageObserver.ReactToPlaceableChange(TerritoriaV1.Placeable[0:,0:])">
+            <summary>
+            les placeables ( batiments) ont changé
+            </summary>
+            <param name="placeables">les nouveaux placeables</param>
+        </member>
+        <member name="M:TerritoriaV1.VillageObserver.ReactToTilesChange(TileType[0:,0:])">
+            <summary>
+            les tiles ont changés
+            </summary>
+            <param name="tiles">le nouveau tableau de tiles</param>
+        </member>
+        <member name="M:TerritoriaV1.VillageObserver.ReactToImpossibleTransaction(System.Int32[])">
+            <summary>
+            ce qui se passe quand le joueur veut faire une transaction impossible
+            </summary>
+            <param name="missingRessources"></param>
+        </member>
         <member name="T:GameManager">
             <summary>
-            la classe GameManager fait office de main, c'est lui qui instancie les differents noeuds, et gère les interactions entre ceux-ci, notamment le changement de tour
+            Administre la partie et vérifie les conditions de fin de partie
             </summary>
+        </member>
+        <member name="M:GameManager._Ready">
+            <summary>
+            Récupère et relie toutes les classes pour démarrer le jeu
+            </summary>
+        </member>
+        <member name="M:GameManager.nextTurn(System.Int32[],System.Int32[],System.Int32[])">
+            <summary>
+            Demande à passer au tour prochain, et vérifie si le jeu doit s'arrêter ou non
+            </summary>
+            <param name="export">Les exports de ce tour</param>
+            <param name="import">Les imports de ce tour</param>
+            <param name="money">Les montants de ce tour</param>
+        </member>
+        <member name="M:GameManager.EndGame(System.String,Godot.Color)">
+            <summary>
+            Termine le partie et affiche au joueur le message de fin
+            </summary>
+            <param name="message">Message à afficher au joueur</param>
+            <param name="color">Défini la couleur du texte</param>
+        </member>
+        <member name="M:GameManager._on_missing_ressource_canceled">
+            <summary>
+            Annule le passage du tour
+            </summary>
+        </member>
+        <member name="M:GameManager._on_missing_ressource_confirmed">
+            <summary>
+            Confirme le passage de tour
+            </summary>
+        </member>
+        <member name="M:GameManager.printMessage(System.String)">
+            <summary>
+            Affiche un message au joueur
+            </summary>
+            <param name="message">Le message à afficher</param>
+            <returns> </returns>
+        </member>
+        <member name="M:GameManager._on_start_pressed">
+            <summary>
+            Affiche le message de bienvenue
+            </summary>
+        </member>
+        <member name="M:GameManager._on_exit_pressed">
+            <summary>
+            Ferme le jeu
+            </summary>
+        </member>
+        <member name="M:GameManager._on_accept_dialog_end_canceled">
+            <summary>
+            Redémarre l'application (et donc la partie)
+            </summary>
+        </member>
+        <member name="M:GameManager._on_accept_dialog_end_confirmed">
+            <summary>
+            Redémarre l'application (et donc la partie)
+            </summary>
+        </member>
+        <member name="M:GameManager._on_change_message_need_resources_pressed">
+            <summary>
+            Actualise le message sur le bouton d'affichage des ressources manquantes
+            </summary>
+        </member>
+        <member name="M:GameManager._on_info_pressed">
+            <summary>
+            Ouvre un navigateur et amène vers le dépôt du projet
+            </summary>
+        </member>
+        <member name="M:GameManager.setMessage(System.String)">
+            <summary>
+            Permet de définir le message de passage de tour et l'afficher proprement
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:GameManager._on_stop_text_pressed">
+            <summary>
+            Ferme le message de passage de tour et afficher tout les autres composants
+            </summary>
+        </member>
+        <member name="T:MessageDialog">
+            <summary>
+            utiliser pour communiquer via pop up au joueur
+            </summary>
+        </member>
+        <member name="M:MessageDialog.SetErrorMessage(System.String,System.Boolean)">
+            <summary>
+            Permet de définir les messages d'erreurs ou normaux
+            </summary>
+            <param name="errorMessage"> le message d'erreur a transmettre</param>
+            <param name="end">ignorer le svp</param>
+        </member>
+        <member name="T:MissingRessource">
+            <summary>
+            un message de confirmation utilisé pour valider le changement de tour
+            </summary>
+        </member>
+        <member name="M:MissingRessource.SetMessageMissingRessource(System.String)">
+            <summary>
+            defini le message
+            </summary>
+            <param name="message">le message en question</param>
+        </member>
+        <member name="T:PlaceableType">
+            <summary>
+            l'énumeration des types possibles de batiments
+            </summary>
+        </member>
+        <member name="T:PrimaryStrat">
+            <summary>
+            Représente une stratégie de construction primaire, construit des bâtiments de production de matières premières  
+            </summary>
+        </member>
+        <member name="M:PrimaryStrat.BuildNewPlaceable(System.Int32[],System.Int32[],TerritoriaV1.PlaceableFactory,TileType[],TerritoriaV1.Placeable[0:,0:],System.Int32[],System.Int32[])">
+            <summary>
+            Créé et place les bâtiments dans le village
+            </summary>
+            <param name="import">Les imports de ce tour</param>
+            <param name="export">Les exports de ce tour</param>
+            <param name="factory">La factory de Placeable</param>
+            <param name="targetTile">Un tableau de TileType cible, 1 pour chaque bâtiment</param>
+            <param name="placeables">Les Placeable du village</param>
+            <param name="resources">Les ressources actuelles</param>
+            <param name="oldResources">Les ressources avant production</param>
+            <returns>La nouvelle grille de Placeable</returns>
+        </member>
+        <member name="M:PrimaryStrat.GetExchangesRates">
+            <summary>
+            getter des taux de changes pour l'import/export par ressource
+            </summary>
+            <returns>Les taux de change</returns>
+        </member>
+        <member name="M:PrimaryStrat.PlacePlaceable(TerritoriaV1.Placeable[0:,0:],TerritoriaV1.Placeable,TileType)">
+            <summary>
+            Place un Placeable dans le tableau 2D des Placeable en fonction du TileType cibe
+            </summary>
+            <param name="placeables">Les Placeable du village</param>
+            /// <param name="placeable">Le Placeable en question</param>
+            <param name="targetTile">TileType cible du Placeable</param>
+            <returns>La nouvelle grille de bâtiment</returns>
+        </member>
+        <member name="M:Printer._Ready">
+            <summary>
+            Initialise les composants d'affichage
+            </summary>
+        </member>
+        <member name="M:Printer.SetVisibility(System.Boolean)">
+            <summary>
+            Setter sur la visibilité
+            </summary>
+            <param name="vis">Si oui ou non on peut le voir</param>
+        </member>
+        <member name="M:Printer.UpdateResources(ResourceType,System.Int32[],System.Int32)">
+            <summary>
+            Demande la mise à jour des ressources
+            </summary>
+            <param name="resources">Le type de ressource à récupérer</param>
+            <param name="quantities">Les nouvelles ressources</param>
+            <param name="numResource">L'index de la ressource à récupérer</param>
+        </member>
+        <member name="M:Printer.SetMessageWindow(MissingRessource)">
+            <summary>
+            Setter sur la fenêtre à afficher
+            </summary>
+            <param name="missingRessource">La nouvelle fenêtre</param>
+        </member>
+        <member name="M:Printer.ReactToResourcesChange(System.Int32[])">
+            <summary>
+            Réagi aux changements des ressources, ici actualise l'affichage
+            </summary>
+            <param name="resources">Les nouvelles ressources</param>
+        </member>
+        <member name="M:Printer.ReactToPlaceableChange(TerritoriaV1.Placeable[0:,0:])">
+            <summary>
+            Réagi au changement des placeables, ici ne fait rien
+            </summary>
+            <param name="placeables">Les Placeable du village</param>
+        </member>
+        <member name="M:Printer.ReactToTilesChange(TileType[0:,0:])">
+            <summary>
+            Reagi aux changements du sol, ici ne fait rien
+            </summary>
+            <param name="tiles">Le sol du village</param>
+            <returns>Le tableau de besoin en ressources</returns>
+        </member>
+        <member name="M:Printer.GetRessource(System.Int32)">
+            <summary>
+            Getter sur la quantité de ressource selon un index
+            </summary>
+            <returns>La quantité de ressource du type demandé</returns>
+        </member>
+        <member name="M:Printer.Defeat">
+            <summary>
+            Mintre la défaite du joueur
+            </summary>
+        </member>
+        <member name="M:Printer.DefeatParent">
+            <summary>
+            Préviens le parent de la défaite
+            </summary>
+        </member>
+        <member name="M:Printer.ReactToImpossibleTransaction(System.Int32[])">
+            <summary>
+            Réagi à une transaction impossible, ici affiche les ressources manquantes
+            </summary>
+            <param name="missingResources">Les ressources manquantes</param>
+        </member>
+        <member name="M:Printer.ReactToExchangesRatesChange(System.Int32[0:,0:])">
+            <summary>
+            Réagi au changement des taux de change, ici ne fait rien
+            </summary>
+        </member>
+        <member name="M:Printer.DetermineRange(System.Int32)">
+            <summary>
+            Détermine l'intervalle dans lequel se situe le manque de ressource
+            </summary>
+            <returns>La châine à afficher</returns>
+        </member>
+        <member name="M:ResourcePrintUnit._Ready">
+            <summary>
+            Récupère ses enfants pour mettre la bonne icône
+            </summary>
+        </member>
+        <member name="M:ResourcePrintUnit.SetValue(System.Int32)">
+            <summary>
+            Setter sur la quantité de ressource affichée
+            </summary>
+            <param name="value">La nouvelle valeur à afficher</param>
+        </member>
+        <member name="T:ResourcePrintUnit.TotalChangedEventHandler">
+            <summary>
+            Un signal pour annoncer le changement du total
+            </summary>
+            <param name="total">Le nouveau total</param>
+        </member>
+        <member name="M:ResourcePrintUnit.SetNewRessources(System.Int32)">
+            <summary>
+            Setter sur la quantité de ressource affichée
+            </summary>
+            <param name="newValue">La nouvelle valeur à afficher</param>
+        </member>
+        <member name="M:ResourcePrintUnit.GetRessources">
+            <summary>
+            Getter sur la valeur affichée
+            </summary>
+            <returns>La valeur affichée</returns>
         </member>
         <member name="E:ResourcePrintUnit.TotalChanged">
             <inheritdoc cref="T:ResourcePrintUnit.TotalChangedEventHandler"/>
         </member>
+        <member name="M:ResourceTradeUnit._Ready">
+            <summary>
+            Récupère ses enfants pour mettre la bonne icône et connecter les signaux
+            </summary>
+        </member>
+        <member name="M:ResourceTradeUnit.ValueChanged">
+            <summary>
+            Actualise le total en fonction des changements de ses fils
+            </summary>
+        </member>
+        <member name="M:ResourceTradeUnit.GetTotal">
+            <summary>
+            Getter sur le flux de ressource
+            </summary>
+            <returns>Le flux de ressources</returns>
+        </member>
+        <member name="M:ResourceTradeUnit.GetExportValue">
+            <summary>
+            Getter sur la valeur de l'enfant qui gère l'export
+            </summary>
+            <returns>La valeur d'export du slider</returns>
+        </member>
+        <member name="M:ResourceTradeUnit.GetImportValue">
+            <summary>
+            Getter sur la valeur de l'enfant qui gère l'import
+            </summary>
+            <returns>La valeur d'import du slider</returns>
+        </member>
+        <member name="M:ResourceTradeUnit.SetExportMax(System.Int32)">
+            <summary>
+            Setter sur la valeur maximal des sliders
+            </summary>
+            <param name="max">Le nouveau max des sliders</param>
+        </member>
+        <member name="M:ResourceTradeUnit.SetExchangeRate(System.Int32[])">
+            <summary>
+            Setter sur les taux de change
+            </summary>
+            <param name="exchangeRate">Les nouveaux taux de change</param>
+        </member>
         <member name="E:ResourceTradeUnit.TotalChanged">
             <inheritdoc cref="T:ResourceTradeUnit.TotalChangedEventHandler"/>
         </member>
+        <member name="T:SecondaryStrat">
+            <summary>
+            Représente une stratégie de construction secondaire, construit des bâtiments de production de matières transformées
+            </summary>
+        </member>
+        <member name="M:SecondaryStrat.BuildNewPlaceable(System.Int32[],System.Int32[],TerritoriaV1.PlaceableFactory,TileType[],TerritoriaV1.Placeable[0:,0:],System.Int32[],System.Int32[])">
+            <summary>
+            Créé et place les bâtiments dans le village, actualise aussi la production des bars selon le nombre de maisons
+            Et détruit des maisons s'il n'y a pas assez de bière
+            </summary>
+            <param name="import">Les imports de ce tour</param>
+            <param name="export">Les exports de ce tour</param>
+            <param name="factory">La factory de Placeable</param>
+            <param name="targetTile">Un tableau de TileType cible, 1 pour chaque bâtiment</param>
+            <param name="placeables">Les Placeable du village</param>
+            <param name="resources">Les ressources actuelles</param>
+            <param name="oldResources">Les ressources avant production</param>
+            <returns>La nouvelle grille de Placeable</returns>
+        </member>
+        <member name="M:SecondaryStrat.GetExchangesRates">
+            <summary>
+            getter des taux de changes pour l'import/export par ressource
+            </summary>
+            <returns>Les taux de change</returns>
+        </member>
+        <member name="M:SecondaryStrat.PlacePlaceable(TerritoriaV1.Placeable[0:,0:],TerritoriaV1.Placeable,TileType)">
+            <summary>
+            Place un Placeable dans le tableau 2D des Placeable en fonction du TileType cibe
+            </summary>
+            <param name="placeables">Les Placeable du village</param>
+            <param name="placeable">Le Placeable en question</param>
+            <param name="targetTile">TileType cible du Placeable</param>
+            <returns>La nouvelle grille de bâtiment</returns>
+        </member>
+        <member name="T:TerritoriaSlider">
+            <summary>
+            gere les sliders du trader
+            </summary>
+        </member>
+        <member name="M:TerritoriaSlider.UpdateSliderMax(System.Int32)">
+            <summary>
+            met a jour le max du slider
+            </summary>
+            <param name="value">la nouvelle valeur</param>
+        </member>
+        <member name="M:TerritoriaSlider.GetSliderValue">
+            <summary>
+            gette la valeur actuelle du slider
+            </summary>
+            <returns>la valeur</returns>
+        </member>
+        <member name="M:TerritoriaSlider.GetMaxSliderValue">
+            <summary>
+            renvoie la valeur max du slider
+            </summary>
+            <returns>la valeur max</returns>
+        </member>
+        <member name="M:TerritoriaSlider.OnValueSliderValueChanged(System.Double)">
+            <summary>
+            ce qui se passe quand la valeur du slider change
+            </summary>
+            <param name="value">la nouvelle valeur du slider</param>	
+        </member>
         <member name="E:TerritoriaSlider.ValueChanged">
             <inheritdoc cref="T:TerritoriaSlider.ValueChangedEventHandler"/>
+        </member>
+        <member name="T:TertiaryStrat">
+            <summary>
+            Représente une stratégie de construction tertiaire, construit des bâtiments de service et des maisons
+            </summary>
+        </member>
+        <member name="M:TertiaryStrat.BuildNewPlaceable(System.Int32[],System.Int32[],TerritoriaV1.PlaceableFactory,TileType[],TerritoriaV1.Placeable[0:,0:],System.Int32[],System.Int32[])">
+            <summary>
+            Créé et place les bâtiments dans le village, actualise aussi la production des bars selon le nombre de maisons
+            Et détruit des maisons s'il n'y a pas assez de bière
+            </summary>
+            <param name="import">Les imports de ce tour</param>
+            <param name="export">Les exports de ce tour</param>
+            <param name="factory">La factory de Placeable</param>
+            <param name="targetTile">Un tableau de TileType cible, 1 pour chaque bâtiment</param>
+            <param name="placeables">Les Placeable du village</param>
+            <param name="resources">Les ressources actuelles</param>
+            <param name="oldResources">Les ressources avant production</param>
+            <returns>La nouvelle grille de Placeable</returns>
+        </member>
+        <member name="M:TertiaryStrat.GetExchangesRates">
+            <summary>
+            getter des taux de changes pour l'import/export par ressource
+            </summary>
+            <returns>Les taux de change</returns>
+        </member>
+        <member name="M:TertiaryStrat.PlacePlaceable(TerritoriaV1.Placeable[0:,0:],TerritoriaV1.Placeable,TileType)">
+            <summary>
+            Place un Placeable dans le tableau 2D des Placeable en fonction du TileType cibe
+            </summary>
+            <param name="placeables">Les Placeable du village</param>
+            <param name="placeable">Le Placeable en question</param>
+            <returns>La nouvelle grille de bâtiment</returns>
+        </member>
+        <member name="T:TileMap">
+            <summary>
+            la tile map, vue qui represente le village pour le joueur
+            </summary>
+        </member>
+        <member name="M:TileMap.ReactToTilesChange(TileType[0:,0:])">
+            <summary>
+            ce qui se passe quand un tiles de la tilemap change
+            </summary>
+            <param name="tiles">le tile qui a changé</param>
+        </member>
+        <member name="M:TileMap.ReactToPlaceableChange(TerritoriaV1.Placeable[0:,0:])">
+            <summary>
+            ce qui se passe quand un placeable change : le fait apparaitre sur la tilemap
+            </summary>
+            <param name="placeables">le nouveau tableau de placeables</param>
+        </member>
+        <member name="T:TileType">
+            <summary>
+            les types de tiles
+            </summary>
+        </member>
+        <member name="M:Trader._Ready">
+            <summary>
+            Initialise les composants d'échanges
+            </summary>
+        </member>
+        <member name="M:Trader.SetVisibility(System.Boolean)">
+            <summary>
+            Setter sur la visibilité
+            </summary>
+            <param name="vis">Si oui ou non on peut le voir</param>
+        </member>
+        <member name="M:Trader.TotalChanged(System.Int32)">
+            <summary>
+            Signale à toutes les unités d'échanges de changer leur total
+            </summary>
+            <param name="total">Nouveau total</param>
+        </member>
+        <member name="M:Trader.ReactToResourcesChange(System.Int32[])">
+            <summary>
+            Redéfini le max des unités d'échanges en fonction des nouvelles ressources
+            </summary>
+            <param name="resources">Les nouvelles ressources</param>
+        </member>
+        <member name="M:Trader.ReactToPlaceableChange(TerritoriaV1.Placeable[0:,0:])">
+            <summary>
+            Réagi au changement des placeables, ici ne fait rien
+            </summary>
+            <param name="placeables">Les Placeable du village</param>
+        </member>
+        <member name="M:Trader.ReactToTilesChange(TileType[0:,0:])">
+            <summary>
+            Reagi aux changements du sol, ici ne fait rien
+            </summary>
+            <param name="tiles">Le sol du village</param>
+            <returns>Le tableau de besoin en ressources</returns>
+        </member>
+        <member name="M:Trader._on_button_pressed">
+            <summary>
+            Si le bouton est pressé, récupère tous les flux et les envoie pour le jouer le tour
+            </summary>
+        </member>
+        <member name="M:Trader.ReactToImpossibleTransaction(System.Int32[])">
+            <summary>
+            Réagi aux ressources manquantes, ici ne fait rien
+            </summary>
+            <param name="missingResources">Les Placeable du village</param>
+        </member>
+        <member name="M:Trader.ReactToExchangesRatesChange(System.Int32[0:,0:])">
+            <summary>
+            Réagi au changement des taux de change
+            </summary>
+            <param name="exchangesRates">Les Placeable du village</param>
+        </member>
+        <member name="T:turnNB">
+            <summary>
+            permet l'affichage du tour actuel ( recylcé en affichage du nombre de citoyen aussi )
+            </summary>
+        </member>
+        <member name="M:turnNB.updateCurrentTurn(System.Int32)">
+            <summary>
+            change le nombre affiché
+            </summary>
+            <param name="currentTurnNb">le nombre en question </param>
+        </member>
+        <member name="M:turnNB.updateLabel(System.String)">
+            <summary>
+            change le texte affiché
+            </summary>
+            <param name="txt">le texte en question</param>
+        </member>
+        <member name="M:Village.#ctor(TileMap)">
+            <summary>
+            Créé les grilles de Placeable et Tiles, les actualise selon le terrain actuel
+            Définis les tableau de ressources, d'import, d'export et de flux monétaires
+            Récupère la carte et la stratégie 
+            </summary>
+            <param name="map">La carte du jeu</param>
+        </member>
+        <member name="M:Village.IsStratTertiary">
+            <summary>
+            Getter sur le type de Strategy
+            </summary>
+            <returns>Si oui ou non le village est en phase de tertiarisation</returns>
+        </member>
+        <member name="M:Village.GetResources">
+            <summary>
+            Getter sur ressources
+            </summary>
+            <returns>Le tableau de ressources</returns>
+        </member>
+        <member name="M:Village.GetNeededRessourcesPublic">
+            <summary>
+            Getter publique sur les besoins en ressources
+            </summary>
+            <returns>Le tableau de besoin en ressources</returns>
+        </member>
+        <member name="M:Village.GetNeededResources">
+            <summary>
+            Getter privé sur les besoins en ressources
+            </summary>
+            <returns>Le tableau de besoin en ressources</returns>
+        </member>
+        <member name="M:Village.InitialiseTile">
+            <summary>
+            Parcourt la map pour actualiser le sol dans le village 
+            </summary>
+        </member>
+        <member name="M:Village.ProductResources">
+            <summary>
+            Demande à chaque Placeable de produire les ressources qu'il peut
+            </summary>
+        </member>
+        <member name="M:Village.getNBPlaceables">
+            <summary>
+            Compte et range le nombre de Placeable de chaque type dans un tableau
+            </summary>
+            <returns>Tableau contenant le nombre de Placeable, rangé selon l'ordre dans l'enum PlaceableType</returns>
+        </member>
+        <member name="M:Village.SetBuildingStrategy(BuildingStrategy)">
+            <summary>
+            Setter de strategy
+            </summary>
+            <param name="strategy">La nouvelle stratégie du village</param>
+        </member>
+        <member name="M:Village.ApplyStrategy(System.Int32[])">
+            <summary>
+            Applique la stratégie, a besoin de ressources avant production
+            </summary>
+            <param name="resourcesBeforeProduct">Les Placeable du village</param>
+        </member>
+        <member name="M:Village.AddObservers(TerritoriaV1.VillageObserver)">
+            <summary>
+            Ajoute un observeur au village
+            </summary>
+            <param name="observer">Observeur du village</param>
+        </member>
+        <member name="M:Village.NotifyResourcesChange">
+            <summary>
+            Prévient les observeurs que les ressources ont changés
+            </summary>
+        </member>
+        <member name="M:Village.NotifyPlaceableChange">
+            <summary>
+            Prévient les observeurs que les placeables ont changés
+            </summary>
+        </member>
+        <member name="M:Village.NotifyTilesChange">
+            <summary>
+            Prévient les observeurs que les tiles ont changés
+            </summary>
+        </member>
+        <member name="M:Village.GetTiles">
+            <summary>
+            Getter sur le sol du village
+            </summary>
+            <returns>Le tableau 2D de TileType</returns>
+        </member>
+        <member name="M:Village.StartVillage">
+            <summary>
+            Place les premiers bâtiments du village et prévient les observeurs
+            </summary>
+        </member>
+        <member name="M:Village.MakeTransaction(System.Boolean)">
+            <summary>
+            Effectue la transaction
+            </summary>
+            <param name="verif">Si oui ou non la fonction a été appelé pour vérifier si la transaction était possible</param>
+            <returns>Si oui ou non on peut faire la transaction sans manquer de ressources</returns>
+        </member>
+        <member name="M:Village.NextTurn(System.Int32[],System.Int32[],System.Int32[])">
+            <summary>
+            Récupère les flux et lance la phase 2 du passage de tour
+            </summary>
+            <param name="export">Les exports du tour</param>
+            <param name="import">Les imports du tour</param>
+            <param name="money">Les flux monétaires du tour</param>
+        </member>
+        <member name="M:Village.ContinueNextTurn(System.Boolean)">
+            <summary>
+            Termine le passage de tour si continue est vrai
+            </summary>
+            <param name="continueTurn">Si oui ou non on peut passer au tour suivant</param>
+        </member>
+        <member name="M:Village.applyResourcesTransaction">
+            <summary>
+            Applique une transaction de ressources
+            </summary>
+            <returns>Le nouveau tableau de ressources</returns>
+        </member>
+        <member name="M:Village.SetMessageNeedResources(System.Boolean)">
+            <summary>
+            Setter sur si oui ou non on affiche les manques en ressources 
+            </summary>
+            <param name="display">Les Placeable du village</param>
+        </member>
+        <member name="M:Village.NotifyImpossibleTransaction(System.Int32[])">
+            <summary>
+            Préviens les observeurs d'une transaction impossible
+            </summary>
+            <param name="missingResources">Les ressources manquantes</param>
+        </member>
+        <member name="M:Village.NotifyExchangesRatesChange">
+            <summary>
+            Préviens les observeurs du changement des taux de change
+            </summary>
+        </member>
+        <member name="M:Village.GetPlaceables">
+            <summary>
+            Getter sur la grille de Placeable
+            </summary>
+            <returns>La grille de Placeable</returns>
+        </member>
+        <member name="M:Village.getPlaceable(System.Int32,System.Int32)">
+            <summary>
+            Getter sur un Placeable
+            </summary>
+            <param name="x">La position en x</param>
+            <param name="y">La position en y</param>
+            <returns>Le Placeable à la position indique</returns>
+        </member>
+        <member name="M:VillageManager.#ctor(TileMap,Printer,Trader,TerritoriaV1.EvolutionOfVillage)">
+            <summary>
+            Affecte les observeurs au village et le démarre
+            </summary>
+            <param name="map">La carte du village</param>
+            <param name="printer">Le composant d'affichage des ressources</param>
+            <param name="trader">L'interface d'échange de ressources</param>
+            <param name="evolutionOfVillage">Le classe qui gère les stratégies du village</param>
+        </member>
+        <member name="M:VillageManager.NextTurn(System.Int32[],System.Int32[],System.Int32[],System.Int32)">
+            <summary>
+            Demande le passage de tour au village après lui avoir donné une nouvelle stratégie
+            </summary>
+            <param name="export">Les exports de ce tour</param>
+            <param name="import">Les imports de ce tour</param>
+            <param name="money">Les flux monétaires de ce tour</param>
+        </member>
+        <member name="M:VillageManager.applyNextTurn(System.Boolean)">
+            <summary>
+            Demande la phase 2 du passage de tour
+            </summary>
+            <param name="confirm">Les Placeable du village</param>
+        </member>
+        <member name="M:VillageManager.GetVillage">
+            <summary>
+            Getter sur village
+            </summary>
+            <returns>Le village</returns>
+        </member>
+        <member name="M:VillageManager.IsVillageOk">
+            <summary>
+            Vérifie s'il y a encore des gens dans le village
+            </summary>
+            <returns>Si oui ou non on a au moins 1 maison</returns>
+        </member>
+        <member name="M:VillageManager.GetNumberCitizen">
+            <summary>
+            Getter sur le nombre de citoyens
+            </summary>
+            <returns>Le nombre de citoyens</returns>
+        </member>
+        <member name="M:VillageManager.SetMessage(System.Boolean)">
+            <summary>
+            Setter sur si oui ou non on affiche le manque de ressources 
+            </summary>
+            <param name="display">Les Placeable du village</param>
+        </member>
+        <member name="M:VillageManager.GetPlaceable(System.Int32,System.Int32)">
+            <summary>
+            Getter sur un Placeable du village
+            </summary>
+            <param name="x">La position en x</param>
+            <param name="y">La position en y</param>
+            <returns>Le placeable indiqué</returns>
         </member>
     </members>
 </doc>
