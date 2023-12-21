@@ -58,7 +58,7 @@ public class EvolutionOfVillage
             village.SetBuildingStrategy(factory.createTertiaryStrategy(village.GetPlaceables(),village.GetTiles()));
 		    gameManager.printMessage("Le village a atteint une phase de tertiarisation : il se délaisse de la production et compte sur l'import pour satisfaire la consommation");
         }
-        else if(turn > 10 && alreadyTertiary == false && alreadySecondary == false)
+        else if(turn > 8 && alreadyTertiary == false && alreadySecondary == false)
         {
             alreadySecondary = true;
 
