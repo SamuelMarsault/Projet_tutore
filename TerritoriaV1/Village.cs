@@ -349,12 +349,11 @@ public int[] applyResourcesTransaction()
     }
 
     // Check if the money becomes negative
-    int newMoney = testMoney[4];
     for (int j = 0; j < old_money.Length; j++)
     {
-        if ((newMoney + import[j]) - export[j] >= 0)
+        if ((testMoney[4] + import[j]) - export[j] >= 0)
         {
-            newMoney += old_money[j];
+            testMoney[4] += old_money[j];
         }
     }
 
@@ -379,11 +378,12 @@ public int[] applyResourcesTransaction()
         }
     }
 
+    /*
     // Update money only if neither money nor resources became negative
     if (!resourcesNegative && (newMoney >= 0))
     {
         actualResource[4] = newMoney;
-    }
+    }*/
 
     return actualResource;
 }
@@ -409,6 +409,11 @@ public int[] applyResourcesTransaction()
 
     public Placeable getPlaceable(int x, int y)
     {
-        return placeables[x, y];
+        try{
+            return placeables[x, y];
+        }
+        catch (IndexOutOfRangeException ex) {
+            return null;
+        }
     }
 }

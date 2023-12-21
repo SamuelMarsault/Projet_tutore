@@ -123,11 +123,9 @@ public partial class TileMap : Godot.TileMap, VillageObserver
 
         // On récupère le noeud enfant "Info" de la carte d'information
         Node info = infoCard.GetNode("Info");
-        GD.Print("wowowowowow");
 
         // On récupère le type de placeable
         PlaceableType placeableType = placeable.getPlaceableType();
-        GD.Print("wow");
 
         // On récupère le nom du placeable
         string placeableName = placeableType.ToString();
