@@ -1,25 +1,22 @@
+using System.Security.Cryptography;
 using Godot;
 using TerritoriaV1;
 
 public partial class GameManager : Node2D
 {
+
 	private VillageManager villageManager;
 	private EvolutionOfVillage evolutionOfVillage;
-
 	turnNB turn;
 	turnNB citizen;
-
 	end_screen end_Screen;
-
 	int nbMaxTurn = 50;
 	int currentTurnNb = 1;
-
 	private Printer print;
 	private Trader trade;
-
 	MessageDialog acd;
-
 	private Button button;
+	AcceptDialog messageDialog;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -30,6 +27,9 @@ public partial class GameManager : Node2D
 		this.GetWindow().MinSize = this.GetWindow().Size; 
 		Button Button = GetNode<Button>("Printer/ChangeMessageNeedResources");
 		this.button = Button;
+
+		var md = GetNode<AcceptDialog>("AcceptDialogMessage");
+		this.messageDialog = md;
 
 		acd = GetNode<MessageDialog>("AcceptDialogEND");
 
@@ -87,11 +87,6 @@ public partial class GameManager : Node2D
 		citizen.updateCurrentTurn(villageManager.getNumberCitizen());
 	}
 
-	public void updateGraphics()
-	{
-		
-	}
-
 	public void EndGame(string message, Color color)
 	{
 		Printer printer  = (Printer)GetNode<Printer>("Printer");
@@ -102,10 +97,6 @@ public partial class GameManager : Node2D
 		citizen.Visible = false;
 		end_Screen.setText(message, color);
 		end_Screen.Visible = true;
-	}
-
-	public void Victory(){
-		//TODO
 	}
 
 	public void _on_missing_ressource_canceled(){
@@ -166,5 +157,10 @@ public partial class GameManager : Node2D
 	{
 		// Ouvrir le navigateur avec le lien spécifique
 		OS.ShellOpen("https://git.unistra.fr/miniotti/han23-t3-a/-/blob/main/WikiDescription.MD?ref_type=heads");
+	}
+
+	public void setMessage(string message)
+	{
+		messageDialog.DialogText = message;
 	}
 }

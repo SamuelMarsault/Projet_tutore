@@ -292,7 +292,6 @@ public class Village
                     {
                         if ((resources[i] + needRessorcesNow[i]) + (old_money[j]) < 0)
                         {
-                            GD.Print((resources[i] + needRessorcesNow[i]) + (old_money[j]));
                             insufficientResources[i] += (((resources[i] + needRessorcesNow[i]) + (old_money[j])) * -1);
                             inssufisant = true;
                         }
