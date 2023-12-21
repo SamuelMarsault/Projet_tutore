@@ -211,15 +211,26 @@ public partial class GameManager : Node2D
 		OS.ShellOpen("https://git.unistra.fr/miniotti/han23-t3-a/-/blob/main/WikiDescription.MD?ref_type=heads");
 	}
 
+	/// <summary>
+	/// Permet de définir le message de passage de tour et l'afficher proprement
+	/// </summary>
+	/// <param name="message"></param>
 	public void setMessage(string message)
 	{
 		Label messageStrat = GetNode<Label>("AfficheMessages/TextStrat");
 		GD.Print(messageStrat.Name);
 		messageStrat.Text = message;
 		afficheMessage.Visible = true;
+		trade.SetVisibility(false);
+		print.SetVisibility(false);
 	}
 
+	/// <summary>
+	/// Ferme le message de passage de tour
+	/// </summary>
 	public void _on_stop_text_pressed(){
 		afficheMessage.Visible = false;
+		trade.SetVisibility(true);
+		print.SetVisibility(true);
 	}
 }
