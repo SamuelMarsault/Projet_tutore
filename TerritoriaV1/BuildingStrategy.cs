@@ -8,7 +8,7 @@ public abstract class BuildingStrategy {
 
     public abstract Placeable[,] BuildNewPlaceable(int[] import,
         int[] export, PlaceableFactory factory, 
-        TileType[] targetTile,Placeable[,] placeables, int[] resources);
+        TileType[] targetTile,Placeable[,] placeables, int[] resources, int[] oldResources);
 
 
     public abstract int[,] GetExchangesRates();

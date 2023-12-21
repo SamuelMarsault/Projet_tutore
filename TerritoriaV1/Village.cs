@@ -195,7 +195,7 @@ public class Village
             //GD.Print("placeables == null");
         }
         //Console.WriteLine("Statégie "+strategy.GetType());
-        placeables = strategy.BuildNewPlaceable(old_import, old_export, factory, targetTiles, placeables, resources);
+        placeables = strategy.BuildNewPlaceable(old_import, old_export, factory, targetTiles, placeables, resources, resourcesBeforeProduct);
         NotifyPlaceableChange();
         exchangesRates = strategy.GetExchangesRates();
         NotifyExchangesRatesChange();

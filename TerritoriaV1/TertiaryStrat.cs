@@ -13,11 +13,11 @@ public class TertiaryStrat : BuildingStrategy
     override 
     public Placeable[,] BuildNewPlaceable(int[] import,
         int[] export, PlaceableFactory factory, 
-        TileType[] targetTile, Placeable[,] placeables, int[] resources)
+        TileType[] targetTile, Placeable[,] placeables, int[] resources, int[] oldResources)
     {
         int[] resourcesNeed = new int[Enum.GetNames(typeof(ResourceType)).Length-1];
         int[] resourcesProduction = new int[Enum.GetNames(typeof(ResourceType)).Length-1];
-        
+        int beerProduction = oldResources[ResourceType.BEER.GetHashCode()] + import[ResourceType.BEER.GetHashCode()] - export[ResourceType.BEER.GetHashCode()];
         foreach (Placeable placeable in placeables)
         {
             if (placeable != null)
@@ -44,7 +44,14 @@ public class TertiaryStrat : BuildingStrategy
                     nbBar++;
             }
         }
-        GD.Print("Début Bar : "+nbBar+" - Maison : "+nbHouse);
+        
+        
+        while (beerProduction/10<nbHouse)
+        {
+            nbHouse--;
+            Destroy(PlaceableType.HOUSE, placeables);
+        }
+        
         if(resourcesProduction[ResourceType.BEER.GetHashCode()]*1.25 > resourcesNeed[ResourceType.BEER.GetHashCode()]) // le joueur a interet a exporter ses bieres si il veut pas qu'on construisent des bars partout
         {
             if(resources[(int)ResourceType.WOOD] > 10 && nbBar*10<=nbHouse)
@@ -82,8 +89,8 @@ public class TertiaryStrat : BuildingStrategy
     {
         int[,] exchangesRates = new[,]
         {
-            { 1, 1, 2, 4 }, //import
-            { 1, 1, 1, 2 } //export
+            { 1, 1, 1, 4 }, //import
+            { 1, 2, 2, 6 } //export
         };
         return exchangesRates;
     }
@@ -96,9 +103,7 @@ public class TertiaryStrat : BuildingStrategy
                 for (int j = 0; j < placeables.GetLength(1) && notPlaced; j++)
                 {
                     if (HasAdjacentPlaceableOfType(i, j, placeable.getPlaceableType(), placeables) && CanPlaceAtLocation(i, j, targetTile, placeables))
-                    {  GD.Print(i); GD.Print(j);
-                       GD.Print(HasAdjacentPlaceableOfType(i, j, placeable.getPlaceableType(), placeables)); GD.Print(CanPlaceAtLocation(i, j, targetTile, placeables));
-                       GD.Print(targetTile); GD.Print(placeable.getPlaceableType());
+                    {  
                         placeables[i, j] = placeable;
                         notPlaced = false; 
                     }

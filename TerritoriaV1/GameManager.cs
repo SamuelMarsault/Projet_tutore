@@ -63,8 +63,10 @@ public partial class GameManager : Node2D
 		currentTurnNb++;
 		turn.updateCurrentTurn(currentTurnNb);
 		
-
-
+		
+		
+		villageManager.NextTurn(export, import, money);
+		citizen.updateCurrentTurn(villageManager.getNumberCitizen());
 		if(currentTurnNb >= nbMaxTurn)
 		{
 			EndGame("Félicitations,\n vous avez fait progresser le village à travers les phases de son développement urbain :\n vous avez gagné !", Colors.Green);
@@ -73,18 +75,15 @@ public partial class GameManager : Node2D
 
 		if(!villageManager.IsVillageOk())
 		{
-			EndGame("Vous avez perdu !\nTous les habitants ont quittés votre village",Colors.Red);
+			EndGame("Vous avez perdu !\nTous les habitants ont quittés votre village...",Colors.Red);
 			return;
 		}
 
 		if(villageManager.change == false && currentTurnNb > 2)
 		{
-			EndGame("Vous avez perdu !\nIl n'y a eu aucune activité économique dans votre village",Colors.Red);
+			EndGame("Vous avez perdu !\nIl n'y a eu aucune activité économique dans votre village !",Colors.Red);
 			return;
 		}
-		
-		villageManager.NextTurn(export, import, money);
-		citizen.updateCurrentTurn(villageManager.getNumberCitizen());
 	}
 
 	public void updateGraphics()

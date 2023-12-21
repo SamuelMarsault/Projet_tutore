@@ -26,8 +26,7 @@ public partial class TerritoriaSlider : Control
 	}
 
 	public void UpdateSliderMax(int value)
-	{
-		GD.Print("##########\n##########\n##########\n##########\n##########\n##########\n##########\n##########\n##########\n##########\n##########\n##########\n##########\n##########\n");
+	{ 
 		slider.MaxValue = value;
 		int scale = 0;
 		while (value > 100)
@@ -39,7 +38,6 @@ public partial class TerritoriaSlider : Control
 		slider.Step = 1;
 		for (int i = 0; i < scale; i++)
 			slider.Step *= 10;
-		GD.Print(slider.MaxValue+" "+slider.Step);
 		this.ForceUpdateTransform();
 	}
 

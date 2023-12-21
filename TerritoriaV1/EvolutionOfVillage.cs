@@ -45,7 +45,6 @@ public class EvolutionOfVillage
                     placeable.setProductionCapacity(nbHouse*10);
                     nbHouse = 0;
                 }
-                GD.Print("ProdCap : "+placeable.getProductionCapacity());
             }
         }
         
@@ -77,7 +76,6 @@ public class EvolutionOfVillage
         {
             GD.Print("on ne devrais pas être ici");
         }
-        GD.Print(alreadyTertiary+" "+alreadySecondary);
         turn++;
     }
 

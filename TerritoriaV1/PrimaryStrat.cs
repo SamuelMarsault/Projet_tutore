@@ -16,7 +16,7 @@ public class PrimaryStrat : BuildingStrategy
     override 
     public Placeable[,] BuildNewPlaceable(int[] import,
         int[] export, PlaceableFactory factory, 
-        TileType[] targetTile, Placeable[,] placeables, int[] resources)
+        TileType[] targetTile, Placeable[,] placeables, int[] resources, int[] oldResources)
     {
         int[] resourcesNeed = new int[Enum.GetNames(typeof(ResourceType)).Length];
         int[] resourcesProduction = new int[Enum.GetNames(typeof(ResourceType)).Length];

@@ -46,11 +46,9 @@ public class VillageManager
         change = false;
         for(int i = 0; i < newResources.Length; i++)
         {
-            GD.Print("current "+oldressources[i]); GD.Print("new "+newResources[i]); 
             if(oldressources[i] != newResources[i])
             {
                 change = true;
-                GD.Print("changement");
             }
         }
         oldressources = village.GetResources();
@@ -64,11 +62,9 @@ public class VillageManager
 
         for(int i = 0; i < newResources.Length; i++)
         {
-            GD.Print("current "+oldressources[i]); GD.Print("new "+newResources[i]); 
             if(oldressources[i] != newResources[i])
             {
                 change = true;
-                GD.Print("changement");
             }
         }
         oldressources = village.GetResources();
