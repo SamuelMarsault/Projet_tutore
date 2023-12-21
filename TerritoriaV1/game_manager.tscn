@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://cdwm87hnmoj7n" path="res://InfoCard.tscn" id="8_goq55"]
 [ext_resource type="PackedScene" uid="uid://r7ojkp43b0e6" path="res://MessageDialog.tscn" id="9_02dnr"]
 [ext_resource type="Script" path="res://InfoCard.cs" id="9_k2l7o"]
-[ext_resource type="PackedScene" uid="uid://d4ctxppw6jhk3" path="res://end_screen.tscn" id="11_2wf23"]
+3[ext_resource type="PackedScene" uid="uid://d4ctxppw6jhk3" path="res://end_screen.tscn" id="11_2wf23"]
 [ext_resource type="Texture2D" uid="uid://cqn65fceqttnw" path="res://img/Menu/MenuIncroyableTerritoria.png" id="11_tu4hk"]
 [ext_resource type="AudioStream" uid="uid://dwy8ac8820vfh" path="res://sounds/This town (Main Track).mp3" id="13_q74av"]
 
