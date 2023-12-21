@@ -59,3 +59,4 @@ Le joueur voit :
 - Les ressources qu'il possède.
 - Les bâtiments présents dans son village, représentés graphiquement en vue isométrique.
 - Le tour actuel de jeu.
+- des informations sur les batiments quand il clique dessus
