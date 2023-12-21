@@ -53,3 +53,4 @@
 /TerritoriaV1/LogoIncroyableTerritoriaV2-PhotoRoom.png-PhotoRoom.png filter=lfs diff=lfs merge=lfs -text
 /territoria.zip filter=lfs diff=lfs merge=lfs -text
 /TerritoriaV1/img/Menu/MenuIncroyableTerritoria.png filter=lfs diff=lfs merge=lfs -text
+/TerritoriaV1.exe filter=lfs diff=lfs merge=lfs -text
