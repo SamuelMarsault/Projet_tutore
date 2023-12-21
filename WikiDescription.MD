@@ -2,61 +2,55 @@
 
 ## Objectifs Pédagogiques
 
-### Définition
+### Définitions
 
 #### La territorialisation :
-
-La territorialisation est l'utilisation du territoire en fonction des differentes ressources disponibles.
+La territorialisation consiste à utiliser le territoire en fonction des différentes ressources disponibles.
 
 #### La déterritorialisation : 
-
-La déterritorialisation est à l'opposée, centrée sur l'extérieur, et sur la transition des ressources par import et export
+La déterritorialisation, à l'opposé, est centrée sur l'extérieur et sur la transition des ressources par importation et exportation.
 
 ## Description du Jeu
 
-Le joueur est responsable de l'import/export des ressources du quartier. celui-ci évolue directement en fonction des décisions que le joueur prend.
+Le joueur est responsable de l'import/export des ressources du quartier, et celui-ci évolue directement en fonction des décisions que le joueur prend.
 
-    il y a 6 ressources dans le jeu :
+### Ressources du Jeu
 
-        - le bois : produit par les scieries, permet de construires tous les batiments.
-        - les glacons et le houblons, produits par les usines à glaçon et les champs, sont les deux ingrédients nécéssaire à la fabrication des bières.
-        - les bières, produitent par les usines à bières, sont la principale source de revenus du joueur.
-        - l'argent, s'obtient lorsque le bar vends les bières aux habitants
-        - les habitants, vivent dans les maisons. plus vous avez d'habitant, plus vous pourrez vendre de bières, mais si vous ne produisez pas assez, les habitants partiront.
-        - l'argent, pour acheter les autres ressources.
+Il y a 6 ressources dans le jeu :
 
-Le jeu se déroule en trois phases : 
+- **Le Bois :** Produit par les scieries, il permet de construire tous les bâtiments.
+- **Les Glaces et le Houblon :** Produits par les usines à glaçon et les champs, ce sont les deux ingrédients nécessaires à la fabrication des bières.
+- **Les Bières :** Produites par les usines à bières, sont la principale source de revenus du joueur.
+- **L'Argent :** S'obtient lorsque le bar vend les bières aux habitants.
+- **Les Habitants :** Vivent dans les maisons. Plus vous avez d'habitants, plus vous pourrez vendre de bières. Si vous ne produisez pas assez, les habitants partiront.
+- **L'Argent :** Nécessaire pour acheter les autres ressources.
 
-    - la phase de Territorialisation : 
-        dans cette phase, le village se construit de manière à 
-        être autosufisant. il construit les batiments producteurs de ressources primaires ( bois, houblon, glaçon )
+### Phases du Jeu
 
-    le role du joueur consiste ici simplement à essayer d'importer et d'exporter des ressources pour se famillariser avec les systemes de jeu
+Le jeu se déroule en trois phases :
 
-    - la phase de Deterritorialisation :
-        dans cette phase, le village construit des maisons, des usines à bières et des bar, et ferme les batiments producteurs de ressources primaires
-    
-    le rôle du joueur ici est d'importer les ressources primaires nécessaire à l'élaborations des bières. 
-    les meilleurs taux de changes permettent aussi des stratégies à bases d'export de bières et des reventes de ses surplus de matières premières
+1. **Phase de Territorialisation :** Dans cette phase, le village se construit de manière à être autosuffisant. Il construit les bâtiments producteurs de ressources primaires (bois, houblon, glaçon).
 
-    - la phase de Tertiarisation : 
-        dans cette phase, le village ferme les usines à bieres, le joueur doit donc importer les bière nécessaires pour son village
+    Le rôle du joueur consiste simplement à essayer d'importer et d'exporter des ressources pour se familiariser avec les systèmes de jeu.
 
+2. **Phase de Déterritorialisation :** Dans cette phase, le village construit des maisons, des usines à bières et des bars, et ferme les bâtiments producteurs de ressources primaires.
 
+    Le rôle du joueur ici est d'importer les ressources primaires nécessaires à l'élaboration des bières. Les meilleurs taux de change permettent aussi des stratégies basées sur l'export de bières et la revente de ses surplus de matières premières.
+
+3. **Phase de Tertiarisation :** Dans cette phase, le village ferme les usines à bières, le joueur doit donc importer les bières nécessaires pour son village.
 
 ## Actions du Joueur
 
-    le joueur peut : 
+Le joueur peut : 
 
-        - importer les 4 ressources ( bieres, houblon, glace, bois)
-        - exporter ces mêmes resssources
-        - validez ses actions, ce qui déclenche le tour suivant
-
+- Importer les 4 ressources (bières, houblon, glace, bois).
+- Exporter ces mêmes ressources.
+- Valider ses actions, ce qui déclenche le tour suivant.
 
 ## Retours au Joueur
 
-    le joueur voit : 
+Le joueur voit : 
 
-        - les ressources qu'il possède
-        - les batiments présent dans son village, représentés graphiquement en vue isométrique
-        - le tour actuel de jeu
+- Les ressources qu'il possède.
+- Les bâtiments présents dans son village, représentés graphiquement en vue isométrique.
+- Le tour actuel de jeu.
