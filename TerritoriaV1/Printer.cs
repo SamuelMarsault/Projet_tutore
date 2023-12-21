@@ -10,6 +10,10 @@ public partial class Printer : Node, VillageObserver
 	private MissingRessource windowMissingRessource;
 	private BoxContainer boxContainer;
 	[Export] private GameManager parent;
+	
+	/// <summary>
+	/// Initialise les composants d'affichage
+	/// </summary>
 	public override void _Ready()
 	{
 		BoxContainer container = this.GetNode<BoxContainer>("HBoxContainer");
@@ -20,32 +24,43 @@ public partial class Printer : Node, VillageObserver
 		this.boxContainer = container;
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-		
-	}
-
-	public void setVisibility(bool vis){
+	/// <summary>
+	/// Setter sur la visibilité
+	/// </summary>
+	/// <param name="vis">Si oui ou non on peut le voir</param>
+	public void SetVisibility(bool vis){
 		this.boxContainer.Visible = vis;
 	}
 
-	private void updateResources(ResourceType resources, int[] quantities, int numResource) {
+	/// <summary>
+	/// Demande la mise à jour des ressources
+	/// </summary>
+	/// <param name="resources">Le type de ressource à récupérer</param>
+	/// <param name="quantities">Les nouvelles ressources</param>
+	/// <param name="numResource">L'index de la ressource à récupérer</param>
+	private void UpdateResources(ResourceType resources, int[] quantities, int numResource) {
 		resourcePrintUnits[numResource].SetNewRessources(quantities[numResource]);
 	}
 
-	
-	public void setMessageWindow(MissingRessource missingRessource){
+	/// <summary>
+	/// Setter sur la fenêtre à afficher
+	/// </summary>
+	/// <param name="missingRessource">La nouvelle fenêtre</param>
+	public void SetMessageWindow(MissingRessource missingRessource){
 		this.windowMissingRessource = missingRessource;
 	}
 
+	/// <summary>
+	/// Réagi aux changements des ressources, ici actualise l'affichage
+	/// </summary>
+	/// <param name="resources">Les nouvelles ressources</param>
 	public void ReactToResourcesChange(int[] resources)
 	{
 		if (resources.Length == resourcePrintUnits.Count && resources.Length == Enum.GetNames(typeof(ResourceType)).Length){
 			int quelRessource = 0;
 			foreach (ResourceType resourceType in (ResourceType[])Enum.GetValues(typeof(ResourceType)))
 			{
-				updateResources(resourceType,resources,quelRessource);
+				UpdateResources(resourceType,resources,quelRessource);
 				quelRessource++;
 			}
 		}
@@ -53,19 +68,35 @@ public partial class Printer : Node, VillageObserver
 		}		
 	}
 
+	/// <summary>
+	/// Réagi au changement des placeables, ici ne fait rien
+	/// </summary>
+	/// <param name="placeables">Les Placeable du village</para
 	public void ReactToPlaceableChange(Placeable[,] placeables)
 	{
 		
 	}
 
+	/// <summary>
+	/// Reagi aux changements du sol, ici ne fait rien
+	/// </summary>
+	/// <param name="tiles">Le sol du village</param>
+	/// <returns>Le tableau de besoin en ressources</returns>
 	public void ReactToTilesChange(TileType[,] tiles)
 	{
 		
 	}
 
+	/// <summary>
+	/// Getter sur la quantité de ressource selon un index
+	/// </summary>
+	/// <returns>La quantité de ressource du type demandé</returns>
 	public int GetRessource(int numResource){
 		return resourcePrintUnits[numResource].GetRessources();
 	}
+	/// <summary>
+	/// Mintre la défaite du joueur
+	/// </summary>
 	public void Defeat()
 	{
 		// Create an instance of the message dialog window
@@ -83,22 +114,28 @@ public partial class Printer : Node, VillageObserver
 		DefeatParent();
 	}
 
-	// Méthode appelée lorsque la fenêtre de dialogue est fermée
+	/// <summary>
+	/// Préviens le parent de la défaite
+	/// </summary>
 	private void DefeatParent()
 	{
 		// Appeler la méthode Defeat du parent
 		
 	}
 
-	public void ReactToImpossibleTransaction(int[] missingRessources)
+	/// <summary>
+	/// Réagi à une transaction impossible, ici affiche les ressources manquantes
+	/// </summary>
+	/// <param name="missingResources">Les ressources manquantes</param>
+	public void ReactToImpossibleTransaction(int[] missingResources)
 	{
 		// Créez une instance de la fenêtre de dialogue
 
 		string message = "Vous n'avez pas assez de ressources, il vous manque : \n";
 
-		for (int i = 0; i < missingRessources.Length; i++)
+		for (int i = 0; i < missingResources.Length; i++)
 		{
-			if (missingRessources[i] != 0)
+			if (missingResources[i] != 0)
 			{
 				string resourceType = "";
 				switch (i)
@@ -123,7 +160,7 @@ public partial class Printer : Node, VillageObserver
 				}
 
 				// Determine the range based on the missing resources value
-				string range = DetermineRange(missingRessources[i]);
+				string range = DetermineRange(missingResources[i]);
 
 				// Append the message with the resource type and range
 				message += $"\u2022 {range} {resourceType}\n";
@@ -135,33 +172,39 @@ public partial class Printer : Node, VillageObserver
 
 		windowMissingRessource.PopupCentered();
 	}
+	/// <summary>
+	/// Réagi au changement des taux de change, ici ne fait rien
+	/// </summary>
 	public void ReactToExchangesRatesChange(int[,] exchangesRates) {}
 
-	// Determine the range based on the missing resources value
+	/// <summary>
+	/// Détermine l'intervalle dans lequel se situe le manque de ressource
+	/// </summary>
+	/// <returns>La châine à afficher</returns>
 	private string DetermineRange(int value)
 	{
 		if (value <= 50)
-			return "entre 0 et 50";
+			return "entre 0 et 50 inclus";
 		else if (value <= 100)
-			return "entre 51 et 100";
+			return "entre 51 et 100 inclus";
 		else if (value <= 200)
-			return "entre 101 et 200";
+			return "entre 101 et 200 inclus";
 		else if (value <= 300)
-			return "entre 201 et 300";
+			return "entre 201 et 300 inclus";
 		else if (value <= 400)
-			return "entre 301 et 400";
+			return "entre 301 et 400 inclus";
 		else if (value <= 500)
-			return "entre 401 et 500";
+			return "entre 401 et 500 inclus";
 		else if (value <= 1000)
-			return "entre 501 et 1000";
+			return "entre 501 et 1000 inclus";
 		else if (value <= 2000)
-			return "entre 1001 et 2000";
+			return "entre 1001 et 2000 inclus";
 		else if (value <= 3000)
-			return "entre 2001 et 3000";
+			return "entre 2001 et 3000 inclus";
 		else if (value <= 4000)
-			return "entre 3001 et 4000";
+			return "entre 3001 et 4000 inclus";
 		else if (value <= 5000)
-			return "entre 4001 et 5000";
+			return "entre 4001 et 5000 inclus";
 		else
 			return "plus de 5000";
 	}

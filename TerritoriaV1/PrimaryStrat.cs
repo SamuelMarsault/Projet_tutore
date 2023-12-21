@@ -23,6 +23,7 @@ public class PrimaryStrat : BuildingStrategy
     /// <param name="placeables">Les Placeable du village</param>
     /// <param name="resources">Les ressources actuelles</param>
     /// <param name="oldResources">Les ressources avant production</param>
+    /// <returns>La nouvelle grille de Placeable</returns>
     override public Placeable[,] BuildNewPlaceable(int[] import,
         int[] export, PlaceableFactory factory, 
         TileType[] targetTile, Placeable[,] placeables, int[] resources, int[] oldResources)
@@ -77,6 +78,7 @@ public class PrimaryStrat : BuildingStrategy
     /// <summary>
     /// getter des taux de changes pour l'import/export par ressource
     /// </summary>
+    /// <returns>Les taux de change</returns>
     override public int[,] GetExchangesRates()
     {
         int[,] exchangesRates = new[,]
@@ -93,6 +95,7 @@ public class PrimaryStrat : BuildingStrategy
     /// <param name="placeables">Les Placeable du village</param>
     /// /// <param name="placeable">Le Placeable en question</param>
     /// <param name="targetTile">TileType cible du Placeable</param>
+    /// <returns>La nouvelle grille de bâtiment</returns>
     override public Placeable[,] PlacePlaceable(Placeable[,] placeables,Placeable placeable, TileType targetTile)
         {
             bool notPlaced = true;

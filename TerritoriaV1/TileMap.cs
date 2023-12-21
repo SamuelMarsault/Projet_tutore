@@ -79,7 +79,7 @@ public partial class TileMap : Godot.TileMap, VillageObserver
 			}
 		}
 	}
-	public void ReactToImpossibleTransaction(int[] missingRessources) {}
+	public void ReactToImpossibleTransaction(int[] missingResources) {}
 	public void ReactToExchangesRatesChange(int[,] exchangesRates) {}
 
 	public void setVillageManager(VillageManager villageManager)
@@ -107,7 +107,7 @@ public partial class TileMap : Godot.TileMap, VillageObserver
         int y = tileCoords.Y;
 
         // On récupère le placeable à la position tileCoords
-        Placeable placeable = villageManager.getPlaceable(x, y);
+        Placeable placeable = villageManager.GetPlaceable(x, y);
 
         if (placeable == null)
         {

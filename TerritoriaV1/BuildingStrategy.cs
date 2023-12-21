@@ -17,6 +17,7 @@ public abstract class BuildingStrategy {
     /// <param name="placeables">Les Placeable du village</param>
     /// <param name="resources">Les ressources actuelles</param>
     /// <param name="oldResources">Les ressources avant production</param>
+    /// <returns>La nouvelle grille de Placeable</returns>
     public abstract Placeable[,] BuildNewPlaceable(int[] import,
         int[] export, PlaceableFactory factory, 
         TileType[] targetTile,Placeable[,] placeables, int[] resources, int[] oldResources);
@@ -25,6 +26,7 @@ public abstract class BuildingStrategy {
     /// <summary>
     /// getter des taux de changes pour l'import/export par ressource
     /// </summary>
+    /// <returns>Les taux de change</returns>
     public abstract int[,] GetExchangesRates();
 
     /// <summary>
@@ -33,6 +35,7 @@ public abstract class BuildingStrategy {
     /// <param name="placeables">Les Placeable du village</param>
     /// /// <param name="placeable">Le Placeable en question</param>
     /// <param name="targetTile">TileType cible du Placeable</param>
+    /// <returns>La nouvelle grille de bâtiment</returns>
     public abstract Placeable[,] PlacePlaceable(Placeable[,] placeables,Placeable placeable, TileType targetTile);
 
     /// <summary>
@@ -42,6 +45,7 @@ public abstract class BuildingStrategy {
     /// <param name="y">Position en y du Placeable</param>
     /// <param name="targetTileType">TileType cible du Placeable</param>
     /// <param name="placeables">Les Placeable du village</param>
+    /// <returns>Si oui ou non la case est valide</returns>
     protected bool CanPlaceAtLocation(int x, int y, TileType targetTileType, Placeable[,] placeables)
     {
     if (x < placeables.GetLength(0) && y < placeables.GetLength(1))
@@ -68,6 +72,7 @@ public abstract class BuildingStrategy {
     /// <param name="y">Position en y du Placeable</param>
     /// <param name="type">Type du Placeable en question</param>
     /// <param name="placeables">Les Placeable du village</param>
+    /// <returns>Si oui ou non la case a des voisins Placeable du type indiqué</returns>
     protected bool HasAdjacentPlaceableOfType(int x, int y, PlaceableType type, Placeable[,] placeables)
     {
 
@@ -89,6 +94,7 @@ public abstract class BuildingStrategy {
     /// <param name="y">Position en y du Placeable</param>
     /// <param name="type">Type du Placeable en question</param>
     /// <param name="placeables">Les Placeable du village</param>
+    /// <returns>Si oui ou non la case a au moins 2 Placeable voisins du type indiqué</returns>
     public bool HasTwoNeighbours(int x, int y, PlaceableType type, Placeable[,] placeables)
     {
         int rowCount = placeables.GetLength(0);
@@ -154,6 +160,11 @@ public abstract class BuildingStrategy {
     /// <param name="tiles">Tableau 2D de TileType, représente le sol</param>
     public void SetTiles(TileType[,] tiles) {this.tiles = tiles;}
 
+    /// <summary>
+    /// Trouve et détruit un Placeable du type indiqué
+    /// </summary>
+    /// <param name="type">Le type de Placeable à détruire</param>
+    /// <param name="placeables">Les Placeable du village</param>
     public void Destroy(PlaceableType type, Placeable[,] placeables)
     {
         Boolean Destroyed = false; 
