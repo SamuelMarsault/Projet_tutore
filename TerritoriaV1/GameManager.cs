@@ -27,6 +27,8 @@ public partial class GameManager : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		TextureRect textureRect = GetNode<TextureRect>("StartMenu");
+		textureRect.Visible = true;
 		Button Button = GetNode<Button>("Printer/ChangeMessageNeedResources");
 		this.button = Button;
 
