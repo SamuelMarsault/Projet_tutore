@@ -16,11 +16,11 @@ Nous pouvons voir sur ces captures d'écran issues du jeu l'évolution du quarti
 
 ### Autres fichiers : 
 
-#### : Cahier des charges : 
+#### Cahier des charges : 
 
 https://docs.google.com/document/d/1Y5vt4j5I7eVvQMkLXf5Q6LSS41f13dUV9iAZQtb-zHs/edit?usp=sharing
 
-#### : Wiki du jeu : 
+#### Wiki du jeu : 
 
 [territoria wiki](wikiDescription.md)
 
