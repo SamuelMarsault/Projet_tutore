@@ -51,6 +51,9 @@ public partial class GameManager : Node2D
 		printer.setMessageWindow(missingResource);	
 
 		var trader = GetNode<Trader>("Trader");
+		TileMap tileMap = GetNode<TileMap>("Map");
+		Control infoCard = GetNode<Control>("InfoCard");
+        tileMap.setInfoCard(infoCard);
 		
 		evolutionOfVillage = new EvolutionOfVillage(this);
 		if(evolutionOfVillage != null)
@@ -59,6 +62,7 @@ public partial class GameManager : Node2D
 
 		this.print = printer;	
 		this.trade = trader;
+		tileMap.setVillageManager(villageManager);
 	}
 	
 	public void nextTurn(int[] export, int[] import, int[] money)
@@ -66,8 +70,6 @@ public partial class GameManager : Node2D
 		
 		currentTurnNb++;
 		turn.updateCurrentTurn(currentTurnNb);
-		
-
 
 		if(currentTurnNb > nbMaxTurn)
 		{

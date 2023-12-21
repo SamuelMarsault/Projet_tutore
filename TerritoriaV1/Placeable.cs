@@ -102,4 +102,14 @@ public class Placeable
 	{
 		return placeableType;
 	}
+
+	public int[] getResourceInputs()
+    {
+        return input;
+    }
+
+	public int[] getResourceOutputs()
+    {
+        return output;
+    }
 }
