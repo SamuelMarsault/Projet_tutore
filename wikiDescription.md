@@ -4,16 +4,15 @@
 
 ### Définitions :
 
-#### La territorialisation :
-La territorialisation consiste à utiliser le territoire en fonction des différentes ressources disponibles.
+La **territorialisation** se réfère à la première phase où les activités humaines et les fonctions urbaines s'organisent et se concentrent dans un espace spécifique. Cela inclut principalement des activités du secteur primaire, telles que l'agriculture et l'extraction de ressources naturelles.
 
-#### La déterritorialisation : 
-La déterritorialisation, à l'opposé, est centrée sur l'extérieur et sur la transition des ressources par importation et exportation.
+La **déterritorialisation** est le processus par lequel des activités, des fonctions ou des populations quittent ou transcendent leur espace d'origine. Cela peut se produire en raison de divers facteurs tels que la mondialisation, les changements économiques ou les évolutions technologiques, entraînant la relocalisation ou la disparition de certaines activités. Cela peut également impliquer une transition des activités du secteur primaire vers d'autres secteurs.
 
+La **tertiarisation** fait référence à une transition ou à une augmentation des activités économiques liées au secteur tertiaire, notamment les services, par rapport aux secteurs primaire (agriculture) et secondaire (industrie). Cela reflète souvent le passage d'une économie axée sur la production de biens, y compris ceux du secteur primaire, à une économie axée sur la prestation de service
 
-### transmitions des objectifs : 
-notre jeu est divisé en 3 phases qui representent l'effet des phases succesives de la territorialisation sur un métabolysme urbain.
+### Transmission des objectifs  
 
+Notre jeu est divisé en 3 phases qui representent l'effet des phases succesives de la territorialisation sur un métabolysme urbain.
 
 ## Description du Jeu
 
@@ -48,15 +47,16 @@ Le jeu se déroule en trois phases :
 
 Le joueur peut : 
 
-- Importer les 4 ressources (bières, houblon, glace, bois).
-- Exporter ces mêmes ressources.
-- Valider ses actions, ce qui déclenche le tour suivant.
+- Importer les 4 ressources (bières, houblon, glace, bois)
+- Exporter ces mêmes ressources
+- Valider ses actions, ce qui déclenche le tour suivant
 
 ## Retours au Joueur
 
 Le joueur voit : 
 
-- Les ressources qu'il possède.
-- Les bâtiments présents dans son village, représentés graphiquement en vue isométrique.
-- Le tour actuel de jeu.
-- des informations sur les batiments quand il clique dessus
+- Les ressources qu'il possède
+- Les bâtiments présents dans son village, représentés graphiquement en vue isométrique
+- Le tour actuel de jeu
+- Des informations sur les bâtiments quand il clique dessus
+- Des informations sur ce dont il manque s'il active l'affichage des ressources manquantes avec le bouton en bas à gauche
