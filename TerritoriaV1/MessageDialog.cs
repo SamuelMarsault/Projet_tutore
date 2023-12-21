@@ -3,7 +3,6 @@ using Godot;
 public partial class MessageDialog : AcceptDialog
 {
 
-	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 	}
@@ -13,6 +12,11 @@ public partial class MessageDialog : AcceptDialog
 	{
 	}
 
+	/// <summary>
+	/// Permet de définir les messages d'erreurs ou normaux
+	/// </summary>
+	/// <param name="errorMessage"></param>
+	/// <param name="end"></param>
 	public void SetErrorMessage(string errorMessage, bool end)
 	{
 		DialogText = errorMessage;
