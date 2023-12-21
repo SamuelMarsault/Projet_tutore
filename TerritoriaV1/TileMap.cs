@@ -70,9 +70,7 @@ public partial class TileMap : Godot.TileMap, VillageObserver
 						case PlaceableType.BEER_USINE: ID = 5; break;
 						case PlaceableType.ICE_USINE: ID = 6;break;
 					}
-					//GD.Print("je place un "+placeables[i,j].getPlaceableType());
 					SetCell(1,new Vector2I(i,j),ID,new Vector2I(0,0));
-					GD.Print("map : nouveau "+ placeables[i,j].getPlaceableType()+" ajouté aux coordonnée" + i +","+j+" "+(TileType) GetCellSourceId(0,new Vector2I(i,j)));
 				}
 				else if(placeables[i,j] == null)
 				{
@@ -90,17 +88,13 @@ public partial class TileMap : Godot.TileMap, VillageObserver
     }
 
 	public override void _Input(InputEvent @event) {
-    	    GD.Print("a");
     		// L'action LeftClick est associée au clic gauche de la souris
     		if (@event.IsActionPressed("LeftClick"))
     		{
-    		    GD.Print("b");
     		    // On récupère la position de la souris dans la fenêtre
                 Vector2 mousePos = GetLocalMousePosition();
-                GD.Print(mousePos);
                 // On récupère les coordonnées de la case cliquée
                 Vector2I tileCoords = LocalToMap(mousePos);
-                GD.Print(tileCoords);
                 // On affiche la carte d'information
                 DisplayInfoCard(tileCoords);
             }
@@ -129,14 +123,12 @@ public partial class TileMap : Godot.TileMap, VillageObserver
 
         // On récupère le nom du placeable
         string placeableName = placeableType.ToString();
-        GD.Print(placeableName);
 
         // On modifie le texte de l'élément PlaceableName de la carte d'information
         info.GetNode<Label>("PlaceableName").Text = placeableName;
 
         // On récupère la description et le chemin de l'image du placeable avec un switch
         string description, imagePath;
-        GD.Print("avant switch");
 
         switch (placeableType)
         {
@@ -169,7 +161,6 @@ public partial class TileMap : Godot.TileMap, VillageObserver
             int inputResource = inputResources[i];
             TextureRect inputResourceTextureRect = (TextureRect)info.GetChild(i+4);
             Color currentColor = inputResourceTextureRect.Modulate;
-            GD.Print("input : " + inputResource);
             if (inputResource >= 1)
             {
                 // On met la transparence de l'élément à 1
@@ -186,7 +177,6 @@ public partial class TileMap : Godot.TileMap, VillageObserver
             int outputResource = outputResources[i];
             TextureRect outputResourceTextureRect = (TextureRect)info.GetChild(i+10);
             Color currentColor = outputResourceTextureRect.Modulate;
-            GD.Print("output : " + outputResource);
             if (outputResource >= 1)
             {
                 // On met la transparence de l'élément à 1

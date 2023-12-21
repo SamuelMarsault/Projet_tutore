@@ -1,7 +1,4 @@
 using Godot;
-using System;
-using System.Security.Principal;
-using System.Threading;
 using TerritoriaV1;
 
 public partial class GameManager : Node2D
@@ -27,6 +24,10 @@ public partial class GameManager : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		TextureRect textureRect = GetNode<TextureRect>("StartMenu");
+		textureRect.Visible = true;
+		this.GetWindow().Unresizable = true;
+		this.GetWindow().MinSize = this.GetWindow().Size; 
 		Button Button = GetNode<Button>("Printer/ChangeMessageNeedResources");
 		this.button = Button;
 
@@ -53,12 +54,11 @@ public partial class GameManager : Node2D
 		var trader = GetNode<Trader>("Trader");
 		TileMap tileMap = GetNode<TileMap>("Map");
 		Control infoCard = GetNode<Control>("InfoCard");
-        tileMap.setInfoCard(infoCard);
+		tileMap.setInfoCard(infoCard);
 		
 		evolutionOfVillage = new EvolutionOfVillage(this);
-		if(evolutionOfVillage != null)
-	
-		villageManager = new VillageManager(GetNode<TileMap>("Map"),printer,trader,evolutionOfVillage);	
+		if(evolutionOfVillage != null) 
+			villageManager = new VillageManager(GetNode<TileMap>("Map"),printer,trader,evolutionOfVillage);
 
 		this.print = printer;	
 		this.trade = trader;
@@ -68,30 +68,22 @@ public partial class GameManager : Node2D
 	public void nextTurn(int[] export, int[] import, int[] money)
 	{
 		
-		currentTurnNb++;
-		turn.updateCurrentTurn(currentTurnNb);
-
-		if(currentTurnNb > nbMaxTurn)
+		
+		
+		villageManager.NextTurn(export, import, money);
+		if(currentTurnNb >= nbMaxTurn)
 		{
-			EndGame("Félicitation ! Vous avez fait progresser le village à travers les différentes phases de son dévellopement urbain. Vous avez gagné !");
+			EndGame("Félicitations,\n vous avez fait progresser le village à travers les phases de son développement urbain :\n vous avez gagné !", Colors.Green);
 			return;
 		}
 
 		if(!villageManager.IsVillageOk())
 		{
-			EndGame("Vous avez perdu ! Tous les habitants ont quitté votre village.");
+			EndGame("Vous avez perdu !\nTous les habitants ont quittés votre village...",Colors.Red);
 			return;
 		}
-
-		/*
-		if(villageManager.change == false && currentTurnNb > 2)
-		{
-			EndGame("Vous avez perdu ! Il n'y a eu aucune activité économique dans votre village.");
-			return;
-		}
-		*/
-		
-		villageManager.NextTurn(export, import, money);
+		currentTurnNb++;
+		turn.updateCurrentTurn(currentTurnNb);
 		citizen.updateCurrentTurn(villageManager.getNumberCitizen());
 	}
 
@@ -100,7 +92,7 @@ public partial class GameManager : Node2D
 		
 	}
 
-	public void EndGame(string message)
+	public void EndGame(string message, Color color)
 	{
 		Printer printer  = (Printer)GetNode<Printer>("Printer");
 		print.setVisibility(false);
@@ -108,7 +100,7 @@ public partial class GameManager : Node2D
 		trader.setVisibility(false);
 		turn.Visible = false;
 		citizen.Visible = false;
-		end_Screen.setText(message);
+		end_Screen.setText(message, color);
 		end_Screen.Visible = true;
 	}
 
@@ -142,7 +134,7 @@ public partial class GameManager : Node2D
 		turn.Visible = true;
 		menu.Visible = false;
 		citizen.Visible = true;
-		printMessage("Bienvenue au village de Territoria ! \n\n Vous êtes responsables de l'importation et de l'exportation des ressources de notre village. Nous comptons sur vous.");
+		printMessage("Bienvenue au village de Territoria ! \n\n Vous êtes responsables de l'importation et de l'exportation des ressources de notre village.\n Nous comptons sur vous.");
 	}
 
 	public void _on_exit_pressed(){
@@ -170,9 +162,9 @@ public partial class GameManager : Node2D
 		}
 	}
 
-	public void _on_info_pressed(){
+	private void _on_info_pressed()
+	{
 		// Ouvrir le navigateur avec le lien spécifique
-        OS.ShellOpen("https://git.unistra.fr/miniotti/han23-t3-a/-/blob/main/WikiDescription.MD?ref_type=heads");
+		OS.ShellOpen("https://git.unistra.fr/miniotti/han23-t3-a/-/blob/main/WikiDescription.MD?ref_type=heads");
 	}
-
 }

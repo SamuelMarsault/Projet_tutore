@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://ResourcePrintUnit.cs" id="1_tvmvx"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_iu2cc"]
-font_size = 32
+font_size = 24
 
 [node name="Control" type="Control"]
 layout_mode = 3

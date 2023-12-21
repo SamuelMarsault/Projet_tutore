@@ -8,7 +8,7 @@ public abstract class BuildingStrategy {
 
     public abstract Placeable[,] BuildNewPlaceable(int[] import,
         int[] export, PlaceableFactory factory, 
-        TileType[] targetTile,Placeable[,] placeables, int[] resources);
+        TileType[] targetTile,Placeable[,] placeables, int[] resources, int[] oldResources);
 
 
     public abstract int[,] GetExchangesRates();
@@ -25,8 +25,7 @@ public abstract class BuildingStrategy {
         }
         else
         {
-        GD.Print("tiles : "+ tiles[x,y]); GD.Print("target : "+targetTileType);
-        return true; 
+            return true; 
         }
     }
     return false;
@@ -36,44 +35,6 @@ public abstract class BuildingStrategy {
 
     protected bool HasAdjacentPlaceableOfType(int x, int y, PlaceableType type, Placeable[,] placeables)
     {
-
-    /*if(placeables == null)
-    {
-        GD.Print("placeables est nulle");
-    }
-
-    GD.Print("x : " + x);
-    GD.Print("y : " + y);
-    GD.Print("type : " + type);
-    
-    if ((x - 1 >= 0 && placeables[x - 1, y].getPlaceableType() == type) ||
-        (x + 1 < placeables.GetLength(0) && placeables[x + 1, y].getPlaceableType() == type) ||
-        (y - 1 >= 0 && placeables[x, y - 1].getPlaceableType() == type) ||
-        (y + 1 < placeables.GetLength(0) && placeables[x, y + 1].getPlaceableType() == type))
-        {
-            return true;
-        }
-
-    return false;*/
-
-
-   /* for(int i = 0; i < placeables.GetLength(0); i++)
-    {
-        for(int j = 0; j < placeables.GetLength(0); j++)
-        {
-            if(placeables[i,j] != null)
-            {
-                GD.Print(placeables[i,j] + " "+x+" "+y);
-            }
-        }
-        GD.Print("transition");
-    }
-    return true;*/
-
-    //GD.Print("type " + type);
-    //GD.Print(placeables.GetLength(0));
-
-
 
         if(((x<placeables.GetLength(0)-1)   &&    (placeables[x+1,y] != null)    && (placeables[x+1,y].getPlaceableType() == type)) ||
         ((y<placeables.GetLength(0)-1)  &&  (placeables[x,y+1] != null )    &&  ( placeables[x,y+1].getPlaceableType() == type)) ||
@@ -152,7 +113,6 @@ public abstract class BuildingStrategy {
             {
                 if(placeables[i,j] != null && placeables[i,j].getPlaceableType() == type)
                 {
-                    GD.Print("destroyed "+i +" "+ j + " "+ placeables[i,j].getPlaceableType());
                     placeables[i,j] = null;
                     Destroyed = true;
                 }
