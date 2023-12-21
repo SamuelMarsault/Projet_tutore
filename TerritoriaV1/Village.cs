@@ -251,26 +251,10 @@ public class Village
 
     public void StartVillage()
     {
-        /*placeables[6,2] = factory.CreateHouse();
-        placeables[6,0] = factory.CreateHouse();*/
         placeables[13,12] = factory.CreateHouse();
         placeables[12,12] = factory.CreateBar();
-        //placeables[11,9] = factory.CreateSawmill();
-        //placeables[20,16] = factory.CreateTrainStation();
-        /*placeables[15,11] = factory.CreateField();
-        placeables[16,11] = factory.CreateField();
-        placeables[15,10] = factory.CreateField();
-        placeables[16,10] = factory.CreateField();*/
-        placeables[12, 10] = factory.CreateBeerUsine();
-        placeables[14, 14] = factory.CreateTrainStation();
-
-        /*for(int i = 0; i < placeables.GetLength(0); i++)
-        {
-            for(int j = 0; j < placeables.GetLength(1); j++)
-            {
-                placeables[i,j] = factory.CreateHouse();
-            }
-        }*/
+        placeables[14, 8] = factory.CreateBeerUsine();
+        placeables[7, 14] = factory.CreateTrainStation();
         NotifyResourcesChange();
         NotifyPlaceableChange();
         exchangesRates = strategy.GetExchangesRates();

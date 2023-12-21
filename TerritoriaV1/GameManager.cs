@@ -24,6 +24,8 @@ public partial class GameManager : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		TextureRect textureRect = GetNode<TextureRect>("StartMenu");
+		textureRect.Visible = true;
 		this.GetWindow().Unresizable = true;
 		this.GetWindow().MinSize = this.GetWindow().Size; 
 		Button Button = GetNode<Button>("Printer/ChangeMessageNeedResources");
@@ -158,6 +160,11 @@ public partial class GameManager : Node2D
 			this.button.Text = "Affichage des ressources manquantes : NON";
 			villageManager.setMessage(false);
 		}
+	}
+
+	public void _on_info_pressed(){
+		// Ouvrir le navigateur avec le lien spécifique
+        OS.ShellOpen("https://git.unistra.fr/miniotti/han23-t3-a/-/blob/main/WikiDescription.MD?ref_type=heads");
 	}
 
 }

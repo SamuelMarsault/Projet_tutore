@@ -69,7 +69,7 @@ public class EvolutionOfVillage
         }
         else if(alreadyTertiary == false && alreadySecondary == false)
         {
-            //village.SetBuildingStrategy(factory.createPrimaryStrategy(village.GetPlaceables(),village.GetTiles()));
+            village.SetBuildingStrategy(factory.createPrimaryStrategy(village.GetPlaceables(),village.GetTiles()));
             // garde la stratégie primaire actuelle, pas besoin de la rechanger
         }
         else

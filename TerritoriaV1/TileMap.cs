@@ -167,6 +167,7 @@ public partial class TileMap : Godot.TileMap, VillageObserver
             int inputResource = inputResources[i];
             TextureRect inputResourceTextureRect = (TextureRect)info.GetChild(i+4);
             Color currentColor = inputResourceTextureRect.Modulate;
+            GD.Print("input : " + inputResource);
             if (inputResource >= 1)
             {
                 // On met la transparence de l'élément à 1
@@ -183,6 +184,7 @@ public partial class TileMap : Godot.TileMap, VillageObserver
             int outputResource = outputResources[i];
             TextureRect outputResourceTextureRect = (TextureRect)info.GetChild(i+10);
             Color currentColor = outputResourceTextureRect.Modulate;
+            GD.Print("output : " + outputResource);
             if (outputResource >= 1)
             {
                 // On met la transparence de l'élément à 1

@@ -61,13 +61,14 @@ public partial class Trader : Node, VillageObserver
 
 	public void ReactToPlaceableChange(Placeable[,] placeables)
 	{
-		
+		return;
 	}
 
 	public void ReactToTilesChange(TileType[,] tiles)
 	{
-		
+		return;
 	}
+
 	private void _on_button_pressed()
 	{
 		int[] import = new int[Enum.GetNames(typeof(ResourceType)).Length-1];
@@ -80,20 +81,6 @@ public partial class Trader : Node, VillageObserver
 			import[i] = resourceTradeUnits[i].GetImportValue();
 			money[i] = money[i] - resourceTradeUnits[i].GetImportValue() * exchangesRates[0,i];
 		}
-		/*
-		for (int i = 0; i < export.Length; i++)
-		{
-			GD.Print("export : "+export[i]);
-		}
-		for (int i = 0; i < import.Length; i++)
-		{
-			GD.Print("import : "+import[i]);
-		}
-		for (int i = 0; i < import.Length; i++)
-		{
-			GD.Print("money : "+money[i]);
-		}
-		*/
 		parent.nextTurn(export, import, money);
 	}
 
@@ -108,7 +95,6 @@ public partial class Trader : Node, VillageObserver
 		for (int i = 0; i < resourceTradeUnits.Count; i++)
 		{
 			int[] newRates = { exchangesRates[0,i],exchangesRates[1,i] };
-			//Console.WriteLine("coucou : "+this.exchangesRates[1,i]+" "+exchangesRates[0,i]);
 			resourceTradeUnits[i].SetExchangeRate(newRates);
 		}
 	}
