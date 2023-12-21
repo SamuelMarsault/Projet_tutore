@@ -47,4 +47,9 @@ public class VillageManager
     {
         return this.village;
     }
+
+    public Placeable getPlaceable(int x, int y)
+    {
+        return village.getPlaceable(x, y);
+    }
 }

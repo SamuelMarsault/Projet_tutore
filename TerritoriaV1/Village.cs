@@ -384,4 +384,9 @@ public class Village
     {
         return placeables;
     }
+
+    public Placeable getPlaceable(int x, int y)
+    {
+        return placeables[x, y];
+    }
 }

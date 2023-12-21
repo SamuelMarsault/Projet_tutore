@@ -1,10 +1,26 @@
-[gd_scene format=3 uid="uid://cdwm87hnmoj7n"]
+[gd_scene load_steps=10 format=3 uid="uid://cdwm87hnmoj7n"]
+
+[ext_resource type="Texture2D" uid="uid://b7w5sva3fs2id" path="res://img/House.png" id="1_lcqd3"]
+[ext_resource type="Texture2D" uid="uid://cxd30cqfpow6" path="res://assets/UI/Beer.png" id="2_mxfmb"]
+[ext_resource type="Texture2D" uid="uid://4efoutvfs783" path="res://assets/UI/Hop.png" id="3_qdecg"]
+[ext_resource type="Texture2D" uid="uid://dsov7h0m2d8m1" path="res://assets/UI/IceCube.png" id="4_s3u2p"]
+[ext_resource type="Texture2D" uid="uid://dt4r2c7kppiht" path="res://assets/UI/Money.png" id="5_jg5fk"]
+[ext_resource type="Texture2D" uid="uid://c7gv4ulw8gayn" path="res://assets/UI/Wood.png" id="6_2g8j2"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ev314"]
+font_size = 33
+
+[sub_resource type="LabelSettings" id="LabelSettings_5w01x"]
+font_size = 22
+
+[sub_resource type="LabelSettings" id="LabelSettings_qe67n"]
+font_size = 33
 
 [node name="InfoCard" type="Control"]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 170.0
-offset_bottom = 228.0
+offset_right = 510.0
+offset_bottom = 690.0
 
 [node name="Info" type="Panel" parent="."]
 layout_mode = 1
@@ -13,3 +29,134 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="PlaceableName" type="Label" parent="Info"]
+layout_mode = 2
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 250.0
+offset_bottom = 61.0
+text = "Nom Batiment"
+label_settings = SubResource("LabelSettings_ev314")
+
+[node name="Description" type="Label" parent="Info"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 64.0
+offset_right = 250.0
+offset_bottom = 234.0
+text = "Ceci est la fabuleuse description de notre super batiment incroyable de la mort qui tue"
+label_settings = SubResource("LabelSettings_5w01x")
+horizontal_alignment = 3
+autowrap_mode = 3
+text_overrun_behavior = 2
+
+[node name="PlaceableTextureRect" type="TextureRect" parent="Info"]
+layout_mode = 2
+offset_left = 270.0
+offset_right = 510.0
+offset_bottom = 240.0
+texture = ExtResource("1_lcqd3")
+expand_mode = 4
+
+[node name="FromLabel" type="Label" parent="Info"]
+layout_mode = 2
+offset_left = 10.0
+offset_top = 239.0
+offset_right = 223.0
+offset_bottom = 288.0
+text = "A besoin de..."
+label_settings = SubResource("LabelSettings_qe67n")
+
+[node name="BeerFromTextureRect" type="TextureRect" parent="Info"]
+layout_mode = 2
+offset_left = 60.0
+offset_top = 305.0
+offset_right = 120.0
+offset_bottom = 365.0
+texture = ExtResource("6_2g8j2")
+expand_mode = 4
+
+[node name="HopFromTextureRect" type="TextureRect" parent="Info"]
+layout_mode = 2
+offset_left = 225.0
+offset_top = 305.0
+offset_right = 285.0
+offset_bottom = 365.0
+texture = ExtResource("3_qdecg")
+expand_mode = 4
+
+[node name="IceFromTextureRect" type="TextureRect" parent="Info"]
+layout_mode = 2
+offset_left = 390.0
+offset_top = 305.0
+offset_right = 450.0
+offset_bottom = 365.0
+texture = ExtResource("4_s3u2p")
+expand_mode = 4
+
+[node name="MoneyFromTextureRect" type="TextureRect" parent="Info"]
+layout_mode = 2
+offset_left = 144.0
+offset_top = 386.0
+offset_right = 204.0
+offset_bottom = 446.0
+texture = ExtResource("2_mxfmb")
+expand_mode = 4
+
+[node name="WoodFromTextureRect" type="TextureRect" parent="Info"]
+layout_mode = 2
+offset_left = 309.0
+offset_top = 386.0
+offset_right = 369.0
+offset_bottom = 446.0
+texture = ExtResource("5_jg5fk")
+expand_mode = 4
+
+[node name="ToLabel" type="Label" parent="Info"]
+offset_left = 10.0
+offset_top = 467.0
+offset_right = 297.0
+offset_bottom = 516.0
+text = "... pour produire..."
+label_settings = SubResource("LabelSettings_qe67n")
+
+[node name="BeerToTextureRect" type="TextureRect" parent="Info"]
+offset_left = 60.0
+offset_top = 533.0
+offset_right = 120.0
+offset_bottom = 593.0
+texture = ExtResource("6_2g8j2")
+expand_mode = 4
+
+[node name="HopToTextureRect" type="TextureRect" parent="Info"]
+offset_left = 225.0
+offset_top = 533.0
+offset_right = 285.0
+offset_bottom = 593.0
+texture = ExtResource("3_qdecg")
+expand_mode = 4
+
+[node name="IceToTextureRect" type="TextureRect" parent="Info"]
+offset_left = 390.0
+offset_top = 533.0
+offset_right = 450.0
+offset_bottom = 593.0
+texture = ExtResource("4_s3u2p")
+expand_mode = 4
+
+[node name="MoneyToTextureRect" type="TextureRect" parent="Info"]
+offset_left = 144.0
+offset_top = 614.0
+offset_right = 204.0
+offset_bottom = 674.0
+texture = ExtResource("2_mxfmb")
+expand_mode = 4
+
+[node name="WoodToTextureRect" type="TextureRect" parent="Info"]
+offset_left = 309.0
+offset_top = 614.0
+offset_right = 369.0
+offset_bottom = 674.0
+texture = ExtResource("5_jg5fk")
+expand_mode = 4
