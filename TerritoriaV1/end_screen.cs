@@ -9,11 +9,13 @@ public partial class end_screen : Panel
     /// change le texte affiché
     /// </summary>
     /// <param name="text">le texte en question</param>
-    public void setText(string text)
-    {
-          Label label = (Label)GetNode("Label");
-          label.Text = text;
-    }
+    /// <param name="color">la couleur du texte</param>
+	public void setText(string text, Color color)
+	{
+		Label label = (Label)GetNode("Label");
+		label.Text = text;
+		label.LabelSettings.FontColor = color;
+	}
 
 /// <summary>
 /// relance le jeu le joueur clique apres une défaite

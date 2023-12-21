@@ -2,7 +2,6 @@ using System;
 using Godot;
 
 using System.Collections.Generic;
-using System.Linq;
 using Godot.Collections;
 using TerritoriaV1;
 
@@ -20,14 +19,23 @@ public class Village
     private int turn;
     private int[,] exchangesRates;
 
+    //Les exports
     private int[] old_export;
 
+    //Les imports
     private int[] old_import;
 
+    //Les flux monétaires
     private int[] old_money;
 
     private bool printNeedResources;    
 
+    /// <summary>
+    /// Créé les grilles de Placeable et Tiles, les actualise selon le terrain actuel
+    /// Définis les tableau de ressources, d'import, d'export et de flux monétaires
+    /// Récupère la carte et la stratégie 
+    /// </summary>
+    /// <param name="map">La carte du jeu</param>
     public Village(TileMap map)
     {
         this.printNeedResources = false;
@@ -63,19 +71,38 @@ public class Village
         this.turn = 1;
 
     }
+
+    /// <summary>
+    /// Getter sur le type de Strategy
+    /// </summary>
+    /// <returns>Si oui ou non le village est en phase de tertiarisation</returns>
+    public bool IsStratTertiary()
+    {
+        return strategy.GetType()==typeof(TertiaryStrat);
+    }
     
-    //Renvoi les ressources actuelles du village
+    /// <summary>
+    /// Getter sur ressources
+    /// </summary>
+    /// <returns>Le tableau de ressources</returns>
     public int[] GetResources()
     {
         return (int[])resources.Clone();
     }
 
+    /// <summary>
+    /// Getter publique sur les besoins en ressources
+    /// </summary>
+    /// <returns>Le tableau de besoin en ressources</returns>
     public int[] GetNeededRessourcesPublic()
     {
         return (int[])this.GetNeededResources().Clone();
     }
     
-    //Récupère les besoins en ressources de toutes les structures du village
+    /// <summary>
+    /// Getter privé sur les besoins en ressources
+    /// </summary>
+    /// <returns>Le tableau de besoin en ressources</returns>
     private int[] GetNeededResources()
     {
         int[] neededResources = new int[resources.Length];
@@ -96,7 +123,9 @@ public class Village
         return neededResources;
     }
 
-    //Initializes a 2D table containing the type of soil
+    /// <summary>
+    /// Parcourt la map pour actualiser le sol dans le village 
+    /// </summary>
     private void InitialiseTile(){
         // Récupérer les dimensions du TileMap
         int largeur = this.map.GetUsedRect().Size.X;
@@ -127,8 +156,10 @@ public class Village
         NotifyTilesChange();
     }
 
-    //"Joue le tour" pour les structures et permet de récupérer les ressources 
-    private bool ProductResources()
+    /// <summary>
+    /// Demande à chaque Placeable de produire les ressources qu'il peut
+    /// </summary>
+    private void ProductResources()
     {
         //On récupère le besoin en ressource
         int[] neededResources = GetNeededResources();
@@ -145,24 +176,12 @@ public class Village
                 }
             }
         }
-        
-        /*Console.WriteLine("##### Après production : #####");
-        for (int i = 0; i < neededResources.Length; i++)
-        {
-            Console.WriteLine(Enum.GetNames(typeof(ResourceType)).GetValue(i)+" : ");
-            Console.WriteLine("Disponible : "+resources[i]);
-            Console.WriteLine("Besoin : "+neededResources[i]);
-        }*/
-        return true;
-    }
-
-    //Calcule le % de remplissage des besoins du village
-    public double FulfilementOfNeeds(Dictionary usableResources,
-        Godot.Collections.Dictionary<ResourceType, int> neededResources)
-    {
-        return 0;
     }
     
+    /// <summary>
+    /// Compte et range le nombre de Placeable de chaque type dans un tableau
+    /// </summary>
+    /// <returns>Tableau contenant le nombre de Placeable, rangé selon l'ordre dans l'enum PlaceableType</returns>
     public int[] getNBPlaceables()
     {
      int[] NBPlaceables = new int[Enum.GetNames(typeof(PlaceableType)).Length];
@@ -183,40 +202,40 @@ public class Village
      return NBPlaceables;
     }
 
+    /// <summary>
+    /// Setter de strategy
+    /// </summary>
+    /// <param name="strategy">La nouvelle stratégie du village</param>
     public void SetBuildingStrategy(BuildingStrategy strategy)
     {
         this.strategy = strategy;
     }
 
+    /// <summary>
+    /// Applique la stratégie, a besoin de ressources avant production
+    /// </summary>
+    /// <param name="resourcesBeforeProduct">Les Placeable du village</param>
      private void ApplyStrategy(int[] resourcesBeforeProduct)
     {
-        if(placeables == null)
-        {
-            //GD.Print("placeables == null");
-        }
-        //Console.WriteLine("Statégie "+strategy.GetType());
-        placeables = strategy.BuildNewPlaceable(old_import, old_export, factory, targetTiles, placeables, resources);
+        placeables = strategy.BuildNewPlaceable(old_import, old_export, factory, targetTiles, placeables, resources, resourcesBeforeProduct);
         NotifyPlaceableChange();
         exchangesRates = strategy.GetExchangesRates();
         NotifyExchangesRatesChange();
-        for(int i = 0; i < placeables.GetLength(0); i++)
-        {
-            for(int j = 0; j < placeables.GetLength(0); j++)
-            {
-                if(placeables[i,j] != null)
-                {
-                    GD.Print(placeables[i,j].getPlaceableType());
-                }
-            }
-        }
         NotifyResourcesChange();
     }
     
+    /// <summary>
+    /// Ajoute un observeur au village
+    /// </summary>
+    /// <param name="observer">Observeur du village</param>
     public void AddObservers(VillageObserver observer)
     {
         observers.Add(observer);
     }
 
+    /// <summary>
+    /// Prévient les observeurs que les ressources ont changés
+    /// </summary>
     private void NotifyResourcesChange()
     {
         foreach (VillageObserver observer in observers)
@@ -225,6 +244,9 @@ public class Village
         }
     }
     
+    /// <summary>
+    /// Prévient les observeurs que les placeables ont changés
+    /// </summary>
     private void NotifyPlaceableChange()
     {
         foreach (VillageObserver observer in observers)
@@ -233,6 +255,9 @@ public class Village
         }
     }
     
+    /// <summary>
+    /// Prévient les observeurs que les tiles ont changés
+    /// </summary>
     private void NotifyTilesChange()
     {
         foreach (VillageObserver observer in observers)
@@ -241,40 +266,36 @@ public class Village
         }
     }
 
+    /// <summary>
+    /// Getter sur le sol du village
+    /// </summary>
+    /// <returns>Le tableau 2D de TileType</returns>
     public TileType[,] GetTiles()
     {
         return tiles;
     }
 
+    /// <summary>
+    /// Place les premiers bâtiments du village et prévient les observeurs
+    /// </summary>
     public void StartVillage()
     {
-        /*placeables[6,2] = factory.CreateHouse();
-        placeables[6,0] = factory.CreateHouse();*/
         placeables[13,12] = factory.CreateHouse();
         placeables[12,12] = factory.CreateBar();
-        //placeables[11,9] = factory.CreateSawmill();
-        //placeables[20,16] = factory.CreateTrainStation();
-        /*placeables[15,11] = factory.CreateField();
-        placeables[16,11] = factory.CreateField();
-        placeables[15,10] = factory.CreateField();
-        placeables[16,10] = factory.CreateField();*/
-        placeables[12, 10] = factory.CreateBeerUsine();
-        placeables[14, 14] = factory.CreateTrainStation();
-
-        /*for(int i = 0; i < placeables.GetLength(0); i++)
-        {
-            for(int j = 0; j < placeables.GetLength(1); j++)
-            {
-                placeables[i,j] = factory.CreateHouse();
-            }
-        }*/
+        placeables[14, 8] = factory.CreateBeerUsine();
+        placeables[7, 14] = factory.CreateTrainStation();
         NotifyResourcesChange();
         NotifyPlaceableChange();
         exchangesRates = strategy.GetExchangesRates();
         NotifyExchangesRatesChange();
     }
 
-    private bool MakeTransaction(bool verif)
+    /// <summary>
+    /// Effectue la transaction
+    /// </summary>
+    /// <param name="verif">Si oui ou non la fonction a été appelé pour vérifier si la transaction était possible</param>
+    /// <returns>Si oui ou non on peut faire la transaction sans manquer de ressources</returns>
+     private bool MakeTransaction(bool verif)
     {
         int[] oldRessources = GetResources();
 
@@ -283,22 +304,39 @@ public class Village
         ProductResources();
 
         if (this.printNeedResources && verif == true){
-
             int[] insufficientResources = new int[resources.Length];
             
-             bool inssufisant = false;
+            bool inssufisant = false;
 
-             int[] needRessorcesNow = GetNeededResources();
+            int[] needRessorcesNow = GetNeededResources();
 
             for (int i = 0; i < resources.Length; i++)
             {
-                if ((resources[i]- needRessorcesNow[i]) < 0){
-                    insufficientResources[i] = ((resources[i] - needRessorcesNow[i])*-1);
-                    inssufisant = true;
+                if (i != 4){
+                    if ((resources[i] + needRessorcesNow[i]) - (old_export[i]) < 0){
+                        insufficientResources[i] = (((resources[i] + needRessorcesNow[i]) - (old_export[i]))*-1);
+                        inssufisant = true;
+                    }
+                    else{
+                        insufficientResources[i] = 0;
+                    }
                 }
-
                 else{
-                    insufficientResources[i] = 0;
+                    for (int j = 0; j < old_money.Length; j++)
+                    {
+                        if ((resources[i] + needRessorcesNow[i]) + (old_money[j]) < 0)
+                        {
+                            GD.Print((resources[i] + needRessorcesNow[i]) + (old_money[j]));
+                            insufficientResources[i] += (((resources[i] + needRessorcesNow[i]) + (old_money[j])) * -1);
+                            inssufisant = true;
+                        }
+                    }
+
+                    // Déplacez cette condition à l'extérieur de la boucle
+                    if (!inssufisant)
+                    {
+                        insufficientResources[i] = 0;
+                    }
                 }
             }
             resources = oldRessources;
@@ -315,17 +353,27 @@ public class Village
             return true;
         }
     }
+    /// <summary>
+    /// Récupère les flux et lance la phase 2 du passage de tour
+    /// </summary>
+    /// <param name="export">Les exports du tour</param>
+    /// <param name="import">Les imports du tour</param>
+    /// <param name="money">Les flux monétaires du tour</param>
     public void NextTurn(int[] export, int[] import, int[] money)
     { 
         this.old_export = export;
         this.old_import = import;
         this.old_money = money;
-        continueNextTurn(MakeTransaction(true));
+        ContinueNextTurn(MakeTransaction(true));
     }
 
-    public void continueNextTurn(bool contnue)
+    /// <summary>
+    /// Termine le passage de tour si continue est vrai
+    /// </summary>
+    /// <param name="continueTurn">Si oui ou non on peut passer au tour suivant</param>
+    public void ContinueNextTurn(bool continueTurn)
     {
-        if (contnue)
+        if (continueTurn)
         {
             int[] oldResources = applyResourcesTransaction();
             MakeTransaction(false);
@@ -334,64 +382,105 @@ public class Village
             turn++;
         }
     }
-
+    
+    /// <summary>
+    /// Applique une transaction de ressources
+    /// </summary>
+    /// <returns>Le nouveau tableau de ressources</returns>
     public int[] applyResourcesTransaction(){
-        int[] actualResource = GetResources();
-        int[] testMoney = GetResources();
-        int[] export = new int[Enum.GetNames(typeof(ResourceType)).Length-1];
-        int[] import = new int[Enum.GetNames(typeof(ResourceType)).Length-1]; 
-                
-        for (int i = 0; i < export.Length; i++){
-            export[i] = old_export[i];
-            import[i] = old_import[i];
+        int[] finalResources = new int[resources.Length];
+
+        for (int i = 0; i < finalResources.Length-1; i++)
+        {
+            
+            finalResources[i] = resources[i];
         }
 
-        // Vérifier si la monnaie devient négative
-        int newMoney = testMoney[4];
-        for (int j = 0; j < old_money.Length; j++){
-            if ((newMoney + import[j]) - export[j] >= 0){
-                newMoney += old_money[j];
-            }
-        }
-
-        // Vérifier si les ressources deviennent négatives
-        bool resourcesNegative = false;
-        for (int i = 0; i < import.Length; i++){
-            if ((newMoney >= 0) && (actualResource[i] + import[i] - export[i] >= 0)){
-                actualResource[i] += import[i];
-                actualResource[i] -= export[i];
-            } 
-            else 
+        finalResources[resources.Length - 1] = resources[resources.Length-1];
+        
+        //Pour chaque ressources sauf l'argent
+        for (int i = 0; i < finalResources.Length-1; i++)
+        {
+            //On ne fait les transactions jusqu'à ce qu'on ne puisse plus
+            //Si on exporte + que ce qu'on possède
+            if (finalResources[i] < old_export[i])
             {
-                resourcesNegative = true;
+                //Alors l'argent qu'on a c'est tout ce qu'on peut vendre
+                finalResources[ResourceType.MONEY.GetHashCode()] += (finalResources[i] * exchangesRates[1, i]);
+                //Et on a plus d'argent
+                finalResources[i] = 0;
+            }
+            else if(old_export[i]!=0)
+            {
+                //Aucun problème
+                finalResources[ResourceType.MONEY.GetHashCode()] += (old_export[i] * exchangesRates[1, i]);
+                //Et on a plus d'argent
+                finalResources[i] -= old_export[i];
+            }
+            if(finalResources[ResourceType.MONEY.GetHashCode()] < old_import[i] * exchangesRates[0, i])//Si on importe + que ce qu'on a
+            {
+                int usedQuantity = finalResources[ResourceType.MONEY.GetHashCode()] / exchangesRates[0, i];
+                finalResources[i] = finalResources[i] + usedQuantity;
+                //Oui c'est bizarre mais c'est division entière
+                finalResources[ResourceType.MONEY.GetHashCode()] -= usedQuantity * exchangesRates[0, i];
+            }
+            else if(old_import[i]!=0)
+            {
+                finalResources[i] = finalResources[i] + old_import[i];
+                finalResources[ResourceType.MONEY.GetHashCode()] -= old_import[i] * exchangesRates[0, i];
             }
         }
 
-        // Mettre à jour la monnaie seulement si ni la monnaie ni les ressources ne sont devenues négatives
-        if (!resourcesNegative && (newMoney >= 0)) {
-            actualResource[4] = newMoney;
-        }
-
-        return actualResource;
+        return finalResources;
     }
 
-
-    public void setMessageNeedResources(bool display){
+    /// <summary>
+    /// Setter sur si oui ou non on affiche les manques en ressources 
+    /// </summary>
+    /// <param name="display">Les Placeable du village</param>
+    public void SetMessageNeedResources(bool display){
         this.printNeedResources = display;
     }
 
-    private void NotifyImpossibleTransaction(int[] missingRessources)
+    /// <summary>
+    /// Préviens les observeurs d'une transaction impossible
+    /// </summary>
+    /// <param name="missingResources">Les ressources manquantes</param>
+    private void NotifyImpossibleTransaction(int[] missingResources)
     {
-        foreach (VillageObserver observer in observers) observer.ReactToImpossibleTransaction(missingRessources);
+        foreach (VillageObserver observer in observers) observer.ReactToImpossibleTransaction(missingResources);
     }
 
+    /// <summary>
+    /// Préviens les observeurs du changement des taux de change
+    /// </summary>
     private void NotifyExchangesRatesChange()
     {
         foreach (VillageObserver observer in observers) observer.ReactToExchangesRatesChange(exchangesRates);
     }
 
+    /// <summary>
+    /// Getter sur la grille de Placeable
+    /// </summary>
+    /// <returns>La grille de Placeable</returns>
     public Placeable[,] GetPlaceables()
     {
         return placeables;
+    }
+
+    /// <summary>
+    /// Getter sur un Placeable
+    /// </summary>
+    /// <param name="x">La position en x</param>
+    /// <param name="y">La position en y</param>
+    /// <returns>Le Placeable à la position indique</returns>
+    public Placeable getPlaceable(int x, int y)
+    {
+        try{
+            return placeables[x, y];
+        }
+        catch (IndexOutOfRangeException) {
+            return null;
+        }
     }
 }

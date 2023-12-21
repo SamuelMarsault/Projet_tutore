@@ -1,13 +1,13 @@
+using System.Security.Cryptography;
 using Godot;
-using System;
-using System.Security.Principal;
-using System.Threading;
 using TerritoriaV1;
+
 /// <summary>
-/// la classe GameManager fait office de main, c'est lui qui instancie les differents noeuds, et gère les interactions entre ceux-ci, notamment le changement de tour
+/// Administre la partie et vérifie les conditions de fin de partie
 /// </summary>
 public partial class GameManager : Node2D
 {
+
 	private VillageManager villageManager;
 	private EvolutionOfVillage evolutionOfVillage;
 
@@ -25,14 +25,24 @@ public partial class GameManager : Node2D
 	MessageDialog acd;
 
 	private Button button;
+	private Panel afficheMessage;
 
-	// Called when the node enters the scene tree for the first time.
+	/// <summary>
+	/// Récupère et relie toutes les classes pour démarrer le jeu
+	/// </summary>
 	public override void _Ready()
 	{
+		TextureRect textureRect = GetNode<TextureRect>("StartMenu");
+		textureRect.Visible = true; 
+		this.GetWindow().MinSize = this.GetWindow().Size; 
 		Button Button = GetNode<Button>("Printer/ChangeMessageNeedResources");
 		this.button = Button;
 
 		acd = GetNode<MessageDialog>("AcceptDialogEND");
+
+		var panel = GetNode<Panel>("AfficheMessages");
+		panel.Visible = false;
+		afficheMessage = panel;
 
 		turn = GetNode<turnNB>("t");
 		turn.updateLabel("tour actuel : ");
@@ -50,80 +60,88 @@ public partial class GameManager : Node2D
 	
 		MissingRessource missingResource = GetNode<MissingRessource>("MissingRessource");
 		var printer = GetNode<Printer>("Printer");
-		printer.setMessageWindow(missingResource);	
+		printer.SetMessageWindow(missingResource);	
 
 		var trader = GetNode<Trader>("Trader");
+		TileMap tileMap = GetNode<TileMap>("Map");
+		Control infoCard = GetNode<Control>("InfoCard");
+		tileMap.setInfoCard(infoCard);
 		
 		evolutionOfVillage = new EvolutionOfVillage(this);
-		if(evolutionOfVillage != null)
-	
-		villageManager = new VillageManager(GetNode<TileMap>("Map"),printer,trader,evolutionOfVillage);	
+		if(evolutionOfVillage != null) 
+			villageManager = new VillageManager(GetNode<TileMap>("Map"),printer,trader,evolutionOfVillage);
 
 		this.print = printer;	
 		this.trade = trader;
+		tileMap.setVillageManager(villageManager);
 	}
 	
+	/// <summary>
+	/// Demande à passer au tour prochain, et vérifie si le jeu doit s'arrêter ou non
+	/// </summary>
+	/// <param name="export">Les exports de ce tour</param>
+	/// <param name="import">Les imports de ce tour</param>
+	/// <param name="money">Les montants de ce tour</param>
 	public void nextTurn(int[] export, int[] import, int[] money)
 	{
 		
-		currentTurnNb++;
-		turn.updateCurrentTurn(currentTurnNb);
 		
-
-
-		if(currentTurnNb > nbMaxTurn)
+		
+		villageManager.NextTurn(export, import, money, currentTurnNb);
+		if(currentTurnNb >= nbMaxTurn && villageManager.GetVillage().IsStratTertiary())
 		{
-			EndGame("felicitation, vous avez fait progresser le village à travers les phases de son dévellopement urbain : vous avez gagné !");
+			EndGame("Félicitations,\n vous avez fait progresser le village à travers les phases de son développement urbain :\n vous avez gagné !", Colors.Green);
 			return;
 		}
 
 		if(!villageManager.IsVillageOk())
 		{
-			EndGame("vous avez perdu ! : tous les habitant ont quittés votre village");
+			EndGame("Vous avez perdu !\nTous les habitants ont quittés votre village...",Colors.Red);
 			return;
 		}
-
-		if(villageManager.change == false && currentTurnNb > 2)
-		{
-			EndGame("vous avez perdu ! : il n'y a eu aucune activité économique dans votre village");
-			return;
-		}
-		
-		villageManager.NextTurn(export, import, money);
-		citizen.updateCurrentTurn(villageManager.getNumberCitizen());
+		currentTurnNb++;
+		turn.updateCurrentTurn(currentTurnNb);
+		citizen.updateCurrentTurn(villageManager.GetNumberCitizen());
 	}
-
-	public void updateGraphics()
-	{
 		
-	}
-
-	public void EndGame(string message)
+	/// <summary>
+	/// Termine le partie et affiche au joueur le message de fin
+	/// </summary>
+	/// <param name="message">Message à afficher au joueur</param>
+	/// <param name="color">Défini la couleur du texte</param>
+	public void EndGame(string message, Color color)
 	{
 		Printer printer  = (Printer)GetNode<Printer>("Printer");
-		print.setVisibility(false);
+		print.SetVisibility(false);
 		var trader = GetNode<Trader>("Trader");
-		trader.setVisibility(false);
+		trader.SetVisibility(false);
 		turn.Visible = false;
 		citizen.Visible = false;
-		end_Screen.setText(message);
+		end_Screen.setText(message, color);
 		end_Screen.Visible = true;
 	}
 
-	public void Victory(){
-		//TODO
-	}
-
+	/// <summary>
+	/// Annule le passage du tour
+	/// </summary>
 	public void _on_missing_ressource_canceled(){
 		currentTurnNb--;
 		turn.updateCurrentTurn(currentTurnNb);
 		villageManager.applyNextTurn(false);
 	}
 
+	/// <summary>
+	/// Confirme le passage de tour
+	/// </summary>
 	public void _on_missing_ressource_confirmed(){
 		villageManager.applyNextTurn(true);
 	}
 
+	/// <summary>
+	/// Affiche un message au joueur
+	/// </summary>
+	/// <param name="message">Le message à afficher</param>
+	/// <returns> </returns>
 	public void printMessage(string message)
 	{
 		var messageDialog = new MessageDialog();
@@ -132,40 +150,87 @@ public partial class GameManager : Node2D
 		messageDialog.PopupCentered();
 	}
 
+	/// <summary>
+	/// Affiche le message de bienvenue
+	/// </summary>
 	public void _on_start_pressed(){
 		var menu = GetNode<TextureRect>("StartMenu");
-		this.trade.setVisibility(true);
-		this.print.setVisibility(true);
+		this.trade.SetVisibility(true);
+		this.print.SetVisibility(true);
 		this.button.Visible = true;
 		turn.Visible = true;
 		menu.Visible = false;
 		citizen.Visible = true;
-		printMessage("Bienvenue ! Vous êtes responsables de l'import et de l'export des ressources de notre village. Nous comptons sur vous.");
+		printMessage("Bienvenue au village de Territoria ! \n\n Vous êtes responsables de l'importation et de l'exportation des ressources de notre village.\n Nous comptons sur vous.");
 	}
 
+	/// <summary>
+	/// Ferme le jeu
+	/// </summary>
 	public void _on_exit_pressed(){
 		GetTree().Quit();
 	}
 
+	/// <summary>
+	/// Redémarre l'application (et donc la partie)
+	/// </summary>
+	public void _on_accept_dialog_end_canceled()
+	{
+		GetTree().ReloadCurrentScene();
+	}
+	
+	
+	/// <summary>
+	/// Redémarre l'application (et donc la partie)
+	/// </summary>
 	public void _on_accept_dialog_end_confirmed()
 	{
 		GetTree().ReloadCurrentScene();
 	}
 
-	public void _on_accept_dialog_end_canceled()
-	{
-		GetTree().ReloadCurrentScene();
-	}
-
+	/// <summary>
+	/// Actualise le message sur le bouton d'affichage des ressources manquantes
+	/// </summary>
 	public void _on_change_message_need_resources_pressed(){
 		if(this.button.ButtonPressed){
 			this.button.Text = "Affichage des ressources manquantes : OUI";
-			villageManager.setMessage(true);
+			villageManager.SetMessage(true);
 		}
 		else{
 			this.button.Text = "Affichage des ressources manquantes : NON";
-			villageManager.setMessage(false);
+			villageManager.SetMessage(false);
 		}
 	}
 
+	/// <summary>
+	/// Ouvre un navigateur et amène vers le dépôt du projet
+	/// </summary>
+	private void _on_info_pressed()
+	{
+		// Ouvrir le navigateur avec le lien spécifique
+		OS.ShellOpen("https://git.unistra.fr/miniotti/han23-t3-a/-/blob/main/WikiDescription.MD?ref_type=heads");
+	}
+
+	/// <summary>
+	/// Permet de définir le message de passage de tour et l'afficher proprement
+	/// </summary>
+	/// <param name="message"></param>
+	public void setMessage(string message)
+	{
+		Label messageStrat = GetNode<Label>("AfficheMessages/TextStrat");
+		GD.Print(messageStrat.Name);
+		messageStrat.Text = message;
+		afficheMessage.Visible = true;
+		trade.SetVisibility(false);
+		print.SetVisibility(false);
+	}
+
+	/// <summary>
+	/// Ferme le message de passage de tour
+	/// </summary>
+	public void _on_stop_text_pressed(){
+		afficheMessage.Visible = false;
+		trade.SetVisibility(true);
+		print.SetVisibility(true);
+	}
 }

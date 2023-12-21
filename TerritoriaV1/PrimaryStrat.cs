@@ -1,10 +1,10 @@
-using Godot;
 using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using System.Runtime.Serialization;
 using TerritoriaV1;
 
+/// <summary>
+/// Représente une stratégie de construction primaire, construit des bâtiments de production de matières premières  
+/// </summary>
 public class PrimaryStrat : BuildingStrategy
 {
     private TileType[,] tiles;
@@ -13,10 +13,20 @@ public class PrimaryStrat : BuildingStrategy
         SetTiles(tiles);
     }
 
-    override 
-    public Placeable[,] BuildNewPlaceable(int[] import,
+    /// <summary>
+    /// Créé et place les bâtiments dans le village
+    /// </summary>
+    /// <param name="import">Les imports de ce tour</param>
+    /// <param name="export">Les exports de ce tour</param>
+    /// <param name="factory">La factory de Placeable</param>
+    /// <param name="targetTile">Un tableau de TileType cible, 1 pour chaque bâtiment</param>
+    /// <param name="placeables">Les Placeable du village</param>
+    /// <param name="resources">Les ressources actuelles</param>
+    /// <param name="oldResources">Les ressources avant production</param>
+    /// <returns>La nouvelle grille de Placeable</returns>
+    override public Placeable[,] BuildNewPlaceable(int[] import,
         int[] export, PlaceableFactory factory, 
-        TileType[] targetTile, Placeable[,] placeables, int[] resources)
+        TileType[] targetTile, Placeable[,] placeables, int[] resources, int[] oldResources)
     {
         int[] resourcesNeed = new int[Enum.GetNames(typeof(ResourceType)).Length];
         int[] resourcesProduction = new int[Enum.GetNames(typeof(ResourceType)).Length];
@@ -65,9 +75,11 @@ public class PrimaryStrat : BuildingStrategy
         }
         return placeables;
     }
-    override 
-
-    public int[,] GetExchangesRates()
+    /// <summary>
+    /// getter des taux de changes pour l'import/export par ressource
+    /// </summary>
+    /// <returns>Les taux de change</returns>
+    override public int[,] GetExchangesRates()
     {
         int[,] exchangesRates = new[,]
         {
@@ -77,7 +89,14 @@ public class PrimaryStrat : BuildingStrategy
         return exchangesRates;
     }
 
-        override public Placeable[,] PlacePlaceable(Placeable[,] placeables,Placeable placeable, TileType targetTile)
+    /// <summary>
+    /// Place un Placeable dans le tableau 2D des Placeable en fonction du TileType cibe
+    /// </summary>
+    /// <param name="placeables">Les Placeable du village</param>
+    /// /// <param name="placeable">Le Placeable en question</param>
+    /// <param name="targetTile">TileType cible du Placeable</param>
+    /// <returns>La nouvelle grille de bâtiment</returns>
+    override public Placeable[,] PlacePlaceable(Placeable[,] placeables,Placeable placeable, TileType targetTile)
         {
             bool notPlaced = true;
             for (int i = 0; i < placeables.GetLength(0) && notPlaced; i++)
@@ -85,9 +104,7 @@ public class PrimaryStrat : BuildingStrategy
                 for (int j = 0; j < placeables.GetLength(1) && notPlaced; j++)
                 {
                     if (  HasTwoNeighbours(i, j, placeable.getPlaceableType(), placeables) && CanPlaceAtLocation(i, j, targetTile, placeables))
-                    {  GD.Print(i); GD.Print(j);
-                       GD.Print(HasAdjacentPlaceableOfType(i, j, placeable.getPlaceableType(), placeables)); GD.Print(CanPlaceAtLocation(i, j, targetTile, placeables));
-                       GD.Print(targetTile); GD.Print(placeable.getPlaceableType());
+                    {  
                         placeables[i, j] = placeable;
                         notPlaced = false;
                     }
@@ -100,9 +117,7 @@ public class PrimaryStrat : BuildingStrategy
                 for (int j = 0; j < placeables.GetLength(1) && notPlaced; j++)
                 {
                     if (  HasAdjacentPlaceableOfType(i, j, placeable.getPlaceableType(), placeables) && CanPlaceAtLocation(i, j, targetTile, placeables))
-                    {  GD.Print(i); GD.Print(j);
-                       GD.Print(HasAdjacentPlaceableOfType(i, j, placeable.getPlaceableType(), placeables)); GD.Print(CanPlaceAtLocation(i, j, targetTile, placeables));
-                       GD.Print(targetTile); GD.Print(placeable.getPlaceableType());
+                    {  
                         placeables[i, j] = placeable;
                         notPlaced = false;
                     }

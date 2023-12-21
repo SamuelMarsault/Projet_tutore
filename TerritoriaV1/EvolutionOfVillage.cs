@@ -1,6 +1,3 @@
-using Godot;
-using Godot.Collections;
-
 namespace TerritoriaV1;
 /// <summary>
 /// permet de choisir quel strategies de développement le village va appliquer
@@ -18,8 +15,6 @@ public class EvolutionOfVillage
     bool alreadySecondary = false;
     bool alreadyTertiary = false;
 
-    int turn = 1;
-
     public EvolutionOfVillage(GameManager gm)
     {
         this.gameManager = gm;
@@ -28,11 +23,29 @@ public class EvolutionOfVillage
 /// <summary>
 /// permet de determiner la strategie qu'utilisera le village, parmi la premiere, la deuxieme et la troisième ( cf leurs doc respectives)
 /// </summary>
-    public void DetermineStrategy() 
+    public void DetermineStrategy(turn) 
     {
         ressources = village.GetResources();
         neededRessources = village.GetNeededRessourcesPublic();
         this.NBPlaceables = village.getNBPlaceables();
+        int nbHouse = NBPlaceables[PlaceableType.HOUSE.GetHashCode()];
+        
+        foreach (Placeable placeable in village.GetPlaceables())
+        {
+            if (placeable!=null && placeable.getPlaceableType() == PlaceableType.BAR)
+            {
+                if (nbHouse > 10)
+                {
+                    placeable.setProductionCapacity(100);
+                    nbHouse -= 10;
+                }
+                else
+                {
+                    placeable.setProductionCapacity(nbHouse*10);
+                    nbHouse = 0;
+                }
+            }
+        }
         
         if(this.NBPlaceables[(int)PlaceableType.SAWMILL] == 0 && 
         this.NBPlaceables[(int)PlaceableType.FIELD] == 0 &&
@@ -41,18 +54,25 @@ public class EvolutionOfVillage
         && NBPlaceables[(int)PlaceableType.HOUSE]>20) 
         {
             alreadyTertiary = true;
-
             village.SetBuildingStrategy(factory.createTertiaryStrategy(village.GetPlaceables(),village.GetTiles()));
-		    gameManager.printMessage("Le village a atteint une phase de tertiarisation : il se délaisse de la production et compte sur l'import pour satisfaire la consommation");
+		    gameManager.setMessage("Le village a atteint une phase de tertiarisation : il se délaisse de la production et compte sur l'import pour satisfaire la consommation");
         }
-        else if(turn > 10 && alreadyTertiary == false && alreadySecondary == false)
+        else if(turn > 8 && alreadyTertiary == false && alreadySecondary == false)
         {
             alreadySecondary = true;
-
             village.SetBuildingStrategy(factory.createSecondaryStrategy(village.GetPlaceables(),village.GetTiles()));
-		    gameManager.printMessage("Le village a atteint une phase de deterritorialisation: des habitants viennent y vivrent, et certaines usines de ressources primaires commencent à fermer, au profit de l'import des ressources nécéssaire à son dévellopement");
+		    gameManager.setMessage("Le village a atteint une phase de deterritorialisation: des habitants viennent y vivrent, et certaines usines de ressources primaires commencent à fermer, au profit de l'import des ressources nécéssaire à son dévellopement");
+	
         }
-        turn++;
+        else if(alreadyTertiary == false && alreadySecondary == false)
+        {
+            village.SetBuildingStrategy(factory.createPrimaryStrategy(village.GetPlaceables(),village.GetTiles()));
+            // Garde la stratégie primaire actuelle, pas besoin de la rechanger
+        }
+        else
+        {
+
+        }
     }
 /// <summary>
 /// simple setter pour l'attribut village

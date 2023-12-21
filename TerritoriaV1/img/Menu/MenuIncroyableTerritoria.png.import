@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dauf6f8yi3x71"
-path="res://.godot/imported/MenuIncroyableTerritoriaV1.png-28878e7150aa9409c7d2dc947b77d69e.ctex"
+uid="uid://cqn65fceqttnw"
+path="res://.godot/imported/MenuIncroyableTerritoria.png-ccb353159795476a297b95369a39b09c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://img/Menu/MenuIncroyableTerritoriaV1.png"
-dest_files=["res://.godot/imported/MenuIncroyableTerritoriaV1.png-28878e7150aa9409c7d2dc947b77d69e.ctex"]
+source_file="res://img/Menu/MenuIncroyableTerritoria.png"
+dest_files=["res://.godot/imported/MenuIncroyableTerritoria.png-ccb353159795476a297b95369a39b09c.ctex"]
 
 [params]
 

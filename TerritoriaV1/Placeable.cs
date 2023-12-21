@@ -19,7 +19,7 @@ public class Placeable
 	//Représente la capacité de production : output * capacite = quantité totale
 	private int productionCapacities;
 	//Est-ce que le placeable a produit à capacité maximale ?
-	private bool maxProduct = true;
+	private int product;
 
 	/// <summary>
 	/// crée un placeable
@@ -43,7 +43,6 @@ public class Placeable
 	public void ProductResources(int[] availableResources, int[] neededResources)
 	{
 		int min = productionCapacities;
-		maxProduct = false;
 		//Pour chaque ressources en entrée
 		for (int i = 0; i < input.Length; i++)
 		{
@@ -63,8 +62,7 @@ public class Placeable
 			min = productionCapacities;
 		}
 
-		maxProduct = min == productionCapacities;
-		
+		product = min;
 		for (int i = 0; i < input.Length; i++)
 		{
 			//On calcule combien on en prend
@@ -104,13 +102,21 @@ public class Placeable
 		}
 		return product;
 	}
+	public int getProductionCapacity(){
+		return productionCapacities;
+	}
+
 	/// <summary>
 	/// getter pour la production max
 	/// </summary>
 	/// <returns>boolean indiquant si le batiment a produit au max</returns>
-	public bool getMaxProduct()
+	public int getProduct()
 	{
-		return maxProduct;
+		return product;
+	}
+	public void setProductionCapacity(int productionCapacities)
+	{
+		this.productionCapacities = productionCapacities;
 	}
 	/// <summary>
 	/// le type de batiment du placeable
@@ -120,4 +126,14 @@ public class Placeable
 	{
 		return placeableType;
 	}
+
+	public int[] getResourceInputs()
+    {
+        return input;
+    }
+
+	public int[] getResourceOutputs()
+    {
+        return output;
+    }
 }

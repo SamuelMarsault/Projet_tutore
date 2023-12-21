@@ -10,7 +10,9 @@ public partial class ResourceTradeUnit : Control
 	private int[] exchangeRate = new int[2];
 	
 	
-	// Called when the node enters the scene tree for the first time.
+	/// <summary>
+	/// Récupère ses enfants pour mettre la bonne icône et connecter les signaux
+	/// </summary>
 	public override void _Ready()
 	{
 		TextureRect textureRect = FindChild("TextureRect") as TextureRect;
@@ -28,13 +30,9 @@ public partial class ResourceTradeUnit : Control
 			totalValueLabel.LabelSettings = new LabelSettings();
 			totalValueLabel.LabelSettings.FontSize = size;
 	}
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-		
-	}
-
+	/// <summary>
+	/// Actualise le total en fonction des changements de ses fils
+	/// </summary>
 	public void ValueChanged()
 	{
 		int total = exportTerritoriaSlider.GetSliderValue() * exchangeRate[1] - importTerritoriaSlider.GetSliderValue() * exchangeRate[0];
@@ -45,21 +43,45 @@ public partial class ResourceTradeUnit : Control
 		else this.totalValueLabel.LabelSettings.FontColor = Colors.Red;
 	}
 
+	/// <summary>
+	/// Getter sur le flux de ressource
+	/// </summary>
+	/// <returns>Le flux de ressources</returns>
 	public int GetTotal()
 	{
 		return exportTerritoriaSlider.GetSliderValue() - importTerritoriaSlider.GetSliderValue();
 	}
+	/// <summary>
+	/// Getter sur la valeur de l'enfant qui gère l'export
+	/// </summary>
+	/// <returns>La valeur d'export du slider</returns>
 	public int GetExportValue(){
 		return exportTerritoriaSlider.GetSliderValue();
 	}
+	/// <summary>
+	/// Getter sur la valeur de l'enfant qui gère l'import
+	/// </summary>
+	/// <returns>La valeur d'import du slider</returns>
 	public int GetImportValue(){
 		return importTerritoriaSlider.GetSliderValue();
 	}
+	/// <summary>
+	/// Setter sur la valeur maximal des sliders
+	/// </summary>
+	/// <param name="max">Le nouveau max des sliders</param>
 	public void SetExportMax(int max)
 	{
-		if(exportTerritoriaSlider.GetSliderValue()<=max) exportTerritoriaSlider.UpdateSliderMax(max);
+		if (max>exportTerritoriaSlider.GetMaxSliderValue())
+		{
+			exportTerritoriaSlider.UpdateSliderMax(max);
+			importTerritoriaSlider.UpdateSliderMax(max);	
+		}
 	}
 
+	/// <summary>
+	/// Setter sur les taux de change
+	/// </summary>
+	/// <param name="exchangeRate">Les nouveaux taux de change</param>
 	public void SetExchangeRate(int[] exchangeRate)
 	{
 		this.exchangeRate[0] = exchangeRate[0];

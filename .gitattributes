@@ -51,3 +51,13 @@
 /TerritoriaV1/.godot/shader_cache/SkyShaderGLES3/1fe105946e63973aecf5198091930c2bdb17778012ef0253e325ade3a297e6c8/33f4853c06988eac9a9ede63fa1ea0124debb133.cache filter=lfs diff=lfs merge=lfs -text
 /TerritoriaV1/img/Menu/MenuIncroyableTerritoriaV1.png filter=lfs diff=lfs merge=lfs -text
 /TerritoriaV1/LogoIncroyableTerritoriaV2-PhotoRoom.png-PhotoRoom.png filter=lfs diff=lfs merge=lfs -text
+/territoria.zip filter=lfs diff=lfs merge=lfs -text
+/TerritoriaV1/img/Menu/MenuIncroyableTerritoria.png filter=lfs diff=lfs merge=lfs -text
+/TerritoriaV1.exe filter=lfs diff=lfs merge=lfs -text
+/TerritoriaV1.zip filter=lfs diff=lfs merge=lfs -text
+/TerritoriaV1/sounds/This[[:space:]]town[[:space:]](Main[[:space:]]Track).mp3 filter=lfs diff=lfs merge=lfs -text
+/territoria_installer.run filter=lfs diff=lfs merge=lfs -text
+/territoria_installer.run.zip filter=lfs diff=lfs merge=lfs -text
+/territoria_installerwindows.run filter=lfs diff=lfs merge=lfs -text
+/screens/ScreenInGame1.png filter=lfs diff=lfs merge=lfs -text
+/screens/ScreenInGame2.png filter=lfs diff=lfs merge=lfs -text

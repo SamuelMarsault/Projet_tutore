@@ -1,7 +1,4 @@
 using System;
-using Godot;
-using Godot.Collections;
-
 namespace TerritoriaV1;
 /// <summary>
 /// construit des placeables ( batiments)
@@ -16,9 +13,7 @@ public class PlaceableFactory
     {
         int[] input = new int[Enum.GetNames(typeof(ResourceType)).Length];
         int[] output = new int[Enum.GetNames(typeof(ResourceType)).Length];
-        input[(int)ResourceType.BEER] = 1;
-        output[(int)ResourceType.MONEY] = 6;
-        Placeable house = new Placeable(PlaceableType.HOUSE,input, output,5);
+        Placeable house = new Placeable(PlaceableType.HOUSE,input, output,0);
         return house;
     }
 
@@ -30,7 +25,7 @@ public class PlaceableFactory
     {
         int[] input = new int[Enum.GetNames(typeof(ResourceType)).Length];
         int[] output = new int[Enum.GetNames(typeof(ResourceType)).Length];
-        input[(int)ResourceType.MONEY] = 2;
+        input[(int)ResourceType.MONEY] = 1;
         output[(int)ResourceType.WOOD] = 1;
         Placeable sawmill = new Placeable(PlaceableType.SAWMILL,input, output,5);
         return sawmill;
@@ -70,7 +65,7 @@ public class PlaceableFactory
     {
         int[] input = new int[Enum.GetNames(typeof(ResourceType)).Length];
         int[] output = new int[Enum.GetNames(typeof(ResourceType)).Length];
-        input[(int)ResourceType.MONEY] = 2;
+        input[(int)ResourceType.MONEY] = 1;
         output[(int)ResourceType.HOP] = 1;
         Placeable field = new Placeable(PlaceableType.FIELD,input, output,5);
         return field;
@@ -98,8 +93,8 @@ public class PlaceableFactory
         int[] output = new int[Enum.GetNames(typeof(ResourceType)).Length];
         input[(int)ResourceType.ICE] = 1;
         input[(int)ResourceType.HOP] = 1;
-        output[(int)ResourceType.BEER] = 1;
-        Placeable beer_usine = new Placeable(PlaceableType.BEER_USINE,input, output,10);
+        output[(int)ResourceType.BEER] = 2;
+        Placeable beer_usine = new Placeable(PlaceableType.BEER_USINE,input, output,20);
         return beer_usine;
     }
 }

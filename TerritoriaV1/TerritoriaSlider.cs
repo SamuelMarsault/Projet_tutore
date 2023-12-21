@@ -33,6 +33,17 @@ public partial class TerritoriaSlider : Control
 	public void UpdateSliderMax(int value)
 	{
 		slider.MaxValue = value;
+		int scale = 0;
+		while (value > 100)
+		{
+			scale++;
+			value /= 10;
+		}
+
+		slider.Step = 1;
+		for (int i = 0; i < scale; i++)
+			slider.Step *= 10;
+		this.ForceUpdateTransform();
 	}
 /// <summary>
 /// gette la valeur actuelle du slider
@@ -48,7 +59,7 @@ public partial class TerritoriaSlider : Control
 /// </summary>
 /// <returns>la valeur max</returns>
 	public int GetMaxSliderValue(){
-		return MaxStartValue;
+		return (int)slider.MaxValue;
 	}
 /// <summary>
 /// ce qui se passe quand la valeur du slider change

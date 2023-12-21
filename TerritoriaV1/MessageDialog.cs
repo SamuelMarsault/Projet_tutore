@@ -7,7 +7,7 @@ using System;
 public partial class MessageDialog : AcceptDialog
 {
 	/// <summary>
-	/// defini le message a transmettre
+	/// Permet de définir les messages d'erreurs ou normaux
 	/// </summary>
 	/// <param name="errorMessage"> le message d'erreur a transmettre</param>
 	/// <param name="end">ignorer le svp</param>
