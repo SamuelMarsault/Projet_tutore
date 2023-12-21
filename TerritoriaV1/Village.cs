@@ -270,22 +270,39 @@ public class Village
         ProductResources();
 
         if (this.printNeedResources && verif == true){
-
             int[] insufficientResources = new int[resources.Length];
             
-             bool inssufisant = false;
+            bool inssufisant = false;
 
-             int[] needRessorcesNow = GetNeededResources();
+            int[] needRessorcesNow = GetNeededResources();
 
             for (int i = 0; i < resources.Length; i++)
             {
-                if ((resources[i]- needRessorcesNow[i]) < 0){
-                    insufficientResources[i] = ((resources[i] - needRessorcesNow[i])*-1);
-                    inssufisant = true;
+                if (i != 4){
+                    if ((resources[i] + needRessorcesNow[i]) - (old_export[i]) < 0){
+                        insufficientResources[i] = (((resources[i] + needRessorcesNow[i]) - (old_export[i]))*-1);
+                        inssufisant = true;
+                    }
+                    else{
+                        insufficientResources[i] = 0;
+                    }
                 }
-
                 else{
-                    insufficientResources[i] = 0;
+                    for (int j = 0; j < old_money.Length; j++)
+                    {
+                        if ((resources[i] + needRessorcesNow[i]) + (old_money[j]) < 0)
+                        {
+                            GD.Print((resources[i] + needRessorcesNow[i]) + (old_money[j]));
+                            insufficientResources[i] += (((resources[i] + needRessorcesNow[i]) + (old_money[j])) * -1);
+                            inssufisant = true;
+                        }
+                    }
+
+                    // Déplacez cette condition à l'extérieur de la boucle
+                    if (!inssufisant)
+                    {
+                        insufficientResources[i] = 0;
+                    }
                 }
             }
             resources = oldRessources;
@@ -324,7 +341,7 @@ public class Village
 
     public int[] applyResourcesTransaction(){
         int[] finalResources = new int[resources.Length];
-        GD.Print("hello");
+
         for (int i = 0; i < finalResources.Length-1; i++)
         {
             

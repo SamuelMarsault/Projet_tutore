@@ -142,27 +142,27 @@ public partial class Printer : Node, VillageObserver
 	private string DetermineRange(int value)
 	{
 		if (value <= 50)
-			return "entre 0 et 50";
+			return "entre 0 et 50 inclus";
 		else if (value <= 100)
-			return "entre 51 et 100";
+			return "entre 51 et 100 inclus";
 		else if (value <= 200)
-			return "entre 101 et 200";
+			return "entre 101 et 200 inclus";
 		else if (value <= 300)
-			return "entre 201 et 300";
+			return "entre 201 et 300 inclus";
 		else if (value <= 400)
-			return "entre 301 et 400";
+			return "entre 301 et 400 inclus";
 		else if (value <= 500)
-			return "entre 401 et 500";
+			return "entre 401 et 500 inclus";
 		else if (value <= 1000)
-			return "entre 501 et 1000";
+			return "entre 501 et 1000 inclus";
 		else if (value <= 2000)
-			return "entre 1001 et 2000";
+			return "entre 1001 et 2000 inclus";
 		else if (value <= 3000)
-			return "entre 2001 et 3000";
+			return "entre 2001 et 3000 inclus";
 		else if (value <= 4000)
-			return "entre 3001 et 4000";
+			return "entre 3001 et 4000 inclus";
 		else if (value <= 5000)
-			return "entre 4001 et 5000";
+			return "entre 4001 et 5000 inclus";
 		else
 			return "plus de 5000";
 	}
