@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=29 format=3 uid="uid://cb3ppocddlos"]
+[gd_resource type="TileSet" load_steps=33 format=3 uid="uid://cb3ppocddlos"]
 
 [ext_resource type="Texture2D" uid="uid://c01k6fkgy81h7" path="res://img/Layer 0 - Ground/Grass.png" id="1_g3v2p"]
 [ext_resource type="Texture2D" uid="uid://gccyx5bb0m34" path="res://img/Layer 0 - Ground/Water.png" id="2_i625v"]
@@ -10,7 +10,9 @@
 [ext_resource type="Texture2D" uid="uid://civ850yx5845f" path="res://img/SawMill.png" id="5_wp6b5"]
 [ext_resource type="Texture2D" uid="uid://hcgrp4ofufag" path="res://img/Rails.png" id="6_37wp2"]
 [ext_resource type="Texture2D" uid="uid://dc8v0ikki3xns" path="res://img/BeerUsine.png" id="6_mi3fs"]
+[ext_resource type="Texture2D" uid="uid://wl2wn8vvqa22" path="res://img/Layer 1/Pont_gris1.png" id="7_3ivae"]
 [ext_resource type="Texture2D" uid="uid://d26n0s8o44odt" path="res://img/IceUsine.png" id="7_poemu"]
+[ext_resource type="Texture2D" uid="uid://bxucacex7wwh1" path="res://img/Layer 1/Pont_gris2.png" id="8_c1d3f"]
 [ext_resource type="Texture2D" uid="uid://ciwoj2a6aibc3" path="res://img/Field.png" id="8_yk0i3"]
 [ext_resource type="Texture2D" uid="uid://jl1r8opqx12k" path="res://img/Gare.png" id="9_01ks2"]
 [ext_resource type="Texture2D" uid="uid://8ep5gbbnr2ag" path="res://img/Bar.png" id="10_gqnq1"]
@@ -48,6 +50,18 @@ texture_region_size = Vector2i(200, 100)
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rlgk5"]
 texture = ExtResource("6_37wp2")
 margins = Vector2i(0, 49)
+texture_region_size = Vector2i(200, 100)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7k2fj"]
+texture = ExtResource("7_3ivae")
+margins = Vector2i(0, 55)
+texture_region_size = Vector2i(200, 100)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_p8yx4"]
+texture = ExtResource("8_c1d3f")
+margins = Vector2i(0, 55)
 texture_region_size = Vector2i(200, 100)
 0:0/0 = 0
 
@@ -119,3 +133,5 @@ sources/10 = SubResource("TileSetAtlasSource_hf1cv")
 sources/11 = SubResource("TileSetAtlasSource_2xetw")
 sources/12 = SubResource("TileSetAtlasSource_3cgck")
 sources/13 = SubResource("TileSetAtlasSource_rlgk5")
+sources/17 = SubResource("TileSetAtlasSource_p8yx4")
+sources/16 = SubResource("TileSetAtlasSource_7k2fj")

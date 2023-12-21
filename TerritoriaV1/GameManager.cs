@@ -1,3 +1,4 @@
+using System.Security.Cryptography;
 using Godot;
 using TerritoriaV1;
 
@@ -6,6 +7,7 @@ using TerritoriaV1;
 /// </summary>
 public partial class GameManager : Node2D
 {
+
 	private VillageManager villageManager;
 	private EvolutionOfVillage evolutionOfVillage;
 
@@ -23,6 +25,7 @@ public partial class GameManager : Node2D
 	MessageDialog acd;
 
 	private Button button;
+	private Panel afficheMessage;
 
 	/// <summary>
 	/// Récupère et relie toutes les classes pour démarrer le jeu
@@ -36,6 +39,10 @@ public partial class GameManager : Node2D
 		this.button = Button;
 
 		acd = GetNode<MessageDialog>("AcceptDialogEND");
+
+		var panel = GetNode<Panel>("AfficheMessages");
+		panel.Visible = false;
+		afficheMessage = panel;
 
 		turn = GetNode<turnNB>("t");
 		turn.updateLabel("tour actuel : ");
@@ -202,5 +209,17 @@ public partial class GameManager : Node2D
 	{
 		// Ouvrir le navigateur avec le lien spécifique
 		OS.ShellOpen("https://git.unistra.fr/miniotti/han23-t3-a/-/blob/main/WikiDescription.MD?ref_type=heads");
+	}
+
+	public void setMessage(string message)
+	{
+		Label messageStrat = GetNode<Label>("AfficheMessages/TextStrat");
+		GD.Print(messageStrat.Name);
+		messageStrat.Text = message;
+		afficheMessage.Visible = true;
+	}
+
+	public void _on_stop_text_pressed(){
+		afficheMessage.Visible = false;
 	}
 }
