@@ -28,17 +28,24 @@ public class EvolutionOfVillage
         ressources = village.GetResources();
         neededRessources = village.GetNeededRessourcesPublic();
         this.NBPlaceables = village.getNBPlaceables();
+        int nbHouse = NBPlaceables[PlaceableType.HOUSE.GetHashCode()];
         
-        
-        /*int barCap = NBPlaceables[PlaceableType.HOUSE.GetHashCode()] * 10;
-        if (barCap > 100) barCap = 100;
         foreach (Placeable placeable in village.GetPlaceables())
         {
             if (placeable!=null && placeable.getPlaceableType() == PlaceableType.BAR)
             {
-                placeable.setProductionCapacity(barCap);
+                if (nbHouse > 10)
+                {
+                    placeable.setProductionCapacity(100);
+                    nbHouse -= 10;
+                }
+                else
+                {
+                    placeable.setProductionCapacity(nbHouse*10);
+                    nbHouse = 0;
+                }
             }
-        }*/
+        }
         
         if(this.NBPlaceables[(int)PlaceableType.SAWMILL] == 0 && 
         this.NBPlaceables[(int)PlaceableType.FIELD] == 0 &&
@@ -46,15 +53,13 @@ public class EvolutionOfVillage
         && alreadySecondary == true && alreadyTertiary == false
         && NBPlaceables[(int)PlaceableType.HOUSE]>20) 
         {
-            //GD.Print("tertiary");
             alreadyTertiary = true;
 
             village.SetBuildingStrategy(factory.createTertiaryStrategy(village.GetPlaceables(),village.GetTiles()));
 		    gameManager.printMessage("Le village a atteint une phase de tertiarisation : il se délaisse de la production et compte sur l'import pour satisfaire la consommation");
         }
-        else if(turn > 10 && alreadyTertiary == false && alreadySecondary == false)
+        else if(turn > 8 && alreadyTertiary == false && alreadySecondary == false)
         {
-            //GD.Print("secondary");
             alreadySecondary = true;
 
             village.SetBuildingStrategy(factory.createSecondaryStrategy(village.GetPlaceables(),village.GetTiles()));

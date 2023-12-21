@@ -5,8 +5,6 @@ using TerritoriaV1;
 
 public partial class Trader : Node, VillageObserver
 {
-
-	private int[] resources;
 	private int[,] exchangesRates;
 	private Control control;
 	[Export] private GameManager parent;
@@ -53,7 +51,12 @@ public partial class Trader : Node, VillageObserver
 	
 	public void ReactToResourcesChange(int[] resources)
 	{
-		this.resources = resources;
+		int max = 100;
+		foreach (int res in resources)
+			while (max < res)
+				max += 100;
+		foreach (ResourceTradeUnit resourceTradeUnit in resourceTradeUnits)
+			resourceTradeUnit.SetExportMax(max);
 	}
 
 	public void ReactToPlaceableChange(Placeable[,] placeables)
@@ -74,9 +77,9 @@ public partial class Trader : Node, VillageObserver
 		for (int i = 0; i < resourceTradeUnits.Count; i++)
 		{
 			export[i] = resourceTradeUnits[i].GetExportValue();
-			money[i] += resourceTradeUnits[i].GetExportValue() * exchangesRates[1,i]; 
+			money[i] = resourceTradeUnits[i].GetExportValue() * exchangesRates[1,i]; 
 			import[i] = resourceTradeUnits[i].GetImportValue();
-			money[i] -= resourceTradeUnits[i].GetImportValue() * exchangesRates[0,i];
+			money[i] = money[i] - resourceTradeUnits[i].GetImportValue() * exchangesRates[0,i];
 		}
 		parent.nextTurn(export, import, money);
 	}
