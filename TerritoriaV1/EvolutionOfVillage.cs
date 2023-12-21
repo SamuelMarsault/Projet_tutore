@@ -25,7 +25,6 @@ public class EvolutionOfVillage
 
     public void DetermineStrategy() 
     {
-
         ressources = village.GetResources();
         neededRessources = village.GetNeededRessourcesPublic();
         this.NBPlaceables = village.getNBPlaceables();
@@ -74,7 +73,7 @@ public class EvolutionOfVillage
         }
         else
         {
-            GD.Print("on ne devrais pas être ici");
+            //GD.Print("on ne devrais pas être ici");
         }
         turn++;
     }

@@ -20,18 +20,6 @@ public class VillageManager
 
     public void NextTurn(int[] export, int[] import, int[] money)
     {
-        GD.Print("------------------------------------------- next turn");
-
-        /*for(int i = 0; i < export.Length; i++)
-        {
-            GD.Print("VM-export["+i+"] :" +export[i]);
-        }
-
-        for(int i = 0; i < import.Length; i++)
-        {
-            GD.Print("VM-import["+i+"] :" +import[i]);
-        }*/
-
 
         evolutionOfVillage.DetermineStrategy();
         village.NextTurn(export, import, money);

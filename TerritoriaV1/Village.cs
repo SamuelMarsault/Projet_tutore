@@ -266,15 +266,9 @@ public class Village
         int[] oldRessources = GetResources();
 
         this.resources = applyResourcesTransaction();
-        for (int i = 0; i < resources.Length-1; i++)
-        {
-            GD.Print(i+" Avant "+resources[i]+" "+old_import[i]+" "+old_export[i]);
-        }GD.Print(resources.Length-1+" Avant "+resources[resources.Length-1]);
+        
         ProductResources();
-        for (int i = 0; i < resources.Length-1; i++)
-        {
-            GD.Print(i+" Après "+resources[i]+" "+old_import[i]+" "+old_export[i]);
-        }GD.Print(resources.Length-1+" Après "+resources[resources.Length-1]);
+
         if (this.printNeedResources && verif == true){
 
             int[] insufficientResources = new int[resources.Length];
