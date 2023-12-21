@@ -1,7 +1,4 @@
 using Godot;
-using System;
-using System.Security.Principal;
-using System.Threading;
 using TerritoriaV1;
 
 public partial class GameManager : Node2D
@@ -53,9 +50,8 @@ public partial class GameManager : Node2D
 		var trader = GetNode<Trader>("Trader");
 		
 		evolutionOfVillage = new EvolutionOfVillage(this);
-		if(evolutionOfVillage != null)
-	
-		villageManager = new VillageManager(GetNode<TileMap>("Map"),printer,trader,evolutionOfVillage);	
+		if(evolutionOfVillage != null) 
+			villageManager = new VillageManager(GetNode<TileMap>("Map"),printer,trader,evolutionOfVillage);
 
 		this.print = printer;	
 		this.trade = trader;
@@ -69,21 +65,21 @@ public partial class GameManager : Node2D
 		
 
 
-		if(currentTurnNb > nbMaxTurn)
+		if(currentTurnNb >= nbMaxTurn)
 		{
-			EndGame("felicitation, vous avez fait progresser le village à travers les phases de son dévellopement urbain : vous avez gagné !");
+			EndGame("Félicitations,\n vous avez fait progresser le village à travers les phases de son développement urbain :\n vous avez gagné !", Colors.Green);
 			return;
 		}
 
 		if(!villageManager.IsVillageOk())
 		{
-			EndGame("vous avez perdu ! : tous les habitant ont quittés votre village");
+			EndGame("Vous avez perdu !\nTous les habitants ont quittés votre village",Colors.Red);
 			return;
 		}
 
 		if(villageManager.change == false && currentTurnNb > 2)
 		{
-			EndGame("vous avez perdu ! : il n'y a eu aucune activité économique dans votre village");
+			EndGame("Vous avez perdu !\nIl n'y a eu aucune activité économique dans votre village",Colors.Red);
 			return;
 		}
 		
@@ -96,7 +92,7 @@ public partial class GameManager : Node2D
 		
 	}
 
-	public void EndGame(string message)
+	public void EndGame(string message, Color color)
 	{
 		Printer printer  = (Printer)GetNode<Printer>("Printer");
 		print.setVisibility(false);
@@ -104,7 +100,7 @@ public partial class GameManager : Node2D
 		trader.setVisibility(false);
 		turn.Visible = false;
 		citizen.Visible = false;
-		end_Screen.setText(message);
+		end_Screen.setText(message, color);
 		end_Screen.Visible = true;
 	}
 

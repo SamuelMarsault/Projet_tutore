@@ -27,7 +27,7 @@ public class SecondaryStrat : BuildingStrategy
                 for (int i = 0 ; i < resourcesNeed.Length; i++)
                 {
                     resourcesNeed[i] += needs[i]+export[i];
-                    resourcesProduction[i] += prod[i]+import[i];
+                    resourcesProduction[i] += prod[i]+resources[i];
                 }
             }
         }
