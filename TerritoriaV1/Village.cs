@@ -20,10 +20,13 @@ public class Village
     private int turn;
     private int[,] exchangesRates;
 
+    //Les exports
     private int[] old_export;
 
+    //Les imports
     private int[] old_import;
 
+    //Les flux monétaires
     private int[] old_money;
 
     private bool printNeedResources;    
@@ -279,9 +282,15 @@ public class Village
         int[] oldRessources = GetResources();
 
         this.resources = applyResourcesTransaction();
-        
+        for (int i = 0; i < resources.Length-1; i++)
+        {
+            GD.Print(i+" Avant "+resources[i]+" "+old_import[i]+" "+old_export[i]);
+        }GD.Print(resources.Length-1+" Avant "+resources[resources.Length-1]);
         ProductResources();
-
+        for (int i = 0; i < resources.Length-1; i++)
+        {
+            GD.Print(i+" Après "+resources[i]+" "+old_import[i]+" "+old_export[i]);
+        }GD.Print(resources.Length-1+" Après "+resources[resources.Length-1]);
         if (this.printNeedResources && verif == true){
 
             int[] insufficientResources = new int[resources.Length];
@@ -336,45 +345,52 @@ public class Village
     }
 
     public int[] applyResourcesTransaction(){
-        int[] actualResource = GetResources();
-        int[] testMoney = GetResources();
-        int[] export = new int[Enum.GetNames(typeof(ResourceType)).Length-1];
-        int[] import = new int[Enum.GetNames(typeof(ResourceType)).Length-1]; 
-                
-        for (int i = 0; i < export.Length; i++){
-            export[i] = old_export[i];
-            import[i] = old_import[i];
+        int[] finalResources = new int[resources.Length];
+        GD.Print("hello");
+        for (int i = 0; i < finalResources.Length-1; i++)
+        {
+            
+            finalResources[i] = resources[i];
+            //GD.Print(i+" Après "+finalResources[i]+" "+old_import[i]+" "+old_export[i]);
         }
 
-        // Vérifier si la monnaie devient négative
-        int newMoney = testMoney[4];
-        for (int j = 0; j < old_money.Length; j++){
-            if ((newMoney + import[j]) - export[j] >= 0){
-                newMoney += old_money[j];
-            }
-        }
-
-        // Vérifier si les ressources deviennent négatives
-        bool resourcesNegative = false;
-        for (int i = 0; i < import.Length; i++){
-            if ((newMoney >= 0) && (actualResource[i] + import[i] - export[i] >= 0)){
-                actualResource[i] += import[i];
-                actualResource[i] -= export[i];
-            } 
-            else 
+        finalResources[resources.Length - 1] = resources[resources.Length-1];
+        
+        //Pour chaque ressources sauf l'argent
+        for (int i = 0; i < finalResources.Length-1; i++)
+        {
+            //On ne fait les transactions jusqu'à ce qu'on ne puisse plus
+            //Si on exporte + que ce qu'on possède
+            if (finalResources[i] < old_export[i])
             {
-                resourcesNegative = true;
+                //Alors l'argent qu'on a c'est tout ce qu'on peut vendre
+                finalResources[ResourceType.MONEY.GetHashCode()] += (finalResources[i] * exchangesRates[1, i]);
+                //Et on a plus d'argent
+                finalResources[i] = 0;
+            }
+            else if(old_export[i]!=0)
+            {
+                //Aucun problème
+                finalResources[ResourceType.MONEY.GetHashCode()] += (old_export[i] * exchangesRates[1, i]);
+                //Et on a plus d'argent
+                finalResources[i] -= old_export[i];
+            }
+            if(finalResources[ResourceType.MONEY.GetHashCode()] < old_import[i] * exchangesRates[0, i])//Si on importe + que ce qu'on a
+            {
+                int usedQuantity = finalResources[ResourceType.MONEY.GetHashCode()] / exchangesRates[0, i];
+                finalResources[i] = finalResources[i] + usedQuantity;
+                //Oui c'est bizarre mais c'est division entière
+                finalResources[ResourceType.MONEY.GetHashCode()] -= usedQuantity * exchangesRates[0, i];
+            }
+            else if(old_import[i]!=0)
+            {
+                finalResources[i] = finalResources[i] + old_import[i];
+                finalResources[ResourceType.MONEY.GetHashCode()] -= old_import[i] * exchangesRates[0, i];
             }
         }
 
-        // Mettre à jour la monnaie seulement si ni la monnaie ni les ressources ne sont devenues négatives
-        if (!resourcesNegative && (newMoney >= 0)) {
-            actualResource[4] = newMoney;
-        }
-
-        return actualResource;
+        return finalResources;
     }
-
 
     public void setMessageNeedResources(bool display){
         this.printNeedResources = display;
@@ -393,5 +409,15 @@ public class Village
     public Placeable[,] GetPlaceables()
     {
         return placeables;
+    }
+
+    public Placeable getPlaceable(int x, int y)
+    {
+        try{
+            return placeables[x, y];
+        }
+        catch (IndexOutOfRangeException) {
+            return null;
+        }
     }
 }

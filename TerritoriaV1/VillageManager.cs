@@ -84,4 +84,8 @@ public class VillageManager
       public void setMessage(bool display){
         village.setMessageNeedResources(display);
     }
+
+    public Placeable getPlaceable(int x, int y){
+        return village.getPlaceable(x,y);
+    }
 }

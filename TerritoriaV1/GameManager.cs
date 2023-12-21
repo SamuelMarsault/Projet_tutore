@@ -50,6 +50,9 @@ public partial class GameManager : Node2D
 		printer.setMessageWindow(missingResource);	
 
 		var trader = GetNode<Trader>("Trader");
+		TileMap tileMap = GetNode<TileMap>("Map");
+		Control infoCard = GetNode<Control>("InfoCard");
+        tileMap.setInfoCard(infoCard);
 		
 		evolutionOfVillage = new EvolutionOfVillage(this);
 		if(evolutionOfVillage != null) 
@@ -57,6 +60,7 @@ public partial class GameManager : Node2D
 
 		this.print = printer;	
 		this.trade = trader;
+		tileMap.setVillageManager(villageManager);
 	}
 	
 	public void nextTurn(int[] export, int[] import, int[] money)
@@ -128,7 +132,7 @@ public partial class GameManager : Node2D
 		turn.Visible = true;
 		menu.Visible = false;
 		citizen.Visible = true;
-		printMessage("Bienvenue ! Vous êtes responsables de l'import et de l'export des ressources de notre village. Nous comptons sur vous.");
+		printMessage("Bienvenue au village de Territoria ! \n\n Vous êtes responsables de l'importation et de l'exportation des ressources de notre village.\n Nous comptons sur vous.");
 	}
 
 	public void _on_exit_pressed(){

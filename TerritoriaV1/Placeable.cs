@@ -50,7 +50,6 @@ public class Placeable
 		}
 
 		product = min;
-		
 		for (int i = 0; i < input.Length; i++)
 		{
 			//On calcule combien on en prend
@@ -101,4 +100,14 @@ public class Placeable
 	{
 		return placeableType;
 	}
+
+	public int[] getResourceInputs()
+    {
+        return input;
+    }
+
+	public int[] getResourceOutputs()
+    {
+        return output;
+    }
 }

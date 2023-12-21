@@ -25,11 +25,6 @@ public partial class ResourcePrintUnit : Control
 		valueLabel.Text = value.ToString();
 	}
 
-	public void ValueChanged()
-	{
-		
-	}
-
 	[Signal] public delegate void TotalChangedEventHandler(int total);
 
 	public void SetNewRessources(int newValue){

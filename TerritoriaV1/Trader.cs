@@ -15,7 +15,6 @@ public partial class Trader : Node, VillageObserver
 	{
 		Control containerParent = this.GetNode<Control>("Control");
 		this.control = containerParent;
-		GD.Print(parent.Name);
 		Node container = this.GetNode("Control/MarginContainer/VBoxContainer");
 		foreach (Node node in container.GetChildren())
 		{
@@ -77,9 +76,9 @@ public partial class Trader : Node, VillageObserver
 		for (int i = 0; i < resourceTradeUnits.Count; i++)
 		{
 			export[i] = resourceTradeUnits[i].GetExportValue();
-			money[i] += resourceTradeUnits[i].GetExportValue() * exchangesRates[1,i]; 
+			money[i] = resourceTradeUnits[i].GetExportValue() * exchangesRates[1,i]; 
 			import[i] = resourceTradeUnits[i].GetImportValue();
-			money[i] -= resourceTradeUnits[i].GetImportValue() * exchangesRates[0,i];
+			money[i] = money[i] - resourceTradeUnits[i].GetImportValue() * exchangesRates[0,i];
 		}
 		/*
 		for (int i = 0; i < export.Length; i++)
