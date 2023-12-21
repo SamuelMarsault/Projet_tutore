@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
-using Godot;
 using TerritoriaV1;
 
+/// <summary>
+/// Représente une stratégie de construction secondaire, construit des bâtiments de production de matières transformées
+/// </summary>
 public class SecondaryStrat : BuildingStrategy
 {
 
@@ -10,8 +12,19 @@ public class SecondaryStrat : BuildingStrategy
     {
         SetTiles(tiles);
     }
-    override 
-    public Placeable[,] BuildNewPlaceable(int[] import,
+    /// <summary>
+    /// Créé et place les bâtiments dans le village, actualise aussi la production des bars selon le nombre de maisons
+    /// Et détruit des maisons s'il n'y a pas assez de bière
+    /// </summary>
+    /// <param name="import">Les imports de ce tour</param>
+    /// <param name="export">Les exports de ce tour</param>
+    /// <param name="factory">La factory de Placeable</param>
+    /// <param name="targetTile">Un tableau de TileType cible, 1 pour chaque bâtiment</param>
+    /// <param name="placeables">Les Placeable du village</param>
+    /// <param name="resources">Les ressources actuelles</param>
+    /// <param name="oldResources">Les ressources avant production</param>
+    /// <returns>La nouvelle grille de Placeable</returns>
+    override public Placeable[,] BuildNewPlaceable(int[] import,
         int[] export, PlaceableFactory factory, 
         TileType[] targetTile, Placeable[,] placeables, int[] resources, int[] oldResources)
     {
@@ -56,7 +69,6 @@ public class SecondaryStrat : BuildingStrategy
                     nbBar++;
             }
         }
-        GD.Print("BeerProd : "+beerProduction+" "+nbHouse);
         while (beerProduction/10<nbHouse)
         {
             nbHouse--;
@@ -99,8 +111,11 @@ public class SecondaryStrat : BuildingStrategy
 
         return placeables;
     }
-    override
-    public int[,] GetExchangesRates()
+    /// <summary>
+    /// getter des taux de changes pour l'import/export par ressource
+    /// </summary>
+    /// <returns>Les taux de change</returns>
+    override public int[,] GetExchangesRates()
     {
         int[,] exchangesRates = new[,]
         {
@@ -110,7 +125,14 @@ public class SecondaryStrat : BuildingStrategy
         return exchangesRates;
     }
 
-     override public Placeable[,] PlacePlaceable(Placeable[,] placeables,Placeable placeable, TileType targetTile)
+    /// <summary>
+    /// Place un Placeable dans le tableau 2D des Placeable en fonction du TileType cibe
+    /// </summary>
+    /// <param name="placeables">Les Placeable du village</param>
+    /// <param name="placeable">Le Placeable en question</param>
+    /// <param name="targetTile">TileType cible du Placeable</param>
+    /// <returns>La nouvelle grille de bâtiment</returns>
+    override public Placeable[,] PlacePlaceable(Placeable[,] placeables,Placeable placeable, TileType targetTile)
      {
             bool notPlaced = true;
             for (int i = 0; i < placeables.GetLength(0) && notPlaced; i++)

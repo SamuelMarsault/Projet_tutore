@@ -9,7 +9,6 @@ public partial class TerritoriaSlider : Control
 	private Label valueLabel;
 
 	private int MaxStartValue;
-	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		slider = FindChild("ValueSlider", true, true) as Slider;

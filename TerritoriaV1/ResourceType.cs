@@ -1,5 +1,3 @@
-using Godot;
-using System;
 
 public enum ResourceType {
     WOOD = 0,

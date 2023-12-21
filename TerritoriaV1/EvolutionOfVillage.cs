@@ -1,6 +1,3 @@
-using Godot;
-using Godot.Collections;
-
 namespace TerritoriaV1;
 
 public class EvolutionOfVillage
@@ -16,14 +13,12 @@ public class EvolutionOfVillage
     bool alreadySecondary = false;
     bool alreadyTertiary = false;
 
-    int turn = 1;
-
     public EvolutionOfVillage(GameManager gm)
     {
         this.gameManager = gm;
     }
 
-    public void DetermineStrategy() 
+    public void DetermineStrategy(int turn) 
     {
         ressources = village.GetResources();
         neededRessources = village.GetNeededRessourcesPublic();
@@ -67,13 +62,12 @@ public class EvolutionOfVillage
         else if(alreadyTertiary == false && alreadySecondary == false)
         {
             village.SetBuildingStrategy(factory.createPrimaryStrategy(village.GetPlaceables(),village.GetTiles()));
-            // garde la stratégie primaire actuelle, pas besoin de la rechanger
+            // Garde la stratégie primaire actuelle, pas besoin de la rechanger
         }
         else
         {
-            //GD.Print("on ne devrais pas être ici");
+
         }
-        turn++;
     }
 
     public void SetVillage(Village village) 

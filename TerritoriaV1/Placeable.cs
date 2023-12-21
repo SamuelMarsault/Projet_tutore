@@ -1,10 +1,3 @@
-using System;
-using System.Xml;
-using Godot;
-using Godot.Collections;
-using Godot.NativeInterop;
-using TileMap = Godot.TileMap;
-
 namespace TerritoriaV1;
 
 public class Placeable
