@@ -6,9 +6,9 @@ using TerritoriaV1;
 public abstract class BuildingStrategy {
     private TileType[,] tiles;
 
-    public abstract Placeable[,] BuildNewPlaceable(int[] totalResources,
-        int[] neededResources, PlaceableFactory factory, 
-        TileType[] targetTile,Placeable[,] placeables, int[] resourcesBeforeProduct);
+    public abstract Placeable[,] BuildNewPlaceable(int[] import,
+        int[] export, PlaceableFactory factory, 
+        TileType[] targetTile,Placeable[,] placeables, int[] resources);
 
 
     public abstract int[,] GetExchangesRates();

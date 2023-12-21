@@ -11,74 +11,85 @@
 script = ExtResource("1_o5u3t")
 
 [node name="Control" type="Control" parent="."]
+visible = false
 layout_direction = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -175.0
-offset_top = 114.0
-offset_right = -869.0
-offset_bottom = 82.0
+offset_left = -171.0
+offset_top = 109.0
+offset_right = -482.0
+offset_bottom = 114.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 10
 size_flags_vertical = 3
 
 [node name="MarginContainer" type="MarginContainer" parent="Control"]
+custom_minimum_size = Vector2(0, 30)
 layout_direction = 1
 layout_mode = 0
 offset_left = 3.0
 offset_top = 42.0
-offset_right = 460.0
-offset_bottom = 624.0
+offset_right = 813.0
+offset_bottom = 732.0
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 10
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer"]
+custom_minimum_size = Vector2(200, 670)
 layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
 theme_override_constants/separation = 10
 
 [node name="ResourcesContainer" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 225)
+custom_minimum_size = Vector2(200, 300)
 layout_mode = 2
+size_flags_vertical = 3
 theme_override_constants/separation = 15
 
 [node name="WoodResourceUnit" parent="Control/MarginContainer/VBoxContainer/ResourcesContainer" instance=ExtResource("2_k3q8p")]
-custom_minimum_size = Vector2(130, 240)
+custom_minimum_size = Vector2(215, 240)
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 4
+size_flags_vertical = 0
 icon = ExtResource("3_i66la")
 
 [node name="HopResourceUnit" parent="Control/MarginContainer/VBoxContainer/ResourcesContainer" instance=ExtResource("2_k3q8p")]
-custom_minimum_size = Vector2(130, 240)
+custom_minimum_size = Vector2(215, 240)
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 6
+size_flags_vertical = 0
 icon = ExtResource("4_mxbxv")
 
 [node name="ResourcesContainer2" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 225)
+custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 theme_override_constants/separation = 15
 
 [node name="IceResourceUnit" parent="Control/MarginContainer/VBoxContainer/ResourcesContainer2" instance=ExtResource("2_k3q8p")]
-custom_minimum_size = Vector2(130, 240)
+custom_minimum_size = Vector2(215, 240)
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 4
+size_flags_vertical = 8
 icon = ExtResource("5_wkj5r")
 
 [node name="BeerResourceUnit" parent="Control/MarginContainer/VBoxContainer/ResourcesContainer2" instance=ExtResource("2_k3q8p")]
-custom_minimum_size = Vector2(130, 240)
+custom_minimum_size = Vector2(215, 240)
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 6
+size_flags_vertical = 8
 icon = ExtResource("6_y5ni6")
 
 [node name="Button" type="Button" parent="Control/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(770, 0)
 layout_mode = 2
-size_flags_vertical = 0
-text = "Passer au 
-tour suivant"
+size_flags_vertical = 10
+theme_override_font_sizes/font_size = 32
+text = "Passer au tour suivant"
 
 [connection signal="pressed" from="Control/MarginContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]

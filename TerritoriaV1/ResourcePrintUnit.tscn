@@ -4,24 +4,25 @@
 [ext_resource type="Script" path="res://ResourcePrintUnit.cs" id="1_tvmvx"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_iu2cc"]
-font_size = 24
+font_size = 32
 
 [node name="Control" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -1009.0
-offset_bottom = -590.0
+offset_right = -932.0
+offset_bottom = -558.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_tvmvx")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
+anchors_preset = -1
+anchor_right = 1.546
 anchor_bottom = 1.0
+offset_right = -120.12
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -43,6 +44,5 @@ label_settings = SubResource("LabelSettings_iu2cc")
 
 [node name="ResourceTexture" type="TextureRect" parent="PanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
 texture = ExtResource("1_h3bkw")
 expand_mode = 2

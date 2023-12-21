@@ -16,6 +16,8 @@ public class Placeable
 	private int[] output;
 	//Représente la capacité de production : output * capacite = quantité totale
 	private int productionCapacities;
+	//Est-ce que le placeable a produit à capacité maximale ?
+	private bool maxProduct = true;
 
 	public Placeable(PlaceableType placeableType, int[] input, int[] output, int productionCapacities)
 	{
@@ -24,51 +26,11 @@ public class Placeable
 		this.output = output;
 		this.productionCapacities = productionCapacities;
 	}
-
-	/*public bool ProductResources(int[] availableResources, int[] neededResources)
-	{
-		int min = 0;
-		bool availableRessourceExist = true;
-		//Pour chaque ressources en entrée
-		for (int i = 0; i < input.Length; i++)
-		{
-			//Si -> on n'a pas de minimum, ou qu'on a besoin de cette ressource
-			 //et qu'elle est en + faible quantité que les autres
-			if (input[i]!=0 && (min==0 || availableResources[i]/input[i]<min))
-			{
-				//Alors on définit un nouveau minium
-				min = availableResources[i]/input[i];
-			}
-		}
-		//Si le minimum dépasse la capacité de production maximale
-		if (min>productionCapacities)
-		{
-			//Alors le minimum devient la capaité de production
-			min = productionCapacities;
-		}
-
-		//Et pour chaque ressources en entrée
-		for (int i = 0; i < input.Length; i++)
-		{
-			//On calcule combien on en prend
-			int usedResources = min * input[i];
-			//Et on les retire des ressources disponibles
-			if ((availableResources[i] -= usedResources) < 0){
-				availableResources[i] -= usedResources;
-				availableRessourceExist = false;
-			}
-		}
-		for (int i = 0; i < output.Length; i++)
-		{
-			int producedResources = min * output[i];
-			availableResources[i] += producedResources;
-		}
-		return availableRessourceExist ;
-	}*/
-
+	
 	public void ProductResources(int[] availableResources, int[] neededResources)
 	{
 		int min = productionCapacities;
+		maxProduct = false;
 		//Pour chaque ressources en entrée
 		for (int i = 0; i < input.Length; i++)
 		{
@@ -84,7 +46,11 @@ public class Placeable
 		if (min < 0)
 			min = 0;
 		else if (min > productionCapacities)
+		{
 			min = productionCapacities;
+		}
+
+		maxProduct = min == productionCapacities;
 		
 		for (int i = 0; i < input.Length; i++)
 		{
@@ -110,9 +76,27 @@ public class Placeable
 		}
 		return needs;
 	}
+	public int[] getResourceProduction()
+	{
+		int[] product = new int[output.Length];
+		for (int i = 0; i < output.Length; i++)
+		{
+			product[i] = output[i] * productionCapacities;
+		}
+		return product;
+	}
 
 	public int getProductionCapacity(){
 		return productionCapacities;
+	}
+
+	public bool getMaxProduct()
+	{
+		return maxProduct;
+	}
+	public void setProductionCapacity(int productionCapacities)
+	{
+		this.productionCapacities = productionCapacities;
 	}
 	public PlaceableType getPlaceableType()
 	{

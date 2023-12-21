@@ -114,6 +114,7 @@ texture = ExtResource("5_jg5fk")
 expand_mode = 4
 
 [node name="ToLabel" type="Label" parent="Info"]
+layout_mode = 0
 offset_left = 10.0
 offset_top = 467.0
 offset_right = 297.0
@@ -122,6 +123,7 @@ text = "... pour produire..."
 label_settings = SubResource("LabelSettings_qe67n")
 
 [node name="BeerToTextureRect" type="TextureRect" parent="Info"]
+layout_mode = 0
 offset_left = 60.0
 offset_top = 533.0
 offset_right = 120.0
@@ -130,6 +132,7 @@ texture = ExtResource("6_2g8j2")
 expand_mode = 4
 
 [node name="HopToTextureRect" type="TextureRect" parent="Info"]
+layout_mode = 0
 offset_left = 225.0
 offset_top = 533.0
 offset_right = 285.0
@@ -138,6 +141,7 @@ texture = ExtResource("3_qdecg")
 expand_mode = 4
 
 [node name="IceToTextureRect" type="TextureRect" parent="Info"]
+layout_mode = 0
 offset_left = 390.0
 offset_top = 533.0
 offset_right = 450.0
@@ -146,6 +150,7 @@ texture = ExtResource("4_s3u2p")
 expand_mode = 4
 
 [node name="MoneyToTextureRect" type="TextureRect" parent="Info"]
+layout_mode = 0
 offset_left = 144.0
 offset_top = 614.0
 offset_right = 204.0
@@ -154,6 +159,7 @@ texture = ExtResource("2_mxfmb")
 expand_mode = 4
 
 [node name="WoodToTextureRect" type="TextureRect" parent="Info"]
+layout_mode = 0
 offset_left = 309.0
 offset_top = 614.0
 offset_right = 369.0
