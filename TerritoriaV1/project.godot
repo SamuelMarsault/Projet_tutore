@@ -13,7 +13,7 @@ config_version=5
 config/name="TerritoriaV1"
 run/main_scene="res://game_manager.tscn"
 config/features=PackedStringArray("4.1", "C#", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="res://LogoIncroyableTerritoriaV2-PhotoRoom.png-PhotoRoom.png"
 
 [display]
 
