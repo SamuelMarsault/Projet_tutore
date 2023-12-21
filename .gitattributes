@@ -62,3 +62,4 @@
 /screens/ScreenInGame1.png filter=lfs diff=lfs merge=lfs -text
 /screens/ScreenInGame2.png filter=lfs diff=lfs merge=lfs -text
 /download/Linux/territoriaLinux.zip filter=lfs diff=lfs merge=lfs -text
+/download/Linux/territoria_installer_linux.run filter=lfs diff=lfs merge=lfs -text
