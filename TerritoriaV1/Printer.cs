@@ -67,29 +67,6 @@ public partial class Printer : Node, VillageObserver
 	public int GetRessource(int numResource){
 		return resourcePrintUnits[numResource].GetRessources();
 	}
-	public void Defeat()
-	{
-		// Create an instance of the message dialog window
-		var messageDialog = new MessageDialog();
-
-		// Set the defeat message
-		messageDialog.SetErrorMessage("You have lost.",true);
-
-		// Add the window to the scene
-		GetTree().Root.AddChild(messageDialog);
-
-		// Display the window
-		messageDialog.PopupCentered();
-
-		DefeatParent();
-	}
-
-	// Méthode appelée lorsque la fenêtre de dialogue est fermée
-	private void DefeatParent()
-	{
-		// Appeler la méthode Defeat du parent
-		
-	}
 
 	public void ReactToImpossibleTransaction(int[] missingRessources)
 	{
@@ -141,29 +118,32 @@ public partial class Printer : Node, VillageObserver
 	// Determine the range based on the missing resources value
 	private string DetermineRange(int value)
 	{
+		return value.ToString();
+		/*
 		if (value <= 50)
-			return "entre 0 et 50 inclus";
+			return "entre 0 et 50";
 		else if (value <= 100)
-			return "entre 51 et 100 inclus";
+			return "entre 51 et 100";
 		else if (value <= 200)
-			return "entre 101 et 200 inclus";
+			return "entre 101 et 200";
 		else if (value <= 300)
-			return "entre 201 et 300 inclus";
+			return "entre 201 et 300";
 		else if (value <= 400)
-			return "entre 301 et 400 inclus";
+			return "entre 301 et 400";
 		else if (value <= 500)
-			return "entre 401 et 500 inclus";
+			return "entre 401 et 500";
 		else if (value <= 1000)
-			return "entre 501 et 1000 inclus";
+			return "entre 501 et 1000";
 		else if (value <= 2000)
-			return "entre 1001 et 2000 inclus";
+			return "entre 1001 et 2000";
 		else if (value <= 3000)
-			return "entre 2001 et 3000 inclus";
+			return "entre 2001 et 3000";
 		else if (value <= 4000)
-			return "entre 3001 et 4000 inclus";
+			return "entre 3001 et 4000";
 		else if (value <= 5000)
-			return "entre 4001 et 5000 inclus";
+			return "entre 4001 et 5000";
 		else
 			return "plus de 5000";
+		*/
 	}
 }
