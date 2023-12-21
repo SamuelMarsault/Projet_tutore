@@ -15,7 +15,6 @@ public class TertiaryStrat : BuildingStrategy
         int[] export, PlaceableFactory factory, 
         TileType[] targetTile, Placeable[,] placeables, int[] resources)
     {
-        GD.Print("on est dans le teritiary là");
         List<Placeable> newPlaceables = new List<Placeable>();
         while(import[(int)ResourceType.WOOD] > 10)  // on dépense tout le bois en maison lol ( )
         {
@@ -51,9 +50,7 @@ public class TertiaryStrat : BuildingStrategy
                 for (int j = 0; j < placeables.GetLength(1) && notPlaced; j++)
                 {
                     if (HasAdjacentPlaceableOfType(i, j, placeable.getPlaceableType(), placeables) && CanPlaceAtLocation(i, j, targetTile, placeables))
-                    {  GD.Print(i); GD.Print(j);
-                       GD.Print(HasAdjacentPlaceableOfType(i, j, placeable.getPlaceableType(), placeables)); GD.Print(CanPlaceAtLocation(i, j, targetTile, placeables));
-                       GD.Print(targetTile); GD.Print(placeable.getPlaceableType());
+                    {  
                         placeables[i, j] = placeable;
                         notPlaced = false; 
                     }

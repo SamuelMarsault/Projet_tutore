@@ -56,13 +56,11 @@ public class Placeable
 		{
 			//On calcule combien on en prend
 			int usedResources = min * input[i];
-			//GD.Print("\tprélèvement : "+usedResources);
 			availableResources[i] -= usedResources;
 		}
 		for (int i = 0; i < output.Length; i++)
 		{
 			int producedResources = min * output[i];
-			//GD.Print("\tajout : "+producedResources);
 			availableResources[i] += producedResources;
 		}
 	}

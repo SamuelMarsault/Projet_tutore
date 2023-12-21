@@ -190,25 +190,10 @@ public class Village
 
      private void ApplyStrategy(int[] resourcesBeforeProduct)
     {
-        if(placeables == null)
-        {
-            //GD.Print("placeables == null");
-        }
-        //Console.WriteLine("Statégie "+strategy.GetType());
         placeables = strategy.BuildNewPlaceable(old_import, old_export, factory, targetTiles, placeables, resources);
         NotifyPlaceableChange();
         exchangesRates = strategy.GetExchangesRates();
         NotifyExchangesRatesChange();
-        for(int i = 0; i < placeables.GetLength(0); i++)
-        {
-            for(int j = 0; j < placeables.GetLength(0); j++)
-            {
-                if(placeables[i,j] != null)
-                {
-                    GD.Print(placeables[i,j].getPlaceableType());
-                }
-            }
-        }
         NotifyResourcesChange();
     }
     

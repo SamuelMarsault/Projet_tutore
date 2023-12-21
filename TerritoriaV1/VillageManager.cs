@@ -25,18 +25,6 @@ public class VillageManager
 
     public void NextTurn(int[] export, int[] import, int[] money)
     {
-        GD.Print("------------------------------------------- next turn");
-
-        /*for(int i = 0; i < export.Length; i++)
-        {
-            GD.Print("VM-export["+i+"] :" +export[i]);
-        }
-
-        for(int i = 0; i < import.Length; i++)
-        {
-            GD.Print("VM-import["+i+"] :" +import[i]);
-        }*/
-
 
         evolutionOfVillage.DetermineStrategy();
         village.NextTurn(export, import, money);
@@ -46,11 +34,9 @@ public class VillageManager
         change = false;
         for(int i = 0; i < newResources.Length; i++)
         {
-            GD.Print("current "+oldressources[i]); GD.Print("new "+newResources[i]); 
             if(oldressources[i] != newResources[i])
             {
                 change = true;
-                GD.Print("changement");
             }
         }
         oldressources = village.GetResources();
@@ -64,11 +50,9 @@ public class VillageManager
 
         for(int i = 0; i < newResources.Length; i++)
         {
-            GD.Print("current "+oldressources[i]); GD.Print("new "+newResources[i]); 
             if(oldressources[i] != newResources[i])
             {
                 change = true;
-                GD.Print("changement");
             }
         }
         oldressources = village.GetResources();

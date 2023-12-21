@@ -85,9 +85,7 @@ public class PrimaryStrat : BuildingStrategy
                 for (int j = 0; j < placeables.GetLength(1) && notPlaced; j++)
                 {
                     if (  HasTwoNeighbours(i, j, placeable.getPlaceableType(), placeables) && CanPlaceAtLocation(i, j, targetTile, placeables))
-                    {  GD.Print(i); GD.Print(j);
-                       GD.Print(HasAdjacentPlaceableOfType(i, j, placeable.getPlaceableType(), placeables)); GD.Print(CanPlaceAtLocation(i, j, targetTile, placeables));
-                       GD.Print(targetTile); GD.Print(placeable.getPlaceableType());
+                    {  
                         placeables[i, j] = placeable;
                         notPlaced = false;
                     }
@@ -100,9 +98,7 @@ public class PrimaryStrat : BuildingStrategy
                 for (int j = 0; j < placeables.GetLength(1) && notPlaced; j++)
                 {
                     if (  HasAdjacentPlaceableOfType(i, j, placeable.getPlaceableType(), placeables) && CanPlaceAtLocation(i, j, targetTile, placeables))
-                    {  GD.Print(i); GD.Print(j);
-                       GD.Print(HasAdjacentPlaceableOfType(i, j, placeable.getPlaceableType(), placeables)); GD.Print(CanPlaceAtLocation(i, j, targetTile, placeables));
-                       GD.Print(targetTile); GD.Print(placeable.getPlaceableType());
+                    {  
                         placeables[i, j] = placeable;
                         notPlaced = false;
                     }

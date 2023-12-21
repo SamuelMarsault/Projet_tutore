@@ -25,8 +25,7 @@ public abstract class BuildingStrategy {
         }
         else
         {
-        GD.Print("tiles : "+ tiles[x,y]); GD.Print("target : "+targetTileType);
-        return true; 
+            return true; 
         }
     }
     return false;
@@ -114,7 +113,6 @@ public abstract class BuildingStrategy {
             {
                 if(placeables[i,j] != null && placeables[i,j].getPlaceableType() == type)
                 {
-                    GD.Print("destroyed "+i +" "+ j + " "+ placeables[i,j].getPlaceableType());
                     placeables[i,j] = null;
                     Destroyed = true;
                 }

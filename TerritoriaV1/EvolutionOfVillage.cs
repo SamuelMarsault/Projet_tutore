@@ -25,12 +25,6 @@ public class EvolutionOfVillage
 
     public void DetermineStrategy() 
     {
-        if(village == null)// test de village, car le EoV est crée par le GM, 
-         //qui le passe ensuite à VM. mais comme c'est VM qui crée Village, on le passe par setter a EoV 
-        {
-            GD.Print("EoV - village est null");
-        }
-
         ressources = village.GetResources();
         neededRessources = village.GetNeededRessourcesPublic();
         this.NBPlaceables = village.getNBPlaceables();
@@ -52,7 +46,7 @@ public class EvolutionOfVillage
         && alreadySecondary == true && alreadyTertiary == false
         && NBPlaceables[(int)PlaceableType.HOUSE]>20) 
         {
-            GD.Print("tertiary");
+            //GD.Print("tertiary");
             alreadyTertiary = true;
 
             village.SetBuildingStrategy(factory.createTertiaryStrategy(village.GetPlaceables(),village.GetTiles()));
@@ -60,7 +54,7 @@ public class EvolutionOfVillage
         }
         else if(turn > 10 && alreadyTertiary == false && alreadySecondary == false)
         {
-            GD.Print("secondary");
+            //GD.Print("secondary");
             alreadySecondary = true;
 
             village.SetBuildingStrategy(factory.createSecondaryStrategy(village.GetPlaceables(),village.GetTiles()));
@@ -74,7 +68,7 @@ public class EvolutionOfVillage
         }
         else
         {
-            GD.Print("on ne devrais pas être ici");
+            //GD.Print("on ne devrais pas être ici");
         }
         turn++;
     }

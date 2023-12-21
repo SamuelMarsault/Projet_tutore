@@ -17,7 +17,6 @@ public partial class Trader : Node, VillageObserver
 	{
 		Control containerParent = this.GetNode<Control>("Control");
 		this.control = containerParent;
-		GD.Print(parent.Name);
 		Node container = this.GetNode("Control/MarginContainer/VBoxContainer");
 		foreach (Node node in container.GetChildren())
 		{
