@@ -1,25 +1,18 @@
 using Godot;
 using System;
 
+/// <summary>
+/// utiliser pour communiquer via pop up au joueur
+/// </summary>
 public partial class MessageDialog : AcceptDialog
 {
-
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-	}
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
-
+	/// <summary>
+	/// defini le message a transmettre
+	/// </summary>
+	/// <param name="errorMessage"> le message d'erreur a transmettre</param>
+	/// <param name="end">ignorer le svp</param>
 	public void SetErrorMessage(string errorMessage, bool end)
 	{
 		DialogText = errorMessage;
-		if(end)
-		{
-			
-		}
 	}
 }

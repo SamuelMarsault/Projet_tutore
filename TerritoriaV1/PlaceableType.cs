@@ -1,6 +1,9 @@
 using Godot;
 using System;
 
+/// <summary>
+/// l'énumeration des types possibles de batiments
+/// </summary>
 public enum PlaceableType {
     HOUSE,
     SAWMILL,

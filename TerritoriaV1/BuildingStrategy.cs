@@ -2,10 +2,8 @@ using System;
 using System.Collections.Generic;
 using Godot;
 using TerritoriaV1;
-
 public abstract class BuildingStrategy {
     private TileType[,] tiles;
-
     public abstract Placeable[,] BuildNewPlaceable(int[] import,
         int[] export, PlaceableFactory factory, 
         TileType[] targetTile,Placeable[,] placeables, int[] resources);
@@ -13,89 +11,25 @@ public abstract class BuildingStrategy {
 
     public abstract int[,] GetExchangesRates();
     public abstract Placeable[,] PlacePlaceable(Placeable[,] placeables,Placeable placeable, TileType targetTile);
-    /*{
-        bool notPlaced = true;
-        for (int i = 0; i < placeables.GetLength(0) && notPlaced; i++)
+
+    protected bool CanPlaceAtLocation(int x, int y, TileType targetTileType, Placeable[,] placeables)
+    {
+        if (x < placeables.GetLength(0) && y < placeables.GetLength(1))
         {
-            for (int j = 0; j < placeables.GetLength(1) && notPlaced; j++)
+            if ((tiles[x, y] != targetTileType) || (placeables[x, y] != null))
             {
-                if (HasAdjacentPlaceableOfType(i, j, placeable.getPlaceableType(), placeables) && CanPlaceAtLocation(i, j, targetTile, placeables))
-                {
-                    placeables[i, j] = placeable;
-                    notPlaced = false;
-                }
+                return false;
+            }
+            else
+            {            
+            return true; 
             }
         }
-
-        if (notPlaced)
-        {
-            PlaceRandomly(targetTile, placeable, placeables);
-        }
-
-        return placeables;
-    }*/
-
- protected bool CanPlaceAtLocation(int x, int y, TileType targetTileType, Placeable[,] placeables)
-{
-if (x < placeables.GetLength(0) && y < placeables.GetLength(1))
-{
-    if ((tiles[x, y] != targetTileType) || (placeables[x, y] != null))
-    {
-        
-        return false;
+    return false;
     }
-    else
-    {
-    GD.Print("tiles : "+ tiles[x,y]); GD.Print("target : "+targetTileType);
-    return true; 
-    }
-}
-return false;
-
-}
-
 
     protected bool HasAdjacentPlaceableOfType(int x, int y, PlaceableType type, Placeable[,] placeables)
     {
-
-    /*if(placeables == null)
-    {
-        GD.Print("placeables est nulle");
-    }
-
-    GD.Print("x : " + x);
-    GD.Print("y : " + y);
-    GD.Print("type : " + type);
-    
-    if ((x - 1 >= 0 && placeables[x - 1, y].getPlaceableType() == type) ||
-        (x + 1 < placeables.GetLength(0) && placeables[x + 1, y].getPlaceableType() == type) ||
-        (y - 1 >= 0 && placeables[x, y - 1].getPlaceableType() == type) ||
-        (y + 1 < placeables.GetLength(0) && placeables[x, y + 1].getPlaceableType() == type))
-        {
-            return true;
-        }
-
-    return false;*/
-
-
-   /* for(int i = 0; i < placeables.GetLength(0); i++)
-    {
-        for(int j = 0; j < placeables.GetLength(0); j++)
-        {
-            if(placeables[i,j] != null)
-            {
-                GD.Print(placeables[i,j] + " "+x+" "+y);
-            }
-        }
-        GD.Print("transition");
-    }
-    return true;*/
-
-    //GD.Print("type " + type);
-    //GD.Print(placeables.GetLength(0));
-
-
-
         if(((x<placeables.GetLength(0)-1)   &&    (placeables[x+1,y] != null)    && (placeables[x+1,y].getPlaceableType() == type)) ||
         ((y<placeables.GetLength(0)-1)  &&  (placeables[x,y+1] != null )    &&  ( placeables[x,y+1].getPlaceableType() == type)) ||
         ((x>0)  &&  (placeables[x-1,y] != null )    &&  ( placeables[x-1,y].getPlaceableType() == type)) ||
@@ -114,23 +48,18 @@ return false;
 
     int neighbourCount = 0;
 
-    // Check right neighbor
     if (x < rowCount - 1 && placeables[x + 1, y] != null && placeables[x + 1, y].getPlaceableType() == type)
         neighbourCount++;
 
-    // Check bottom neighbor
     if (y < colCount - 1 && placeables[x, y + 1] != null && placeables[x, y + 1].getPlaceableType() == type)
         neighbourCount++;
 
-    // Check left neighbor
     if (x > 0 && placeables[x - 1, y] != null && placeables[x - 1, y].getPlaceableType() == type)
         neighbourCount++;
 
-    // Check top neighbor
     if (y > 0 && placeables[x, y - 1] != null && placeables[x, y - 1].getPlaceableType() == type)
         neighbourCount++;
 
-    // Check diagonal neighbors
     if (x < rowCount - 1 && y < colCount - 1 && placeables[x + 1, y + 1] != null && placeables[x + 1, y + 1].getPlaceableType() == type)
         neighbourCount++;
 

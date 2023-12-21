@@ -1,6 +1,8 @@
 using Godot;
 using TerritoriaV1;
-
+/// <summary>
+/// la tile map, vue qui represente le village pour le joueur
+/// </summary>
 public partial class TileMap : Godot.TileMap, VillageObserver
 {
 	// Called when the node enters the scene tree for the first time.
@@ -21,7 +23,10 @@ public partial class TileMap : Godot.TileMap, VillageObserver
 	{
 		
 	}
-	//Allows you to change the floor
+	/// <summary>
+	/// ce qui se passe quand un tiles de la tilemap change
+	/// </summary>
+	/// <param name="tiles">le tile qui a changé</param>
 	public void ReactToTilesChange(TileType[,] tiles)
 	{
 		for (int i = 0; i < tiles.GetLength(0); i++)
@@ -40,7 +45,10 @@ public partial class TileMap : Godot.TileMap, VillageObserver
 		}
 	}
 	
-	//Allows you to place the buildings that are there when you start the game
+	/// <summary>
+	/// ce qui se passe quand un placeable change : le fait apparaitre sur la tilemap
+	/// </summary>
+	/// <param name="placeables">le nouveau tableau de placeables</param>
 	public void ReactToPlaceableChange(Placeable[,] placeables)
 	{
 		for (int i = 0; i < placeables.GetLength(0); i++)

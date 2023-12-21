@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="style.xsl"?>
+<doc>
+    <assembly>
+        <name>TerritoriaV1</name>
+    </assembly>
+    <members>
+        <member name="T:GameManager">
+            <summary>
+            la classe GameManager fait office de main, c'est lui qui instancie les differents noeuds, et gère les interactions entre ceux-ci, notamment le changement de tour
+            </summary>
+        </member>
+        <member name="E:ResourcePrintUnit.TotalChanged">
+            <inheritdoc cref="T:ResourcePrintUnit.TotalChangedEventHandler"/>
+        </member>
+        <member name="E:ResourceTradeUnit.TotalChanged">
+            <inheritdoc cref="T:ResourceTradeUnit.TotalChangedEventHandler"/>
+        </member>
+        <member name="E:TerritoriaSlider.ValueChanged">
+            <inheritdoc cref="T:TerritoriaSlider.ValueChangedEventHandler"/>
+        </member>
+    </members>
+</doc>

@@ -6,7 +6,6 @@ public partial class ResourcePrintUnit : Control
 	private Label valueLabel;
 	[Export] private Texture2D icon;
 
-	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		valueLabel = this.FindChild("ResourceLabel", true, true) as Label;

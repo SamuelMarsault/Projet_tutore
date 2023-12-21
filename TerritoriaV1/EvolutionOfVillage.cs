@@ -2,7 +2,9 @@ using Godot;
 using Godot.Collections;
 
 namespace TerritoriaV1;
-
+/// <summary>
+/// permet de choisir quel strategies de développement le village va appliquer
+/// </summary>
 public class EvolutionOfVillage
 {
     private Village village;
@@ -23,28 +25,14 @@ public class EvolutionOfVillage
         this.gameManager = gm;
     }
 
+/// <summary>
+/// permet de determiner la strategie qu'utilisera le village, parmi la premiere, la deuxieme et la troisième ( cf leurs doc respectives)
+/// </summary>
     public void DetermineStrategy() 
     {
-        if(village == null)// test de village, car le EoV est crée par le GM, 
-         //qui le passe ensuite à VM. mais comme c'est VM qui crée Village, on le passe par setter a EoV 
-        {
-            GD.Print("EoV - village est null");
-        }
-
         ressources = village.GetResources();
         neededRessources = village.GetNeededRessourcesPublic();
         this.NBPlaceables = village.getNBPlaceables();
-        
-        
-        /*int barCap = NBPlaceables[PlaceableType.HOUSE.GetHashCode()] * 10;
-        if (barCap > 100) barCap = 100;
-        foreach (Placeable placeable in village.GetPlaceables())
-        {
-            if (placeable!=null && placeable.getPlaceableType() == PlaceableType.BAR)
-            {
-                placeable.setProductionCapacity(barCap);
-            }
-        }*/
         
         if(this.NBPlaceables[(int)PlaceableType.SAWMILL] == 0 && 
         this.NBPlaceables[(int)PlaceableType.FIELD] == 0 &&
@@ -52,7 +40,6 @@ public class EvolutionOfVillage
         && alreadySecondary == true && alreadyTertiary == false
         && NBPlaceables[(int)PlaceableType.HOUSE]>20) 
         {
-            GD.Print("tertiary");
             alreadyTertiary = true;
 
             village.SetBuildingStrategy(factory.createTertiaryStrategy(village.GetPlaceables(),village.GetTiles()));
@@ -60,25 +47,17 @@ public class EvolutionOfVillage
         }
         else if(turn > 10 && alreadyTertiary == false && alreadySecondary == false)
         {
-            GD.Print("secondary");
             alreadySecondary = true;
 
             village.SetBuildingStrategy(factory.createSecondaryStrategy(village.GetPlaceables(),village.GetTiles()));
 		    gameManager.printMessage("Le village a atteint une phase de deterritorialisation: des habitants viennent y vivrent, et certaines usines de ressources primaires commencent à fermer, au profit de l'import des ressources nécéssaire à son dévellopement");
-	
-        }
-        else if(alreadyTertiary == false && alreadySecondary == false)
-        {
-            //village.SetBuildingStrategy(factory.createPrimaryStrategy(village.GetPlaceables(),village.GetTiles()));
-            // garde la stratégie primaire actuelle, pas besoin de la rechanger
-        }
-        else
-        {
-            GD.Print("on ne devrais pas être ici");
         }
         turn++;
     }
-
+/// <summary>
+/// simple setter pour l'attribut village
+/// </summary>
+/// <param name="village">le village en question</param>
     public void SetVillage(Village village) 
     {
         this.village = village;

@@ -3,7 +3,9 @@ using System;
 using System.Security.Principal;
 using System.Threading;
 using TerritoriaV1;
-
+/// <summary>
+/// la classe GameManager fait office de main, c'est lui qui instancie les differents noeuds, et gère les interactions entre ceux-ci, notamment le changement de tour
+/// </summary>
 public partial class GameManager : Node2D
 {
 	private VillageManager villageManager;
