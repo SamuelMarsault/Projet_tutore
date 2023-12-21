@@ -50,4 +50,10 @@ dans un repertoire git en faisant `git clone <ssh_url>`
 5. Ouvrir godot, cliquer sur `Importer` et chercher puis ouvrir le fichier `project.godot` dans votre arborescence. 
 Godot vous demandera peut-être un mode de rendu, choisissez `compatibility`.
 
-6. Modifier le projet pour votre usage personnel à sa guise.
+6. Modifier le projet pour votre usage personnel à votre guise.
+
+### acceder à la documentation : 
+
+nous avons un systeme de documentation automatique xml :
+
+[documentation]( TerritoriaV1/bin/Territoria.XML)
