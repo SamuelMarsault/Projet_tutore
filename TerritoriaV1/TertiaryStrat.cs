@@ -1,8 +1,10 @@
-using Godot;
 using System;
 using System.Collections.Generic;
 using TerritoriaV1;
 
+/// <summary>
+/// Représente une stratégie de construction tertiaire, construit des bâtiments de service et des maisons
+/// </summary>
 public class TertiaryStrat : BuildingStrategy
 {
     public TertiaryStrat(Placeable[,] placeables,TileType[,] tiles)
@@ -10,8 +12,18 @@ public class TertiaryStrat : BuildingStrategy
         SetTiles(tiles);
     }
 
-    override 
-    public Placeable[,] BuildNewPlaceable(int[] import,
+    /// <summary>
+    /// Créé et place les bâtiments dans le village, actualise aussi la production des bars selon le nombre de maisons
+    /// Et détruit des maisons s'il n'y a pas assez de bière
+    /// </summary>
+    /// <param name="import">Les imports de ce tour</param>
+    /// <param name="export">Les exports de ce tour</param>
+    /// <param name="factory">La factory de Placeable</param>
+    /// <param name="targetTile">Un tableau de TileType cible, 1 pour chaque bâtiment</param>
+    /// <param name="placeables">Les Placeable du village</param>
+    /// <param name="resources">Les ressources actuelles</param>
+    /// <param name="oldResources">Les ressources avant production</param>
+    override public Placeable[,] BuildNewPlaceable(int[] import,
         int[] export, PlaceableFactory factory, 
         TileType[] targetTile, Placeable[,] placeables, int[] resources, int[] oldResources)
     {
@@ -77,15 +89,16 @@ public class TertiaryStrat : BuildingStrategy
         foreach (Placeable placeable in newPlaceables)
         {
             PlacePlaceable(placeables,placeable, targetTile[placeable.getPlaceableType().GetHashCode()]);
-            //Console.WriteLine(targetTile[placeable.getPlaceableType().GetHashCode()]+" "+placeable.getPlaceableType().GetHashCode());
         }
 
         Destroy(PlaceableType.BEER_USINE,placeables);
 
         return placeables;
     }
-    override 
-    public int[,] GetExchangesRates()
+    /// <summary>
+    /// getter des taux de changes pour l'import/export par ressource
+    /// </summary>
+    override public int[,] GetExchangesRates()
     {
         int[,] exchangesRates = new[,]
         {
@@ -95,6 +108,11 @@ public class TertiaryStrat : BuildingStrategy
         return exchangesRates;
     }
 
+    /// <summary>
+    /// Place un Placeable dans le tableau 2D des Placeable en fonction du TileType cibe
+    /// </summary>
+    /// <param name="placeables">Les Placeable du village</param>
+    /// /// <param name="placeable">Le Placeable en question</param>
     override public Placeable[,] PlacePlaceable(Placeable[,] placeables,Placeable placeable, TileType targetTile)
      {
             bool notPlaced = true;

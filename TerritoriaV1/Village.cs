@@ -2,7 +2,6 @@ using System;
 using Godot;
 
 using System.Collections.Generic;
-using System.Linq;
 using Godot.Collections;
 using TerritoriaV1;
 
@@ -65,6 +64,11 @@ public class Village
         this.SetBuildingStrategy(factoryStrat.createPrimaryStrategy(this.placeables, this.GetTiles()));
         this.turn = 1;
 
+    }
+
+    public bool IsStratTertiary()
+    {
+        return strategy.GetType()==typeof(TertiaryStrat);
     }
     
     //Renvoi les ressources actuelles du village
@@ -148,14 +152,7 @@ public class Village
                 }
             }
         }
-        
-        /*Console.WriteLine("##### Après production : #####");
-        for (int i = 0; i < neededResources.Length; i++)
-        {
-            Console.WriteLine(Enum.GetNames(typeof(ResourceType)).GetValue(i)+" : ");
-            Console.WriteLine("Disponible : "+resources[i]);
-            Console.WriteLine("Besoin : "+neededResources[i]);
-        }*/
+
         return true;
     }
 
@@ -193,25 +190,10 @@ public class Village
 
      private void ApplyStrategy(int[] resourcesBeforeProduct)
     {
-        if(placeables == null)
-        {
-            //GD.Print("placeables == null");
-        }
-        //Console.WriteLine("Statégie "+strategy.GetType());
         placeables = strategy.BuildNewPlaceable(old_import, old_export, factory, targetTiles, placeables, resources, resourcesBeforeProduct);
         NotifyPlaceableChange();
         exchangesRates = strategy.GetExchangesRates();
         NotifyExchangesRatesChange();
-        /*for(int i = 0; i < placeables.GetLength(0); i++)
-        {
-            for(int j = 0; j < placeables.GetLength(0); j++)
-            {
-                if(placeables[i,j] != null)
-                {
-                    GD.Print(placeables[i,j].getPlaceableType());
-                }
-            }
-        }*/
         NotifyResourcesChange();
     }
     
@@ -324,12 +306,10 @@ public class Village
 
     public int[] applyResourcesTransaction(){
         int[] finalResources = new int[resources.Length];
-        GD.Print("hello");
         for (int i = 0; i < finalResources.Length-1; i++)
         {
             
             finalResources[i] = resources[i];
-            //GD.Print(i+" Après "+finalResources[i]+" "+old_import[i]+" "+old_export[i]);
         }
 
         finalResources[resources.Length - 1] = resources[resources.Length-1];

@@ -1,5 +1,3 @@
-using Godot;
-using System.Collections.Generic;
 using TerritoriaV1;
 
 public class VillageManager
@@ -18,10 +16,10 @@ public class VillageManager
 
         village.StartVillage(); }
 
-    public void NextTurn(int[] export, int[] import, int[] money)
+    public void NextTurn(int[] export, int[] import, int[] money, int turn)
     {
 
-        evolutionOfVillage.DetermineStrategy();
+        evolutionOfVillage.DetermineStrategy(turn);
         village.NextTurn(export, import, money);
         
     }

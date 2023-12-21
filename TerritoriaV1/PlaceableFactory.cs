@@ -1,7 +1,4 @@
 using System;
-using Godot;
-using Godot.Collections;
-
 namespace TerritoriaV1;
 //Faire que pour chaque tour il faux retirer des matériaux en fonction de se que l'on veux construire
 public class PlaceableFactory

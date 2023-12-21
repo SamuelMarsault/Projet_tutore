@@ -1,9 +1,6 @@
-using Godot;
-using System;
-using System.Runtime.InteropServices;
 using TerritoriaV1;
 
-public partial class BuildingStrategyFactory
+public class BuildingStrategyFactory
 {
  
     public BuildingStrategy createPrimaryStrategy(Placeable[,] placeables, TileType[,] tiles)

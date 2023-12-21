@@ -25,8 +25,7 @@ public partial class GameManager : Node2D
 	public override void _Ready()
 	{
 		TextureRect textureRect = GetNode<TextureRect>("StartMenu");
-		textureRect.Visible = true;
-		this.GetWindow().Unresizable = true;
+		textureRect.Visible = true; 
 		this.GetWindow().MinSize = this.GetWindow().Size; 
 		Button Button = GetNode<Button>("Printer/ChangeMessageNeedResources");
 		this.button = Button;
@@ -70,8 +69,8 @@ public partial class GameManager : Node2D
 		
 		
 		
-		villageManager.NextTurn(export, import, money);
-		if(currentTurnNb >= nbMaxTurn)
+		villageManager.NextTurn(export, import, money, currentTurnNb);
+		if(currentTurnNb >= nbMaxTurn && villageManager.GetVillage().IsStratTertiary())
 		{
 			EndGame("Félicitations,\n vous avez fait progresser le village à travers les phases de son développement urbain :\n vous avez gagné !", Colors.Green);
 			return;
@@ -102,10 +101,6 @@ public partial class GameManager : Node2D
 		citizen.Visible = false;
 		end_Screen.setText(message, color);
 		end_Screen.Visible = true;
-	}
-
-	public void Victory(){
-		//TODO
 	}
 
 	public void _on_missing_ressource_canceled(){

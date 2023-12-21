@@ -50,7 +50,6 @@ public partial class Printer : Node, VillageObserver
 			}
 		}
 		else{
-			GD.Print("PB taille");
 		}		
 	}
 

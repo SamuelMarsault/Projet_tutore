@@ -1,6 +1,4 @@
 using Godot;
-using System;
-
 public partial class end_screen : Panel
 {
 	public void setText(string text, Color color)

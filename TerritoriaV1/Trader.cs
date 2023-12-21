@@ -44,7 +44,6 @@ public partial class Trader : Node, VillageObserver
 	{
 		foreach (ResourceTradeUnit resourceTradeUnit in resourceTradeUnits)
 		{
-			//Console.WriteLine("coucou");
 			resourceTradeUnit.SetExportMax(total);
 		}
 	}
