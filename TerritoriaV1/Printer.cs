@@ -71,7 +71,7 @@ public partial class Printer : Node, VillageObserver
 	/// <summary>
 	/// Réagi au changement des placeables, ici ne fait rien
 	/// </summary>
-	/// <param name="placeables">Les Placeable du village</para
+	/// <param name="placeables">Les Placeable du village</param>
 	public void ReactToPlaceableChange(Placeable[,] placeables)
 	{
 		

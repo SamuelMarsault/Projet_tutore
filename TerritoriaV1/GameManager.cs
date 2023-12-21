@@ -67,6 +67,7 @@ public partial class GameManager : Node2D
 		Control infoCard = GetNode<Control>("InfoCard");
 		tileMap.setInfoCard(infoCard);
 		
+		
 		evolutionOfVillage = new EvolutionOfVillage(this);
 		if(evolutionOfVillage != null) 
 			villageManager = new VillageManager(GetNode<TileMap>("Map"),printer,trader,evolutionOfVillage);
@@ -223,14 +224,20 @@ public partial class GameManager : Node2D
 		afficheMessage.Visible = true;
 		trade.SetVisibility(false);
 		print.SetVisibility(false);
+		turn.Visible = false;
+		citizen.Visible = false;
+		button.Visible = false;
 	}
 
 	/// <summary>
-	/// Ferme le message de passage de tour
+	/// Ferme le message de passage de tour et afficher tout les autres composants
 	/// </summary>
 	public void _on_stop_text_pressed(){
 		afficheMessage.Visible = false;
 		trade.SetVisibility(true);
 		print.SetVisibility(true);
+		turn.Visible = true;
+		citizen.Visible = true;
+		button.Visible = true;
 	}
 }
