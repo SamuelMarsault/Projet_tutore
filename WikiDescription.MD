@@ -2,13 +2,18 @@
 
 ## Objectifs Pédagogiques
 
-### Définitions
+### Définitions :
 
 #### La territorialisation :
 La territorialisation consiste à utiliser le territoire en fonction des différentes ressources disponibles.
 
 #### La déterritorialisation : 
 La déterritorialisation, à l'opposé, est centrée sur l'extérieur et sur la transition des ressources par importation et exportation.
+
+
+### transmitions des objectifs : 
+notre jeu est divisé en 3 phases qui representent l'effet des phases succesives de la territorialisation sur un métabolysme urbain.
+
 
 ## Description du Jeu
 
