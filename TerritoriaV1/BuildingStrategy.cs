@@ -13,46 +13,25 @@ public abstract class BuildingStrategy {
 
     public abstract int[,] GetExchangesRates();
     public abstract Placeable[,] PlacePlaceable(Placeable[,] placeables,Placeable placeable, TileType targetTile);
-    /*{
-        bool notPlaced = true;
-        for (int i = 0; i < placeables.GetLength(0) && notPlaced; i++)
-        {
-            for (int j = 0; j < placeables.GetLength(1) && notPlaced; j++)
-            {
-                if (HasAdjacentPlaceableOfType(i, j, placeable.getPlaceableType(), placeables) && CanPlaceAtLocation(i, j, targetTile, placeables))
-                {
-                    placeables[i, j] = placeable;
-                    notPlaced = false;
-                }
-            }
-        }
 
-        if (notPlaced)
-        {
-            PlaceRandomly(targetTile, placeable, placeables);
-        }
-
-        return placeables;
-    }*/
-
- protected bool CanPlaceAtLocation(int x, int y, TileType targetTileType, Placeable[,] placeables)
-{
-if (x < placeables.GetLength(0) && y < placeables.GetLength(1))
-{
-    if ((tiles[x, y] != targetTileType) || (placeables[x, y] != null))
+    protected bool CanPlaceAtLocation(int x, int y, TileType targetTileType, Placeable[,] placeables)
     {
-        
-        return false;
-    }
-    else
+    if (x < placeables.GetLength(0) && y < placeables.GetLength(1))
     {
-    GD.Print("tiles : "+ tiles[x,y]); GD.Print("target : "+targetTileType);
-    return true; 
+        if ((tiles[x, y] != targetTileType) || (placeables[x, y] != null))
+        {
+            
+            return false;
+        }
+        else
+        {
+        GD.Print("tiles : "+ tiles[x,y]); GD.Print("target : "+targetTileType);
+        return true; 
+        }
     }
-}
-return false;
+    return false;
 
-}
+    }
 
 
     protected bool HasAdjacentPlaceableOfType(int x, int y, PlaceableType type, Placeable[,] placeables)

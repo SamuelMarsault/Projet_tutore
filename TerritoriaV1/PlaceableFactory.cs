@@ -10,8 +10,8 @@ public class PlaceableFactory
     {
         int[] input = new int[Enum.GetNames(typeof(ResourceType)).Length];
         int[] output = new int[Enum.GetNames(typeof(ResourceType)).Length];
-        input[(int)ResourceType.BEER] = 1;
-        output[(int)ResourceType.MONEY] = 6;
+        //input[(int)ResourceType.BEER] = 1;
+        //output[(int)ResourceType.MONEY] = 6;
         Placeable house = new Placeable(PlaceableType.HOUSE,input, output,5);
         return house;
     }
@@ -20,8 +20,8 @@ public class PlaceableFactory
     {
         int[] input = new int[Enum.GetNames(typeof(ResourceType)).Length];
         int[] output = new int[Enum.GetNames(typeof(ResourceType)).Length];
-        input[(int)ResourceType.MONEY] = 2;
-        output[(int)ResourceType.WOOD] = 1;
+        //input[(int)ResourceType.MONEY] = 2;
+        //output[(int)ResourceType.WOOD] = 1;
         Placeable sawmill = new Placeable(PlaceableType.SAWMILL,input, output,5);
         return sawmill;
     }
@@ -38,8 +38,8 @@ public class PlaceableFactory
     {
         int[] input = new int[Enum.GetNames(typeof(ResourceType)).Length];
         int[] output = new int[Enum.GetNames(typeof(ResourceType)).Length];
-        input[(int)ResourceType.BEER] = 1;
-        output[(int)ResourceType.MONEY] = 5;
+        //input[(int)ResourceType.BEER] = 1;
+        //output[(int)ResourceType.MONEY] = 5;
         Placeable bar = new Placeable(PlaceableType.BAR,input, output,0);
         return bar;
     }
@@ -48,8 +48,8 @@ public class PlaceableFactory
     {
         int[] input = new int[Enum.GetNames(typeof(ResourceType)).Length];
         int[] output = new int[Enum.GetNames(typeof(ResourceType)).Length];
-        input[(int)ResourceType.MONEY] = 2;
-        output[(int)ResourceType.HOP] = 1;
+        //input[(int)ResourceType.MONEY] = 2;
+        //output[(int)ResourceType.HOP] = 1;
         Placeable field = new Placeable(PlaceableType.FIELD,input, output,5);
         return field;
     }
@@ -58,7 +58,7 @@ public class PlaceableFactory
     {
         int[] input = new int[Enum.GetNames(typeof(ResourceType)).Length];
         int[] output = new int[Enum.GetNames(typeof(ResourceType)).Length];
-        output[(int)ResourceType.ICE] = 1;
+        //output[(int)ResourceType.ICE] = 1;
         Placeable ice_usine = new Placeable(PlaceableType.ICE_USINE,input, output,5);
         return ice_usine;
     }
@@ -67,9 +67,9 @@ public class PlaceableFactory
     {
         int[] input = new int[Enum.GetNames(typeof(ResourceType)).Length];
         int[] output = new int[Enum.GetNames(typeof(ResourceType)).Length];
-        input[(int)ResourceType.ICE] = 1;
-        input[(int)ResourceType.HOP] = 1;
-        output[(int)ResourceType.BEER] = 1;
+        //input[(int)ResourceType.ICE] = 1;
+        //input[(int)ResourceType.HOP] = 1;
+        //output[(int)ResourceType.BEER] = 1;
         Placeable beer_usine = new Placeable(PlaceableType.BEER_USINE,input, output,10);
         return beer_usine;
     }

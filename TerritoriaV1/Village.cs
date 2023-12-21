@@ -335,46 +335,58 @@ public class Village
         }
     }
 
-    public int[] applyResourcesTransaction(){
-        int[] actualResource = GetResources();
-        int[] testMoney = GetResources();
-        int[] export = new int[Enum.GetNames(typeof(ResourceType)).Length-1];
-        int[] import = new int[Enum.GetNames(typeof(ResourceType)).Length-1]; 
-                
-        for (int i = 0; i < export.Length; i++){
-            export[i] = old_export[i];
-            import[i] = old_import[i];
-        }
+public int[] applyResourcesTransaction()
+{
+    int[] actualResource = GetResources();
+    int[] testMoney = GetResources();
+    int[] export = new int[Enum.GetNames(typeof(ResourceType)).Length - 1];
+    int[] import = new int[Enum.GetNames(typeof(ResourceType)).Length - 1];
 
-        // Vérifier si la monnaie devient négative
-        int newMoney = testMoney[4];
-        for (int j = 0; j < old_money.Length; j++){
-            if ((newMoney + import[j]) - export[j] >= 0){
-                newMoney += old_money[j];
-            }
-        }
-
-        // Vérifier si les ressources deviennent négatives
-        bool resourcesNegative = false;
-        for (int i = 0; i < import.Length; i++){
-            if ((newMoney >= 0) && (actualResource[i] + import[i] - export[i] >= 0)){
-                actualResource[i] += import[i];
-                actualResource[i] -= export[i];
-            } 
-            else 
-            {
-                resourcesNegative = true;
-            }
-        }
-
-        // Mettre à jour la monnaie seulement si ni la monnaie ni les ressources ne sont devenues négatives
-        if (!resourcesNegative && (newMoney >= 0)) {
-            actualResource[4] = newMoney;
-        }
-
-        return actualResource;
+    for (int i = 0; i < export.Length; i++)
+    {
+        export[i] = old_export[i];
+        import[i] = old_import[i];
     }
 
+    // Check if the money becomes negative
+    int newMoney = testMoney[4];
+    for (int j = 0; j < old_money.Length; j++)
+    {
+        if ((newMoney + import[j]) - export[j] >= 0)
+        {
+            newMoney += old_money[j];
+        }
+    }
+
+    // Check if the resources become negative
+    bool resourcesNegative = false;
+    for (int i = 0; i < import.Length; i++)
+    {
+        int availableResource = actualResource[i] + import[i] - export[i];
+
+        if (availableResource >= 0)
+        {
+            // Have enough resources, deduct and update
+            actualResource[i] -= export[i];
+            actualResource[4] += import[i]; // Gain money
+        }
+        else
+        {
+            // Not enough resources, gain corresponding money
+            actualResource[i] += actualResource[i] + import[i] - export[i];
+            actualResource[4] = 0;
+            resourcesNegative = true;
+        }
+    }
+
+    // Update money only if neither money nor resources became negative
+    if (!resourcesNegative && (newMoney >= 0))
+    {
+        actualResource[4] = newMoney;
+    }
+
+    return actualResource;
+}
 
     public void setMessageNeedResources(bool display){
         this.printNeedResources = display;

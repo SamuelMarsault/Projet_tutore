@@ -71,21 +71,23 @@ public partial class GameManager : Node2D
 
 		if(currentTurnNb > nbMaxTurn)
 		{
-			EndGame("felicitation, vous avez fait progresser le village à travers les phases de son dévellopement urbain : vous avez gagné !");
+			EndGame("Félicitation ! Vous avez fait progresser le village à travers les différentes phases de son dévellopement urbain. Vous avez gagné !");
 			return;
 		}
 
 		if(!villageManager.IsVillageOk())
 		{
-			EndGame("vous avez perdu ! : tous les habitant ont quittés votre village");
+			EndGame("Vous avez perdu ! Tous les habitants ont quitté votre village.");
 			return;
 		}
 
+		/*
 		if(villageManager.change == false && currentTurnNb > 2)
 		{
-			EndGame("vous avez perdu ! : il n'y a eu aucune activité économique dans votre village");
+			EndGame("Vous avez perdu ! Il n'y a eu aucune activité économique dans votre village.");
 			return;
 		}
+		*/
 		
 		villageManager.NextTurn(export, import, money);
 		citizen.updateCurrentTurn(villageManager.getNumberCitizen());
@@ -138,7 +140,7 @@ public partial class GameManager : Node2D
 		turn.Visible = true;
 		menu.Visible = false;
 		citizen.Visible = true;
-		printMessage("Bienvenue ! Vous êtes responsables de l'import et de l'export des ressources de notre village. Nous comptons sur vous.");
+		printMessage("Bienvenue au village de Territoria ! \n\n Vous êtes responsables de l'importation et de l'exportation des ressources de notre village. Nous comptons sur vous.");
 	}
 
 	public void _on_exit_pressed(){
