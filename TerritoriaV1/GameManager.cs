@@ -16,7 +16,8 @@ public partial class GameManager : Node2D
 	private Trader trade;
 	MessageDialog acd;
 	private Button button;
-	AcceptDialog messageDialog;
+
+	private Panel afficheMessage;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -28,10 +29,11 @@ public partial class GameManager : Node2D
 		Button Button = GetNode<Button>("Printer/ChangeMessageNeedResources");
 		this.button = Button;
 
-		var md = GetNode<AcceptDialog>("AcceptDialogMessage");
-		this.messageDialog = md;
-
 		acd = GetNode<MessageDialog>("AcceptDialogEND");
+
+		var panel = GetNode<Panel>("AfficheMessages");
+		panel.Visible = false;
+		afficheMessage = panel;
 
 		turn = GetNode<turnNB>("t");
 		turn.updateLabel("tour actuel : ");
@@ -161,6 +163,13 @@ public partial class GameManager : Node2D
 
 	public void setMessage(string message)
 	{
-		messageDialog.DialogText = message;
+		Label messageStrat = GetNode<Label>("AfficheMessages/TextStrat");
+		GD.Print(messageStrat.Name);
+		messageStrat.Text = message;
+		afficheMessage.Visible = true;
+	}
+
+	public void _on_stop_text_pressed(){
+		afficheMessage.Visible = false;
 	}
 }
