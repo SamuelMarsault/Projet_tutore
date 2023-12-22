@@ -219,7 +219,7 @@ public partial class GameManager : Node2D
 	private void _on_info_pressed()
 	{
 		// Ouvrir le navigateur avec le lien spécifique
-		OS.ShellOpen("https://git.unistra.fr/miniotti/han23-t3-a/-/blob/main/WikiDescription.MD?ref_type=heads");
+		OS.ShellOpen("https://git.unistra.fr/miniotti/han23-t3-a/-/blob/main/WikiDescription.md?ref_type=heads");
 	}
 
 	/// <summary>
