@@ -30,7 +30,7 @@ https://docs.google.com/document/d/1Y5vt4j5I7eVvQMkLXf5Q6LSS41f13dUV9iAZQtb-zHs/
 
 ##### Sur Windows : 
 
-1. telecharger et deziper [territoriaWindows]((download/Windows/territoriaWindows.zip)
+1. telecharger et deziper [territoriaWindows](download/Windows/territoriaWindows.zip)
 2. cliquer sur 'TerritoriaV1.exe'
 
 ##### Sur Linux (testé sur debian et linux MINT) :
