@@ -18,6 +18,12 @@ Notre jeu est divisé en 3 phases qui représentent l'effet des phases successiv
 
 Le joueur est responsable de l'import/export des ressources du quartier, et celui-ci évolue directement en fonction des décisions que le joueur prend.
 
+### Bâtiments du Jeu
+
+Il y a 7 bâtiments dans le jeu :
+
+- __k__
+
 ### Ressources du Jeu
 
 Il y a 6 ressources dans le jeu :
@@ -46,13 +52,15 @@ Le jeu se déroule en trois phases :
 
 ![Capture d'écran 3](/screens/ScreenInGame3ForWiki.png "Screen du jeu")
 
+
 ### Actions du joueur
 
 Le joueur peut :
 
 - **3** | Importer ou exporter les 4 ressources (bières, houblon, glace, bois)
-- **3** | Exporter ces mêmes ressources
 - **3** | Valider ses actions, ce qui déclenche le tour suivant
+- **1** | Cliquer sur les bâtiments pour voir leurs besoins et productions de ressources
+- **6** | Choisir de l'aide ou non
 
 ### Retours au joueur
 
