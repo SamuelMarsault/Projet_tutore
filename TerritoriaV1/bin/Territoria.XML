@@ -357,6 +357,11 @@
             Ferme le message de passage de tour et afficher tout les autres composants
             </summary>
         </member>
+        <member name="M:GameManager._on_musique_jeu_finished">
+            <summary>
+            Quand la musique se termine, permet de la relancer
+            </summary>
+        </member>
         <member name="T:MessageDialog">
             <summary>
             utiliser pour communiquer via pop up au joueur
@@ -667,6 +672,7 @@
             </summary>
             <param name="placeables">Les Placeable du village</param>
             <param name="placeable">Le Placeable en question</param>
+            <param name="targetTile">TileType cible pour le bâtiment</param>
             <returns>La nouvelle grille de bâtiment</returns>
         </member>
         <member name="T:TileMap">

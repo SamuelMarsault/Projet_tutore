@@ -69,11 +69,14 @@ public class SecondaryStrat : BuildingStrategy
                     nbBar++;
             }
         }
-        while (beerProduction/10<nbHouse)
+
+        //Si manque de bière
+        while (beerProduction/5<nbHouse)
         {
             nbHouse--;
             Destroy(PlaceableType.HOUSE, placeables);
         }
+        
         if(resourcesProduction[ResourceType.BEER.GetHashCode()]*1.25 > resourcesNeed[ResourceType.BEER.GetHashCode()]) // le joueur a interet a exporter ses bieres si il veut pas qu'on construisent des bars partout
         {
                 if(resources[(int)ResourceType.WOOD] > 10 && nbBar*10<=nbHouse)
@@ -119,7 +122,7 @@ public class SecondaryStrat : BuildingStrategy
     {
         int[,] exchangesRates = new[,]
         {
-            { 1, 2, 2, 8 }, //import
+            { 3, 2, 2, 8 }, //import
             { 1, 1, 1, 6 } //export
         };
         return exchangesRates;

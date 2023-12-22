@@ -17,7 +17,7 @@ public partial class GameManager : Node2D
 
 	end_screen end_Screen;
 
-	int nbMaxTurn = 50;
+	int nbMaxTurn = 35;
 	int currentTurnNb = 1;
 
 	private Printer print;
@@ -97,13 +97,17 @@ public partial class GameManager : Node2D
 		villageManager.NextTurn(export, import, money, currentTurnNb);
 		if(currentTurnNb >= nbMaxTurn && villageManager.GetVillage().IsStratTertiary())
 		{
-			EndGame("Félicitations,\n vous avez fait progresser le village à travers les phases de son développement urbain :\n vous avez gagné !", Colors.Green);
+			EndGame("Félicitations ! \n Vous avez fait progresser le village à travers les phases de son développement urbain :\n vous avez gagné !", Colors.Green);
 			return;
 		}
 
 		if(!villageManager.IsVillageOk())
 		{
-			EndGame("Vous avez perdu !\nTous les habitants ont quittés votre village...",Colors.Red);
+			EndGame("Vous avez perdu !\n Tous les habitants ont quittés votre village...",Colors.Red);
+			return;
+		}
+		if(currentTurnNb >= nbMaxTurn){
+			EndGame("Vous avez perdu !\n Votre village ne s'est pas assez développé...",Colors.Red);
 			return;
 		}
 		currentTurnNb++;
