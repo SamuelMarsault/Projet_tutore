@@ -20,9 +20,15 @@ Le joueur est responsable de l'import/export des ressources du quartier, et celu
 
 ### Bâtiments du Jeu
 
-Il y a 7 bâtiments dans le jeu :
+Il y a 7 types bâtiments dans le jeu :
 
-- __k__
+- __La gare__
+- __Les maisons__
+- __Le bar__
+- __Les champs__
+- __L'usine à bière__
+- __L'usine à glace__
+- __La scierie__
 
 ### Ressources du Jeu
 
