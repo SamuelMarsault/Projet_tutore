@@ -83,11 +83,11 @@ Nous souhaitons exprimer notre gratitude envers deux individus exceptionnels qui
 #### Pilou
 #### Maestro des Mélodies
 
-    Pilou, la créatrice de magie sonore, a donné une âme au jeu en tissant des notes en harmonie, créant ainsi une symphonie qui résonne dans le coeur de chaque joueur.
+Pilou, la créatrice de magie sonore, a donné une âme au jeu en tissant des notes en harmonie, créant ainsi une symphonie qui résonne dans le coeur de chaque joueur.
 
 #### Juju
 #### Artisan des Visuels
 
-    Juju, l'architecte visuel, a sculpté le monde du jeu avec des sprites inspirants, transformant des idées abstraites en une réalité visuelle captivante.
+Juju, l'architecte visuel, a sculpté le monde du jeu avec des sprites inspirants, transformant des idées abstraites en une réalité visuelle captivante.
 
 Ensemble, ils ont transcendé les frontières de l'ordinaire, élevant notre projet vers de nouveaux sommets. Les Gardiens de l'Excellence, Pilou et Juju, ont laissé une trace indélébile sur ce projet.
