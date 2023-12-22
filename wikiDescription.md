@@ -8,11 +8,11 @@ La **territorialisation** se réfère à la première phase où les activités h
 
 La **déterritorialisation** est le processus par lequel des activités, des fonctions ou des populations quittent ou transcendent leur espace d'origine. Cela peut se produire en raison de divers facteurs tels que la mondialisation, les changements économiques ou les évolutions technologiques, entraînant la relocalisation ou la disparition de certaines activités. Cela peut également impliquer une transition des activités du secteur primaire vers d'autres secteurs.
 
-La **tertiarisation** fait référence à une transition ou à une augmentation des activités économiques liées au secteur tertiaire, notamment les services, par rapport aux secteurs primaire (agriculture) et secondaire (industrie). Cela reflète souvent le passage d'une économie axée sur la production de biens, y compris ceux du secteur primaire, à une économie axée sur la prestation de service
+La **tertiarisation** fait référence à une transition ou à une augmentation des activités économiques liées au secteur tertiaire, notamment les services, par rapport aux secteurs primaire (agriculture) et secondaire (industrie). Cela reflète souvent le passage d'une économie axée sur la production de biens, y compris ceux du secteur primaire, à une économie axée sur la prestation de service.
 
 ### Transmission des objectifs  
 
-Notre jeu est divisé en 3 phases qui representent l'effet des phases succesives de la territorialisation sur un métabolysme urbain.
+Notre jeu est divisé en 3 phases qui représentent l'effet des phases successives de la territorialisation sur un métabolisme urbain.
 
 ## Description du Jeu
 
@@ -46,26 +46,20 @@ Le jeu se déroule en trois phases :
 
 ![Capture d'écran 3](/screens/ScreenInGame3ForWiki.png "Screen du jeu")
 
-### map
+### Actions du joueur
 
-#### Présentations de l'interface
+Le joueur peut :
 
-Nous nous situons sur une map isométrique en vue du dessus (CF - 1) ou nous pouvons retrouver un un village (qui se développe)
+- **3** | Importer ou exporter les 4 ressources (bières, houblon, glace, bois)
+- **3** | Exporter ces mêmes ressources
+- **3** | Valider ses actions, ce qui déclenche le tour suivant
 
-### Actions du Joueur
+### Retours au joueur
 
-Le joueur peut : 
+Le joueur voit :
 
-- Importer ou exporter les 4 ressources (bières, houblon, glace, bois) (petit 3)
-- Exporter ces mêmes ressources
-- Valider ses actions, ce qui déclenche le tour suivant
-
-### Retours au Joueur
-
-Le joueur voit : 
-
-- Les ressources qu'il possède
-- Les bâtiments présents dans son village, représentés graphiquement en vue isométrique
-- Le tour actuel de jeu
-- Des informations sur les bâtiments quand il clique dessus
-- Des informations sur ce dont il manque s'il active l'affichage des ressources manquantes avec le bouton en bas à gauche
+- **1** Les bâtiments présents dans son village, représentés graphiquement en vue isométrique
+- **2** Les ressources qu'il possède
+- **4** Le tour actuel de jeu
+- **5** Des informations sur les bâtiments quand il clique dessus
+- **6** Des informations sur ce dont il manque s'il active l'affichage des ressources manquantes avec le bouton en bas à gauche
