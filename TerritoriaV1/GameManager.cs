@@ -247,7 +247,7 @@ public partial class GameManager : Node2D
 		button.Visible = true;
 	}
 	/// <summary>
-	/// Qand le musique se termine, permet de la relancer
+	/// Quand la musique se termine, permet de la relancer
 	/// </summary>
 	public void _on_musique_jeu_finished(){
 		audioStreamPlayer2D.Seek(0);
