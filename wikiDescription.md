@@ -23,9 +23,8 @@ Le joueur est responsable de l'import/export des ressources du quartier, et celu
 Il y a 6 ressources dans le jeu :
 
 - **Le Bois :** Produit par les scieries, il permet de construire tous les bâtiments.
-- **Les Glaces et le Houblon :** Produits par les usines à glaçon et les champs, ce sont les deux ingrédients nécessaires à la fabrication des bières.
+- **La Glace et le Houblon :** Produits par les usines à glaçon et les champs, ce sont les deux ingrédients nécessaires à la fabrication des bières.
 - **Les Bières :** Produites par les usines à bières, sont la principale source de revenus du joueur.
-- **L'Argent :** S'obtient lorsque le bar vend les bières aux habitants.
 - **Les Habitants :** Vivent dans les maisons. Plus vous avez d'habitants, plus vous pourrez vendre de bières. Si vous ne produisez pas assez, les habitants partiront.
 - **L'Argent :** Nécessaire pour acheter les autres ressources.
 
@@ -43,15 +42,25 @@ Le jeu se déroule en trois phases :
 
 3. **Phase de Tertiarisation :** Dans cette phase, le village ferme les usines à bières, le joueur doit donc importer les bières nécessaires pour son village.
 
-## Actions du Joueur
+## Fonctionnalités
+
+![Capture d'écran 3](/screens/ScreenInGame3ForWiki.png "Screen du jeu")
+
+### map
+
+#### Présentations de l'interface
+
+Nous nous situons sur une map isométrique en vue du dessus (CF - 1) ou nous pouvons retrouver un un village (qui se développe)
+
+### Actions du Joueur
 
 Le joueur peut : 
 
-- Importer les 4 ressources (bières, houblon, glace, bois)
+- Importer ou exporter les 4 ressources (bières, houblon, glace, bois) (petit 3)
 - Exporter ces mêmes ressources
 - Valider ses actions, ce qui déclenche le tour suivant
 
-## Retours au Joueur
+### Retours au Joueur
 
 Le joueur voit : 
 
