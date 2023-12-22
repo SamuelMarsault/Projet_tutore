@@ -359,7 +359,7 @@
         </member>
         <member name="M:GameManager._on_musique_jeu_finished">
             <summary>
-            Qand le musique se termine, permet de la relancer
+            Quand la musique se termine, permet de la relancer
             </summary>
         </member>
         <member name="T:MessageDialog">
