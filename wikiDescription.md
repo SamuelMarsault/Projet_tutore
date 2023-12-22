@@ -24,11 +24,11 @@ Il y a 7 types bâtiments dans le jeu :
 
 - __La gare__
 - __Les maisons__
-- __Le bar__
+- __Les bars__
 - __Les champs__
-- __L'usine à bière__
-- __L'usine à glace__
-- __La scierie__
+- __Les usines à bières__
+- __Les usines à glaces__
+- __Les scieries__
 
 ### Ressources du Jeu
 
