@@ -133,20 +133,20 @@ public partial class TileMap : Godot.TileMap, VillageObserver
         string placeableName = placeableType.ToString();
 
         // On modifie le texte de l'élément PlaceableName de la carte d'information
-        info.GetNode<Label>("PlaceableName").Text = placeableName;
+        Label infoLabel = info.GetNode<Label>("PlaceableName");
 
         // On récupère la description et le chemin de l'image du placeable avec un switch
         string description, imagePath;
 
         switch (placeableType)
         {
-            case PlaceableType.HOUSE: description = "Héberge les citoyens, ils partiront s'ils n'ont pas de bière à boire"; imagePath="img/House.png"; break;
-            case PlaceableType.BAR: description = "Vend les bières a vos citoyens"; imagePath="img/Bar.png"; break;
-            case PlaceableType.FIELD: description = "Produit le houblon nécessaire à l'élaborations des bières"; imagePath="img/Field.png"; break;
-            case PlaceableType.TRAIN_STATION: description = "Permet le transport des marchandises. les taux de change s'améliorent avec votre village"; imagePath="img/Gare.png"; break;
-            case PlaceableType.SAWMILL: description = "Produit le bois nécessaire à la construction des autres bâtiments"; imagePath="img/SawMill.png"; break;
-            case PlaceableType.BEER_USINE: description = "Produit des bières avec le houblon et les glaçons"; imagePath="img/BeerUsine.png"; break;
-            case PlaceableType.ICE_USINE: description = "Produit les glaçons nécessaires à l'élaborations des bières"; imagePath="img/IceUsine.png"; break;
+            case PlaceableType.HOUSE: description = "Héberge les citoyens, ils partiront s'ils n'ont pas de bière à boire"; imagePath="img/House.png"; infoLabel.Text = "Maison"; break;
+            case PlaceableType.BAR: description = "Vend les bières a vos citoyens"; imagePath="img/Bar.png"; infoLabel.Text = "Bar"; break;
+            case PlaceableType.FIELD: description = "Produit le houblon nécessaire à l'élaborations des bières"; imagePath="img/Field.png"; infoLabel.Text = "Champs"; break;
+            case PlaceableType.TRAIN_STATION: description = "Permet le transport des marchandises. les taux de change s'améliorent avec votre village"; imagePath="img/Gare.png"; infoLabel.Text = "Gare"; break;
+            case PlaceableType.SAWMILL: description = "Produit le bois nécessaire à la construction des autres bâtiments"; imagePath="img/SawMill.png"; infoLabel.Text = "Scierie"; break;
+            case PlaceableType.BEER_USINE: description = "Produit des bières avec le houblon et les glaçons"; imagePath="img/BeerUsine.png"; infoLabel.Text = "Usine à bière"; break;
+            case PlaceableType.ICE_USINE: description = "Produit les glaçons nécessaires à l'élaborations des bières"; imagePath="img/IceUsine.png"; infoLabel.Text = "Usine à glace"; break;
             default: description = "Un truc bizarre !"; imagePath="img/House.png"; break;
         }
 
