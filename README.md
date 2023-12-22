@@ -30,14 +30,17 @@ https://docs.google.com/document/d/1Y5vt4j5I7eVvQMkLXf5Q6LSS41f13dUV9iAZQtb-zHs/
 
 ##### Sur Windows : 
 
+1. telecharger et deziper [territoriaWindows]((download/Windows/territoriaWindows.zip)
+2. cliquer sur 'TerritoriaV1.exe'
+
 ##### Sur Linux (testé sur debian et linux MINT) :
 
 installer [territoria_installer_linux](download/Linux/territoria_installer_linux.run)
 
-2. cliquer dessus, et choisir l'option "lancer dans un terminal". si l'option n'apparait pas, essayer de faire un clique droit sur le fichier et selectionner "lancer dans un terminal". additionnellement vous pouvez taper "./territoria_installer_linux.run" dans le dossier du fichier depuis votre terminal.
+2. cliquer dessus, et choisir l'option `lancer dans un terminal`. si l'option n'apparait pas, essayer de faire un clique droit sur le fichier et selectionner 'lancer dans un terminal'. additionnellement vous pouvez taper `./territoria_installer_linux.run` dans le dossier du fichier depuis votre terminal.
 
 3. si pour une raison ou une autre, rien ne cela ne marche, telecharger et deziper [territoriaLinux](download/Linux/territoriaLinux.zip)
-et cliquer sur "TerritoriaV1.x86_64".
+et cliquer sur `TerritoriaV1.x86_64`.
 	
 ##### Sur MacOS : 
 
