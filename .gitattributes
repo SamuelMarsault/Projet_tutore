@@ -65,3 +65,4 @@
 /download/Linux/territoria_installer_linux.run filter=lfs diff=lfs merge=lfs -text
 /download/Windows/territoriaWindows.zip filter=lfs diff=lfs merge=lfs -text
 /screens/ScreenInGame3ForWiki.png filter=lfs diff=lfs merge=lfs -text
+/download/Linux/territoria_installer_linux filter=lfs diff=lfs merge=lfs -text
