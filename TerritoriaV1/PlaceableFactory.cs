@@ -1,31 +1,40 @@
 using System;
-using Godot;
-using Godot.Collections;
-
 namespace TerritoriaV1;
-//Faire que pour chaque tour il faux retirer des matériaux en fonction de se que l'on veux construire
+/// <summary>
+/// construit des placeables ( batiments)
+/// </summary>
 public class PlaceableFactory
 {
+    /// <summary>
+    /// crée une maison
+    /// </summary>
+    /// <returns>une maison</returns>
     public Placeable CreateHouse()
     {
         int[] input = new int[Enum.GetNames(typeof(ResourceType)).Length];
         int[] output = new int[Enum.GetNames(typeof(ResourceType)).Length];
-        //input[(int)ResourceType.WOOD] = 1;
-        output[(int)ResourceType.MONEY] = 1;
-        Placeable house = new Placeable(PlaceableType.HOUSE,input, output,1);
+        Placeable house = new Placeable(PlaceableType.HOUSE,input, output,0);
         return house;
     }
 
+    /// <summary>
+    /// crée une scierie
+    /// </summary>
+    /// <returns>une scierie</returns>
     public Placeable CreateSawmill()
     {
         int[] input = new int[Enum.GetNames(typeof(ResourceType)).Length];
         int[] output = new int[Enum.GetNames(typeof(ResourceType)).Length];
-        //input[(int)ResourceType.MONEY] = 2;
+        input[(int)ResourceType.MONEY] = 1;
         output[(int)ResourceType.WOOD] = 1;
-        Placeable sawmill = new Placeable(PlaceableType.SAWMILL,input, output,1);
+        Placeable sawmill = new Placeable(PlaceableType.SAWMILL,input, output,5);
         return sawmill;
     }
 
+/// <summary>
+/// crée une gare
+/// </summary>
+/// <returns>une gare</returns>
     public Placeable CreateTrainStation()
     {
         int[] input = new int[Enum.GetNames(typeof(ResourceType)).Length];
@@ -34,58 +43,58 @@ public class PlaceableFactory
         return trainStation;   
     }
 
+/// <summary>
+/// crée un bar
+/// </summary>
+/// <returns>un bar</returns>
     public Placeable CreateBar()
     {
         int[] input = new int[Enum.GetNames(typeof(ResourceType)).Length];
         int[] output = new int[Enum.GetNames(typeof(ResourceType)).Length];
         input[(int)ResourceType.BEER] = 1;
         output[(int)ResourceType.MONEY] = 5;
-        Placeable sawmill = new Placeable(PlaceableType.BAR,input, output,10);
-        return sawmill;
+        Placeable bar = new Placeable(PlaceableType.BAR,input, output,0);
+        return bar;
     }
 
+    /// <summary>
+    /// crée un champ
+    /// </summary>
+    /// <returns>un champ</returns>
     public Placeable CreateField()
     {
         int[] input = new int[Enum.GetNames(typeof(ResourceType)).Length];
         int[] output = new int[Enum.GetNames(typeof(ResourceType)).Length];
-        //input[(int)ResourceType.MONEY] = 2;
+        input[(int)ResourceType.MONEY] = 1;
         output[(int)ResourceType.HOP] = 1;
-        Placeable field = new Placeable(PlaceableType.FIELD,input, output,1);
+        Placeable field = new Placeable(PlaceableType.FIELD,input, output,5);
         return field;
     }
 
+/// <summary>
+/// crée une usine a glacon
+/// </summary>
+/// <returns></returns>
     public Placeable CreateIceUsine()
     {
         int[] input = new int[Enum.GetNames(typeof(ResourceType)).Length];
         int[] output = new int[Enum.GetNames(typeof(ResourceType)).Length];
         output[(int)ResourceType.ICE] = 1;
-        Placeable ice_usine = new Placeable(PlaceableType.ICE_USINE,input, output,1);
+        Placeable ice_usine = new Placeable(PlaceableType.ICE_USINE,input, output,5);
         return ice_usine;
     }
-
+    /// <summary>
+    /// crée une usine à bière
+    /// </summary>
+    /// <returns>une usine à bière</returns>
     public Placeable CreateBeerUsine()
     {
         int[] input = new int[Enum.GetNames(typeof(ResourceType)).Length];
         int[] output = new int[Enum.GetNames(typeof(ResourceType)).Length];
         input[(int)ResourceType.ICE] = 1;
         input[(int)ResourceType.HOP] = 1;
-        output[(int)ResourceType.BEER] = 1;
-        Placeable beer_usine = new Placeable(PlaceableType.BEER_USINE,input, output,10);
+        output[(int)ResourceType.BEER] = 2;
+        Placeable beer_usine = new Placeable(PlaceableType.BEER_USINE,input, output,20);
         return beer_usine;
     }
-
-    /*public void Destroy(Placeable[,] placeables, PlaceableType type)
-    {
-        for (int i = 0; i < placeables.GetLength(0); i++)
-        {
-            for (int j = 0; j < placeables.GetLength(1); j++)
-            {
-                if (placeables[i,j] != null && placeables[i, j].getPlaceableType() == type)
-                {
-                    placeables[i, j] = null;
-                    return;
-                }
-            }
-        }
-    }*/
 }

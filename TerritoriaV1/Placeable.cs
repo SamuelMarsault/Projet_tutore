@@ -6,7 +6,9 @@ using Godot.NativeInterop;
 using TileMap = Godot.TileMap;
 
 namespace TerritoriaV1;
-
+/// <summary>
+/// les objets utilisé pour representer les batiments du jeux
+/// </summary>
 public class Placeable
 {
 	private PlaceableType placeableType;
@@ -16,7 +18,16 @@ public class Placeable
 	private int[] output;
 	//Représente la capacité de production : output * capacite = quantité totale
 	private int productionCapacities;
+	//Est-ce que le placeable a produit à capacité maximale ?
+	private int product;
 
+	/// <summary>
+	/// crée un placeable
+	/// </summary>
+	/// <param name="placeableType">le type de batiment voulu</param>
+	/// <param name="input">ce que le batiment doit prendre par tour au joueur</param>
+	/// <param name="output">ce que le batiment doit donner par tour au joueur</param>
+	/// <param name="productionCapacities">la capacité de production</param>
 	public Placeable(PlaceableType placeableType, int[] input, int[] output, int productionCapacities)
 	{
 		this.placeableType = placeableType;
@@ -24,98 +35,51 @@ public class Placeable
 		this.output = output;
 		this.productionCapacities = productionCapacities;
 	}
-
-	/*public bool ProductResources(int[] availableResources, int[] neededResources)
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="availableResources">les ressources disponibles actuellement</param>
+	/// <param name="neededResources">les ressources nécessaire au village	</param>
+	public void ProductResources(int[] availableResources, int[] neededResources)
 	{
-		int min = 0;
-		bool availableRessourceExist = true;
+		int min = productionCapacities;
 		//Pour chaque ressources en entrée
 		for (int i = 0; i < input.Length; i++)
 		{
-			//Si -> on n'a pas de minimum, ou qu'on a besoin de cette ressource
-			 //et qu'elle est en + faible quantité que les autres
-			if (input[i]!=0 && (min==0 || availableResources[i]/input[i]<min))
+			/*Si -> on n'a pas de minimum, ou qu'on a besoin de cette ressource
+			 et qu'elle est en + faible quantité que les autres*/
+			if (input[i]!=0 && availableResources[i]/input[i]<min)
 			{
 				//Alors on définit un nouveau minium
 				min = availableResources[i]/input[i];
 			}
 		}
-		//Si le minimum dépasse la capacité de production maximale
-		if (min>productionCapacities)
+
+		if (min < 0)
+			min = 0;
+		else if (min > productionCapacities)
 		{
-			//Alors le minimum devient la capaité de production
 			min = productionCapacities;
 		}
 
-		//Et pour chaque ressources en entrée
+		product = min;
 		for (int i = 0; i < input.Length; i++)
 		{
 			//On calcule combien on en prend
 			int usedResources = min * input[i];
-			//Et on les retire des ressources disponibles
-			if ((availableResources[i] -= usedResources) < 0){
-				availableResources[i] -= usedResources;
-				availableRessourceExist = false;
-			}
+			availableResources[i] -= usedResources;
 		}
 		for (int i = 0; i < output.Length; i++)
 		{
 			int producedResources = min * output[i];
 			availableResources[i] += producedResources;
 		}
-		return availableRessourceExist ;
-	}*/
+	}
 
-	public bool ProductResources(int[] availableResources, int[] neededResources)
-    {
-        int min = 0;
-        //int max = 0;
-        bool availableRessourceExist = true;
-        //Pour chaque ressources en entrée
-        for (int i = 0; i < input.Length; i++)
-        {
-            /*Si -> on n'a pas de minimum, ou qu'on a besoin de cette ressource
-             et qu'elle est en + faible quantité que les autres*/
-            if (input[i]!=0 && (min==0 || availableResources[i]/input[i]<min))
-            {
-                //Alors on définit un nouveau minium
-                min = availableResources[i]/input[i];
-            }
-        }
-        //Si le minimum dépasse la capacité de production maximale
-        if (min>productionCapacities)
-        {
-            //Alors le minimum devient la capaité de production
-            min = productionCapacities;
-        }
-
-        //Et pour chaque ressources en entrée
-        for (int i = 0; i < input.Length; i++)
-        {
-            if (availableResources[i] > 0){
-                //On calcule combien on en prend
-                int usedResources = min * input[i];
-                //Et on les retire des ressources disponibles
-                if ((availableResources[i] -= usedResources) <= 0){
-                    availableResources[i] = 0;
-                    availableRessourceExist = false;
-                }
-                else{
-                    availableResources[i] -= usedResources;
-                }
-            }
-        }
-        if (availableRessourceExist == true){
-            for (int i = 0; i < output.Length; i++)
-            {
-                int producedResources = min * output[i];
-                availableResources[i] += producedResources;
-            }
-        }
-        return availableRessourceExist ;
-    }
-
-
+/// <summary>
+/// getter pour les besoins en ressources
+/// </summary>
+/// <returns>le tableau d'entier representant les besoins</returns>
 	public int[] getResourceNeeds()
 	{
 		int[] needs = new int[input.Length];
@@ -125,12 +89,51 @@ public class Placeable
 		}
 		return needs;
 	}
-
+	/// <summary>
+	/// getter pour les ressources produitent
+	/// </summary>
+	/// <returns>le tableau d'entiers representant la production</returns>
+	public int[] getResourceProduction()
+	{
+		int[] product = new int[output.Length];
+		for (int i = 0; i < output.Length; i++)
+		{
+			product[i] = output[i] * productionCapacities;
+		}
+		return product;
+	}
 	public int getProductionCapacity(){
 		return productionCapacities;
 	}
+
+	/// <summary>
+	/// getter pour la production max
+	/// </summary>
+	/// <returns>boolean indiquant si le batiment a produit au max</returns>
+	public int getProduct()
+	{
+		return product;
+	}
+	public void setProductionCapacity(int productionCapacities)
+	{
+		this.productionCapacities = productionCapacities;
+	}
+	/// <summary>
+	/// le type de batiment du placeable
+	/// </summary>
+	/// <returns>une instance de l'enum placeabeType</returns>
 	public PlaceableType getPlaceableType()
 	{
 		return placeableType;
 	}
+
+	public int[] getResourceInputs()
+    {
+        return input;
+    }
+
+	public int[] getResourceOutputs()
+    {
+        return output;
+    }
 }
