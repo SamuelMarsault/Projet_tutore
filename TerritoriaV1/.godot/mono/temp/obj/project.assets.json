@@ -86,11 +86,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/miniotti/Documents/depotT3/han23-t3-a/TerritoriaV1/TerritoriaV1.csproj",
+      "projectUniqueName": "/home/miniotti/Documents/T3-tutored-project-serious-game/TerritoriaV1/TerritoriaV1.csproj",
       "projectName": "TerritoriaV1",
-      "projectPath": "/home/miniotti/Documents/depotT3/han23-t3-a/TerritoriaV1/TerritoriaV1.csproj",
+      "projectPath": "/home/miniotti/Documents/T3-tutored-project-serious-game/TerritoriaV1/TerritoriaV1.csproj",
       "packagesPath": "/home/miniotti/.nuget/packages/",
-      "outputPath": "/home/miniotti/Documents/depotT3/han23-t3-a/TerritoriaV1/.godot/mono/temp/obj/",
+      "outputPath": "/home/miniotti/Documents/T3-tutored-project-serious-game/TerritoriaV1/.godot/mono/temp/obj/",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "/home/miniotti/.local/share/godot/mono/GodotNuGetFallbackFolder"

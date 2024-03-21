@@ -1,5 +1,5 @@
+Button
 Label
 Panel
-VBoxContainer
-HBoxContainer
-Camera2D
+AcceptDialog
+ConfirmationDialog

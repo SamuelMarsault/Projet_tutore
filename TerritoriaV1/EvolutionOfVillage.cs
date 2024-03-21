@@ -36,12 +36,12 @@ public class EvolutionOfVillage
             {
                 if (nbHouse > 10)
                 {
-                    placeable.setProductionCapacity(50);
+                    placeable.setProductionCapacity(100);
                     nbHouse -= 10;
                 }
                 else
                 {
-                    placeable.setProductionCapacity(nbHouse*5);
+                    placeable.setProductionCapacity(nbHouse*10);
                     nbHouse = 0;
                 }
             }
@@ -61,7 +61,7 @@ public class EvolutionOfVillage
         {
             alreadySecondary = true;
             village.SetBuildingStrategy(factory.createSecondaryStrategy(village.GetPlaceables(),village.GetTiles()));
-		    gameManager.setMessage("Le village a atteint une phase de deterritorialisation: des habitants viennent y vivre, et certaines usines de ressources primaires commencent à fermer, au profit de l'import des ressources nécéssaires à son développement.");
+		    gameManager.setMessage("Le village a atteint une phase de deterritorialisation: des habitants viennent y vivrent, et certaines usines de ressources primaires commencent à fermer, au profit de l'import des ressources nécéssaire à son dévellopement.");
 	
         }
         else if(alreadyTertiary == false && alreadySecondary == false)

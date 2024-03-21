@@ -1,4 +1,3 @@
-using System.IO;
 using System.Security.Cryptography;
 using Godot;
 using TerritoriaV1;
@@ -17,7 +16,7 @@ public partial class GameManager : Node2D
 
 	end_screen end_Screen;
 
-	int nbMaxTurn = 35;
+	int nbMaxTurn = 50;
 	int currentTurnNb = 1;
 
 	private Printer print;
@@ -27,8 +26,6 @@ public partial class GameManager : Node2D
 
 	private Button button;
 	private Panel afficheMessage;
-
-	private AudioStreamPlayer2D audioStreamPlayer2D;
 
 	/// <summary>
 	/// Récupère et relie toutes les classes pour démarrer le jeu
@@ -59,9 +56,6 @@ public partial class GameManager : Node2D
 
 		end_Screen = GetNode<end_screen>("endScreen");
 		end_Screen.Visible = false;
-
-		AudioStreamPlayer2D asp2D = GetNode<AudioStreamPlayer2D>("MusiqueJeu");
-		this.audioStreamPlayer2D = asp2D;
 
 	
 		MissingRessource missingResource = GetNode<MissingRessource>("MissingRessource");
@@ -97,17 +91,13 @@ public partial class GameManager : Node2D
 		villageManager.NextTurn(export, import, money, currentTurnNb);
 		if(currentTurnNb >= nbMaxTurn && villageManager.GetVillage().IsStratTertiary())
 		{
-			EndGame("Félicitations ! \n Vous avez fait progresser le village à travers les phases de son développement urbain :\n vous avez gagné !", Colors.Green);
+			EndGame("Félicitations,\n vous avez fait progresser le village à travers les phases de son développement urbain :\n vous avez gagné !", Colors.Green);
 			return;
 		}
 
 		if(!villageManager.IsVillageOk())
 		{
-			EndGame("Vous avez perdu !\n Tous les habitants ont quittés votre village...",Colors.Red);
-			return;
-		}
-		if(currentTurnNb >= nbMaxTurn){
-			EndGame("Vous avez perdu !\n Votre village ne s'est pas assez développé...",Colors.Red);
+			EndGame("Vous avez perdu !\nTous les habitants ont quittés votre village...",Colors.Red);
 			return;
 		}
 		currentTurnNb++;
@@ -219,7 +209,7 @@ public partial class GameManager : Node2D
 	private void _on_info_pressed()
 	{
 		// Ouvrir le navigateur avec le lien spécifique
-		OS.ShellOpen("https://git.unistra.fr/miniotti/han23-t3-a/-/blob/main/wikiDescription.md");
+		OS.ShellOpen("https://git.unistra.fr/miniotti/han23-t3-a/-/blob/main/WikiDescription.MD?ref_type=heads");
 	}
 
 	/// <summary>
@@ -249,12 +239,5 @@ public partial class GameManager : Node2D
 		turn.Visible = true;
 		citizen.Visible = true;
 		button.Visible = true;
-	}
-	/// <summary>
-	/// Quand la musique se termine, permet de la relancer
-	/// </summary>
-	public void _on_musique_jeu_finished(){
-		audioStreamPlayer2D.Seek(0);
-		audioStreamPlayer2D.Play();
 	}
 }

@@ -58,8 +58,8 @@ public class TertiaryStrat : BuildingStrategy
             }
         }
         
-        //Si manque de bière
-        while (beerProduction/5<nbHouse)
+        
+        while (beerProduction/10<nbHouse)
         {
             nbHouse--;
             Destroy(PlaceableType.HOUSE, placeables);
@@ -104,8 +104,8 @@ public class TertiaryStrat : BuildingStrategy
     {
         int[,] exchangesRates = new[,]
         {
-            { 3, 1, 1, 4 }, //import
-            { 1, 1, 1, 6 } //export
+            { 1, 1, 1, 4 }, //import
+            { 1, 2, 2, 6 } //export
         };
         return exchangesRates;
     }
@@ -115,7 +115,6 @@ public class TertiaryStrat : BuildingStrategy
     /// </summary>
     /// <param name="placeables">Les Placeable du village</param>
     /// <param name="placeable">Le Placeable en question</param>
-    /// <param name="targetTile">TileType cible pour le bâtiment</param>
     /// <returns>La nouvelle grille de bâtiment</returns>
     override public Placeable[,] PlacePlaceable(Placeable[,] placeables,Placeable placeable, TileType targetTile)
      {

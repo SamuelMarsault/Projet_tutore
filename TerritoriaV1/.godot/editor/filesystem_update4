@@ -1,7 +1,12 @@
-res://game_manager.tscn
+res://MessageDialog.tscn
 res://Sol.tres
 res://Printer.tscn
+res://game_manager.tscn
+res://turnNB.tscn
+res://end_screen.tscn
+res://end_screen.cs
 res://GameManager.cs
+res://InfoCard.cs
 res://MessageDialog.cs
 res://MissingRessource.cs
 res://Printer.cs
