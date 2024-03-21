@@ -1,12 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "3WaCthqG0X30fF6kmjzJNxJUmLVhvQzxg4PmKtEwkAdCWIosrCG0iMprLvltgXH9cDRFFFDxn57OQ3rCGbtURQ==",
+  "dgSpecHash": "7hj9F4DVX+5k/u2BEWC4uYCfM5juQpUzRXKZsAv6kEo9lO3QshOdFg8wDbRKV1R/nw/ntyESW6ggTPMeKnu7JQ==",
   "success": true,
-  "projectFilePath": "/home/miniotti/Documents/T3-tutored-project-serious-game/TerritoriaV1/TerritoriaV1.csproj",
+  "projectFilePath": "/home/samuel/Documents/2emeAnneeBUT/semestre1/T3_github_robin/TerritoriaV1/TerritoriaV1.csproj",
   "expectedPackageFiles": [
-    "/home/miniotti/.nuget/packages/godot.sourcegenerators/4.1.1/godot.sourcegenerators.4.1.1.nupkg.sha512",
-    "/home/miniotti/.nuget/packages/godotsharp/4.1.1/godotsharp.4.1.1.nupkg.sha512",
-    "/home/miniotti/.nuget/packages/godotsharpeditor/4.1.1/godotsharpeditor.4.1.1.nupkg.sha512"
+    "/home/samuel/.nuget/packages/godot.sourcegenerators/4.1.1/godot.sourcegenerators.4.1.1.nupkg.sha512",
+    "/home/samuel/.nuget/packages/godotsharp/4.1.1/godotsharp.4.1.1.nupkg.sha512",
+    "/home/samuel/.nuget/packages/godotsharpeditor/4.1.1/godotsharpeditor.4.1.1.nupkg.sha512",
+    "/home/samuel/.nuget/packages/microsoft.netcore.app.ref/6.0.28/microsoft.netcore.app.ref.6.0.28.nupkg.sha512",
+    "/home/samuel/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.28/microsoft.aspnetcore.app.ref.6.0.28.nupkg.sha512"
   ],
   "logs": []
 }

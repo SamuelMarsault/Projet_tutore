@@ -27,6 +27,8 @@ public partial class GameManager : Node2D
 	private Button button;
 	private Panel afficheMessage;
 
+	private AudioStreamPlayer2D audioStreamPlayer2D;
+
 	/// <summary>
 	/// Récupère et relie toutes les classes pour démarrer le jeu
 	/// </summary>
@@ -57,6 +59,8 @@ public partial class GameManager : Node2D
 		end_Screen = GetNode<end_screen>("endScreen");
 		end_Screen.Visible = false;
 
+		AudioStreamPlayer2D asp2D = GetNode<AudioStreamPlayer2D>("MusiqueJeu");
+		this.audioStreamPlayer2D = asp2D;
 	
 		MissingRessource missingResource = GetNode<MissingRessource>("MissingRessource");
 		var printer = GetNode<Printer>("Printer");
@@ -239,5 +243,13 @@ public partial class GameManager : Node2D
 		turn.Visible = true;
 		citizen.Visible = true;
 		button.Visible = true;
+	}
+
+	/// <summary>
+	/// Quand la musique se termine, permet de la relancer
+	/// </summary>
+	public void _on_musique_jeu_finished(){
+		audioStreamPlayer2D.Seek(0);
+		audioStreamPlayer2D.Play();
 	}
 }

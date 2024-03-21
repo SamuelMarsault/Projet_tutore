@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/home/miniotti/Documents/T3-tutored-project-serious-game/TerritoriaV1/TerritoriaV1.csproj": {}
+    "/home/samuel/Documents/2emeAnneeBUT/semestre1/T3_github_robin/TerritoriaV1/TerritoriaV1.csproj": {}
   },
   "projects": {
-    "/home/miniotti/Documents/T3-tutored-project-serious-game/TerritoriaV1/TerritoriaV1.csproj": {
+    "/home/samuel/Documents/2emeAnneeBUT/semestre1/T3_github_robin/TerritoriaV1/TerritoriaV1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/miniotti/Documents/T3-tutored-project-serious-game/TerritoriaV1/TerritoriaV1.csproj",
+        "projectUniqueName": "/home/samuel/Documents/2emeAnneeBUT/semestre1/T3_github_robin/TerritoriaV1/TerritoriaV1.csproj",
         "projectName": "TerritoriaV1",
-        "projectPath": "/home/miniotti/Documents/T3-tutored-project-serious-game/TerritoriaV1/TerritoriaV1.csproj",
-        "packagesPath": "/home/miniotti/.nuget/packages/",
-        "outputPath": "/home/miniotti/Documents/T3-tutored-project-serious-game/TerritoriaV1/.godot/mono/temp/obj/",
+        "projectPath": "/home/samuel/Documents/2emeAnneeBUT/semestre1/T3_github_robin/TerritoriaV1/TerritoriaV1.csproj",
+        "packagesPath": "/home/samuel/.nuget/packages/",
+        "outputPath": "/home/samuel/Documents/2emeAnneeBUT/semestre1/T3_github_robin/TerritoriaV1/.godot/mono/temp/obj/",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "/home/miniotti/.local/share/godot/mono/GodotNuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "/home/miniotti/.nuget/NuGet/NuGet.Config",
-          "/home/miniotti/.nuget/NuGet/config/Godot.Offline.Config"
+          "/home/samuel/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -61,16 +57,27 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[6.0.28, 6.0.28]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[6.0.28, 6.0.28]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/6.0.121/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/7.0.117/RuntimeIdentifierGraph.json"
         }
       }
     }

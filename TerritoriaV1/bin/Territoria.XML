@@ -357,6 +357,11 @@
             Ferme le message de passage de tour et afficher tout les autres composants
             </summary>
         </member>
+        <member name="M:GameManager._on_musique_jeu_finished">
+            <summary>
+            Quand la musique se termine, permet de la relancer
+            </summary>
+        </member>
         <member name="T:MessageDialog">
             <summary>
             utiliser pour communiquer via pop up au joueur
